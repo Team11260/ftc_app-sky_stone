@@ -370,8 +370,8 @@ public class UI extends JFrame implements ActionListener {
 
         for (Controller controller : gamepadHandler.getControllers()) {
             String name = controller.getName();
-            if(name.length() > 20) {
-                name = name.substring(17) + "...";
+            if(name.length() > 13) {
+                name = name.substring(10) + "...";
             }
             choices.add(n + " - " + name.replace("Wired ", "").replace("Apple Internal Keyboard / Trackpad", "Keyboard"));
             n++;
