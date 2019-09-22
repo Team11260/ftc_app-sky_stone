@@ -15,5 +15,5 @@
 apply from: '../build.common.gradle'
 
 dependencies {
-    implementation project(':FtcDashboard')
+    implementation project(':FtcRobotDashboard')
 }

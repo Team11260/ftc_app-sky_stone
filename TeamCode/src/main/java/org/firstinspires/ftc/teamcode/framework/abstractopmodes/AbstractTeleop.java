@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.framework.abstractopmodes;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.bogiebase.hardware.RobotState;
 import org.firstinspires.ftc.teamcode.framework.util.Emitter;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 
@@ -29,8 +28,6 @@ public abstract class AbstractTeleop extends AbstractOpMode {
 
     @Override
     public void runOpmode() {
-
-        RobotState.currentMatchState = RobotState.MatchState.TELEOP;
 
         ExecutorService service = Executors.newSingleThreadExecutor();
 
