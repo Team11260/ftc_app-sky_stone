@@ -88,6 +88,7 @@ public abstract class AbstractOpMode extends LinearOpMode {
     public void checkException() {
         for (Exception e : exceptions) {
             telemetry.update();
+            telemetry.addData(DoubleTelemetry.LogMode.ERROR, e.getMessage());
             for (StackTraceElement element : e.getStackTrace()) {
                 if (element.toString().contains("org.firstinspires.ftc.teamcode")) {
                     telemetry.addData(DoubleTelemetry.LogMode.ERROR, element.toString().replace("org.firstinspires.ftc.teamcode.", ""));

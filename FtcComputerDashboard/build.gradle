@@ -10,7 +10,23 @@ repositories {
     }
 }
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Jar',
+                'Implementation-Version': 1.0,
+                'Main-Class': 'org.upacreekrobotics.FtcDashboard'
+    }
+    baseName = project.name
+    from {
+        configurations.compile.collect {
+            dependencies {
+                implementation fileTree(dir: 'src\\main\\libs', include: ['*.aar', '*.jar'], exclude: [])
+            }
+        }
+    }
+    with jar
+}
+
 dependencies {
-    implementation 'com.android.support:support-annotations:28.0.0'
     implementation fileTree(dir: 'src\\main\\libs', include: ['*.aar', '*.jar'], exclude: [])
 }
