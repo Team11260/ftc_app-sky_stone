@@ -18,6 +18,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.DimensionUIResource;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
@@ -368,7 +369,11 @@ public class UI extends JFrame implements ActionListener {
         int n = 2;
 
         for (Controller controller : gamepadHandler.getControllers()) {
-            choices.add(n + " - " + controller.getName().replace("Wired ", "").replace("Apple Internal Keyboard / Trackpad", "Keyboard"));
+            String name = controller.getName();
+            if(name.length() > 20) {
+                name = name.substring(17) + "...";
+            }
+            choices.add(n + " - " + name.replace("Wired ", "").replace("Apple Internal Keyboard / Trackpad", "Keyboard"));
             n++;
         }
 
