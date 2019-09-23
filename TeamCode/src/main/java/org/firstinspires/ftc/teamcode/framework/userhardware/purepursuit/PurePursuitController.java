@@ -76,6 +76,10 @@ public abstract class PurePursuitController {
         isFollowing = true;
     }
 
+    public void resetPosition() {
+        currentPosition = new Pose();
+    }
+
     public abstract double getActualHeadingDegrees();
 
     public abstract double getLeftActualPositionInches();

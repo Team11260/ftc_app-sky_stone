@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class Path {
 
     public static double spacing = 0.5, SMOOTHING = 0.995, t = 0.001, k = 0.1;
-    public static double MAX_ACCELERATION = 0.1, MIN_SPEED = 0.3, MAX_SPEED = 1.0, LOOK_AHEAD_DISTANCE = 12;
+    public static double MAX_ACCELERATION = 0.1, MIN_SPEED = 0.1, MAX_SPEED = 0.3, LOOK_AHEAD_DISTANCE = 12;
 
     private int lastPointIndex = 0, lastCurrentPointIndex = 0;
 
