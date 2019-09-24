@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
 import org.upacreekrobotics.dashboard.Config;
 
 import java.util.ArrayList;

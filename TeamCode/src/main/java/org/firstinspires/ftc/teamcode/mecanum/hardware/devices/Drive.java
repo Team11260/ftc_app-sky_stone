@@ -1,8 +1,11 @@
-package org.firstinspires.ftc.teamcode.mecanum.hardware;
+package org.firstinspires.ftc.teamcode.mecanum.hardware.devices;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
+import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
+import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.IMU;
 import org.firstinspires.ftc.teamcode.framework.userhardware.outputs.SlewDcMotor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PurePursuitController;
@@ -16,9 +19,11 @@ public class Drive extends PurePursuitController {
     private SlewDcMotor dcMotorBackLeft;
     private SlewDcMotor dcMotorBackRight;
 
-    public Drive(HardwareMap hardwareMap){
-        super(20);
 
+    public Drive(HardwareMap hardwareMap, DoubleTelemetry telemetry){
+        super(20,telemetry);
+
+        AbstractOpMode.getOpModeInstance();
         imu = new IMU(hardwareMap);
 
         dcMotorFrontLeft = new SlewDcMotor((hardwareMap.dcMotor.get("front_left")));
@@ -46,10 +51,11 @@ public class Drive extends PurePursuitController {
     }
 
     public void setDrivePowerAll(double FL, double FR, double BL, double BR) {
-        dcMotorFrontLeft.setPower(FL*0.4);
-        dcMotorFrontRight.setPower(FR*0.4);
-        dcMotorBackLeft.setPower(BL*0.4);
-        dcMotorBackRight.setPower(BR*0.4);
+        dcMotorFrontLeft.setPower(FL*0.8);
+        dcMotorFrontRight.setPower(FR*0.8);
+        dcMotorBackLeft.setPower(BL*0.8);
+        dcMotorBackRight.setPower(BR*0.8);
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,dcMotorFrontLeft.getCurrentPosition(),dcMotorFrontRight.getCurrentPosition());
     }
 
     @Override

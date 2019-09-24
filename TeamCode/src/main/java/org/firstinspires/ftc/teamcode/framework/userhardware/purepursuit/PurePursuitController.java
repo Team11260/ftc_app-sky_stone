@@ -1,4 +1,7 @@
 package org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit;
+import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Drive;
+
 
 public abstract class PurePursuitController {
 
@@ -7,9 +10,19 @@ public abstract class PurePursuitController {
     private Pose currentPosition = new Pose();
     private boolean isFollowing = false;
     private Path currentPath = null;
+    protected DoubleTelemetry telemetry;
 
-    public PurePursuitController(double trackWidth) {
+
+    public PurePursuitController(double trackWidth, DoubleTelemetry telemetry) {
         this.trackWidth = trackWidth;
+        this.telemetry = telemetry;
+
+    }
+
+    public void updateLoop(){
+        while (isFollowing)
+            update();
+
     }
 
     public void update() {

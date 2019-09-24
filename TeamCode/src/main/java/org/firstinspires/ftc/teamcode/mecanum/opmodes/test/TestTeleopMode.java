@@ -1,18 +1,14 @@
-package org.firstinspires.ftc.teamcode.mecanum.opmodes;
+package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractTeleop;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
-import org.firstinspires.ftc.teamcode.framework.userhardware.outputs.SlewDcMotor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.Drive;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Drive;
 import org.upacreekrobotics.dashboard.Config;
 
 @TeleOp(name = "Test Teleop Mode", group = "New")
@@ -21,7 +17,7 @@ import org.upacreekrobotics.dashboard.Config;
 public class TestTeleopMode extends AbstractTeleop {
 
     public static double ARM_DOWN_POSITION = 0.83;
-    public static double ARM_UP_POSITION = 0.66;
+    public static double ARM_UP_POSITION = 0.5;
     public static double GRIPPER_GRIP_POSITION = 0.8;
     public static double GRIPPER_RELEASE_POSITION = 0.35;
 
@@ -44,7 +40,7 @@ public class TestTeleopMode extends AbstractTeleop {
     @Override
     public void UpdateEvents() {
         double left_stick_x=gamepad1.left_stick_x,left_stick_y = -gamepad1.left_stick_y, right_stick_x = gamepad1.right_stick_x;
-        //drive.setDrivePowerAll(left_stick_y-left_stick_x-right_stick_x,left_stick_y+left_stick_x+right_stick_x,left_stick_y+left_stick_x-right_stick_x,left_stick_y-left_stick_x+right_stick_x);
+        drive.setDrivePowerAll(left_stick_y-left_stick_x-right_stick_x,left_stick_y+left_stick_x+right_stick_x,left_stick_y+left_stick_x-right_stick_x,left_stick_y-left_stick_x+right_stick_x);
     }
 
     @Override
@@ -58,9 +54,7 @@ public class TestTeleopMode extends AbstractTeleop {
         gripper.setDirection(Servo.Direction.FORWARD);
         gripper.setPosition(GRIPPER_RELEASE_POSITION);
 
-        drive = new Drive(hardwareMap);
-
-        drive.follow(new Path(new Point(0, 0), new Point(48, 0)));
+        drive = new Drive(hardwareMap,telemetry);
     }
 
     public void setGripperPosition(double position) {
@@ -109,13 +103,7 @@ public class TestTeleopMode extends AbstractTeleop {
 
     @Override
     public void Loop() {
-        if(drive.isFollowing()) {
-            drive.update();
-        } else {
-            drive.setDrivePowerAll(0, 0, 0,0);
-        }
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, "X: " + drive.getCurrentPosition().getX() + " Y: " + drive.getCurrentPosition().getY());
-    }
+      }
 
     @Override
     public void Stop() {
