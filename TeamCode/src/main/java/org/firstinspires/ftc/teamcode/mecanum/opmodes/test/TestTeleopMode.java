@@ -11,12 +11,14 @@ import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Drive;
 import org.upacreekrobotics.dashboard.Config;
 
+import static org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path.k;
+
 @TeleOp(name = "Test Teleop Mode", group = "New")
 
 @Config
 public class TestTeleopMode extends AbstractTeleop {
 
-    public static double ARM_DOWN_POSITION = 0.83;
+    public static double ARM_DOWN_POSITION = 0.855;
     public static double ARM_UP_POSITION = 0.5;
     public static double GRIPPER_GRIP_POSITION = 0.8;
     public static double GRIPPER_RELEASE_POSITION = 0.35;
@@ -39,9 +41,11 @@ public class TestTeleopMode extends AbstractTeleop {
 
     @Override
     public void UpdateEvents() {
+        double k = 0.5;
         double left_stick_x=gamepad1.left_stick_x,left_stick_y = -gamepad1.left_stick_y, right_stick_x = gamepad1.right_stick_x;
-        drive.setDrivePowerAll(left_stick_y-left_stick_x-right_stick_x,left_stick_y+left_stick_x+right_stick_x,left_stick_y+left_stick_x-right_stick_x,left_stick_y-left_stick_x+right_stick_x);
+        drive.setDrivePowerAll(k*(left_stick_y-left_stick_x-right_stick_x),k*(left_stick_y+left_stick_x+right_stick_x),k*(left_stick_y+left_stick_x-right_stick_x),k*(left_stick_y-left_stick_x+right_stick_x));
     }
+
 
     @Override
     public void Init() {
