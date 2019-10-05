@@ -37,7 +37,7 @@ import java.nio.IntBuffer;
  * @author Vasu Agrawal
  * @author Liz Looney
  */
-class YuvRgbFrame {
+public class YuvRgbFrame {
   private static final String TAG = "YuvRgbFrame";
 
   private final long frameTimeNanos;

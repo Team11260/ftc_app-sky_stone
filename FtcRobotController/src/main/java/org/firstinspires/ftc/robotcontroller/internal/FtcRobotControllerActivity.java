@@ -493,7 +493,7 @@ public class FtcRobotControllerActivity extends Activity {
 
         //START 11260 CODE
         Dashboard.stop();
-        RestartChecker.end();
+        if(RestartChecker != null) RestartChecker.end();
         //END 11260 CODE
     }
 

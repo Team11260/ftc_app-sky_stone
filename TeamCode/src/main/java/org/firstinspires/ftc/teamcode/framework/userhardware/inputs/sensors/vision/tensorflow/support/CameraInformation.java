@@ -25,7 +25,7 @@ import java.util.Objects;
  *
  * @author lizlooney@google.com (Liz Looney)
  */
-class CameraInformation {
+public class CameraInformation {
   final int rotation; // in degrees, must be 0, 90, 180, or 270
   final float horizontalFocalLength; // in pixels
   final float verticalFocalLength; // in pixels
