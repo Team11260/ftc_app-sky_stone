@@ -35,4 +35,8 @@ public class VuforiaImpl {
     public Bitmap getImage() {
         return vuforia.getImage();
     }
+
+    public int getRotation() {
+        return vuforia.getRotation();
+    }
 }

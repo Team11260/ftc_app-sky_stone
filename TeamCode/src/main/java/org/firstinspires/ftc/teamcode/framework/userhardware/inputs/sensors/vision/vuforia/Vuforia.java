@@ -1,10 +1,15 @@
 package org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.vuforia;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
+import android.hardware.Camera;
+import android.view.Surface;
 
 import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraName;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.CameraName;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
@@ -16,6 +21,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
 
 public class Vuforia {
@@ -70,6 +76,7 @@ public class Vuforia {
 
         try {
             VuforiaLocalizer.CloseableFrame frame = vuforia.getFrameQueue().take();
+            vuforia.getFrameQueue().clear();
             map = vuforia.convertFrameToBitmap(frame);
 
             frame.close();
@@ -102,5 +109,45 @@ public class Vuforia {
 
     protected void setLED(boolean on) {
         CameraDevice.getInstance().setFlashTorchMode(on); //Turns light on camera on
+    }
+
+    protected int getRotation() {
+        return getRotation(AppUtil.getInstance().getActivity(), vuforia.getCameraName());
+    }
+
+    private int getRotation(Activity activity, CameraName cameraName) {
+        int rotation = 0;
+
+        if (cameraName instanceof BuiltinCameraName) {
+            int displayRotation = 0;
+            switch (activity.getWindowManager().getDefaultDisplay().getRotation()) {
+                case Surface.ROTATION_0: displayRotation = 0; break;
+                case Surface.ROTATION_90: displayRotation = 90; break;
+                case Surface.ROTATION_180: displayRotation = 180; break;
+                case Surface.ROTATION_270: displayRotation = 270; break;
+            }
+
+            VuforiaLocalizer.CameraDirection cameraDirection = ((BuiltinCameraName) cameraName).getCameraDirection();
+
+            for (int cameraId = 0; cameraId < Camera.getNumberOfCameras(); cameraId++) {
+                Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+                Camera.getCameraInfo(cameraId, cameraInfo);
+
+                if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT && cameraDirection == VuforiaLocalizer.CameraDirection.FRONT) {
+                    rotation = - displayRotation - cameraInfo.orientation;
+                    break;
+                }
+                if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK && cameraDirection == VuforiaLocalizer.CameraDirection.BACK) {
+                    rotation = displayRotation - cameraInfo.orientation;
+                    break;
+                }
+            }
+        }
+
+        while (rotation < 0) {
+            rotation += 360;
+        }
+        rotation %= 360;
+        return rotation;
     }
 }

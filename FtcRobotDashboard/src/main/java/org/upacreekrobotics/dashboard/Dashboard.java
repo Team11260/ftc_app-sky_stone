@@ -483,6 +483,9 @@ public class Dashboard implements OpModeManagerImpl.Notifications, BatteryChecke
     ////////////////Called by the "RobotRestartChecker" thread in "FtcRobotControllerActivity" to see if the////////////////
     ////////////////restart button on the dashboard has been pressed, calls "internalRobotRestartRequested()"////////////////
     public static boolean robotRestartRequested() {
+        if(dashboard == null) {
+            return false;
+        }
         return dashboard.internalRobotRestartRequested();
     }
 
@@ -539,6 +542,7 @@ public class Dashboard implements OpModeManagerImpl.Notifications, BatteryChecke
     ////////////////Called by "opModeManagerImpl"////////////////
     @Override
     public void onOpModePostStop(OpMode opMode) {
+        if(dashboard == null || dashboard.opModeManager == null) return;
         if (!dashboard.opModeManager.getActiveOpModeName().equals("$Stop$Robot$"))
             requestedOpModeStatus = RobotStatus.OpModeStatus.STOPPED;
     }
