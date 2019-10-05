@@ -5,12 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractTeleop;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
-import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.tensorflow.TensorFlowImpl;
-import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.tensorflow.support.TensorFlow;
-import org.tensorflow.lite.TensorFlowLite;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 @TeleOp(name = "RobotTest", group = "Teleop")
 

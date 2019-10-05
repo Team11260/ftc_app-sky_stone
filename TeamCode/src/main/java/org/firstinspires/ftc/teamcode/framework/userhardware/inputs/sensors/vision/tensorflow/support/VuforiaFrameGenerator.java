@@ -36,6 +36,9 @@ public class VuforiaFrameGenerator implements FrameGenerator {
     private final BlockingQueue<VuforiaLocalizer.CloseableFrame> frameQueue;
     private final CameraInformation cameraInformation;
 
+    private double frameTopCutoffScalar = 0;
+    private double frameBottomCutoffScalar = 1.0;
+
     public VuforiaFrameGenerator(VuforiaLocalizer vuforia, int rotation) {
         // We only use RGB565, but if I don't include YUV, the Vuforia camera monitor looks crazy.
         boolean[] results = vuforia.enableConvertFrameToFormat(PIXEL_FORMAT.RGB565, PIXEL_FORMAT.YUV);
@@ -89,7 +92,7 @@ public class VuforiaFrameGenerator implements FrameGenerator {
                     for (int b = 0; b < bytes.length; b++) {
                         int x = b % cameraInformation.size.width;
                         int y = b / cameraInformation.size.width;
-                        if (y < cameraInformation.size.height * 0.6 || y > cameraInformation.size.height * 1.3) {
+                        if (y < cameraInformation.size.height * frameTopCutoffScalar * 3 || y > cameraInformation.size.height * frameBottomCutoffScalar * 3) {
                             bytes[b] = 0;
                         }
                     }
@@ -107,5 +110,13 @@ public class VuforiaFrameGenerator implements FrameGenerator {
 
     @Override
     public void shutdown() {
+    }
+
+    public void setFrameTopCutoffScalar(double scalar) {
+        frameTopCutoffScalar = scalar;
+    }
+
+    public void setFrameBottomCutoffScalar(double scalar) {
+        frameBottomCutoffScalar = scalar;
     }
 }

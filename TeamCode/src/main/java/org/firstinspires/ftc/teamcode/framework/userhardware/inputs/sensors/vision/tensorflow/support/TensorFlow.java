@@ -24,6 +24,7 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 import org.firstinspires.ftc.robotcore.internal.tfod.Rate;
 import org.firstinspires.ftc.robotcore.internal.tfod.TfodParameters;
+import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.vuforia.Vuforia;
 import org.tensorflow.lite.Interpreter;
 
 import java.io.File;
@@ -425,5 +426,13 @@ public class TensorFlow implements TFObjectDetector {
     @Override
     public void getFrameBitmap(Continuation<? extends Consumer<Bitmap>> continuation) {
 
+    }
+
+    public void setFrameTopCutoffScalar(double scalar) {
+        ((VuforiaFrameGenerator) frameGenerator).setFrameTopCutoffScalar(scalar);
+    }
+
+    public void setFrameBottomCutoffScalar(double scalar) {
+        ((VuforiaFrameGenerator) frameGenerator).setFrameBottomCutoffScalar(scalar);
     }
 }

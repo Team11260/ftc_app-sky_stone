@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.widget.ImageView;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -9,8 +13,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
+import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.tensorflow.support.TensorFlow;
+import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.vuforia.Vuforia;
+import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.vuforia.VuforiaImpl;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PurePursuitController;
@@ -26,7 +33,7 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.TRACK_WI
 @Config
 
 public class MecanumLoadingZoneAuton extends AbstractAuton {
-    public int time1 = 0;
+    /*public int time1 = 0;
     public double power1 = 0.0;
     public static double ARM_DOWN_POSITION = 0.855;
     public static double ARM_UP_POSITION = 0.5;
@@ -35,13 +42,14 @@ public class MecanumLoadingZoneAuton extends AbstractAuton {
 
     private Drive drive;
     private Servo arm;
-    private Servo gripper;
+    private Servo gripper;*/
 
     private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Stone";
     private static final String LABEL_SECOND_ELEMENT = "Skystone";
 
-    private VuforiaLocalizer vuforia;
+    private VuforiaImpl vuforia;
+
     private TFObjectDetector tfod;
     @Override
     public void RegisterStates() {
@@ -53,8 +61,9 @@ public class MecanumLoadingZoneAuton extends AbstractAuton {
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO,"init");
         telemetry.update();
-
-        arm = hardwareMap.servo.get("arm_servo");
+        vuforia = new VuforiaImpl("BACK", false, false);
+       // vuforia.startTracking("Calc_OT");
+        /*arm = hardwareMap.servo.get("arm_servo");
         arm.setDirection(Servo.Direction.FORWARD);
         arm.setPosition(ARM_DOWN_POSITION);
 
@@ -62,31 +71,46 @@ public class MecanumLoadingZoneAuton extends AbstractAuton {
         gripper.setDirection(Servo.Direction.FORWARD);
         gripper.setPosition(GRIPPER_RELEASE_POSITION);
 
-        drive = new Drive(hardwareMap, telemetry);
+        drive = new Drive(hardwareMap, telemetry);*/
 
-        initVuforia();
+        //initVuforia();
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"initVu");
+        telemetry.update();
 
-        if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
+       /* if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
             initTfod();
         } else {
             telemetry.addData(DoubleTelemetry.LogMode.INFO,"Sorry!", "This device is not compatible with TFOD");
-        }
+        }*/
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
          **/
-        if (tfod != null) {
+        /*if (tfod != null) {
             tfod.activate();
-        }
+        }*/
 
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"init");
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Bitmap");
         telemetry.update();
+
+            //VuforiaLocalizer.CloseableFrame frame = vuforia.getFrameQueue().take();
+
+
+            //int[][][] pixels = new int[image.getWidth()][image.getHeight()][4];
+
+
+
+
+
+
 
     }
 
     @Override
     public void Run() {
+        Bitmap image = null;
+        ImageView userImage=null;
        /* boolean program = true;
         //drive.follow(new Path(new Point(0, 0), new Point(18, 0)));
         //drive.updateLoop();
@@ -117,7 +141,25 @@ public class MecanumLoadingZoneAuton extends AbstractAuton {
         telemetry.addData(DoubleTelemetry.LogMode.INFO,"run started"+opModeIsActive());
         telemetry.update();
         while (opModeIsActive()) {
-            if (tfod != null) {
+            image = vuforia.getImage();
+            userImage.setImageBitmap(image);
+            image.setPixel(100,100,250);
+
+            //telemetry.addData(DoubleTelemetry.LogMode.INFO,"take");
+            //telemetry.update();
+           // telemetry.addData(DoubleTelemetry.LogMode.INFO,image.getWidth());
+          //  telemetry.addData(DoubleTelemetry.LogMode.INFO,image.getHeight());
+
+            //if (Color.red(image.getPixel(100,400))<100)
+            //telemetry.addData(DoubleTelemetry.LogMode.INFO,"Left");
+            //else
+            telemetry.addData(DoubleTelemetry.LogMode.INFO,Color.red(image.getPixel(100,400)));
+            telemetry.addData(DoubleTelemetry.LogMode.INFO,Color.red(image.getPixel(700,400)));
+
+            //telemetry.addData(DoubleTelemetry.LogMode.INFO,"Right");
+
+            telemetry.update();
+           /* if (tfod != null) {
                 // getUpdatedRecognitions() will return null if no new information is available since
                 // the last time that call was made.
                 List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
@@ -139,13 +181,13 @@ public class MecanumLoadingZoneAuton extends AbstractAuton {
                 telemetry.update();
             }
             else {telemetry.addData(DoubleTelemetry.LogMode.INFO,"No TensorFlow object detected");}
-            telemetry.update();
+            telemetry.update();*/
         }
     }
 
 
 
-    public void goForward(int time, double power){
+    /*public void goForward(int time, double power){
         drive.setDrivePowerAll(power, power, power, power);
         delay(time);
         drive.setDrivePowerAll(0,0,0,0);
@@ -159,7 +201,7 @@ public class MecanumLoadingZoneAuton extends AbstractAuton {
         drive.setDrivePowerAll(power,0,power,0);
         delay(1650);
         drive.setDrivePowerAll(0,0,0,0);
-    }
+    }*/
 
     private void initVuforia() {
         /*
@@ -171,7 +213,7 @@ public class MecanumLoadingZoneAuton extends AbstractAuton {
         //parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
         //  Instantiate the Vuforia engine
-        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+        //vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
         // Loading trackables is not necessary for the TensorFlow Object Detection engine.
     }
@@ -181,13 +223,13 @@ public class MecanumLoadingZoneAuton extends AbstractAuton {
     /**
      * Initialize the TensorFlow Object Detection engine.
      */
-    private void initTfod() {
+   /* private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-        tfodParameters.minimumConfidence = 0.8;
+        tfodParameters.minimumConfidence = 0.5;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
-    }
+    }*/
 
 }
