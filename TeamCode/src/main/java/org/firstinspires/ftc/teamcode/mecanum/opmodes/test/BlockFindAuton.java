@@ -94,6 +94,7 @@ public class BlockFindAuton extends AbstractAuton {
             ImageProcessor.drawBox(image, 865, 260, 20, 20, LINEWIDTH, Color.rgb(225, 0, 0));
             ImageProcessor.drawBox(image, 865, 310, 20, 20, LINEWIDTH, Color.rgb(225, 0, 0));*/
             imageProcessor.setImage(image);
+
         }
     }
 
