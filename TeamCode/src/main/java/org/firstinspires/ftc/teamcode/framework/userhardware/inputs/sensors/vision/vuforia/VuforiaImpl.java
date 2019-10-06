@@ -9,7 +9,7 @@ public class VuforiaImpl {
     public Vuforia vuforia;
 
     public VuforiaImpl(boolean viewer, boolean led) {
-        vuforia = new Vuforia(viewer);
+        vuforia = new Vuforia(viewer, led);
     }
 
     public VuforiaImpl(String camera, boolean viewer, boolean led) {
@@ -17,7 +17,7 @@ public class VuforiaImpl {
     }
 
     public VuforiaImpl(boolean viewer) {
-        this(viewer, true);
+        this(viewer, false);
     }
 
     public VuforiaImpl(String camera, boolean viewer) {

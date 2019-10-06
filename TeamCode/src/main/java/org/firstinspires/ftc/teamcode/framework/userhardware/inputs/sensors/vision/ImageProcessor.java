@@ -14,7 +14,7 @@ public class ImageProcessor {
     }
 
     public ImageProcessor(boolean led) {
-        vuforia = new VuforiaImpl(false, led);
+        vuforia = new VuforiaImpl(false, false);
         viewer = new ImageViewer(vuforia.getRotation());
     }
 

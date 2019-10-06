@@ -427,12 +427,4 @@ public class TensorFlow implements TFObjectDetector {
     public void getFrameBitmap(Continuation<? extends Consumer<Bitmap>> continuation) {
 
     }
-
-    public void setFrameTopCutoffScalar(double scalar) {
-        ((VuforiaFrameGenerator) frameGenerator).setFrameTopCutoffScalar(scalar);
-    }
-
-    public void setFrameBottomCutoffScalar(double scalar) {
-        ((VuforiaFrameGenerator) frameGenerator).setFrameBottomCutoffScalar(scalar);
-    }
 }
