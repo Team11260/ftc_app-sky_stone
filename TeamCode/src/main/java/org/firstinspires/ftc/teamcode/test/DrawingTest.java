@@ -46,6 +46,6 @@ public class DrawingTest extends AbstractTeleop {
 
     @Override
     public void Stop() {
-        imageProcessor.shutDown();
+        imageProcessor.shutdown();
     }
 }

@@ -71,9 +71,8 @@ public abstract class AbstractAuton extends AbstractOpMode {
             throwException(e);
         }
 
-        addState(new State("call", "start", () -> {
+        addState(new State("run", "start", () -> {
             Run();
-            return true;
         }));
 
         boolean stateMachineActive = true;

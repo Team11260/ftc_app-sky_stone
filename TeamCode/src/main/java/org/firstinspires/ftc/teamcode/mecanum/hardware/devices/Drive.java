@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PurePur
 public class Drive extends PurePursuitController {
 
     private IMU imu;
+    private double lastLeftPosition = 0, lastRightPosition = 0;
 
     private SlewDcMotor dcMotorFrontLeft;
     private SlewDcMotor dcMotorFrontRight;
@@ -25,6 +26,7 @@ public class Drive extends PurePursuitController {
 
         AbstractOpMode.getOpModeInstance();
         imu = new IMU(hardwareMap);
+        //imu = hardwareMap.getImu("imu");
 
         dcMotorFrontLeft = new SlewDcMotor((hardwareMap.dcMotor.get("front_left")));
         dcMotorFrontRight = new SlewDcMotor((hardwareMap.dcMotor.get("front_right")));
@@ -63,6 +65,11 @@ public class Drive extends PurePursuitController {
         return -imu.getHeading();
     }
 
+    public void resetAngleToZero() {
+        imu.resetAngleToZero();
+
+    }
+
     @Override
     public double getLeftActualPositionInches() {
         return dcMotorFrontLeft.getCurrentPosition()/163.0;
@@ -73,11 +80,31 @@ public class Drive extends PurePursuitController {
         return dcMotorFrontRight.getCurrentPosition()/163.0;
     }
 
+    public int getLeftPosition() {
+        return dcMotorFrontLeft.getCurrentPosition();
+    }
+
+    public int getRightPosition() {
+        return dcMotorFrontRight.getCurrentPosition();
+    }
+
     @Override
     public void setPowers(double l, double r) {
         dcMotorFrontLeft.setPower(l);
         dcMotorBackLeft.setPower(l);
         dcMotorFrontRight.setPower(r);
         dcMotorBackRight.setPower(r);
+    }
+
+    public void setMode(DcMotor.RunMode mode) {
+        if(mode == DcMotor.RunMode.STOP_AND_RESET_ENCODER) encodersZero();
+        dcMotorFrontLeft.setMode(mode);
+        dcMotorBackLeft.setMode(mode);
+        dcMotorFrontRight.setMode(mode);
+        dcMotorBackRight.setMode(mode);
+    }
+    public void encodersZero() {
+       lastLeftPosition = 0;
+       lastRightPosition = 0;
     }
 }
