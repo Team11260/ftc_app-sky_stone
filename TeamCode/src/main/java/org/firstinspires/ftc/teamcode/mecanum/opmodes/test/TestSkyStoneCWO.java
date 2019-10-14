@@ -166,6 +166,7 @@ public class TestSkyStoneCWO extends AbstractAuton {
 
         baseHeading = angle;
 
+
         straightPID.reset(); //Resets the PID values in the PID class to make sure we do not have any left over values from the last segment
         distancePID.reset();
         straightPID.setMinimumOutput(0);
