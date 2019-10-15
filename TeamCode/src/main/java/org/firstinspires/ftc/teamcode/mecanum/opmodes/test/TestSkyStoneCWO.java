@@ -14,7 +14,7 @@ import org.upacreekrobotics.dashboard.Config;
 
 //import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.vuforia.Vuforia;
 
-@Autonomous(name = "BlockFind Auton", group = "New")
+@Autonomous(name = "BlockFind CWO Auton", group = "New")
 
 @Config
 //  At 3 feet a stone is approximately  180x90 pixels

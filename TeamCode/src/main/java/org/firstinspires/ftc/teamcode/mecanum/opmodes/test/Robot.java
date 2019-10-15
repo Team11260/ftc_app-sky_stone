@@ -11,8 +11,7 @@ import org.upacreekrobotics.dashboard.Dashboard;
 public class Robot extends AbstractRobot {
     private ImageProcessor imageProcessor;
 
-    //  public static DoubleTelemetry telemetry;
-
+    int BLOCKHEIGHT = 148;
 
     public Robot() {
         imageProcessor = new ImageProcessor(false);
@@ -25,7 +24,6 @@ public class Robot extends AbstractRobot {
         int XORIGIN = 205;
         int YORIGIN = 330;
         int BLOCKWIDTH = 295;
-        int BLOCKHEIGHT = 148;
         int LINEWIDTH = 10;
         int threshold = 100;
         // int height = YORIGIN + (BLOCKHEIGHT/2);
@@ -43,18 +41,19 @@ public class Robot extends AbstractRobot {
         imageProcessor.setImage(image);
 
         String stonePosition;
-        if (getLineAverage(image, x_left, height, BLOCKHEIGHT) < threshold) {
+        if (getLineAverage(image, x_left, height) < threshold) {
             stonePosition = "Left";
-        } else if (getLineAverage(image, x_center, height, BLOCKHEIGHT) < threshold) {
+        } else if (getLineAverage(image, x_center, height) < threshold) {
 
             stonePosition = "Center";
-        } else if (getLineAverage(image, x_right, height, BLOCKHEIGHT) < threshold) {
+        } else if (getLineAverage(image, x_right, height) < threshold) {
 
             stonePosition = "Right";
         } else {
             stonePosition = "No Sky Stone Found";
         }
 
+        telemetry.update();
         ImageProcessor.drawBox(image, XORIGIN + 30, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
         ImageProcessor.drawBox(image, XORIGIN + 30 + BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
         ImageProcessor.drawBox(image, XORIGIN + 30 + BLOCKWIDTH + BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
@@ -63,14 +62,13 @@ public class Robot extends AbstractRobot {
     }
 
 
-    public int getLineAverage(Bitmap image, int x, int y, int blockHeight) {
+    public int getLineAverage(Bitmap image, int x, int y) {
         int sum = 0;
-        for (int i = 0; i < (blockHeight - 50); i++)
-            sum += Color.red(image.getPixel(x, y));
-        sum /= (blockHeight - 50);
+        for (int i = 0; i < ( BLOCKHEIGHT - 50); i++)
+            sum += Color.red(image.getPixel(x, y+i));
         telemetry.addData(DoubleTelemetry.LogMode.INFO, sum);
         //telemetry.update();
-        return sum;
+        return sum/(BLOCKHEIGHT-50);
     }
 
     public void stop() {
