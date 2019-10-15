@@ -26,7 +26,7 @@ public class ImageProcessor {
         viewer.setImage(image);
     }
 
-    public void shutDown() {
+    public void shutdown() {
         viewer.clearImage();
     }
 
