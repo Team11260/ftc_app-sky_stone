@@ -514,7 +514,7 @@ public class Dashboard implements OpModeManagerImpl.Notifications, BatteryChecke
     ////////////////Called by "opModeManagerImpl"////////////////
     @Override
     public void onOpModePreInit(OpMode opMode) {
-        if (!dashboard.opModeManager.getActiveOpModeName().equals("$Stop$Robot$")) {
+        if (dashboard != null && dashboard.opModeManager != null && !dashboard.opModeManager.getActiveOpModeName().equals("$Stop$Robot$")) {
             activeOpModeName = dashboard.opModeManager.getActiveOpModeName();
             requestedOpModeStatus = RobotStatus.OpModeStatus.INIT;
             opModeInitTime = System.currentTimeMillis();

@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Drive;
 
 
 public abstract class PurePursuitController {
@@ -65,7 +64,7 @@ public abstract class PurePursuitController {
         double left = velocity * ((2 + curvature * trackWidth)/2);
         double right = velocity * ((2 - curvature * trackWidth)/2);
 
-        setPowers(left, right);
+        setPower(left, right);
     }
 
     public void follow(Path path) {
@@ -99,5 +98,5 @@ public abstract class PurePursuitController {
 
     public abstract double getRightActualPositionInches();
 
-    public abstract void setPowers(double l, double r);
+    public abstract void setPower(double l, double r);
 }

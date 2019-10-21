@@ -22,6 +22,7 @@ public class TestTeleopMode extends AbstractTeleop {
     public static double ARM_UP_POSITION = 0.5;
     public static double GRIPPER_GRIP_POSITION = 0.8;
     public static double GRIPPER_RELEASE_POSITION = 0.35;
+    public boolean dashBoardSwitch = true;
 
     private Drive drive;
 
@@ -43,7 +44,8 @@ public class TestTeleopMode extends AbstractTeleop {
     public void UpdateEvents() {
         double k = 0.5;
         double left_stick_x=gamepad1.left_stick_x,left_stick_y = -gamepad1.left_stick_y, right_stick_x = gamepad1.right_stick_x;
-        drive.setDrivePowerAll(k*(left_stick_y-left_stick_x-right_stick_x),k*(left_stick_y+left_stick_x+right_stick_x),k*(left_stick_y+left_stick_x-right_stick_x),k*(left_stick_y-left_stick_x+right_stick_x));
+        drive.setDrivePowerAll(k*(left_stick_y+left_stick_x+right_stick_x),k*(left_stick_y-left_stick_x-right_stick_x),
+                               k*(left_stick_y-left_stick_x+right_stick_x),k*(left_stick_y+left_stick_x-right_stick_x));
     }
 
 

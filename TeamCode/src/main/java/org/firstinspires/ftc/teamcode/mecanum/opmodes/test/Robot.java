@@ -2,23 +2,39 @@ package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.DrawFilter;
 
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.ImageProcessor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.outputs.Logger;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.DriveController;
 import org.upacreekrobotics.dashboard.Dashboard;
 
 public class Robot extends AbstractRobot {
+
     private ImageProcessor imageProcessor;
 
     int BLOCKHEIGHT = 148;
+
+    public DriveController driver;
 
     public Robot() {
         imageProcessor = new ImageProcessor(false);
         //telemetry = new DoubleTelemetry(super.telemetry, Dashboard.getInstance().getTelemetry(), new Logger(Dashboard.getCurrentOpMode()));
 
+        driver = new DriveController();
     }
 
+    public void runDrivePath(Path path){
+        driver.runDrivePath(path);
+    }
+
+    public void driveToSegment(DriveSegment segment){
+        driver.driveToSegment(segment);
+    }
 
     public String getSkyStonePositionThreeStones() {
         int XORIGIN = 205;
@@ -66,7 +82,7 @@ public class Robot extends AbstractRobot {
         int sum = 0;
         for (int i = 0; i < ( BLOCKHEIGHT - 50); i++)
             sum += Color.red(image.getPixel(x, y+i));
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, sum);
+        //telemetry.addData(DoubleTelemetry.LogMode.INFO, sum);
         //telemetry.update();
         return sum/(BLOCKHEIGHT-50);
     }

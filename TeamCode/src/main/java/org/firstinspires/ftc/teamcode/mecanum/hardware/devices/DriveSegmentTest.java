@@ -2,17 +2,17 @@ package org.firstinspires.ftc.teamcode.mecanum.hardware.devices;
 
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
 
-public class DriveSegment extends Segment {
+public class DriveSegmentTest extends Segment {
 
     private final double distance, speed, angle;
     private final int error;
 
 
-    public DriveSegment(String name, double distance, double speed, int error) {
+    public DriveSegmentTest(String name, double distance, double speed, int error) {
         this(name, distance, speed, error, -210000);
     }
 
-    public DriveSegment(String name, double distance, double speed, int error, double angle) {
+    public DriveSegmentTest(String name, double distance, double speed, int error, double angle) {
         super(name, SegmentType.DRIVE);
         this.distance = distance;
         this.speed = speed;

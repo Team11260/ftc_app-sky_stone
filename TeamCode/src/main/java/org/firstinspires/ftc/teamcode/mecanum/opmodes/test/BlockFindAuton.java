@@ -13,9 +13,13 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.IMU;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.ImageProcessor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.vuforia.VuforiaImpl;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Drive;
 import org.upacreekrobotics.dashboard.Config;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 @Autonomous(name = "BlockFind Auton", group = "New")
@@ -26,9 +30,12 @@ import java.util.HashMap;
 public class BlockFindAuton extends AbstractAuton {
     ImageProcessor imageProcessor;
     Robot robot;
-    IMU imu;
-    Drive drive;
+    boolean dashBoardSwitch = true;
+    DecimalFormat DF;
 
+    DriveSegment segment;
+    TurnSegment turnSegment;
+    Path test;
 
     @Override
     public void RegisterStates() {
@@ -47,10 +54,14 @@ public class BlockFindAuton extends AbstractAuton {
     @Override
     public void Init() {
         robot = new Robot();
-        imu = new IMU(hardwareMap);
-        drive = new Drive(hardwareMap, telemetry);
-
+        //drive = new Drive(hardwareMap, telemetry);
+        DF=new DecimalFormat("#.##");
         // imageProcessor = new ImageProcessor(false);
+        segment = new DriveSegment("test",10,0.5,50);
+        turnSegment = new TurnSegment("turn",60,0.5,5,500);
+        test = new Path("test");
+        test.addSegment(segment);
+        test.addSegment(turnSegment);
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "init");
         telemetry.update();
@@ -59,7 +70,7 @@ public class BlockFindAuton extends AbstractAuton {
     @Override
     public void Run() {
 
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, "run started" + opModeIsActive());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, "run started");
         telemetry.update();
 
 
@@ -79,7 +90,9 @@ public class BlockFindAuton extends AbstractAuton {
             default:
 
         }
-        turnTo(30);
+        //robot.driveToSegment((DriveSegment)test.getNextSegment());
+        robot.runDrivePath(test);
+        //turnTo(30);
         while (opModeIsActive()) {
 
             /*telemetry.addData(DoubleTelemetry.LogMode.INFO, Color.red(image.getPixel(XORIGIN + 40, 355)));
@@ -89,35 +102,42 @@ public class BlockFindAuton extends AbstractAuton {
 
             //telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones());
             //telemetry.update();
-            telemetry.addData(DoubleTelemetry.LogMode.INFO, imu.getHeading());
+            telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.driver.getHeading());
             telemetry.update();
 
         }
 
     }
 
-    public void turnTo(double angle) {
+    /*public void turnTo(double angle) {
         double currentangle = imu.getHeading();
         double threshold = 4.0;
         double error = currentangle - angle;
-        double p = 0.2;
+        double p = 0.5;
+        double ratio = 1;
 
         if (angle < 0) {
             p = -p;
         }
         while (Math.abs(imu.getHeading()-angle) > threshold) {
-            drive.setDrivePowerAll(p, -p,p, -p);
-            telemetry.addData(DoubleTelemetry.LogMode.INFO, imu.getHeading());
+            ratio = Math.abs(imu.getHeading() - angle)/angle;
+            drive.setDrivePowerAll(ratio*p, ratio*-p,ratio*p, ratio*-p);
+            if (p*ratio>0.5) break;
+            telemetry.addData(DoubleTelemetry.LogMode.INFO, imu.getHeading(),DF.format(p*ratio));
             telemetry.update();
         }
         drive.setDrivePowerAll(0, 0, 0, 0);
         telemetry.addData(DoubleTelemetry.LogMode.INFO, imu.getHeading());
         telemetry.update();
-    }
+    }*/
 
 
     public void Strafe() {
 
 
+    }
+    @Override
+    public void Stop(){
+        robot.driver.stop();
     }
 }

@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.mecanum.hardware.devices;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.IMU;
@@ -20,7 +20,6 @@ public class Drive extends PurePursuitController {
     private SlewDcMotor dcMotorBackLeft;
     private SlewDcMotor dcMotorBackRight;
 
-
     public Drive(HardwareMap hardwareMap, DoubleTelemetry telemetry){
         super(20,telemetry);
 
@@ -33,22 +32,11 @@ public class Drive extends PurePursuitController {
         dcMotorBackLeft = new SlewDcMotor((hardwareMap.dcMotor.get("back_left")));
         dcMotorBackRight = new SlewDcMotor((hardwareMap.dcMotor.get("back_right")));
 
-        dcMotorFrontLeft.setDirection(DcMotor.Direction.FORWARD);
-        dcMotorBackLeft.setDirection(DcMotor.Direction.FORWARD);
+        dcMotorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        dcMotorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        dcMotorFrontRight.setDirection(DcMotor.Direction.REVERSE);
-        dcMotorBackRight.setDirection(DcMotor.Direction.REVERSE);
-
-        dcMotorFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        dcMotorBackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        dcMotorFrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        dcMotorBackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        dcMotorFrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        dcMotorBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        dcMotorFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        dcMotorBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
+        setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         resetPosition();
     }
 
@@ -89,7 +77,7 @@ public class Drive extends PurePursuitController {
     }
 
     @Override
-    public void setPowers(double l, double r) {
+    public void setPower(double l, double r) {
         dcMotorFrontLeft.setPower(l);
         dcMotorBackLeft.setPower(l);
         dcMotorFrontRight.setPower(r);
@@ -106,5 +94,13 @@ public class Drive extends PurePursuitController {
     public void encodersZero() {
        lastLeftPosition = 0;
        lastRightPosition = 0;
+    }
+
+    public double getHeading(){
+        return imu.getHeading();
+    }
+
+    public void stop(){
+        setDrivePowerAll(0,0,0,0);
     }
 }

@@ -4,22 +4,23 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
+import org.firstinspires.ftc.teamcode.framework.util.SubsystemStateMachine;
 
 public abstract class SubsystemController {
 
     public DoubleTelemetry telemetry;
     public HardwareMap hardwareMap;
+    public SubsystemStateMachine stateMachine;
 
-    public abstract void init();
-
-    public abstract void update();
-
-    public abstract void stop();
-
-    public void opModeSetup() {
+    public SubsystemController(){
         telemetry = AbstractOpMode.getTelemetry();
         hardwareMap = AbstractOpMode.getHardwareMap();
+        stateMachine = new SubsystemStateMachine();
     }
+
+    public abstract void update() throws Exception;
+
+    public abstract void stop();
 
     public void delay(int millis) {
         AbstractOpMode.delay(millis);
