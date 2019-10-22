@@ -20,8 +20,8 @@ public class Drive extends PurePursuitController {
     private SlewDcMotor dcMotorBackLeft;
     private SlewDcMotor dcMotorBackRight;
 
-    public Drive(HardwareMap hardwareMap, DoubleTelemetry telemetry){
-        super(20,telemetry);
+    public Drive(HardwareMap hardwareMap, DoubleTelemetry telemetry) {
+        super(20, telemetry);
 
         AbstractOpMode.getOpModeInstance();
         imu = new IMU(hardwareMap);
@@ -35,17 +35,22 @@ public class Drive extends PurePursuitController {
         dcMotorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         dcMotorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        dcMotorFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        dcMotorFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        dcMotorBackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        dcMotorBackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         resetPosition();
     }
 
     public void setDrivePowerAll(double FL, double FR, double BL, double BR) {
-        dcMotorFrontLeft.setPower(FL*0.8);
-        dcMotorFrontRight.setPower(FR*0.8);
-        dcMotorBackLeft.setPower(BL*0.8);
-        dcMotorBackRight.setPower(BR*0.8);
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,dcMotorFrontLeft.getCurrentPosition(),dcMotorFrontRight.getCurrentPosition());
+        dcMotorFrontLeft.setPower(FL * 0.8);
+        dcMotorFrontRight.setPower(FR * 0.8);
+        dcMotorBackLeft.setPower(BL * 0.8);
+        dcMotorBackRight.setPower(BR * 0.8);
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, dcMotorFrontLeft.getCurrentPosition(), dcMotorFrontRight.getCurrentPosition());
     }
 
     @Override
@@ -60,20 +65,21 @@ public class Drive extends PurePursuitController {
 
     @Override
     public double getLeftActualPositionInches() {
-        return dcMotorFrontLeft.getCurrentPosition()/163.0;
+        return dcMotorFrontLeft.getCurrentPosition() / 163.0;
     }
 
     @Override
     public double getRightActualPositionInches() {
-        return dcMotorFrontRight.getCurrentPosition()/163.0;
+        return dcMotorFrontRight.getCurrentPosition() / 163.0;
     }
 
     public int getLeftPosition() {
-        return dcMotorFrontLeft.getCurrentPosition();
+        return -dcMotorFrontLeft.getCurrentPosition();
     }
 
     public int getRightPosition() {
-        return dcMotorFrontRight.getCurrentPosition();
+        //Negative for the odometry wheels
+        return -dcMotorFrontRight.getCurrentPosition();
     }
 
     @Override
@@ -85,22 +91,23 @@ public class Drive extends PurePursuitController {
     }
 
     public void setMode(DcMotor.RunMode mode) {
-        if(mode == DcMotor.RunMode.STOP_AND_RESET_ENCODER) encodersZero();
+        if (mode == DcMotor.RunMode.STOP_AND_RESET_ENCODER) encodersZero();
         dcMotorFrontLeft.setMode(mode);
         dcMotorBackLeft.setMode(mode);
         dcMotorFrontRight.setMode(mode);
         dcMotorBackRight.setMode(mode);
     }
+
     public void encodersZero() {
-       lastLeftPosition = 0;
-       lastRightPosition = 0;
+        lastLeftPosition = 0;
+        lastRightPosition = 0;
     }
 
-    public double getHeading(){
+    public double getHeading() {
         return imu.getHeading();
     }
 
-    public void stop(){
-        setDrivePowerAll(0,0,0,0);
+    public void stop() {
+        setDrivePowerAll(0, 0, 0, 0);
     }
 }

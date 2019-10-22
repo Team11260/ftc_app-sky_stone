@@ -42,6 +42,8 @@ public class TestTeleopMode extends AbstractTeleop {
 
     @Override
     public void UpdateEvents() {
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"getLeftPosition: "+drive.getLeftPosition()+" getRightPosition: "+drive.getRightPosition());
+        telemetry.update();
         double k = 0.5;
         double left_stick_x=gamepad1.left_stick_x,left_stick_y = -gamepad1.left_stick_y, right_stick_x = gamepad1.right_stick_x;
         drive.setDrivePowerAll(k*(left_stick_y+left_stick_x+right_stick_x),k*(left_stick_y-left_stick_x-right_stick_x),

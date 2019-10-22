@@ -36,9 +36,11 @@ public class DriveController extends SubsystemController {
 
     public static Path currentPath = null;
 
-    private double DRIVE_COUNTS_PER_INCH = 107;
+    private double DRIVE_COUNTS_PER_INCH = 204;//1440*x/(2.25pi)
 
     public static double PATH_P = 15, PATH_F = 5;
+
+    public static double PROP_GAIN=0.1,INT_GAIN=0.0,DIFF_GAIN=0.1;
 
     //Utility Methods
     public DriveController() {
@@ -51,7 +53,7 @@ public class DriveController extends SubsystemController {
         anglePID = new PIDController(1, 0.01, 1, 0.3, 0.1);//D was 150
         //anglePID.setLogging(true);
         straightPID = new PIDController(8, 0.1, 50, 1, 0);
-        distancePID = new PIDController(0.6, 0.1, 0, 2, 0.1);
+        distancePID = new PIDController(PROP_GAIN,INT_GAIN ,DIFF_GAIN , 2, 0.1);
 
     }
 
@@ -228,7 +230,7 @@ public class DriveController extends SubsystemController {
         int loop = 0;
         runtime.reset();
 
-        while ((!atPosition(position, drive.getLeftPosition(), error) && !atPosition(position, drive.getRightPosition(), error)) && opModeIsActive()) {
+        while ((!atPosition(position, drive.getLeftPosition(), error) && opModeIsActive())) {
 
             telemetry.addData(INFO,"Entered driveSegement Loop");
             telemetry.update();
@@ -243,8 +245,10 @@ public class DriveController extends SubsystemController {
 
             currentHeading = getHeading();
 
-            power = range(distancePID.output(position, (drive.getRightPosition() + drive.getLeftPosition()) / 2.0));
+            power = range(distancePID.output(position, (drive.getLeftPosition())));
 
+            telemetry.addData(INFO,"Power "+power);
+            telemetry.update();
             if (angle - currentHeading > 180) {
                 turn = anglePID.output(angle, 360 + currentHeading);
             } else if (currentHeading - angle > 180) {
@@ -267,13 +271,16 @@ public class DriveController extends SubsystemController {
             telemetry.addData(INFO,"Loop :"+loop+" "+drive.getLeftPosition()+" "+drive.getRightPosition());
             telemetry.update();
         }
-
+        drive.stop();
         telemetry.addData(INFO, "Average loop time for drive: " + runtime.milliseconds() / loop);
         telemetry.addData(INFO, "Left encoder position: " + drive.getLeftPosition() + "  Right encoder position: " + drive.getRightPosition());
         telemetry.addData(INFO, "Final angle: " + getHeading());
         telemetry.update();
 
-        drive.setPower(0, 0);
+
+        delay(1000);
+        telemetry.addData(INFO, "Left encoder position: " + drive.getLeftPosition() + "  Right encoder position: " + drive.getRightPosition());
+        telemetry.update();
         drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
@@ -366,6 +373,8 @@ public class DriveController extends SubsystemController {
     private synchronized double range(double val) {
         if (val < -1) val = -1;
         if (val > 1) val = 1;
+        if (val<0.13&&val>0) val = 0.13;
+        if (val>-0.13&&val<0) val = -0.13;
         return val;
     }
 /*

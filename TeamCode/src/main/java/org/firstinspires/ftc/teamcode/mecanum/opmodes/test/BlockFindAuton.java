@@ -36,6 +36,8 @@ public class BlockFindAuton extends AbstractAuton {
     DriveSegment segment;
     TurnSegment turnSegment;
     Path test;
+    public static double distance = 12;
+
 
     @Override
     public void RegisterStates() {
@@ -57,11 +59,11 @@ public class BlockFindAuton extends AbstractAuton {
         //drive = new Drive(hardwareMap, telemetry);
         DF=new DecimalFormat("#.##");
         // imageProcessor = new ImageProcessor(false);
-        segment = new DriveSegment("test",10,0.5,50);
-        turnSegment = new TurnSegment("turn",60,0.5,5,500);
+        segment = new DriveSegment("test",distance,0.4,100);
+        //turnSegment = new TurnSegment("turn",60,0.5,5,500);
         test = new Path("test");
         test.addSegment(segment);
-        test.addSegment(turnSegment);
+        //test.addSegment(turnSegment);
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "init");
         telemetry.update();
@@ -93,7 +95,7 @@ public class BlockFindAuton extends AbstractAuton {
         //robot.driveToSegment((DriveSegment)test.getNextSegment());
         robot.runDrivePath(test);
         //turnTo(30);
-        while (opModeIsActive()) {
+        while (false && opModeIsActive()) {
 
             /*telemetry.addData(DoubleTelemetry.LogMode.INFO, Color.red(image.getPixel(XORIGIN + 40, 355)));
             telemetry.addData(DoubleTelemetry.LogMode.INFO, Color.green(image.getPixel(XORIGIN + 40, 355)));
@@ -102,10 +104,7 @@ public class BlockFindAuton extends AbstractAuton {
 
             //telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones());
             //telemetry.update();
-            telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.driver.getHeading());
-            telemetry.update();
-
-        }
+            }
 
     }
 
