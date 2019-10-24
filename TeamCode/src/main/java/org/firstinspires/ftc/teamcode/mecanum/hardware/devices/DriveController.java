@@ -42,6 +42,14 @@ public class DriveController extends SubsystemController {
 
     public static double PROP_GAIN=0.1,INT_GAIN=0.0,DIFF_GAIN=0.1;
 
+    private double previousTime;
+
+    private DecimalFormat DFpwr, DFenc;
+
+    TelemetryRecord[] RecTelem = new TelemetryRecord[200];
+    ElapsedTime RecTelemTime;
+
+
     //Utility Methods
     public DriveController() {
 
@@ -54,6 +62,16 @@ public class DriveController extends SubsystemController {
         //anglePID.setLogging(true);
         straightPID = new PIDController(8, 0.1, 50, 1, 0);
         distancePID = new PIDController(PROP_GAIN,INT_GAIN ,DIFF_GAIN , 2, 0.1);
+        for ( int i = 0; i<RecTelem.length; i++)
+        {
+            RecTelem[i] = new TelemetryRecord();
+            RecTelem[i].Index = i;
+        }
+        RecTelemTime = new ElapsedTime();
+
+        DFpwr = new DecimalFormat(" #.000");
+        DFpwr.setMinimumIntegerDigits(1);
+        DFenc = new DecimalFormat(" 00000.0;-00000.0");
 
     }
 
@@ -232,8 +250,8 @@ public class DriveController extends SubsystemController {
 
         while ((!atPosition(position, drive.getLeftPosition(), error) && opModeIsActive())) {
 
-            telemetry.addData(INFO,"Entered driveSegement Loop");
-            telemetry.update();
+         //   telemetry.addData(INFO,"Entered driveSegement Loop");
+         //   telemetry.update();
             if (segment.isDone()) {
                 setPower(0, 0);
                 return;
@@ -247,8 +265,8 @@ public class DriveController extends SubsystemController {
 
             power = range(distancePID.output(position, (drive.getLeftPosition())));
 
-            telemetry.addData(INFO,"Power "+power);
-            telemetry.update();
+          //  telemetry.addData(INFO,"Power "+power);
+          //  telemetry.update();
             if (angle - currentHeading > 180) {
                 turn = anglePID.output(angle, 360 + currentHeading);
             } else if (currentHeading - angle > 180) {
@@ -266,13 +284,37 @@ public class DriveController extends SubsystemController {
             }
 
             drive.setPower(leftPower, rightPower);
+            if ( loop == 0) { RecTelem[loop].Time = RecTelemTime.milliseconds(); }
+            else            {  RecTelem[loop].Time = RecTelemTime.milliseconds() - previousTime; }
+
+            RecTelem[loop].Angle = currentHeading;
+            RecTelem[loop].Error = angle - currentHeading;
+            RecTelem[loop].LeftPower = leftPower;
+            RecTelem[loop].RightPower = rightPower;
+            RecTelem[loop].BackLeftCount = 5;//drive.getLeftPosition(); // These cost us time (10ms)
+            RecTelem[loop].BackRightCount = 6;//drive.getRightPosition();//^
+            previousTime = RecTelemTime.milliseconds();
 
             loop++;
-            telemetry.addData(INFO,"Loop :"+loop+" "+drive.getLeftPosition()+" "+drive.getRightPosition());
-            telemetry.update();
-        }
+          //  telemetry.addData(INFO,"Loop :"+loop+" "+drive.getLeftPosition()+"" +
+            //                                      ""+drive.getRightPosition());
+          //  telemetry.update();
+        } //end of while loop
         drive.stop();
+        for ( int n = 0; n < loop; n++ )
+        {
+            telemetry.addData(INFO, "index = " + DFpwr.format( RecTelem[n].Index)
+                    + " time = " + DFpwr.format( RecTelem[n].Time)
+                    + " angle = " + DFpwr.format(RecTelem[n].Angle)
+                    + " error = " + DFpwr.format(RecTelem[n].Error)
+                    + "   left = " + DFpwr.format(RecTelem[n].LeftPower)
+                    + " right = " + DFpwr.format(RecTelem[n].RightPower)
+                    + "    left enc = " +DFenc.format(RecTelem[n].BackLeftCount)
+                    + "    right enc = " +DFenc.format(RecTelem[n].BackRightCount)
+            );
+        }
         telemetry.addData(INFO, "Average loop time for drive: " + runtime.milliseconds() / loop);
+        telemetry.addData(INFO, "Loop count " + loop);
         telemetry.addData(INFO, "Left encoder position: " + drive.getLeftPosition() + "  Right encoder position: " + drive.getRightPosition());
         telemetry.addData(INFO, "Final angle: " + getHeading());
         telemetry.update();
