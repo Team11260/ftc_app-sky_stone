@@ -33,9 +33,10 @@ public class BlockFindAuton extends AbstractAuton {
     boolean dashBoardSwitch = true;
     DecimalFormat DF;
 
-    DriveSegment segment;
+    DriveSegment segment1;
+    DriveSegment segment2;
     TurnSegment turnSegment;
-    Path test;
+    Path path;
     public static double distance = 12;
 
 
@@ -59,10 +60,14 @@ public class BlockFindAuton extends AbstractAuton {
         //drive = new Drive(hardwareMap, telemetry);
         DF=new DecimalFormat("#.##");
         // imageProcessor = new ImageProcessor(false);
-        segment = new DriveSegment("test",distance,0.4,100);
-        //turnSegment = new TurnSegment("turn",60,0.5,5,500);
-        test = new Path("test");
-        test.addSegment(segment);
+        segment1 = new DriveSegment("test",distance,0.4,100);
+        segment2 = new DriveSegment("milan is driving", 7.5, 0.4, 100,180);
+        turnSegment = new TurnSegment("turn",60,0.5,5,500);
+        path = new Path("test");
+        path.addSegment(segment1);
+        path.addSegment(turnSegment);
+        path.addSegment(segment2);
+
         //test.addSegment(turnSegment);
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "init");
@@ -93,7 +98,7 @@ public class BlockFindAuton extends AbstractAuton {
 
         }
         //robot.driveToSegment((DriveSegment)test.getNextSegment());
-        robot.runDrivePath(test);
+        robot.runDrivePath(path);
         //turnTo(30);
         while (false && opModeIsActive()) {
 

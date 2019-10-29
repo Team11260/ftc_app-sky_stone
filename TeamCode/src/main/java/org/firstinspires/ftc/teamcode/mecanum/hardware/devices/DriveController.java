@@ -248,6 +248,7 @@ public class DriveController extends SubsystemController {
         int loop = 0;
         runtime.reset();
 
+        RecTelemTime.reset();
         while ((!atPosition(position, drive.getLeftPosition(), error) && opModeIsActive())) {
 
          //   telemetry.addData(INFO,"Entered driveSegement Loop");
@@ -304,7 +305,7 @@ public class DriveController extends SubsystemController {
         for ( int n = 0; n < loop; n++ )
         {
             telemetry.addData(INFO, "index = " + DFpwr.format( RecTelem[n].Index)
-                    + " time = " + DFpwr.format( RecTelem[n].Time)
+                    + " deltatime = " + DFpwr.format( RecTelem[n].Time)
                     + " angle = " + DFpwr.format(RecTelem[n].Angle)
                     + " error = " + DFpwr.format(RecTelem[n].Error)
                     + "   left = " + DFpwr.format(RecTelem[n].LeftPower)

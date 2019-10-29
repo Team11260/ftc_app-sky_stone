@@ -9,6 +9,8 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Drive;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Intake;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.IntakeController;
 import org.upacreekrobotics.dashboard.Config;
 
 import static org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path.k;
@@ -22,28 +24,23 @@ public class TestTeleopMode extends AbstractTeleop {
     public static double ARM_UP_POSITION = 0.5;
     public static double GRIPPER_GRIP_POSITION = 0.8;
     public static double GRIPPER_RELEASE_POSITION = 0.35;
-    public boolean dashBoardSwitch = true;
 
     private Drive drive;
+    Intake intake;
 
     private Servo arm, gripper;
     boolean up = true, gripped = false;
+    boolean isRotating = false;
+    boolean isConveying= false;
 
     @Override
     public void RegisterEvents() {
-        addEventHandler("1_a_down", () -> toggleArmPosition());
-        addEventHandler("1_b_down", () -> toggleGripperPosition());
-        addEventHandler("1_x_down", () -> {
-            telemetry.addData(DoubleTelemetry.LogMode.INFO, "X pressed");
-            telemetry.update();
-        });
-
+        addEventHandler("1_x_down", () -> toggleRotation());
+        addEventHandler("l_y_down", () -> toggleConveyor());
     }
 
     @Override
     public void UpdateEvents() {
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"getLeftPosition: "+drive.getLeftPosition()+" getRightPosition: "+drive.getRightPosition());
-        telemetry.update();
         double k = 0.5;
         double left_stick_x=gamepad1.left_stick_x,left_stick_y = -gamepad1.left_stick_y, right_stick_x = gamepad1.right_stick_x;
         drive.setDrivePowerAll(k*(left_stick_y+left_stick_x+right_stick_x),k*(left_stick_y-left_stick_x-right_stick_x),
@@ -54,15 +51,16 @@ public class TestTeleopMode extends AbstractTeleop {
     @Override
     public void Init() {
 
-        arm = hardwareMap.servo.get("arm_servo");
-        arm.setDirection(Servo.Direction.FORWARD);
-        arm.setPosition(ARM_UP_POSITION);
-
-        gripper = hardwareMap.servo.get("gripper_servo");
-        gripper.setDirection(Servo.Direction.FORWARD);
-        gripper.setPosition(GRIPPER_RELEASE_POSITION);
+//        arm = hardwareMap.servo.get("arm_servo");
+//        arm.setDirection(Servo.Direction.FORWARD);
+//        arm.setPosition(ARM_UP_POSITION);
+//
+//        gripper = hardwareMap.servo.get("gripper_servo");
+//        gripper.setDirection(Servo.Direction.FORWARD);
+//        gripper.setPosition(GRIPPER_RELEASE_POSITION);
 
         drive = new Drive(hardwareMap,telemetry);
+        intake = new Intake(hardwareMap);
     }
 
     public void setGripperPosition(double position) {
@@ -81,6 +79,33 @@ public class TestTeleopMode extends AbstractTeleop {
     public void toggleGripperPosition() {
         setGripperPosition(gripped ? GRIPPER_GRIP_POSITION : GRIPPER_RELEASE_POSITION);
         gripped = !gripped;
+    }
+
+    public void toggleConveyor(){
+        if (isConveying)
+            intake.stopConveyor();
+        else
+            intake.startConveyor();
+        isConveying = !isConveying;
+    }
+
+    public void startRotating(){
+        intake.startRotatingRight();
+        intake.startRotatingLeft();
+    }
+
+    public void stopRotating(){
+        intake.stopRotatingLeft();
+        intake.stopRotatingRight();
+    }
+
+    public void toggleRotation() {
+        if (isRotating)
+            stopRotating();
+        else
+            startRotating();
+        isRotating = !isRotating;
+
     }
 
     public void setArmUp() {

@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.DriveController;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.IntakeController;
 import org.upacreekrobotics.dashboard.Dashboard;
 
 public class Robot extends AbstractRobot {
@@ -20,19 +21,22 @@ public class Robot extends AbstractRobot {
     int BLOCKHEIGHT = 148;
 
     public DriveController driver;
+    public IntakeController intake;
+
 
     public Robot() {
         imageProcessor = new ImageProcessor(false);
         //telemetry = new DoubleTelemetry(super.telemetry, Dashboard.getInstance().getTelemetry(), new Logger(Dashboard.getCurrentOpMode()));
 
         driver = new DriveController();
+        intake = new IntakeController();
     }
 
-    public void runDrivePath(Path path){
+    public void runDrivePath(Path path) {
         driver.runDrivePath(path);
     }
 
-    public void driveToSegment(DriveSegment segment){
+    public void driveToSegment(DriveSegment segment) {
         driver.driveToSegment(segment);
     }
 
@@ -80,12 +84,26 @@ public class Robot extends AbstractRobot {
 
     public int getLineAverage(Bitmap image, int x, int y) {
         int sum = 0;
-        for (int i = 0; i < ( BLOCKHEIGHT - 50); i++)
-            sum += Color.red(image.getPixel(x, y+i));
+        for (int i = 0; i < (BLOCKHEIGHT - 50); i++)
+            sum += Color.red(image.getPixel(x, y + i));
         //telemetry.addData(DoubleTelemetry.LogMode.INFO, sum);
         //telemetry.update();
-        return sum/(BLOCKHEIGHT-50);
+        return sum / (BLOCKHEIGHT - 50);
     }
+
+    public void startRotation() {
+        intake.startIntake();
+    }
+
+
+    public void stopRotating() {
+        intake.stopIntake();
+    }
+
+    public void toggleRotation(){
+        intake.toggleRotation();
+    }
+
 
     public void stop() {
 
