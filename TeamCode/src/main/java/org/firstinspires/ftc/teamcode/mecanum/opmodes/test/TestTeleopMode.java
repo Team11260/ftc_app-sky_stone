@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.IntakeController;
 import org.upacreekrobotics.dashboard.Config;
 
 import static org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path.k;
+import static org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path.t;
 
 @TeleOp(name = "Test Teleop Mode", group = "New")
 
@@ -35,14 +36,17 @@ public class TestTeleopMode extends AbstractTeleop {
 
     @Override
     public void RegisterEvents() {
+        addEventHandler("1_y_down", () -> toggleConveyor());
         addEventHandler("1_x_down", () -> toggleRotation());
-        addEventHandler("l_y_down", () -> toggleConveyor());
     }
 
     @Override
     public void UpdateEvents() {
         double k = 0.5;
-        double left_stick_x=gamepad1.left_stick_x,left_stick_y = -gamepad1.left_stick_y, right_stick_x = gamepad1.right_stick_x;
+        double left_stick_x=gamepad1.left_stick_x,left_stick_y = -gamepad1.left_stick_y, right_stick_x = 0;
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"left encoder+"+drive.getLeftPosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"right encoder+"+drive.getRightPosition());
+        telemetry.update();
         drive.setDrivePowerAll(k*(left_stick_y+left_stick_x+right_stick_x),k*(left_stick_y-left_stick_x-right_stick_x),
                                k*(left_stick_y-left_stick_x+right_stick_x),k*(left_stick_y+left_stick_x-right_stick_x));
     }
@@ -81,12 +85,21 @@ public class TestTeleopMode extends AbstractTeleop {
         gripped = !gripped;
     }
 
-    public void toggleConveyor(){
-        if (isConveying)
-            intake.stopConveyor();
-        else
-            intake.startConveyor();
+    public void toggleConveyor() {
+        if (isConveying) {
+            stopConveyor();
+        } else {
+            startConveyor();
+        }
         isConveying = !isConveying;
+    }
+
+    public void startConveyor() {
+        intake.startConveyor();
+    }
+
+    public void stopConveyor() {
+        intake.stopConveyor();
     }
 
     public void startRotating(){
@@ -136,7 +149,8 @@ public class TestTeleopMode extends AbstractTeleop {
 
     @Override
     public void Loop() {
-      }
+
+    }
 
     @Override
     public void Stop() {

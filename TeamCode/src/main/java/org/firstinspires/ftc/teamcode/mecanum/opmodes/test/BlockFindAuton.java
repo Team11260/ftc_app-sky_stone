@@ -34,8 +34,6 @@ public class BlockFindAuton extends AbstractAuton {
     DecimalFormat DF;
 
     DriveSegment segment1;
-    DriveSegment segment2;
-    TurnSegment turnSegment;
     Path path;
     public static double distance = 12;
 
@@ -60,14 +58,9 @@ public class BlockFindAuton extends AbstractAuton {
         //drive = new Drive(hardwareMap, telemetry);
         DF=new DecimalFormat("#.##");
         // imageProcessor = new ImageProcessor(false);
-        segment1 = new DriveSegment("test",distance,0.4,100);
-        segment2 = new DriveSegment("milan is driving", 7.5, 0.4, 100,180);
-        turnSegment = new TurnSegment("turn",60,0.5,5,500);
+        segment1 = new DriveSegment("test",distance,0.5,100);
         path = new Path("test");
         path.addSegment(segment1);
-        path.addSegment(turnSegment);
-        path.addSegment(segment2);
-
         //test.addSegment(turnSegment);
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "init");
@@ -97,9 +90,9 @@ public class BlockFindAuton extends AbstractAuton {
             default:
 
         }
-        //robot.driveToSegment((DriveSegment)test.getNextSegment());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"segment distance"+segment1.getDistance());
         robot.runDrivePath(path);
-        //turnTo(30);
+
         while (false && opModeIsActive()) {
 
             /*telemetry.addData(DoubleTelemetry.LogMode.INFO, Color.red(image.getPixel(XORIGIN + 40, 355)));

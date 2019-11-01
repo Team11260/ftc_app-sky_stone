@@ -29,7 +29,7 @@ public class Robot extends AbstractRobot {
         //telemetry = new DoubleTelemetry(super.telemetry, Dashboard.getInstance().getTelemetry(), new Logger(Dashboard.getCurrentOpMode()));
 
         driver = new DriveController();
-        intake = new IntakeController();
+        //intake = new IntakeController();
     }
 
     public void runDrivePath(Path path) {

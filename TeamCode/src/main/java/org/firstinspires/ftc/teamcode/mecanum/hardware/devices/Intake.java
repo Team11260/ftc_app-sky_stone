@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.mecanum.hardware.devices;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PwmControl;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ServoControllerEx;
 
 import org.upacreekrobotics.dashboard.Config;
 
@@ -11,25 +13,25 @@ public class Intake {
      Servo conveyorBelt;
      Servo leftIntake;
 
-
-
-     public static double rightPosition = 0.8, leftPosition = 0.8;
+     public static double rightPosition = 1.0, leftPosition = 1.0;
      public static double beltPosition = 1.0;
 
 
     public Intake(HardwareMap hardwareMap){
         rightIntake = hardwareMap.servo.get("right_intake");
         rightIntake.setDirection(Servo.Direction.FORWARD);
-        rightIntake.scaleRange(0.0,1.0);
+        //ServoControllerEx theController = (ServoControllerEx) (rightIntake.getController());
+        //rightIntake.getController();
+        //int thePort = rightIntake.getPortNumber();
+        //PwmControl.PwmRange theRange = new PwmControl.PwmRange(553,2500);
+        //theController.setServoPwmRange(thePort,theRange);
+
 
         conveyorBelt = hardwareMap.servo.get("conveyor_belt");
         conveyorBelt.setDirection(Servo.Direction.REVERSE);
-        conveyorBelt.scaleRange(0.0,1.0);
 
         leftIntake = hardwareMap.servo.get("left_intake");
         leftIntake.setDirection(Servo.Direction.REVERSE);
-        leftIntake.scaleRange(0.0,1.0);
-
     }
 
     public void startRotatingLeft(){

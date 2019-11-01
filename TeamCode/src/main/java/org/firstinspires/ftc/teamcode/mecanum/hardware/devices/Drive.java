@@ -50,7 +50,7 @@ public class Drive extends PurePursuitController {
         dcMotorFrontRight.setPower(FR * 0.8);
         dcMotorBackLeft.setPower(BL * 0.8);
         dcMotorBackRight.setPower(BR * 0.8);
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, dcMotorFrontLeft.getCurrentPosition(), dcMotorFrontRight.getCurrentPosition());
+        //telemetry.addData(DoubleTelemetry.LogMode.INFO, dcMotorFrontLeft.getCurrentPosition(), dcMotorFrontRight.getCurrentPosition());
     }
 
     @Override
