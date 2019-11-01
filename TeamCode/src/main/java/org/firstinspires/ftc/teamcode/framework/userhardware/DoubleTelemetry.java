@@ -72,10 +72,11 @@ public class DoubleTelemetry {
 
     public void addDataPhone(LogMode mode, Object data) {
         log("[" + mode.toString() + "] " + String.valueOf(data));
-        if (loggingMode.shouldLog(mode)) {
+       // if (loggingMode.shouldLog(mode))
+        //{
             telemetry.addLine(String.valueOf(data));
-            dashtelem.info("[" + mode.toString() + "] " + String.valueOf(data));
-        }
+          //  dashtelem.info("[" + mode.toString() + "] " + String.valueOf(data));
+       // }
     }
 
     public void addDataPhone(LogMode mode, Object caption, Object data) {
