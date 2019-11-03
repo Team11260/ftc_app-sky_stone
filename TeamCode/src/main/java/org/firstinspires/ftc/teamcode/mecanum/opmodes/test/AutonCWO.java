@@ -40,11 +40,15 @@ public class AutonCWO extends AbstractAuton {
     @Override
     public void Run() {
 
+
+        robot.runDrivePath(Constantscwo.approachTheStones);
         switch(robot.skyStonePosition){
             case "Right":
+                robot.strafe(6);
                 robot.runDrivePath(Constantscwo.collectRightSkyStone);
                 break;
             case "Left":
+                robot.strafe(-6);
                 robot.runDrivePath(Constantscwo.collectLeftSkyStone);
                 break;
             case "Center":
@@ -54,29 +58,9 @@ public class AutonCWO extends AbstractAuton {
                 robot.runDrivePath(Constantscwo.collectCenterSkyStone);
                 break;
         }
-        delay(400);
-        robot.runDrivePath(Constantscwo.reverseTurn);
 
-        switch(robot.skyStonePosition){
-            case "Right":
-                robot.runDrivePath(Constantscwo.driveRightSkyStone);
-                break;
-            case "Left":
-                robot.runDrivePath(Constantscwo.driveLeftSkyStone);
-                break;
-            case "Center":
-                robot.runDrivePath(Constantscwo.driveCenterSkyStone);
-                break;
-            default:
-                robot.runDrivePath(Constantscwo.driveCenterSkyStone);
-                break;
-        }
-        delay(500);
-        robot.runDrivePath(Constantscwo.pullTray);
-        delay(300);
-        robot.strafe(-15);
+        robot.strafe(-30);
         robot.runDrivePath(Constantscwo.park);
-
 
     }
 
