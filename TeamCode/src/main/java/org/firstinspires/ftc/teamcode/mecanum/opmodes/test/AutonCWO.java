@@ -1,26 +1,36 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.util.PathState;
 import org.firstinspires.ftc.teamcode.framework.util.State;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.Constants;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Constantscwo;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.RobotState;
+
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.devices.RobotState.currentPath;
 
 @Autonomous(name = "Auton CWO", group = "New")
 
 public class AutonCWO extends AbstractAuton {
 
     Robotcwo robot;
-
+    private Servo arm, gripper;
 
     @Override
     public void RegisterStates() {
 
-        addState(new State("auton arm down to collect", "start", robot.armDownCallable()));
-        addState(new PathState("auton arm close to squeeze", "drive to sky stone", robot.armCloseCallable()));
-        addState(new State("auton arm up", "arm close to squeeze", robot.armUpCallable()));
-        addState(new PathState("arm down with block", "drive to tray", robot.dropStoneCallable()));
+        addState(new State("arm down to collect", "start", robot.armDownCallable()));
+        addState(new PathState("arm grips the stone", "drive to sky stone", robot.gripperGripCallable()));
+        addState(new State("arm up", "arm grips the stone", robot.armUpCallable()));
+        addState(new PathState("gripping pause", "drive to sky stone", () -> {
+            RobotState.currentPath.pause();
+            delay(Constantscwo.GRIPPING_DELAY);
+            RobotState.currentPath.resume();
+        }));
+        addState(new PathState("arm down with block", "drive to tray", robot.armDownCallable()));
         addState(new State("release stone", "arm down with block", robot.releaseStoneCallable()));
         addState(new State("tray latch down", "arm down with block", robot.trayArmDownCallable()));
         addState(new PathState("tray latch up", "pull tray", robot.trayArmUpCallable()));
@@ -30,6 +40,7 @@ public class AutonCWO extends AbstractAuton {
     public void Init() {
 
         robot = new Robotcwo();
+
     }
 
     public void InitLoop(int loop) {
@@ -39,7 +50,6 @@ public class AutonCWO extends AbstractAuton {
 
     @Override
     public void Run() {
-
 
         robot.runDrivePath(Constantscwo.approachTheStones);
         switch(robot.skyStonePosition){
@@ -58,7 +68,7 @@ public class AutonCWO extends AbstractAuton {
                 robot.runDrivePath(Constantscwo.collectCenterSkyStone);
                 break;
         }
-
+        robot.runDrivePath(Constantscwo.dumpAndDrag);
         robot.strafe(-30);
         robot.runDrivePath(Constantscwo.park);
 

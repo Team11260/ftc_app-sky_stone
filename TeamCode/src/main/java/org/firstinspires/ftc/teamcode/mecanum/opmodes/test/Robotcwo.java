@@ -1,63 +1,72 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
 
-import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
-import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
+import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.RobotState;
 
 public class Robotcwo extends Robot {
 
+    public static double ARM_DOWN_POSITION = 0.855;
+    public static double ARM_UP_POSITION = 0.5;
+    public static double GRIPPER_GRIP_POSITION = 0.8;
+    public static double GRIPPER_RELEASE_POSITION = 0.35;
+
+    HardwareMap hardwareMap;
+
+    public Servo arm, gripper;
+
     String skyStonePosition;
-    DriveSegment segment1, segmentLeft, segmentRight, segmentCenter;
-    Path path, pathLeft, pathRight, pathCenter;
 
     public Robotcwo() {
-        segment1 = new DriveSegment("test", 20, 0.5, 100);
-        segmentLeft = new DriveSegment("left", 20, 0.5, 100);
-        segmentRight= new DriveSegment("right", 20, 0.5, 100);
-        segmentCenter = new DriveSegment("center", 20, 0.5, 100);
 
-        path = new Path("test");
-        pathLeft = new Path("LeftPath");
-        pathCenter = new Path("CenterPath");
-        pathRight = new Path("RightPath");
-        path.addSegment(segment1);
-        pathLeft.addSegment(segmentLeft);
-        pathRight.addSegment(segmentRight);
-        pathCenter.addSegment(segmentCenter);
+        arm = hardwareMap.servo.get("arm_servo");
+        arm.setDirection(Servo.Direction.FORWARD);
+        arm.setPosition(ARM_UP_POSITION);
+
+        gripper = hardwareMap.servo.get("gripper_servo");
+        gripper.setDirection(Servo.Direction.FORWARD);
+        gripper.setPosition(GRIPPER_RELEASE_POSITION);
+
     }
 
     public void strafe(int distance){}
 
     public void getSkyStonePosition(){
-
         skyStonePosition = getSkyStonePositionThreeStones();
-
     }
 
     public RobotCallable armDownCallable() {
         return () -> armDown();
     }
 
-    public void armDown(){}
+    public void armDown(){
+        arm.setPosition(ARM_DOWN_POSITION);
+    }
 
     public RobotCallable armUpCallable() {
-        return () -> armDown();
+        return () -> armUp();
     }
 
-    public void armUp(){}
-
-    public RobotCallable armCloseCallable() {
-        return () -> armClose();
+    public void armUp(){
+        arm.setPosition(ARM_UP_POSITION);
     }
 
-    public void armClose(){}
-
-    public RobotCallable dropStoneCallable() {
-        return () -> dropStone();
+    public RobotCallable gripperGripCallable() {
+        return () -> gripperGrip();
     }
 
-    public void dropStone(){}
+    public void gripperGrip(){
+        gripper.setPosition(GRIPPER_GRIP_POSITION);
+    }
+
+    public RobotCallable gripperReleaseCallable() {
+        return () -> gripperRelease();
+    }
+
+    public void gripperRelease(){
+        gripper.setPosition(GRIPPER_RELEASE_POSITION);
+    }
 
     public RobotCallable trayArmDownCallable() {
         return () -> trayArmDown();

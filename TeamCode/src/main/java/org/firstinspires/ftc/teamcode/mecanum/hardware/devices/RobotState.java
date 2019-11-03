@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.mecanum.hardware.devices;
 
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.SamplePosition;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.devices.RobotState.currentPath;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Constants;
 
 public final class RobotState {

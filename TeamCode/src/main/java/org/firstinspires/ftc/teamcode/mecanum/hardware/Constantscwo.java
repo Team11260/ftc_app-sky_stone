@@ -6,6 +6,8 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
 
 public class Constantscwo {
 
+    public static int GRIPPING_DELAY = 500;
+
     public final static Path approachTheStones = new Path("approach the stones");
 
     static{

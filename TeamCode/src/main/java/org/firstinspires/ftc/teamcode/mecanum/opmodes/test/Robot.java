@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.DriveController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.IntakeController;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.devices.RobotState.currentPath;
 import org.upacreekrobotics.dashboard.Dashboard;
 
 public class Robot extends AbstractRobot {
