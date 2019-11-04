@@ -6,6 +6,7 @@ import android.util.SparseIntArray;
 import android.widget.ImageView;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
@@ -16,11 +17,18 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.visi
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.ArmController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Drive;
 import org.upacreekrobotics.dashboard.Config;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
+
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.backUp;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectBlock;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectCenterSkyStone;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.forwardDrive;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.lastDrive;
 
 @Autonomous(name = "BlockFind Auton", group = "New")
 
@@ -33,13 +41,14 @@ public class BlockFindAuton extends AbstractAuton {
     boolean dashBoardSwitch = true;
     DecimalFormat DF;
 
-    DriveSegment segment1;
-    Path path;
-    public static double distance = 12;
+    ArmController arm;
+
+    public static double distance = 24;
 
 
     @Override
     public void RegisterStates() {
+
 
     }
 
@@ -54,14 +63,12 @@ public class BlockFindAuton extends AbstractAuton {
 
     @Override
     public void Init() {
+
         robot = new Robot();
         //drive = new Drive(hardwareMap, telemetry);
-        DF=new DecimalFormat("#.##");
+        DF = new DecimalFormat("#.##");
         // imageProcessor = new ImageProcessor(false);
-        segment1 = new DriveSegment("test",distance,0.5,100);
-        path = new Path("test");
-        path.addSegment(segment1);
-        //test.addSegment(turnSegment);
+        arm = new ArmController();
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "init");
         telemetry.update();
@@ -72,7 +79,6 @@ public class BlockFindAuton extends AbstractAuton {
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "run started");
         telemetry.update();
-
 
         switch (robot.getSkyStonePositionThreeStones()) {
             case "Right":
@@ -90,51 +96,38 @@ public class BlockFindAuton extends AbstractAuton {
             default:
 
         }
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"segment distance"+segment1.getDistance());
-        robot.runDrivePath(path);
 
-        while (false && opModeIsActive()) {
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, "segment distance");
+        //robot.runDrivePath(path);
+        /*arm.setArmDownPosition();
+        arm.setGripperReleasePostion();
+        robot.runDrivePath(collectCenterSkyStone);
 
-            /*telemetry.addData(DoubleTelemetry.LogMode.INFO, Color.red(image.getPixel(XORIGIN + 40, 355)));
-            telemetry.addData(DoubleTelemetry.LogMode.INFO, Color.green(image.getPixel(XORIGIN + 40, 355)));
-            telemetry.addData(DoubleTelemetry.LogMode.INFO, Color.blue(image.getPixel(XORIGIN + 40, 355)));
-            */
+        robot.strafe(-0.4,400);
 
-            //telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones());
-            //telemetry.update();
-            }
-
-    }
-
-    /*public void turnTo(double angle) {
-        double currentangle = imu.getHeading();
-        double threshold = 4.0;
-        double error = currentangle - angle;
-        double p = 0.5;
-        double ratio = 1;
-
-        if (angle < 0) {
-            p = -p;
-        }
-        while (Math.abs(imu.getHeading()-angle) > threshold) {
-            ratio = Math.abs(imu.getHeading() - angle)/angle;
-            drive.setDrivePowerAll(ratio*p, ratio*-p,ratio*p, ratio*-p);
-            if (p*ratio>0.5) break;
-            telemetry.addData(DoubleTelemetry.LogMode.INFO, imu.getHeading(),DF.format(p*ratio));
-            telemetry.update();
-        }
-        drive.setDrivePowerAll(0, 0, 0, 0);
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, imu.getHeading());
-        telemetry.update();
-    }*/
+        robot.runDrivePath(collectBlock);
+        arm.setGripperGripPosition();
+        delay(500);
+        arm.setArmUpPosition();
+        robot.runDrivePath(backUp);
+        robot.strafe(-0.4,4000);
+        robot.runDrivePath(forwardDrive);
+        arm.setArmDownPosition();
+        delay(500);
+        robot.runDrivePath(lastDrive);*/
+        arm.setArmPinPosition();
+        arm.setGripperGripPosition();
+        delay(500);
+        robot.runDrivePath(lastDrive);
 
 
-    public void Strafe() {
-
+        robot.stop();
 
     }
+
+
     @Override
-    public void Stop(){
+    public void Stop() {
         robot.driver.stop();
     }
 }

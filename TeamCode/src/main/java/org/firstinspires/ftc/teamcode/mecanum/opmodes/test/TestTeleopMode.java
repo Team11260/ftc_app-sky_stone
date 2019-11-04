@@ -36,8 +36,8 @@ public class TestTeleopMode extends AbstractTeleop {
 
     @Override
     public void RegisterEvents() {
-        addEventHandler("1_y_down", () -> toggleConveyor());
-        addEventHandler("1_x_down", () -> toggleRotation());
+        addEventHandler("1_y_down", () -> setArmDown());
+        addEventHandler("1_x_down", () -> setGripperGrip());
     }
 
     @Override
@@ -55,13 +55,13 @@ public class TestTeleopMode extends AbstractTeleop {
     @Override
     public void Init() {
 
-//        arm = hardwareMap.servo.get("arm_servo");
-//        arm.setDirection(Servo.Direction.FORWARD);
-//        arm.setPosition(ARM_UP_POSITION);
-//
-//        gripper = hardwareMap.servo.get("gripper_servo");
-//        gripper.setDirection(Servo.Direction.FORWARD);
-//        gripper.setPosition(GRIPPER_RELEASE_POSITION);
+        arm = hardwareMap.servo.get("arm_servo");
+        arm.setDirection(Servo.Direction.FORWARD);
+        arm.setPosition(ARM_UP_POSITION);
+
+        gripper = hardwareMap.servo.get("gripper_servo");
+        gripper.setDirection(Servo.Direction.FORWARD);
+        gripper.setPosition(GRIPPER_RELEASE_POSITION);
 
         drive = new Drive(hardwareMap,telemetry);
         intake = new Intake(hardwareMap);
@@ -149,6 +149,8 @@ public class TestTeleopMode extends AbstractTeleop {
 
     @Override
     public void Loop() {
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"left position"+drive.getRightPosition());
+        telemetry.update();
 
     }
 

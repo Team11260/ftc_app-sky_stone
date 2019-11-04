@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.outputs.Logger;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.ArmController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.DriveController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.IntakeController;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.devices.RobotState.currentPath;
@@ -23,6 +24,7 @@ public class Robot extends AbstractRobot {
 
     public DriveController driver;
     public IntakeController intake;
+    public ArmController arm;
 
 
     public Robot() {
@@ -31,11 +33,20 @@ public class Robot extends AbstractRobot {
 
         driver = new DriveController();
         //intake = new IntakeController();
+        arm = new ArmController();
     }
 
     public void runDrivePath(Path path) {
         driver.runDrivePath(path);
     }
+
+    public void strafe(double power, int delay){
+        driver.strafe(power);
+        delay(delay);
+        driver.stop();
+    }
+
+
 
     public void driveToSegment(DriveSegment segment) {
         driver.driveToSegment(segment);
@@ -107,6 +118,8 @@ public class Robot extends AbstractRobot {
 
 
     public void stop() {
+
+        driver.stop();
 
     }
 
