@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.mecanum.hardware.devices;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.robot.RobotState;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
@@ -9,6 +8,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.PIDController;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.StrafeSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
 import org.upacreekrobotics.dashboard.Config;
@@ -24,7 +24,7 @@ public class DriveController extends SubsystemController {
 
     private Drive drive;
 
-    private PIDController anglePID, straightPID, distancePID;
+    private PIDController anglePID, straightPID, distancePID, strafePID;
 
     private double baseHeading = 0;
 
@@ -37,6 +37,7 @@ public class DriveController extends SubsystemController {
     public static Path currentPath = null;
 
     private double DRIVE_COUNTS_PER_INCH = 180;//1440*x/(2.25pi)
+    private double STRAFE_COUNTS_PER_INCH = 45;
 
     public static double PATH_P = 15, PATH_F = 5;
 
@@ -46,7 +47,7 @@ public class DriveController extends SubsystemController {
 
     private DecimalFormat DFpwr, DFenc;
 
-    TelemetryRecord[] RecTelem = new TelemetryRecord[200];
+    TelemetryRecord[] RecTelem = new TelemetryRecord[1000];
     ElapsedTime RecTelemTime;
 
 
@@ -62,6 +63,7 @@ public class DriveController extends SubsystemController {
         //anglePID.setLogging(true);
         straightPID = new PIDController(5, 0.000, 0.01, 1, 0);
         distancePID = new PIDController(PROP_GAIN,INT_GAIN ,DIFF_GAIN , 2, 0.1);
+        strafePID = new PIDController(10,0,0,0,0.1);
         for ( int i = 0; i<RecTelem.length; i++)
         {
             RecTelem[i] = new TelemetryRecord();
@@ -76,8 +78,8 @@ public class DriveController extends SubsystemController {
     }
 
     public synchronized void update() {
-         telemetry.addData(DoubleTelemetry.LogMode.TRACE, "Left drive position: " + drive.getLeftPosition());
-        telemetry.addData(DoubleTelemetry.LogMode.TRACE, "Right drive position: " + drive.getRightPosition());
+         telemetry.addData(DoubleTelemetry.LogMode.TRACE, "Left drive position: " + drive.getFrontLeftPosition());
+        telemetry.addData(DoubleTelemetry.LogMode.TRACE, "Right drive position: " + drive.getFrontRightPosition());
         drive.update();
         telemetry.addData(INFO, "X:" + drive.getCurrentPosition().getX() + "  Y: " + drive.getCurrentPosition().getY());
 
@@ -115,6 +117,9 @@ public class DriveController extends SubsystemController {
                 turnToSegment((TurnSegment) path.getCurrentSegment());
             } else if (path.getCurrentSegment().getType() == Segment.SegmentType.DRIVE) {
                 driveToSegment((DriveSegment) path.getCurrentSegment());
+            }
+            else if (path.getCurrentSegment().getType() == Segment.SegmentType.STRAFE){
+                strafeToSegment((StrafeSegment) path.getCurrentSegment());
             }
 
             telemetry.addData(INFO, "Finished segment: " + path.getCurrentSegment().getName() + " in path: " + currentPath.getName() + "  paused: " + currentPath.isPaused() + "  done: " + currentPath.isDone());
@@ -207,7 +212,7 @@ public class DriveController extends SubsystemController {
             telemetry.addData(INFO, "");
             telemetry.addData(INFO, "Average loop time for turn: " + DF.format(runtime.milliseconds() / loop)
                     + " Time = " + runtime.milliseconds() + " Loops = " + loop);
-            telemetry.addData(INFO, "Left encoder position: " + DF.format(drive.getLeftPosition()) + "  Right encoder position: " + DF.format(drive.getRightPosition()));
+            telemetry.addData(INFO, "Left encoder position: " + DF.format(drive.getFrontLeftPosition()) + "  Right encoder position: " + DF.format(drive.getFrontRightPosition()));
             telemetry.addData(INFO, "Final angle: " + DF.format(getHeading()));
             telemetry.update();
 
@@ -250,7 +255,7 @@ public class DriveController extends SubsystemController {
         runtime.reset();
 
         RecTelemTime.reset();
-        while ((!atPosition(position, drive.getLeftPosition(), error) && opModeIsActive())) {
+        while ((!atPosition(position, drive.getFrontLeftPosition(), error) && opModeIsActive())) {
 
          //   telemetry.addData(INFO,"Entered driveSegement Loop");
          //   telemetry.update();
@@ -265,7 +270,7 @@ public class DriveController extends SubsystemController {
 
             currentHeading = getHeading();
 
-            power = range(distancePID.output(position, (drive.getLeftPosition())));
+            power = range(distancePID.output(position, (drive.getFrontLeftPosition())));
 
           //  telemetry.addData(INFO,"Power "+power);
           //  telemetry.update();
@@ -293,13 +298,13 @@ public class DriveController extends SubsystemController {
             RecTelem[loop].Error = angle - currentHeading;
             RecTelem[loop].LeftPower = leftPower;
             RecTelem[loop].RightPower = rightPower;
-            RecTelem[loop].BackLeftCount = 5;//drive.getLeftPosition(); // These cost us time (10ms)
-            RecTelem[loop].BackRightCount = 6;//drive.getRightPosition();//^
+            RecTelem[loop].BackLeftCount = 5;//drive.getFrontLeftPosition(); // These cost us time (10ms)
+            RecTelem[loop].BackRightCount = 6;//drive.getFrontRightPosition();//^
             previousTime = RecTelemTime.milliseconds();
 
             loop++;
-          //  telemetry.addData(INFO,"Loop :"+loop+" "+drive.getLeftPosition()+"" +
-            //                                      ""+drive.getRightPosition());
+          //  telemetry.addData(INFO,"Loop :"+loop+" "+drive.getFrontLeftPosition()+"" +
+            //                                      ""+drive.getFrontRightPosition());
           //  telemetry.update();
         } //end of while loop
         drive.stop();
@@ -317,18 +322,131 @@ public class DriveController extends SubsystemController {
         }*/
         telemetry.addData(INFO, "Average loop time for drive: " + runtime.milliseconds() / loop);
         telemetry.addData(INFO, "Loop count " + loop);
-        telemetry.addData(INFO, "Left encoder position: " + drive.getLeftPosition() + "  Right encoder position: " + drive.getRightPosition());
+        telemetry.addData(INFO, "Left encoder position: " + drive.getFrontLeftPosition() + "  Right encoder position: " + drive.getFrontRightPosition());
         telemetry.addData(INFO, "Final angle: " + getHeading());
         //telemetry.update();
 
 
         //delay(1000);
-        telemetry.addData(INFO, "Left encoder position: " + drive.getLeftPosition() + "  Right encoder position: " + drive.getRightPosition());
+        telemetry.addData(INFO, "Left encoder position: " + drive.getFrontLeftPosition() + "  Right encoder position: " + drive.getFrontRightPosition());
         telemetry.update();
         //drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
 
+    public synchronized void strafeToSegment(StrafeSegment segment) {
+        telemetry.addData(INFO, "Strafe Segment is starting");
+        telemetry.addData(INFO, "");
+        telemetry.addData(INFO, "");
+        telemetry.addData(INFO, "");
+
+        //AbstractOpMode.delay(100);
+
+        double distance = segment.getDistance(), speed = segment.getSpeed(), angle = baseHeading;
+        if (segment.getAngle() != null) angle = segment.getAngle();
+        int error = segment.getError();
+
+        baseHeading = angle;
+
+        straightPID.reset(); //Resets the PID values in the PID class to make sure we do not have any left over values from the last segment
+        distancePID.reset();
+        strafePID.reset();
+        straightPID.setMinimumOutput(0);
+        int position = (int) (distance * STRAFE_COUNTS_PER_INCH); //
+        double turn;
+        speed = range(speed);
+        drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //drive.setPositionP(5);
+        telemetry.update();
+        double leftPower, rightPower;
+        double power;
+
+        double currentHeading;
+
+        int loop = 0;
+        runtime.reset();
+
+        RecTelemTime.reset();
+        while ((!atPosition(position, drive.getBackLeftPosition(), error) && opModeIsActive())) {
+
+            //   telemetry.addData(INFO,"Entered driveSegement Loop");
+            //   telemetry.update();
+            if (segment.isDone()) {
+                setPower(0, 0);
+                return;
+            }
+            if (!segment.isRunning()) {
+                setPower(0, 0);
+                continue;
+            }
+
+            currentHeading = getHeading();
+
+            power = range(strafePID.output(position, (drive.getBackLeftPosition())));
+
+            //  telemetry.addData(INFO,"Power "+power);
+            //  telemetry.update();
+            if (angle - currentHeading > 180) {
+                turn = anglePID.output(angle, 360 + currentHeading);
+            } else if (currentHeading - angle > 180) {
+                turn = anglePID.output(angle, angle - (360 - (currentHeading - angle)));
+            } else {
+                turn = anglePID.output(angle, currentHeading);
+            }
+
+            turn = 0;
+
+            if (power > 0) {
+                leftPower = range(power * (speed - turn));
+                rightPower = range(power * (speed + turn));
+            } else {
+                leftPower = range(power * (speed + turn));
+                rightPower = range(power * (speed - turn));
+            }
+
+            drive.setDrivePowerAll(leftPower,-rightPower,-leftPower,rightPower);
+            if ( loop == 0) { RecTelem[loop].Time = RecTelemTime.milliseconds(); }
+            else            {  RecTelem[loop].Time = RecTelemTime.milliseconds() - previousTime; }
+
+            RecTelem[loop].Angle = currentHeading;
+            RecTelem[loop].Error = angle - currentHeading;
+            RecTelem[loop].LeftPower = leftPower;
+            RecTelem[loop].RightPower = rightPower;
+            RecTelem[loop].BackLeftCount = 5;//drive.getFrontLeftPosition(); // These cost us time (10ms)
+            RecTelem[loop].BackRightCount = 6;//drive.getFrontRightPosition();//^
+            previousTime = RecTelemTime.milliseconds();
+
+            loop++;
+            telemetry.addData(INFO,"Loop :"+loop+" Front Left: "+drive.getFrontLeftPosition()+"  Front Right "+drive.getBackLeftPosition());
+            telemetry.update();
+        } //end of while loop
+
+        drive.stop();
+        /*for ( int n = 0; n < loop; n++ )
+        {
+            telemetry.addData(INFO, "index = " + DFpwr.format( RecTelem[n].Index)
+                    + " deltatime = " + DFpwr.format( RecTelem[n].Time)
+                    + " angle = " + DFpwr.format(RecTelem[n].Angle)
+                    + " error = " + DFpwr.format(RecTelem[n].Error)
+                    + "   left = " + DFpwr.format(RecTelem[n].LeftPower)
+                    + " right = " + DFpwr.format(RecTelem[n].RightPower)
+                    + "    left enc = " +DFenc.format(RecTelem[n].BackLeftCount)
+                    + "    right enc = " +DFenc.format(RecTelem[n].BackRightCount)
+            );
+        }*/
+        telemetry.addData(INFO, "Average loop time for drive: " + runtime.milliseconds() / loop);
+        telemetry.addData(INFO, "Loop count " + loop);
+        telemetry.addData(INFO, "Left encoder position: " + drive.getFrontLeftPosition() + "  Right encoder position: " + drive.getFrontRightPosition());
+        telemetry.addData(INFO, "Final angle: " + getHeading());
+        //telemetry.update();
+
+
+        //delay(1000);
+        telemetry.addData(INFO, "Left encoder position: " + drive.getFrontLeftPosition() + "  Right encoder position: " + drive.getFrontRightPosition());
+        telemetry.update();
+        //drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
 
     public void strafe(double power) {
 
@@ -369,11 +487,11 @@ public class DriveController extends SubsystemController {
     }*/
 
     public int getLeftPosition() {
-        return drive.getLeftPosition();
+        return drive.getFrontLeftPosition();
     }
 
     public int getRightPosition() {
-        return drive.getRightPosition();
+        return drive.getFrontRightPosition();
     }
 
     public synchronized void resetAngleToZero() {

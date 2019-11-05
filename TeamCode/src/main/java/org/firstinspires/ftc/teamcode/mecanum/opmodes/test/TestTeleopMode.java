@@ -5,16 +5,10 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractTeleop;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
-import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path;
-import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Drive;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Intake;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.IntakeController;
 import org.upacreekrobotics.dashboard.Config;
-
-import static org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path.k;
-import static org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path.t;
 
 @TeleOp(name = "Test Teleop Mode", group = "New")
 
@@ -36,16 +30,16 @@ public class TestTeleopMode extends AbstractTeleop {
 
     @Override
     public void RegisterEvents() {
-        addEventHandler("1_y_down", () -> setArmDown());
-        addEventHandler("1_x_down", () -> setGripperGrip());
+        addEventHandler("1_y_down", () -> drive.resetEncoders());
+        addEventHandler("1_x_down", () -> toggleRotation());
     }
 
     @Override
     public void UpdateEvents() {
         double k = 0.5;
         double left_stick_x=gamepad1.left_stick_x,left_stick_y = -gamepad1.left_stick_y, right_stick_x = 0;
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"left encoder+"+drive.getLeftPosition());
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"right encoder+"+drive.getRightPosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"left encoder+"+drive.getFrontLeftPosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"right encoder+"+drive.getFrontRightPosition());
         telemetry.update();
         drive.setDrivePowerAll(k*(left_stick_y+left_stick_x+right_stick_x),k*(left_stick_y-left_stick_x-right_stick_x),
                                k*(left_stick_y-left_stick_x+right_stick_x),k*(left_stick_y+left_stick_x-right_stick_x));
@@ -149,7 +143,10 @@ public class TestTeleopMode extends AbstractTeleop {
 
     @Override
     public void Loop() {
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"left position"+drive.getRightPosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"front left position: "+drive.getFrontLeftPosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"front right position: "+ drive.getFrontRightPosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"back left position: "+drive.getBackLeftPosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"back right position: "+drive.getBackRightPosition());
         telemetry.update();
 
     }

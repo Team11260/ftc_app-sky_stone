@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.mecanum.hardware;
 
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.StrafeSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
 
 public final class Constants {
@@ -14,8 +15,10 @@ public final class Constants {
 
     static {
         collectCenterSkyStone.addSegment(new DriveSegment("drive to sky stone", 16, 0.5, 100));
+        collectCenterSkyStone.addSegment(new StrafeSegment("strafe to block", 5,0.4,100));
 
     }
+
 
     public final static Path collectBlock = new Path("collect block");
 
@@ -33,14 +36,19 @@ public final class Constants {
 
 
     static {
-        forwardDrive.addSegment(new DriveSegment("forward drive", 3, 0.5, 100));
+        forwardDrive.addSegment(new DriveSegment("forward drive", 6, 0.5, 100));
     }
 
-    public static final Path lastDrive = new Path("last drive");
+    public static final Path dragFoundation = new Path("last drive");
 
     static {
-        lastDrive.addSegment(new DriveSegment("last drive", -7, 1.0, 100));
+        dragFoundation.addSegment(new DriveSegment("drag foundation", -17, 0.3, 100));
     }
 
+    public static final Path avoidRobot = new Path("avoid robot");
+    static {
+
+        avoidRobot.addSegment(new DriveSegment("avoid robot", 14, 0.5, 100));
+    }
 
 }

@@ -12,6 +12,7 @@ public class ArmController extends SubsystemController {
     public static double ARM_DOWN_POSITION = 0.95;
     public static double ARM_PIN_POSITION = 1.0;
     public static double ARM_UP_POSITION = 0.5;
+    public static double ARM_BACK_POSITION = 0.3;
     public static double GRIPPER_GRIP_POSITION = 0.3;
     public static double GRIPPER_RELEASE_POSITION = 0.8;
 
@@ -24,6 +25,11 @@ public class ArmController extends SubsystemController {
 
     public void setArmUpPosition() {
         arm.setArmPosition(ARM_UP_POSITION);
+        up = true;
+    }
+
+    public void setArmBackPosition() {
+        arm.setArmPosition(ARM_BACK_POSITION);
         up = true;
     }
 

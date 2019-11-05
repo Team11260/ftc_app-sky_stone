@@ -24,11 +24,12 @@ import org.upacreekrobotics.dashboard.Config;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.avoidRobot;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.backUp;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectBlock;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectCenterSkyStone;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.dragFoundation;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.forwardDrive;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.lastDrive;
 
 @Autonomous(name = "BlockFind Auton", group = "New")
 
@@ -99,26 +100,28 @@ public class BlockFindAuton extends AbstractAuton {
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "segment distance");
         //robot.runDrivePath(path);
-        /*arm.setArmDownPosition();
+        arm.setArmDownPosition();
         arm.setGripperReleasePostion();
         robot.runDrivePath(collectCenterSkyStone);
 
-        robot.strafe(-0.4,400);
+        //robot.strafe(-0.4,400);
 
         robot.runDrivePath(collectBlock);
         arm.setGripperGripPosition();
         delay(500);
         arm.setArmUpPosition();
         robot.runDrivePath(backUp);
-        robot.strafe(-0.4,4000);
+        robot.strafe(-0.4,2700);
         robot.runDrivePath(forwardDrive);
         arm.setArmDownPosition();
-        delay(500);
-        robot.runDrivePath(lastDrive);*/
-        arm.setArmPinPosition();
-        arm.setGripperGripPosition();
-        delay(500);
-        robot.runDrivePath(lastDrive);
+        arm.setGripperReleasePostion();
+        arm.setArmBackPosition();
+        robot.runDrivePath(dragFoundation);
+        robot.strafe(0.3, 1200);
+        robot.runDrivePath(avoidRobot);
+        robot.strafe(0.3, 1200);
+     // robot.driver.setPower(-0.3,-0.3);
+       // delay(500);
 
 
         robot.stop();

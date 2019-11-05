@@ -46,10 +46,10 @@ public class Drive extends PurePursuitController {
     }
 
     public void setDrivePowerAll(double FL, double FR, double BL, double BR) {
-        dcMotorFrontLeft.setPower(FL * 0.8);
-        dcMotorFrontRight.setPower(FR * 0.8);
-        dcMotorBackLeft.setPower(BL * 0.8);
-        dcMotorBackRight.setPower(BR * 0.8);
+        dcMotorFrontLeft.setPower(FL);
+        dcMotorFrontRight.setPower(FR);
+        dcMotorBackLeft.setPower(BL);
+        dcMotorBackRight.setPower(BR);
         //telemetry.addData(DoubleTelemetry.LogMode.INFO, dcMotorFrontLeft.getCurrentPosition(), dcMotorFrontRight.getCurrentPosition());
     }
 
@@ -73,14 +73,24 @@ public class Drive extends PurePursuitController {
         return dcMotorFrontRight.getCurrentPosition() / 163.0;
     }
 
-    public int getLeftPosition() {
+    public int getFrontLeftPosition() {
         return -dcMotorFrontLeft.getCurrentPosition();
     }
 
-    public int getRightPosition() {
+    public int getFrontRightPosition() {
         //Negative for the odometry wheels
         return -dcMotorFrontRight.getCurrentPosition();
     }
+
+    public  int getBackLeftPosition(){
+        return dcMotorBackLeft.getCurrentPosition();
+    }
+
+
+    public  int getBackRightPosition(){
+        return dcMotorBackRight.getCurrentPosition();
+    }
+
 
     @Override
     public void setPower(double l, double r) {
@@ -96,6 +106,12 @@ public class Drive extends PurePursuitController {
         dcMotorBackLeft.setMode(mode);
         dcMotorFrontRight.setMode(mode);
         dcMotorBackRight.setMode(mode);
+    }
+
+    public void resetEncoders(){
+        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void encodersZero() {
