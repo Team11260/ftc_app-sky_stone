@@ -20,9 +20,6 @@ public class Drive {
     private double lastPosition = 0.0;
     private long lastVelocityTime = 0;
 
-    private double lastVelocity = 0.0;
-    private long lastAccelerationTime = 0;
-
     public Drive(HardwareMap hardwareMap){
         AbstractOpMode.getOpModeInstance();
         imu = new IMU(hardwareMap);
@@ -31,6 +28,8 @@ public class Drive {
         frontRight = new SlewDcMotor((hardwareMap.dcMotor.get("front_right")));
         backLeft = new SlewDcMotor((hardwareMap.dcMotor.get("back_left")));
         backRight = new SlewDcMotor((hardwareMap.dcMotor.get("back_right")));
+
+        setSlewRate(2);
 
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -87,6 +86,13 @@ public class Drive {
         frontRight.setMode(mode);
         backLeft.setMode(mode);
         backRight.setMode(mode);
+    }
+
+    public void setSlewRate(double slewRate) {
+        frontLeft.setSlewSpeed(slewRate);
+        frontRight.setSlewSpeed(slewRate);
+        backLeft.setSlewSpeed(slewRate);
+        backRight.setSlewSpeed(slewRate);
     }
 
     public void resetPosition() {
