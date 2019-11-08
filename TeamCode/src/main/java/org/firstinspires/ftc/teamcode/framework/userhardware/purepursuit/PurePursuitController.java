@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Drive;
 
 
 public abstract class PurePursuitController {

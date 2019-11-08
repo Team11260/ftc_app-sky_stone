@@ -65,7 +65,7 @@ public abstract class Segment {
     public enum SegmentType {
         DRIVE,
         TURN,
-        SPLINE
+        STRAFE
     }
 }
 

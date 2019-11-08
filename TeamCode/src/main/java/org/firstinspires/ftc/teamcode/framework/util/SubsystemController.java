@@ -10,6 +10,10 @@ public abstract class SubsystemController {
     public DoubleTelemetry telemetry;
     public HardwareMap hardwareMap;
 
+    public SubsystemController() {
+        opModeSetup();
+    }
+
     public abstract void init();
 
     public abstract void update();

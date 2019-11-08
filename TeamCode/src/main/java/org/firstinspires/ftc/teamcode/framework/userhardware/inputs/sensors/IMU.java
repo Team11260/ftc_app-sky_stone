@@ -16,8 +16,6 @@ public class IMU implements Runnable {
     private BNO055IMU imu;
     private BNO055IMU.Parameters parameters;
 
-    private ElapsedTime GyroTimeOut;
-
     private boolean newValue = false;
     private double heading = 0;
 
@@ -70,7 +68,7 @@ public class IMU implements Runnable {
     public void resetAngleToZero() {
         imu.initialize(parameters);
 
-        while (!imu.isGyroCalibrated() && GyroTimeOut.milliseconds() <= 1000 && AbstractOpMode.isOpModeActive());
+        while (!imu.isGyroCalibrated() && AbstractOpMode.isOpModeActive());
     }
 
     public boolean isGyroCalibrated() {

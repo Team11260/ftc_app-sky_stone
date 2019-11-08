@@ -27,6 +27,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FocusTraversalPolicy;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.*;
@@ -724,7 +725,6 @@ public class UI extends JFrame implements ActionListener {
                                 synchronized (smartdashboardComponents) {
                                     for (DashboardComponent component : smartdashboardComponents) {
                                         if (component.getType().equals(parts[0]) && component.getName().equals(parts[1])) {
-                                            ((JButton) component.getComponent()).setText(parts[1]);
                                             break smartdashboardswitch;
                                         }
                                     }
@@ -734,6 +734,7 @@ public class UI extends JFrame implements ActionListener {
                                 button.setBounds(0, 0, 100, 50);
                                 button.setBackground(blueColor);
                                 button.setHorizontalAlignment(JTextField.CENTER);
+                                button.setText(parts[1]);
 
                                 smartdashboardComponents.add(new DashboardComponent(parts[0], parts[1], button));
                                 break;
@@ -1900,6 +1901,7 @@ public class UI extends JFrame implements ActionListener {
         private JPanel smartdashboardControlPanel;
         private JPanel smartdashboardComponentPanel;
 
+        private JButton smartdashboardEditableButton;
         private JButton smartdashboardSaveButton;
         private JButton smartdashboardLoadButton;
 
@@ -1908,7 +1910,9 @@ public class UI extends JFrame implements ActionListener {
 
         private JPanel smartdashboardConnected;
 
-        private ArrayList lastComponents = new ArrayList();
+        private ArrayList<DashboardComponent> lastComponents = new ArrayList();
+
+        private boolean editable = false;
 
         public SmartDashboard() {
 
@@ -1949,6 +1953,12 @@ public class UI extends JFrame implements ActionListener {
             smartdashboardControlPanel.setBorder(new TitledBorder(BorderFactory.createEmptyBorder(), "Up-A-Creek FTC Smart Dashboard",
                     TitledBorder.CENTER, TitledBorder.BELOW_TOP, new Font("Sans", Font.PLAIN, 40), Color.DARK_GRAY));
             smartdashboardControlPanel.setBackground(blueColor);
+
+            smartdashboardEditableButton = new JButton("Editable");
+            smartdashboardEditableButton.setActionCommand("editable");
+            smartdashboardEditableButton.addActionListener(this);
+
+            smartdashboardControlPanel.add(smartdashboardEditableButton);
 
             smartdashboardSaveButton = new JButton("Save Layout");
             smartdashboardSaveButton.setActionCommand("save");
@@ -2126,6 +2136,25 @@ public class UI extends JFrame implements ActionListener {
             }
         }
 
+        public void editable() {
+            System.out.println(smartdashboardComponents);
+            if(editable) {
+                smartdashboardEditableButton.setText("Editable");
+                for(DashboardComponent component : smartdashboardComponents) {
+                    componentMover.deregisterComponent(component.getComponent());
+                    componentResizer.deregisterComponent(component.getComponent());
+                }
+            } else {
+                smartdashboardEditableButton.setText("Freeze");
+                for(DashboardComponent component : smartdashboardComponents) {
+                    componentMover.registerComponent(component.getComponent());
+                    componentResizer.registerComponent(component.getComponent());
+                }
+            }
+
+            editable = !editable;
+        }
+
         @Override
         public void actionPerformed(ActionEvent e) {
             switch (e.getActionCommand()) {
@@ -2134,6 +2163,9 @@ public class UI extends JFrame implements ActionListener {
                     break;
                 case "load":
                     smartdashboardReadFile();
+                    break;
+                case "editable":
+                    editable();
                     break;
             }
         }
