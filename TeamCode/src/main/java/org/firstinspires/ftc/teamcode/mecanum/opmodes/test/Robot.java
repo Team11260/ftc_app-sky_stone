@@ -20,7 +20,7 @@ public class Robot extends AbstractRobot {
 
     private ImageProcessor imageProcessor;
 
-    int BLOCKHEIGHT = 148;
+    int BLOCKHEIGHT = 130;
 
     public DriveController driver;
     public IntakeController intake;
@@ -53,9 +53,9 @@ public class Robot extends AbstractRobot {
     }
 
     public String getSkyStonePositionThreeStones() {
-        int XORIGIN = 205;
-        int YORIGIN = 330;
-        int BLOCKWIDTH = 295;
+        int XORIGIN = 180;
+        int YORIGIN = 260;
+        int BLOCKWIDTH = 250;
         int LINEWIDTH = 10;
         int threshold = 100;
         // int height = YORIGIN + (BLOCKHEIGHT/2);
@@ -86,9 +86,9 @@ public class Robot extends AbstractRobot {
         }
 
         telemetry.update();
-        ImageProcessor.drawBox(image, XORIGIN + 30, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
-        ImageProcessor.drawBox(image, XORIGIN + 30 + BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
-        ImageProcessor.drawBox(image, XORIGIN + 30 + BLOCKWIDTH + BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
+        ImageProcessor.drawBox(image, XORIGIN + 60, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
+        ImageProcessor.drawBox(image, XORIGIN + 60 + BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
+        ImageProcessor.drawBox(image, XORIGIN + 60 + BLOCKWIDTH + BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
 
         return stonePosition;
     }

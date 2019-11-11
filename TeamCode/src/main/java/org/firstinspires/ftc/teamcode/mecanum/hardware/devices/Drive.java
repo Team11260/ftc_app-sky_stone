@@ -32,8 +32,8 @@ public class Drive extends PurePursuitController {
         dcMotorBackLeft = new SlewDcMotor((hardwareMap.dcMotor.get("back_left")));
         dcMotorBackRight = new SlewDcMotor((hardwareMap.dcMotor.get("back_right")));
 
-        dcMotorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         dcMotorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        dcMotorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         dcMotorFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         dcMotorFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

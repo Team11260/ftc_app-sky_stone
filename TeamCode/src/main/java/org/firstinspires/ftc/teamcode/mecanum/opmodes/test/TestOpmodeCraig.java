@@ -10,10 +10,10 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Drive;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Intake;
 import org.upacreekrobotics.dashboard.Config;
 
-@TeleOp(name = "Test Teleop Mode", group = "New")
+@TeleOp(name = "Test Opmode Craig", group = "New")
 
 @Config
-public class TestTeleopMode extends AbstractTeleop {
+public class TestOpmodeCraig extends AbstractTeleop {
 
     public static double ARM_DOWN_POSITION = 0.855;
     public static double ARM_UP_POSITION = 0.5;
@@ -30,16 +30,19 @@ public class TestTeleopMode extends AbstractTeleop {
 
     @Override
     public void RegisterEvents() {
-        addEventHandler("1_y_down", () -> drive.resetEncoders());
+        addEventHandler("1_y_down", () -> toggleConveyor());
         addEventHandler("1_x_down", () -> toggleRotation());
     }
 
     @Override
     public void UpdateEvents() {
         double k = 0.5;
-        double left_stick_x=gamepad1.left_stick_x,left_stick_y = -gamepad1.left_stick_y, right_stick_x = 0;
+        double left_stick_x=-gamepad1.left_stick_x,left_stick_y = -gamepad1.left_stick_y, right_stick_x = gamepad1.right_stick_x;
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"left encoder+"+drive.getFrontLeftPosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"right encoder+"+drive.getFrontRightPosition());
+        telemetry.update();
         drive.setDrivePowerAll(k*(left_stick_y+left_stick_x+right_stick_x),k*(left_stick_y-left_stick_x-right_stick_x),
-                               k*(left_stick_y-left_stick_x+right_stick_x),k*(left_stick_y+left_stick_x-right_stick_x));
+                k*(left_stick_y-left_stick_x+right_stick_x),k*(left_stick_y+left_stick_x-right_stick_x));
     }
 
 

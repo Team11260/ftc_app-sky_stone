@@ -9,14 +9,29 @@ public final class Constants {
 
     ////////Drive////////
     public static int TRACK_WIDTH = 20;
+    public static double STRAIGHT_COUNTS_PER_INCH = 189.0;
 
 
     public final static Path collectCenterSkyStone = new Path("collect center sky stone");
 
     static {
         collectCenterSkyStone.addSegment(new DriveSegment("drive to sky stone", 16, 0.5, 100));
-        collectCenterSkyStone.addSegment(new StrafeSegment("strafe to block", 5,0.4,100));
+        collectCenterSkyStone.addSegment(new StrafeSegment("strafe to block", 8,0.4,100));
 
+    }
+
+    public final static Path collectRightSkyStone = new Path("collect right sky stone");
+
+    static {
+        collectRightSkyStone.addSegment(new DriveSegment("drive to skystone", 32, 0.5, 100));
+        //collectRightSkyStone.addSegment(new StrafeSegment("strafe to block", 5, 0.4, 100));
+    }
+
+    public final static Path collectLeftSkyStone = new Path("collect left sky stone");
+
+    static {
+        collectLeftSkyStone.addSegment(new DriveSegment("drive to skystone", 40, 0.5, 100));
+        //collectLeftSkyStone.addSegment(new StrafeSegment("strafe to block", 5, 0.4, 100));
     }
 
 

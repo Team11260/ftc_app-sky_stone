@@ -26,8 +26,8 @@ public class Constantscwo {
 
     static {
         collectLeftSkyStone.addSegment(new DriveSegment("drive to sky stone", 7, 0.5, 20));
-        collectLeftSkyStone.addSegment(new TurnSegment("turn back from stones", 90, 0.5, 1, 300));
-        collectLeftSkyStone.addSegment(new DriveSegment("drive towards tray", 0, 0.5, 1, 300));
+       // collectLeftSkyStone.addSegment(new TurnSegment("turn back from stones", 90, 0.5, 1, 300));
+        //collectLeftSkyStone.addSegment(new DriveSegment("drive towards tray", 0, 0.5, 1, 300));
     }
 
     public final static Path collectCenterSkyStone = new Path("collect center sky stone");

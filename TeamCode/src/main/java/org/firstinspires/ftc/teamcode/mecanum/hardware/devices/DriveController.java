@@ -18,6 +18,7 @@ import java.text.DecimalFormat;
 import static java.lang.Math.abs;
 import static java.lang.Math.pow;
 import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry.LogMode.INFO;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.STRAIGHT_COUNTS_PER_INCH;
 
 @Config
 public class DriveController extends SubsystemController {
@@ -41,7 +42,7 @@ public class DriveController extends SubsystemController {
 
     public static double PATH_P = 15, PATH_F = 5;
 
-    public static double PROP_GAIN=0.1,INT_GAIN=0.0,DIFF_GAIN=0.1;
+    public static double PROP_GAIN = 0.1, INT_GAIN = 0.0, DIFF_GAIN = 0.1;
 
     private double previousTime;
 
@@ -58,14 +59,13 @@ public class DriveController extends SubsystemController {
 
         DF = new DecimalFormat("#.###");
         //Put general setup here
-        drive = new Drive(hardwareMap,telemetry);
+        drive = new Drive(hardwareMap, telemetry);
         anglePID = new PIDController(1, 0.01, 1, 0.3, 0.1);//D was 150
         //anglePID.setLogging(true);
         straightPID = new PIDController(5, 0.000, 0.01, 1, 0);
-        distancePID = new PIDController(PROP_GAIN,INT_GAIN ,DIFF_GAIN , 2, 0.1);
-        strafePID = new PIDController(10,0,0,0,0.1);
-        for ( int i = 0; i<RecTelem.length; i++)
-        {
+        distancePID = new PIDController(PROP_GAIN, INT_GAIN, DIFF_GAIN, 2, 0.1);
+        strafePID = new PIDController(10, 0, 0, 0, 0.1);
+        for (int i = 0; i < RecTelem.length; i++) {
             RecTelem[i] = new TelemetryRecord();
             RecTelem[i].Index = i;
         }
@@ -78,7 +78,7 @@ public class DriveController extends SubsystemController {
     }
 
     public synchronized void update() {
-         telemetry.addData(DoubleTelemetry.LogMode.TRACE, "Left drive position: " + drive.getFrontLeftPosition());
+        telemetry.addData(DoubleTelemetry.LogMode.TRACE, "Left drive position: " + drive.getFrontLeftPosition());
         telemetry.addData(DoubleTelemetry.LogMode.TRACE, "Right drive position: " + drive.getFrontRightPosition());
         drive.update();
         telemetry.addData(INFO, "X:" + drive.getCurrentPosition().getX() + "  Y: " + drive.getCurrentPosition().getY());
@@ -117,8 +117,7 @@ public class DriveController extends SubsystemController {
                 turnToSegment((TurnSegment) path.getCurrentSegment());
             } else if (path.getCurrentSegment().getType() == Segment.SegmentType.DRIVE) {
                 driveToSegment((DriveSegment) path.getCurrentSegment());
-            }
-            else if (path.getCurrentSegment().getType() == Segment.SegmentType.STRAFE){
+            } else if (path.getCurrentSegment().getType() == Segment.SegmentType.STRAFE) {
                 strafeToSegment((StrafeSegment) path.getCurrentSegment());
             }
 
@@ -196,7 +195,7 @@ public class DriveController extends SubsystemController {
                 /*telemetry.addData(INFO,
                         "                                                                                                                                 call = "
                                 + angleCall + " Power = " + DF.format(power) + " Angle = " + getHeading());*/
-                drive.setDrivePowerAll(-power, power,-power,power);
+                drive.setDrivePowerAll(-power, power, -power, power);
 
                 loop++;
             }
@@ -204,9 +203,11 @@ public class DriveController extends SubsystemController {
             runtime.reset();
 
             while (runtime.milliseconds() < period) {
-                if ((abs(getHeading() - baseHeading)) > error && (abs(getHeading() + baseHeading)) > error) break;
+                if ((abs(getHeading() - baseHeading)) > error && (abs(getHeading() + baseHeading)) > error)
+                    break;
             }
-            if ((abs(getHeading() - baseHeading)) > error && (abs(getHeading() + baseHeading)) > error) continue;
+            if ((abs(getHeading() - baseHeading)) > error && (abs(getHeading() + baseHeading)) > error)
+                continue;
 
 
             telemetry.addData(INFO, "");
@@ -222,7 +223,9 @@ public class DriveController extends SubsystemController {
         drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
-    public synchronized void driveToSegment(DriveSegment segment) {
+    public synchronized void driveToSegmentOld(DriveSegment segment) {
+
+
         telemetry.addData(INFO, "Drive Segment is starting");
         telemetry.addData(INFO, "");
         telemetry.addData(INFO, "");
@@ -255,22 +258,32 @@ public class DriveController extends SubsystemController {
         runtime.reset();
 
         RecTelemTime.reset();
-        while ((!atPosition(position, drive.getFrontLeftPosition(), error) && opModeIsActive())) {
+        drive.setDrivePowerAll(0.3, 0.3, 0.33, 0.33);
+        delay(2000);
+        drive.stop();
+
+
+        telemetry.addData(INFO, "Drive Segment 2 is starting");
+        telemetry.addData(INFO, "");
+        telemetry.addData(INFO, "");
+        telemetry.addData(INFO, "");
+
+        /*while ((!atPosition(position, drive.getBackLeftPosition(), error) && opModeIsActive())) {
 
          //   telemetry.addData(INFO,"Entered driveSegement Loop");
          //   telemetry.update();
-            /*if (segment.isDone()) {
+            if (segment.isDone()) {
                 setPower(0, 0);
                 return;
             }
             if (!segment.isRunning()) {
                 setPower(0, 0);
                 continue;
-            }*/
+            }
 
             currentHeading = getHeading();
 
-            power = range(distancePID.output(position, (drive.getFrontLeftPosition())));
+            power = range(distancePID.output(position, (drive.getBackLeftPosition())));
 
           //  telemetry.addData(INFO,"Power "+power);
           //  telemetry.update();
@@ -320,17 +333,140 @@ public class DriveController extends SubsystemController {
                     + "    right enc = " +DFenc.format(RecTelem[n].BackRightCount)
             );
         }*/
-        telemetry.addData(INFO, "Average loop time for drive: " + runtime.milliseconds() / loop);
-        telemetry.addData(INFO, "Loop count " + loop);
-        telemetry.addData(INFO, "Left encoder position: " + drive.getFrontLeftPosition() + "  Right encoder position: " + drive.getFrontRightPosition());
-        telemetry.addData(INFO, "Final angle: " + getHeading());
+        // telemetry.addData(INFO, "Average loop time for drive: " + runtime.milliseconds() / loop);
+        //telemetry.addData(INFO, "Loop count " + loop);
+        //telemetry.addData(INFO, "Left encoder position: " + drive.getFrontLeftPosition() + "  Right encoder position: " + drive.getFrontRightPosition());
+        //telemetry.addData(INFO, "Final angle: " + getHeading());
         //telemetry.update();
 
 
         //delay(1000);
-        telemetry.addData(INFO, "Left encoder position: " + drive.getFrontLeftPosition() + "  Right encoder position: " + drive.getFrontRightPosition());
+        telemetry.addData(INFO, "Left encoder position: " + drive.getBackLeftPosition());
         telemetry.update();
         //drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
+    public synchronized void driveToSegment(DriveSegment segment) {
+
+        telemetry.addData(INFO, "Drive Segment is starting");
+        telemetry.addData(INFO, "");
+        telemetry.update();
+
+        double distance = segment.getDistance(), speed = segment.getSpeed(), angle = baseHeading;
+
+        double leftPower = 0.0;
+        double rightPower = 0.0;
+        double power = 0.0;
+        double velocity = 0.0, oldDistance = 0.0, oldTime = 0.0;
+        StraightTrapezoid straightTrapezoid = new StraightTrapezoid();
+
+        double destination = (distance - 1);
+        double driveLeftCorretion = 1.09;
+
+        double distanceTravelled = 0.0;
+        double distanceError = destination - distanceTravelled;
+
+        speed = range(speed);
+        drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        double angleError = 0.0;
+        double angleCorrection = 0.0;
+        double angleCorrectionGain = 0.007;
+        double SLIDE_OFFSET = 0.0;
+        //resetAngleToZero();
+        double switchDirection = 1.0;
+        int loop = 0;
+        if (destination < 0) switchDirection = -1.0;
+
+
+        RecTelemTime.reset();
+
+        telemetry.addData(INFO, "Straight encoder position " + drive.getBackRightPosition());
+        telemetry.addData(INFO, "Side encoder position " + drive.getBackLeftPosition());
+        telemetry.update();
+        runtime.reset();
+
+        while ((distanceTravelled < ((destination - SLIDE_OFFSET) * switchDirection) && opModeIsActive())) {
+
+            if (segment.isDone()) {
+                setPower(0, 0);
+                return;
+
+            }
+
+            if (!segment.isRunning()) {
+                setPower(0, 0);
+                continue;
+
+            }
+
+            power = straightTrapezoid.getPower("test1", distanceError, distanceTravelled);
+
+           // power = 0.2;
+
+            angleError = getHeading();
+
+
+            if (distanceError > 4.0 && destination > 0)
+                angleCorrection = angleError * angleCorrectionGain;
+            else
+                angleCorrection = 0.0;
+            angleCorrection = 0.0;
+
+            leftPower = power * switchDirection + angleCorrection;
+            rightPower = (power * switchDirection - angleCorrection) * driveLeftCorretion;
+
+            drive.setDrivePowerAll(leftPower, rightPower, leftPower, rightPower);
+
+            distanceTravelled = (double) (drive.getBackRightPosition()) / STRAIGHT_COUNTS_PER_INCH;
+
+            //distanceTravelled = distanceTravelled * switchDirection;
+            //distanceError = (destination * switchDirection) - distanceTravelled;
+            //velocity = (distanceTravelled - oldDistance) / (double) runtime.milliseconds() - oldTime;
+            //oldTime = (double) runtime.milliseconds();
+            //oldDistance = distanceTravelled;
+            //telemetry.getSmartdashboard().putGraph("Turbo", "Power", distanceTravelled, leftPower);
+            //telemetry.getSmartdashboard().putGraph("Turbo", "Velocity", distanceTravelled, 10.0 * velocity);
+            telemetry.addData(INFO,"distance   "+ distanceTravelled);
+            telemetry.update();
+
+            loop++;
+
+
+        }
+
+        delay(200);
+
+        power = 0.08;
+
+       while (getHeading() > 1.0 || getHeading() < -1.0) {
+
+            angleError = getHeading();
+            if (angleError > 0)
+                leftPower = power;
+            else
+                leftPower = -power;
+            rightPower = -leftPower;
+            drive.setDrivePowerAll(leftPower, rightPower, leftPower, rightPower);
+
+        }
+        drive.stop();
+        delay(500);
+
+        telemetry.addData(INFO, "Time for drive: "+runtime.milliseconds());
+        telemetry.addData(INFO, "Average loop time for drive: "+runtime.milliseconds()/loop);
+        telemetry.addData(INFO, "Loop count: "+ loop);
+        telemetry.addData(INFO, "Straight encoder goal: "+distance);
+        telemetry.addData(INFO, "Straight encoder position: "+drive.getBackRightPosition()/STRAIGHT_COUNTS_PER_INCH);
+        telemetry.addData(INFO, "Side encoder position: "+drive.getBackLeftPosition()/STRAIGHT_COUNTS_PER_INCH);
+        telemetry.addData(INFO,"Angle heading: "+getHeading());
+        telemetry.update();
+
+        delay(9000);
+
+
     }
 
 
@@ -347,12 +483,13 @@ public class DriveController extends SubsystemController {
         int error = segment.getError();
 
         baseHeading = angle;
+        resetAngleToZero();
 
         straightPID.reset(); //Resets the PID values in the PID class to make sure we do not have any left over values from the last segment
         distancePID.reset();
         strafePID.reset();
         straightPID.setMinimumOutput(0);
-        int position = (int) (distance * STRAFE_COUNTS_PER_INCH); //
+        int position = (int) (distance * DRIVE_COUNTS_PER_INCH); //
         double turn;
         speed = range(speed);
         drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -405,9 +542,12 @@ public class DriveController extends SubsystemController {
                 rightPower = range(power * (speed - turn));
             }
 
-            drive.setDrivePowerAll(leftPower,-rightPower,-leftPower,rightPower);
-            if ( loop == 0) { RecTelem[loop].Time = RecTelemTime.milliseconds(); }
-            else            {  RecTelem[loop].Time = RecTelemTime.milliseconds() - previousTime; }
+            drive.setDrivePowerAll(leftPower, -rightPower, -leftPower, rightPower);
+            if (loop == 0) {
+                RecTelem[loop].Time = RecTelemTime.milliseconds();
+            } else {
+                RecTelem[loop].Time = RecTelemTime.milliseconds() - previousTime;
+            }
 
             RecTelem[loop].Angle = currentHeading;
             RecTelem[loop].Error = angle - currentHeading;
@@ -418,7 +558,7 @@ public class DriveController extends SubsystemController {
             previousTime = RecTelemTime.milliseconds();
 
             loop++;
-            telemetry.addData(INFO,"Loop :"+loop+" Front Left: "+drive.getFrontLeftPosition()+"  Front Right "+drive.getBackLeftPosition());
+            telemetry.addData(INFO, "Loop :" + loop + " Front Left: " + drive.getFrontLeftPosition() + "  Strafe " + drive.getBackLeftPosition());
             telemetry.update();
         } //end of while loop
 
@@ -451,7 +591,7 @@ public class DriveController extends SubsystemController {
     public void strafe(double power) {
 
 
-        drive.setDrivePowerAll(-power, power,power,-power);
+        drive.setDrivePowerAll(-power, power, power, -power);
 
     }
 
@@ -474,7 +614,7 @@ public class DriveController extends SubsystemController {
         drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         drive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         drive.setPower(range(power), range(power));
-       // drive.setTargetPosition(position);
+        // drive.setTargetPosition(position);
     }
 
 
@@ -512,6 +652,14 @@ public class DriveController extends SubsystemController {
         drive.setPower(range(left), range(right));
     }
 
+    public synchronized void setPowerAll(double FL, double FR, double BL, double BR) {
+
+        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        drive.setDrivePowerAll(FL, FR, BL, BR);
+    }
+
+
     public synchronized void setY(double y) {
         turnY = (float) scaleInput(y);
     }
@@ -522,21 +670,21 @@ public class DriveController extends SubsystemController {
     }
 
 
-   /* public synchronized void updateYZDrive() {
-        if ((currentMineralLiftState == MineralLiftState.IN_MOTION ||
-                currentMineralLiftState == MineralLiftState.DUMP_POSITION) &&
-                currentMatchState == MatchState.TELEOP) {
-            leftPower = range((turnY + turn_z) * (Drive_Power * DRIVE_MINERAL_LIFT_RAISED_SCALAR));
-            rightPower = range((turnY - turn_z) * (Drive_Power * DRIVE_MINERAL_LIFT_RAISED_SCALAR));
-        } else {
-            leftPower = range((turnY + turn_z) * Drive_Power);
-            rightPower = range((turnY - turn_z) * Drive_Power);
-        }
+    /* public synchronized void updateYZDrive() {
+         if ((currentMineralLiftState == MineralLiftState.IN_MOTION ||
+                 currentMineralLiftState == MineralLiftState.DUMP_POSITION) &&
+                 currentMatchState == MatchState.TELEOP) {
+             leftPower = range((turnY + turn_z) * (Drive_Power * DRIVE_MINERAL_LIFT_RAISED_SCALAR));
+             rightPower = range((turnY - turn_z) * (Drive_Power * DRIVE_MINERAL_LIFT_RAISED_SCALAR));
+         } else {
+             leftPower = range((turnY + turn_z) * Drive_Power);
+             rightPower = range((turnY - turn_z) * Drive_Power);
+         }
 
-        drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        drive.setPower(leftPower, rightPower);
-    }
-*/
+         drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+         drive.setPower(leftPower, rightPower);
+     }
+ */
     //Util Methods
     private synchronized double scaleInput(double val) {
         return (range(pow(val, 3)));
@@ -545,8 +693,8 @@ public class DriveController extends SubsystemController {
     private synchronized double range(double val) {
         if (val < -1) val = -1;
         if (val > 1) val = 1;
-        if (val<0.13&&val>0) val = 0.13;
-        if (val>-0.13&&val<0) val = -0.13;
+        if (val < 0.13 && val > 0) val = 0.13;
+        if (val > -0.13 && val < 0) val = -0.13;
         return val;
     }
 /*
