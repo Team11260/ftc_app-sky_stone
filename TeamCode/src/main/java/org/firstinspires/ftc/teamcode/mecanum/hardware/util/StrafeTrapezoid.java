@@ -5,14 +5,14 @@ public class StrafeTrapezoid {
     double RAMP_UP_DISTANCE =  5;
     double RAMP_DOWN_DISTANCE = 12;
     double ZOOM_IN_DISTANCE =  10;
-    double ZERO_STOP = 4;
+    double ZERO_STOP = 2;
 
     public double getPower(String namme, double distanceError, double distanceTravelled) {
 
         double power;
 
         if (distanceError < ZERO_STOP)
-            power = 0.2;
+            power = 0.0;
         else if (distanceError < (ZOOM_IN_DISTANCE + ZERO_STOP))
             power = 0.3;
         else if (distanceError < (ZOOM_IN_DISTANCE + RAMP_DOWN_DISTANCE + ZERO_STOP))

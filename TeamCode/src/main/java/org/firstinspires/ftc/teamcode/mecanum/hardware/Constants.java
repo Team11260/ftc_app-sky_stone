@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.mecanum.hardware;
 
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.AngleDriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.StrafeSegment;
@@ -29,9 +30,13 @@ public final class Constants {
 
     static {
         //collectRightSkyStone.addSegment(new StrafeSegment("strafe to block", 3,0.5,100));
-        //collectRightSkyStone.addSegment(new StrafeSegment("strafe to block", 72,0.5,100));
-        collectRightSkyStone.addSegment((new DriveSegment("collect block", -36, 0.25, 100)));
-        //collectRightSkyStone.addSegment((new DriveSegment("collect block", -72, 0.25, 100)));
+        //collectRightSkyStone.addSegment(new StrafeSegment("strafe to block", -36,0.5,100));
+        collectRightSkyStone.addSegment(new AngleDriveSegment("angle to block", 5,0.3,0));
+        collectRightSkyStone.addSegment((new DriveSegment("collect block", 20, 0.25, 0)));
+        collectRightSkyStone.addSegment((new DriveSegment("back up", -8, 0.25, 100)));
+        collectRightSkyStone.addSegment(new StrafeSegment("strafe to foundation", 75,0.5,0));
+        //collectRightSkyStone.addSegment((new DriveSegment("back up", 8, 0.25, 100)));
+        //collectRightSkyStone.addSegment((new DriveSegment("back up", -8, 0.25, 100)));
     }
     public final static Path collectBlock = new Path("collect block");
 
