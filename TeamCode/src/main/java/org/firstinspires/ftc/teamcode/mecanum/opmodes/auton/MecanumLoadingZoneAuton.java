@@ -1,32 +1,15 @@
-package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
+package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.widget.ImageView;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.Servo;
-
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
-import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
-import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.tensorflow.support.TensorFlow;
-import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.vuforia.Vuforia;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.vuforia.VuforiaImpl;
-import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path;
-import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
-import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PurePursuitController;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Drive;
 import org.upacreekrobotics.dashboard.Config;
-
-import java.util.List;
-
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.TRACK_WIDTH;
 
 //@Autonomous(name = "Mecanum LoadingZone Autonomus", group = "New")
 

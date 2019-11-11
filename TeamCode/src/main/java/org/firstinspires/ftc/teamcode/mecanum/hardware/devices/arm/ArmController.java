@@ -1,8 +1,7 @@
-package org.firstinspires.ftc.teamcode.mecanum.hardware.devices;
+package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm;
 
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
-
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Arm.ARM_DOWN_POSITION;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.Arm;
 
 public class ArmController extends SubsystemController {
 

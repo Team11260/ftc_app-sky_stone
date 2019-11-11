@@ -1,8 +1,7 @@
-package org.firstinspires.ftc.teamcode.mecanum.hardware.devices;
-
-import com.qualcomm.robotcore.hardware.HardwareMap;
+package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake;
 
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.Intake;
 
 public class IntakeController extends SubsystemController {
     Intake intake;

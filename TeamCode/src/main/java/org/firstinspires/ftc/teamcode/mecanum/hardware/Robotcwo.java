@@ -1,9 +1,10 @@
-package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
+package org.firstinspires.ftc.teamcode.mecanum.hardware;
 
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.RobotState;
+
+import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 
 public class Robotcwo extends Robot {
 

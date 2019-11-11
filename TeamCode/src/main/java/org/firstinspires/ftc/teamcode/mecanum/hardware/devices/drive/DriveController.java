@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.mecanum.hardware.devices;
+package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -11,6 +11,9 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.StrafeSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.util.TelemetryRecord;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StrafeTrapezoid;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StraightTrapezoid;
 import org.upacreekrobotics.dashboard.Config;
 
 import java.text.DecimalFormat;

@@ -1,16 +1,13 @@
-package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
+package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.util.PathState;
 import org.firstinspires.ftc.teamcode.framework.util.State;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.Constants;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Constantscwo;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.RobotState;
-
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.devices.RobotState.currentPath;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.Robotcwo;
 
 //@Autonomous(name = "Auton CWO", group = "New")
 

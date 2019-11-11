@@ -1,38 +1,18 @@
-package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
-
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.util.SparseIntArray;
-import android.widget.ImageView;
+package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 //import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.vuforia.Vuforia;
-import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.IMU;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.ImageProcessor;
-import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.vuforia.VuforiaImpl;
-import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
-import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
-import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.ArmController;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Drive;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
 import org.upacreekrobotics.dashboard.Config;
 
 import java.text.DecimalFormat;
-import java.util.HashMap;
 
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.avoidRobot;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.backUp;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectBlock;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectCenterSkyStone;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectLeftSkyStone;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectRightSkyStone;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.dragFoundation;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.forwardDrive;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.strafeToTray;
 
 @Autonomous(name = "BlockFind Auton", group = "New")
 

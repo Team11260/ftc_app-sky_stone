@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractTeleop;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Drive;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Intake;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.Drive;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.Intake;
 import org.upacreekrobotics.dashboard.Config;
 
 @TeleOp(name = "Test Opmode Craig", group = "New")

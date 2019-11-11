@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
+package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -14,7 +14,7 @@ import org.upacreekrobotics.dashboard.Config;
 
 //import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.vuforia.Vuforia;
 
-@Autonomous(name = "BlockFind CWO Auton", group = "New")
+//@Autonomous(name = "TestSkyStoneCWO", group = "New")
 
 @Config
 //  At 3 feet a stone is approximately  180x90 pixels

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.test;
+package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractTeleop;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.ImageProcessor;
 
-@TeleOp(name = "DrawingTest", group = "Test")
+//@TeleOp(name = "DrawingTest", group = "Test")
 //@Disabled
 
 public class DrawingTest extends AbstractTeleop {

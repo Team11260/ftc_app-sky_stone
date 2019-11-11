@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.mecanum.hardware.devices;
+package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;

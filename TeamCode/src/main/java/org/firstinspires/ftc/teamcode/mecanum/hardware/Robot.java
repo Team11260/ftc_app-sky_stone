@@ -1,20 +1,16 @@
-package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
+package org.firstinspires.ftc.teamcode.mecanum.hardware;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.DrawFilter;
 
-import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.ImageProcessor;
-import org.firstinspires.ftc.teamcode.framework.userhardware.outputs.Logger;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
-import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.ArmController;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.DriveController;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.IntakeController;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.devices.RobotState.currentPath;
-import org.upacreekrobotics.dashboard.Dashboard;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.DriveController;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.IntakeController;
+
+import org.firstinspires.ftc.teamcode.mecanum.opmodes.test.AbstractRobot;
 
 public class Robot extends AbstractRobot {
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.test;
+package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.visi
 import java.util.ArrayList;
 import java.util.Collections;
 
-@TeleOp(name = "VisionTest", group = "Test")
+//@TeleOp(name = "VisionTest", group = "Test")
 //@Disabled
 
 public class VisionTest extends AbstractAuton {

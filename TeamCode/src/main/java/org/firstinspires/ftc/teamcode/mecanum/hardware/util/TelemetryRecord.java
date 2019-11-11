@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.mecanum.hardware.devices;
+package org.firstinspires.ftc.teamcode.mecanum.hardware.util;
 
 public class TelemetryRecord {
     public String TelemetryString;
@@ -15,7 +15,7 @@ public class TelemetryRecord {
     public double LeftPower;
     public double RightPower;
 
-    TelemetryRecord() {
+    public TelemetryRecord() {
     }
 
     String GetString() {

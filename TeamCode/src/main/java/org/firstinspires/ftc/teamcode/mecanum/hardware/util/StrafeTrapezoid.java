@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.mecanum.hardware.devices;
+package org.firstinspires.ftc.teamcode.mecanum.hardware.util;
 
 public class StrafeTrapezoid {
 
