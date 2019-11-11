@@ -28,7 +28,7 @@ import java.util.List;
 
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.TRACK_WIDTH;
 
-@Autonomous(name = "Mecanum LoadingZone Autonomus", group = "New")
+//@Autonomous(name = "Mecanum LoadingZone Autonomus", group = "New")
 
 @Config
 

@@ -9,32 +9,30 @@ public final class Constants {
 
     ////////Drive////////
     public static int TRACK_WIDTH = 20;
-    public static double STRAIGHT_COUNTS_PER_INCH = 189.0;
+    public static double STRAIGHT_COUNTS_PER_INCH = 189;
 
 
     public final static Path collectCenterSkyStone = new Path("collect center sky stone");
 
     static {
-        collectCenterSkyStone.addSegment(new DriveSegment("drive to sky stone", 16, 0.5, 100));
-        collectCenterSkyStone.addSegment(new StrafeSegment("strafe to block", 8,0.4,100));
-
+        collectCenterSkyStone.addSegment((new DriveSegment("collect block", 14, 0.3, 100)));
     }
 
-    public final static Path collectRightSkyStone = new Path("collect right sky stone");
+    public final static Path collectLeftSkyStone = new Path("collect  leftsky stone");
 
     static {
-        collectRightSkyStone.addSegment(new DriveSegment("drive to skystone", 32, 0.5, 100));
-        //collectRightSkyStone.addSegment(new StrafeSegment("strafe to block", 5, 0.4, 100));
+        collectLeftSkyStone.addSegment(new StrafeSegment("strafe to block", 4,0.5,100));
+        collectLeftSkyStone.addSegment((new DriveSegment("collect block", 9, 0.3, 100)));
     }
 
-    public final static Path collectLeftSkyStone = new Path("collect left sky stone");
+    public final static Path collectRightSkyStone = new Path("collect  leftsky stone");
 
     static {
-        collectLeftSkyStone.addSegment(new DriveSegment("drive to skystone", 40, 0.5, 100));
-        //collectLeftSkyStone.addSegment(new StrafeSegment("strafe to block", 5, 0.4, 100));
+        //collectRightSkyStone.addSegment(new StrafeSegment("strafe to block", 3,0.5,100));
+        //collectRightSkyStone.addSegment(new StrafeSegment("strafe to block", 72,0.5,100));
+        collectRightSkyStone.addSegment((new DriveSegment("collect block", -36, 0.25, 100)));
+        //collectRightSkyStone.addSegment((new DriveSegment("collect block", -72, 0.25, 100)));
     }
-
-
     public final static Path collectBlock = new Path("collect block");
 
     static {
@@ -46,9 +44,13 @@ public final class Constants {
     static {
         backUp.addSegment(new DriveSegment("back up segment", -12, 0.5, 100));
     }
+    public static final Path strafeToTray = new Path("strafe to tray");
+
+    static{
+        strafeToTray.addSegment(new StrafeSegment("strafe to tray", 60, 0.5, 100));
+    }
 
     public static final Path forwardDrive = new Path("forward drive");
-
 
     static {
         forwardDrive.addSegment(new DriveSegment("forward drive", 6, 0.5, 100));

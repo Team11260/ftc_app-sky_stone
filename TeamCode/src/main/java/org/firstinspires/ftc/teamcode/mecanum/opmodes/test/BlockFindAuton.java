@@ -6,7 +6,6 @@ import android.util.SparseIntArray;
 import android.widget.ImageView;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
@@ -33,6 +32,7 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectL
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectRightSkyStone;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.dragFoundation;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.forwardDrive;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.strafeToTray;
 
 @Autonomous(name = "BlockFind Auton", group = "New")
 
@@ -58,7 +58,7 @@ public class BlockFindAuton extends AbstractAuton {
 
     public void InitLoop() {
 
-
+       // arm.setArmUpPosition();
         telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones());
 
         telemetry.update();
@@ -87,72 +87,67 @@ public class BlockFindAuton extends AbstractAuton {
         //arm.setArmDownPosition();
         //arm.setGripperReleasePostion();
 
-
-        //robot.driver.setPowerAll(0.3,0.3,0.3,0.3);
-        //robot.driver.setPower(0.3,0.3*1.1);
-       // delay(2000);
-        //robot.driver.setPower(0.0,0.0);
-        robot.runDrivePath(collectLeftSkyStone);
-
         /*switch (robot.getSkyStonePositionThreeStones()) {
             case "Right":
-
                 robot.runDrivePath(collectRightSkyStone);
                 arm.setGripperGripPosition();
-                delay(500);
-                arm.setArmUpPosition();
-                robot.runDrivePath(backUp);
-                robot.strafe(-0.4,2700);
-
                 break;
 
             case "Left":
-
                 robot.runDrivePath(collectLeftSkyStone);
                 arm.setGripperGripPosition();
-                delay(500);
-                arm.setArmUpPosition();
-                robot.runDrivePath(backUp);
-                robot.strafe(-0.4,3300);
-
                 break;
 
             case "Center":
-
                 robot.runDrivePath(collectCenterSkyStone);
                 arm.setGripperGripPosition();
-                delay(500);
-                arm.setArmUpPosition();
-                robot.runDrivePath(backUp);
-                robot.strafe(-0.4,3000);
-
                 break;
 
             default:
+                robot.runDrivePath(collectCenterSkyStone);
+                arm.setGripperGripPosition();
+                break;
+
 
         }*/
+        robot.runDrivePath(collectRightSkyStone);
+        /*arm.setGripperGripPosition();
+        delay(500);
+        arm.setArmUpPosition();
+        robot.runDrivePath(strafeToTray);
+        robot.driver.setPower(0.2,0.23);
+        delay(500);
+        robot.driver.setPower(0.0,0.0);
+        arm.setArmDownPosition();
+        delay(200);
+        arm.setGripperReleasePostion();
+        delay(300);
+        arm.setArmUpPosition();
+        delay(300);*/
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "segment distance");
         //robot.runDrivePath(path);
+        //arm.setArmDownPosition();
+        //arm.setGripperReleasePostion();
         //robot.runDrivePath(collectCenterSkyStone);
+        delay(9000);
 
         //robot.strafe(-0.4,400);
 
-        //robot.runDrivePath(collectBlock);
-        //robot.runDrivePath(forwardDrive);
-        //robot.driver.setPower(0.2,0.2);
-        //delay(300);
-        //robot.stop();
-
-        //arm.setArmDownPosition();
-        //arm.setGripperReleasePostion();
-        //arm.setArmBackPosition();
-       // robot.runDrivePath(backUp);
-        //robot.strafe(0.4,3000);
-//        robot.runDrivePath(dragFoundation);
-//        robot.strafe(0.3, 1200);
-//        robot.runDrivePath(avoidRobot);
-//        robot.strafe(0.3, 1200);
+       /* robot.runDrivePath(collectBlock);
+        arm.setGripperGripPosition();
+        delay(500);
+        arm.setArmUpPosition();
+        robot.runDrivePath(backUp);
+        robot.strafe(-0.4,2700);
+        robot.runDrivePath(forwardDrive);
+        arm.setArmDownPosition();
+        arm.setGripperReleasePostion();
+        arm.setArmBackPosition();
+        robot.runDrivePath(dragFoundation);
+        robot.strafe(0.3, 1200);
+        robot.runDrivePath(avoidRobot);
+        robot.strafe(0.3, 1200);*/
      // robot.driver.setPower(-0.3,-0.3);
        // delay(500);
 

@@ -1,41 +1,31 @@
 package org.firstinspires.ftc.teamcode.mecanum.hardware.devices;
 
-import org.firstinspires.ftc.robotcore.internal.android.dx.rop.cst.Zeroes;
-
 public class StraightTrapezoid {
 
-    double RAMP_UP_DISTANCE = 5.0;
-    double RAMP_DOWN_DISTANCE = 12.0;
-    double ZOOM_IN_DISTANCE = 12.0;
-    double ZERO_STOP = 4.0;
-    double MAX_POWER = 0.30;
-    double START_POWER = 0.15;
-    double END_POWER = 0.12;
-    public double
+    double RAMP_UP_DISTANCE =  3;
+    double RAMP_DOWN_DISTANCE = 12;
+    double ZOOM_IN_DISTANCE =  12;
+    double ZERO_STOP = 4;
 
+    public double getPower(String namme, double distanceError, double distanceTravelled) {
 
+    double power;
 
-     getPower (String name, double distanceError, double distanceTravelled) {
+    if(distanceError<ZERO_STOP)
+        power =0.0;
+    else if(distanceError<(ZOOM_IN_DISTANCE +ZERO_STOP))
+        power =0.12;
+    else if(distanceError<(ZOOM_IN_DISTANCE +RAMP_DOWN_DISTANCE +ZERO_STOP))
+        power =0.12+((0.18*(distanceError -ZOOM_IN_DISTANCE-ZERO_STOP))/RAMP_DOWN_DISTANCE);
+    else if(distanceTravelled<RAMP_UP_DISTANCE)
+        power =0.15;
+    else if(distanceTravelled< 3*RAMP_UP_DISTANCE)
+        power =0.15+(0.15*(distanceTravelled -RAMP_UP_DISTANCE)/(2*RAMP_UP_DISTANCE));
+    else
+        power =0.30;
 
-        double power;
-
-
-        if(distanceError<ZERO_STOP)
-            power = 0.0;
-        else if(distanceError<(ZOOM_IN_DISTANCE+ ZERO_STOP))
-            power = END_POWER;
-        else if (distanceError<(ZOOM_IN_DISTANCE+RAMP_DOWN_DISTANCE+ZERO_STOP))
-            power = END_POWER+(((MAX_POWER-END_POWER)*(distanceError - ZOOM_IN_DISTANCE-ZERO_STOP))/RAMP_DOWN_DISTANCE);
-        else if (distanceTravelled<RAMP_UP_DISTANCE)
-            power = START_POWER;
-        else if (distanceTravelled<2*RAMP_UP_DISTANCE)
-            power = START_POWER+((MAX_POWER-START_POWER)*(distanceTravelled-RAMP_UP_DISTANCE)/RAMP_UP_DISTANCE);
-        else
-            power = MAX_POWER;
-
-        return power;
-
-    }
+    return power;
+}
 
 
 }

@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.RobotState;
 
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.devices.RobotState.currentPath;
 
-@Autonomous(name = "Auton CWO", group = "New")
+//@Autonomous(name = "Auton CWO", group = "New")
 
 public class AutonCWO extends AbstractAuton {
 
@@ -51,7 +51,10 @@ public class AutonCWO extends AbstractAuton {
     @Override
     public void Run() {
 
-        robot.runDrivePath(Constantscwo.approachTheStones);
+
+
+
+        /*robot.runDrivePath(Constantscwo.approachTheStones);
         switch(robot.skyStonePosition){
             case "Right":
                 robot.strafe(6);
@@ -70,7 +73,7 @@ public class AutonCWO extends AbstractAuton {
         }
         robot.runDrivePath(Constantscwo.dumpAndDrag);
         robot.strafe(-30);
-        robot.runDrivePath(Constantscwo.park);
+        robot.runDrivePath(Constantscwo.park);*/
 
     }
 
