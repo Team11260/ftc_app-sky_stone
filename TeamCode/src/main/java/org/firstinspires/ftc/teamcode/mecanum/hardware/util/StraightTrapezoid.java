@@ -2,9 +2,9 @@ package org.firstinspires.ftc.teamcode.mecanum.hardware.util;
 
 public class StraightTrapezoid {
 
-    double RAMP_UP_DISTANCE =  3.0;
+    double RAMP_UP_DISTANCE = 3.0;
     double RAMP_DOWN_DISTANCE = 12.0;
-    double ZOOM_IN_DISTANCE =  12.0;
+    double ZOOM_IN_DISTANCE = 12.0;
     double ZERO_STOP = 2.0;
     double ZOOM_IN_POWER = 0.12;
     double MAX_POWER = 0.3;
@@ -13,28 +13,28 @@ public class StraightTrapezoid {
 
     public double getPower(String name, double distanceError, double distanceTravelled) {
 
-    double power = 0.2;
+        double power = 0.2;
 
-    switch (name){
+        switch (name) {
 
-        case "collect block":{
+            case "collect block": {
 
-            if (distanceError < 5)
-                power = STOP_POWER;
-            else
-                power = 0.2;
-            break;
+                if (distanceError < 5)
+                    power = STOP_POWER;
+                else
+                    power = 0.2;
+                break;
             }
 
-        case "back up":{
+            case "back up": {
 
-            if (distanceError < 4)
-                power = STOP_POWER;
-            else
-                power = 0.2;
-            break;
-        }
-            case "drive straight a distance":{
+                if (distanceError < 4)
+                    power = STOP_POWER;
+                else
+                    power = 0.2;
+                break;
+            }
+            case "drive straight a distance": {
 
                 if (distanceError < ZERO_STOP)
                     power = STOP_POWER;
@@ -50,9 +50,12 @@ public class StraightTrapezoid {
                     power = MAX_POWER;
                 break;
             }
+            case "drive to foundation": {
+                power = 0.1;
+            }
+        }
+        return power;
     }
-    return power;
-}
 
 
 }

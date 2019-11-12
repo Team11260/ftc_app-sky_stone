@@ -7,7 +7,7 @@ public class StrafeTrapezoid {
     double ZOOM_IN_DISTANCE =  10;
     double ZERO_STOP = 2;
 
-    public double getPower(String namme, double distanceError, double distanceTravelled) {
+    public double getPower(String name, double distanceError, double distanceTravelled) {
 
         double power;
 

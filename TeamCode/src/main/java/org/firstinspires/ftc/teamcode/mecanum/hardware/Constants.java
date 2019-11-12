@@ -31,10 +31,11 @@ public final class Constants {
     static {
         //collectRightSkyStone.addSegment(new StrafeSegment("strafe to block", 3,0.5,100));
         //collectRightSkyStone.addSegment(new StrafeSegment("strafe to block", -36,0.5,100));
-        collectRightSkyStone.addSegment(new AngleDriveSegment("angle to block", 5,0.3,0));
+        collectRightSkyStone.addSegment(new AngleDriveSegment("angle to block", 4,0.4,0));
         collectRightSkyStone.addSegment((new DriveSegment("collect block", 20, 0.25, 0)));
-        collectRightSkyStone.addSegment((new DriveSegment("back up", -8, 0.25, 100)));
-        collectRightSkyStone.addSegment(new StrafeSegment("strafe to foundation", 75,0.5,0));
+        collectRightSkyStone.addSegment((new DriveSegment("back up", -8, 0.25, 0)));
+        collectRightSkyStone.addSegment(new StrafeSegment("strafe to foundation", 75,0.5,0,true));
+        collectRightSkyStone.addSegment(new DriveSegment("drive to foundation", 40, 0.1, 0,3000));
         //collectRightSkyStone.addSegment((new DriveSegment("back up", 8, 0.25, 100)));
         //collectRightSkyStone.addSegment((new DriveSegment("back up", -8, 0.25, 100)));
     }

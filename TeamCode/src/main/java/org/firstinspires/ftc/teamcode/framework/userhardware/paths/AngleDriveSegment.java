@@ -4,9 +4,11 @@ public class AngleDriveSegment extends Segment {
 
     private final double distance, speed, angle;
     private final int error;
+    boolean alignHeading;
 
 
     public AngleDriveSegment(String name, double distance, double speed, int error) {
+
         this(name, distance, speed, error, -210000);
     }
 
