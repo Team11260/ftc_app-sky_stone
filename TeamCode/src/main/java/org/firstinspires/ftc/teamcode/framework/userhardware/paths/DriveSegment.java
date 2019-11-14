@@ -13,7 +13,7 @@ public class DriveSegment extends Segment {
     }
 
     public DriveSegment(String name, double distance, double speed, int error, boolean alignHeading) {
-        this(name, distance, speed, error, -210000, alignHeading, -300000000);
+        this(name, distance, speed, error, -210000, alignHeading, 300000000);
     }
 
     public DriveSegment(String name, double distance, double speed, int error, int period) {

@@ -332,6 +332,7 @@ public class DriveController extends SubsystemController {
                 // telemetry.update();
 
             } //end of while loop
+        drive.stop();
             telemetry.addData(INFO, "Made it out of loop");
             telemetry.update();
         /*for(int i=0; i<1; ++i) {
@@ -344,7 +345,9 @@ public class DriveController extends SubsystemController {
             telemetry.getSmartdashboard().putGraph("Turbo", "Velocity", distanceTravelled, 10.0 * velocity);
             delay(50);
         }*/
+        drive.stop();
         if (alignHeading)    realignHeading();
+        //realignHeading();
 
         drive.stop();
 
@@ -356,6 +359,7 @@ public class DriveController extends SubsystemController {
         telemetry.addData(INFO, "Side encoder position: " + drive.getBackLeftPosition()/STRAIGHT_COUNTS_PER_INCH);
         telemetry.addData(INFO, "Angle heading   " +  getHeading());
         telemetry.update();
+
         //drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
@@ -392,7 +396,7 @@ public class DriveController extends SubsystemController {
 
         double angleError=0.0;
         double angleCorrection=0.0;
-        double angleCorrectionGain=0.007;
+        double angleCorrectionGain=0.007*10;
         //resetAngleToZero();
         double switchDirection = 1.0;
 
@@ -428,7 +432,7 @@ public class DriveController extends SubsystemController {
 
             angleError = getHeading();
 
-            if ((Math.abs(distanceTravelled)>4.0) && (Math.abs(distanceError)>(4.0)))
+            if ((Math.abs(distanceTravelled)>4.0) && (Math.abs(distanceError)>(0.0)))
                 angleCorrection = angleError * angleCorrectionGain;
             else
                 angleCorrection = 0.0;
@@ -452,6 +456,7 @@ public class DriveController extends SubsystemController {
         } //end of while loop
 
         if (alignHeading)    realignHeading();
+
 
         drive.stop();
 
@@ -538,7 +543,7 @@ public class DriveController extends SubsystemController {
             leftPower = power*switchDirection + angleCorrection;
             rightPower = (power*switchDirection - angleCorrection) * driveLeftCorrection;
 
-            power = 0.4;
+            power = 0.25;
             //drive.setDrivePowerAll(leftPower, rightPower , leftPower , rightPower);
             //drive.setDrivePowerAll(leftPower,-rightPower,(-leftPower)*0.91,rightPower);
             if (destination>0)
@@ -558,7 +563,7 @@ public class DriveController extends SubsystemController {
 
         } //end of while loop
 
-        drive.stop();
+       // drive.stop();
 
         telemetry.addData(INFO, "Time for drive: " + runtime.milliseconds());
         telemetry.addData(INFO, "Average loop time for drive: " + runtime.milliseconds() / loop);
@@ -588,7 +593,7 @@ public class DriveController extends SubsystemController {
         double angleError;
         double power ;
 
-        delay(800);     //wait for skid twist to finish
+        delay(400);     //wait for skid twist to finish
         angleError = getHeading();
 
         while (angleError>1.0 || angleError<-1.0) {

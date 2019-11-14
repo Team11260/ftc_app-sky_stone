@@ -12,6 +12,7 @@ import org.upacreekrobotics.dashboard.Config;
 
 import java.text.DecimalFormat;
 
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectLeftSkyStone;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectRightSkyStone;
 
 @Autonomous(name = "BlockFind Auton", group = "New")
@@ -91,6 +92,16 @@ public class BlockFindAuton extends AbstractAuton {
 
         }*/
         robot.runDrivePath(collectRightSkyStone);
+
+        //robot.strafe(+0.14,5000);
+        //robot.stop();
+        /*robot.strafe(-0.25,500);
+        robot.stop();
+        robot.driver.realignHeading();
+        robot.stop();
+        robot.runDrivePath(collectLeftSkyStone);
+        robot.driver.realignHeading();
+        robot.stop();*/
         /*arm.setGripperGripPosition();
         delay(500);
         arm.setArmUpPosition();
