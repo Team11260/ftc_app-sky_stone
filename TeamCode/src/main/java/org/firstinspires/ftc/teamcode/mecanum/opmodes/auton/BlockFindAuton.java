@@ -17,9 +17,9 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectR
 
 @Autonomous(name = "BlockFind Auton", group = "New")
 
-@Config
-//  At 3 feet a stone is approximately  180x90 pixels
 
+//  At 3 feet a stone is approximately  180x90 pixels
+@Config
 public class BlockFindAuton extends AbstractAuton {
     ImageProcessor imageProcessor;
     Robot robot;
@@ -27,6 +27,9 @@ public class BlockFindAuton extends AbstractAuton {
     DecimalFormat DF;
 
     ArmController arm;
+    public static double power=0.19;
+    public static int loopTime = 20;
+    public static double velThreshold = 0.5;
 
     public static double distance = 24;
 
@@ -53,7 +56,7 @@ public class BlockFindAuton extends AbstractAuton {
         //drive = new Drive(hardwareMap, telemetry);
         DF = new DecimalFormat("#.##");
         // imageProcessor = new ImageProcessor(false);
-        arm = new ArmController();
+        //arm = new ArmController();
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "init");
         telemetry.update();
@@ -91,7 +94,17 @@ public class BlockFindAuton extends AbstractAuton {
 
 
         }*/
+
         robot.runDrivePath(collectRightSkyStone);
+
+        //robot.runTestPurePursuit();
+
+
+        //robot.driver.approachFoundation(power, loopTime, velThreshold );
+
+        //robot.driver.approachWall(-0.2,10);
+
+        //robot.runDrivePath(collectLeftSkyStone);
 
         //robot.strafe(+0.14,5000);
         //robot.stop();
@@ -104,19 +117,19 @@ public class BlockFindAuton extends AbstractAuton {
         robot.stop();*/
         /*arm.setGripperGripPosition();
         delay(500);
-        arm.setArmUpPosition();
+        robot.arm.setArmUpPosition();
         robot.runDrivePath(strafeToTray);
         robot.driver.setPower(0.2,0.23);
         delay(500);
         robot.driver.setPower(0.0,0.0);
-        arm.setArmDownPosition();
+        robot.arm.setArmDownPosition();
         delay(200);
         arm.setGripperReleasePostion();
         delay(300);
         arm.setArmUpPosition();
         delay(300);*/
 
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, "segment distance");
+        //telemetry.addData(DoubleTelemetry.LogMode.INFO, "segment distance");
         //robot.runDrivePath(path);
         //arm.setArmDownPosition();
         //arm.setGripperReleasePostion();

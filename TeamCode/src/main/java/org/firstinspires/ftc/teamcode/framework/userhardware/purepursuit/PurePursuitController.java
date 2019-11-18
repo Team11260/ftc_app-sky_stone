@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit;
+import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
+import org.firstinspires.ftc.teamcode.mecanum.opmodes.test.AbstractRobot;
 
 
 public abstract class PurePursuitController {
@@ -39,7 +41,7 @@ public abstract class PurePursuitController {
 
         double distance = ((leftPosition - lastLeftPosition) + (rightPosition - lastRightPosition)) / 2;
 
-        currentPosition = new Pose(currentPosition.addVector(new Vector(distance * Math.cos(Math.toRadians(heading)), distance * Math.sin(Math.toRadians(heading)))), heading);
+        currentPosition = new Pose(currentPosition.add(new Vector(distance * Math.cos(Math.toRadians(heading)), distance * Math.sin(Math.toRadians(heading)))), heading);
 
         lastLeftPosition = leftPosition;
         lastRightPosition = rightPosition;
@@ -90,6 +92,8 @@ public abstract class PurePursuitController {
 
     public void resetPosition() {
         currentPosition = new Pose();
+        lastRightPosition = 0;
+        lastLeftPosition = 0;
     }
 
     public abstract double getActualHeadingDegrees();

@@ -3,20 +3,20 @@ package org.firstinspires.ftc.teamcode.framework.userhardware.paths;
 public class StrafeSegment extends Segment {
 
     private final double distance, speed, angle;
-    private final int error;
+    private final double error;
     boolean alignHeading;
 
 
-    public StrafeSegment(String name, double distance, double speed, int error) {
+    public StrafeSegment(String name, double distance, double speed, double error) {
         this(name, distance, speed, error, -210000, false);
     }
 
-    public StrafeSegment(String name, double distance, double speed, int error, boolean alignHeading){
+    public StrafeSegment(String name, double distance, double speed, double error, boolean alignHeading){
         this(name, distance, speed, error, -210000, alignHeading);
 
     }
 
-    public StrafeSegment(String name, double distance, double speed, int error, double angle, boolean alignHeading) {
+    public StrafeSegment(String name, double distance, double speed, double error, double angle, boolean alignHeading) {
         super(name, SegmentType.STRAFE);
         this.distance = distance;
         this.alignHeading = alignHeading;
@@ -33,7 +33,7 @@ public class StrafeSegment extends Segment {
         return speed;
     }
 
-    public int getError() {
+    public double getError() {
         return error;
     }
 

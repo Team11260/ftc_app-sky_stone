@@ -16,7 +16,7 @@ import org.upacreekrobotics.dashboard.Config;
 public class TestTeleopMode extends AbstractTeleop {
 
     public static double ARM_DOWN_POSITION = 0.855;
-    public static double ARM_UP_POSITION = 0.5;
+    public static double ARM_UP_POSITION = 0;
     public static double GRIPPER_GRIP_POSITION = 0.8;
     public static double GRIPPER_RELEASE_POSITION = 0.35;
 
@@ -30,8 +30,8 @@ public class TestTeleopMode extends AbstractTeleop {
 
     @Override
     public void RegisterEvents() {
-        addEventHandler("1_y_down", () -> drive.resetEncoders());
-        addEventHandler("1_x_down", () -> toggleRotation());
+        addEventHandler("1_y_down", () -> setArmDown());
+        addEventHandler("1_x_down", () -> setArmUp());
     }
 
     @Override

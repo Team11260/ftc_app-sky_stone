@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.mecanum.hardware;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 
+import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.ImageProcessor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
@@ -16,7 +17,7 @@ public class Robot extends AbstractRobot {
 
     private ImageProcessor imageProcessor;
 
-    int BLOCKHEIGHT = 130;
+    int BLOCKHEIGHT = 90;
 
     public DriveController driver;
     public IntakeController intake;
@@ -49,21 +50,27 @@ public class Robot extends AbstractRobot {
     }
 
     public String getSkyStonePositionThreeStones() {
-        int XORIGIN = 180;
-        int YORIGIN = 260;
-        int BLOCKWIDTH = 250;
-        int LINEWIDTH = 10;
+        int XORIGIN = 300;
+        int YORIGIN = 70;
+        int BLOCKWIDTH = 130;
+        int LINEWIDTH = 7;
         int threshold = 100;
         // int height = YORIGIN + (BLOCKHEIGHT/2);
-        int height = YORIGIN + 10;
-        int x_left = XORIGIN + 30;
+        int height = YORIGIN + 45;
+        int x_left = XORIGIN + 10;
         int x_center = x_left + BLOCKWIDTH;
         int x_right = x_center + BLOCKWIDTH;
         Bitmap image;
 
         image = imageProcessor.getImage();
+        // Webcam- Width: 848 Height: 480
+        //telemetry.addData(DoubleTelemetry.LogMode.INFO,"width: "+image.getWidth()+" height: "+image.getHeight());
+        //telemetry.update();
+        //delay(1000);
+
+        // This is the Latest
         ImageProcessor.drawBox(image, XORIGIN, YORIGIN, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
-        // ImageProcessor.drawBox(image, XORIGIN + 30, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
+        //ImageProcessor.drawBox(image, XORIGIN + 30, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
         // ImageProcessor.drawBox(image, XORIGIN + 30+BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
         // ImageProcessor.drawBox(image, XORIGIN + 30+BLOCKWIDTH+BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
         imageProcessor.setImage(image);
@@ -81,10 +88,10 @@ public class Robot extends AbstractRobot {
             stonePosition = "No Sky Stone Found";
         }
 
-        telemetry.update();
-        ImageProcessor.drawBox(image, XORIGIN + 60, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
-        ImageProcessor.drawBox(image, XORIGIN + 60 + BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
-        ImageProcessor.drawBox(image, XORIGIN + 60 + BLOCKWIDTH + BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
+        //telemetry.update();
+        ImageProcessor.drawBox(image, XORIGIN + 20, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
+        ImageProcessor.drawBox(image, XORIGIN + 20 + BLOCKWIDTH, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
+        ImageProcessor.drawBox(image, XORIGIN + 20 + BLOCKWIDTH + BLOCKWIDTH, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
 
         return stonePosition;
     }
@@ -110,6 +117,10 @@ public class Robot extends AbstractRobot {
 
     public void toggleRotation(){
         intake.toggleRotation();
+    }
+
+    public void runTestPurePursuit(){
+        driver.testPurePursuit();
     }
 
 

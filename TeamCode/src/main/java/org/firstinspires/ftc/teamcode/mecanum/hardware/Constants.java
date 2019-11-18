@@ -10,7 +10,8 @@ public final class Constants {
 
     ////////Drive////////
     public static int TRACK_WIDTH = 20;
-    public static double STRAIGHT_COUNTS_PER_INCH = 189;
+    // static double STRAIGHT_COUNTS_PER_INCH = 189;
+    public static double STRAIGHT_COUNTS_PER_INCH = 189.0;
 
 
     public final static Path collectCenterSkyStone = new Path("collect center sky stone");
@@ -24,23 +25,29 @@ public final class Constants {
     static {
         //collectLeftSkyStone.addSegment(new StrafeSegment("strafe to block", 4,0.5,100));
         //collectLeftSkyStone.addSegment((new DriveSegment("collect block", 9, 0.3, 100)));
-        collectLeftSkyStone.addSegment((new DriveSegment("drive straight a distance", -86, 0.25, 100)));
+        //collectLeftSkyStone.addSegment((new DriveSegment("drive straight a distance", -86, 0.25, 100)));
+        //collectLeftSkyStone.addSegment((new DriveSegment("back up", 8, 0.25, 100)));
+        //collectLeftSkyStone.addSegment(new StrafeSegment("strafe from foundation", 2.5,0.5,1));
+        collectLeftSkyStone.addSegment((new DriveSegment("drive straight a distance", 14, 0.25, 1)));
     }
 
     public final static Path collectRightSkyStone = new Path("collect  leftsky stone");
 
     static {
         //collectRightSkyStone.addSegment(new StrafeSegment("strafe to block", 3,0.5,100));
-        //collectRightSkyStone.addSegment(new StrafeSegment("strafe to block", -36,0.5,100));
+        collectRightSkyStone.addSegment(new StrafeSegment("strafe to block", -15,0.3,1.0));
         //collectRightSkyStone.addSegment(new AngleDriveSegment("angle to block", 4,0.4,0));
         //collectRightSkyStone.addSegment((new DriveSegment("collect block", 20, 0.25, 0)));
-        //collectRightSkyStone.addSegment((new DriveSegment("back up", -8, 0.25, 0)));
+        //collectRightSkyStone.addSegment((new DriveSegment("back up", 40, 0.25, 0)));
         //collectRightSkyStone.addSegment(new StrafeSegment("strafe to foundation", 75,0.5,0,true));
         //collectRightSkyStone.addSegment(new DriveSegment("drive to foundation", 40, 0.1, 0,3000));
         //collectRightSkyStone.addSegment((new DriveSegment("back up", 8, 0.25, 100)));
         //collectRightSkyStone.addSegment((new DriveSegment("back up", -8, 0.25, 100)));
-        collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", 72, 0.25, 100)));
-        collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -96, 0.25, 100)));
+        //collectRightSkyStone.addSegment(new StrafeSegment("strafe from foundation", 2.5,0.5,1));
+        //collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -40, 0.4, 1.0)));
+        //collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -95, 0.25, 1)));
+
+       // collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -64, 0.25, 100)));
                 //collectRightSkyStone.addSegment(new AngleDriveSegment("angle to block", -4,0.4,0));
         //collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -86, 0.25, 100)));
     }

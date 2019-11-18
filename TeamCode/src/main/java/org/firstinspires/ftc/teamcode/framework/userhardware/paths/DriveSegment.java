@@ -3,25 +3,25 @@ package org.firstinspires.ftc.teamcode.framework.userhardware.paths;
 public class DriveSegment extends Segment {
 
     private final double distance, speed, angle;
-    private final int error;
+    private final double error;
     private final int period;
     private boolean alignHeading;
 
 
-    public DriveSegment(String name, double distance, double speed, int error) {
+    public DriveSegment(String name, double distance, double speed, double error) {
         this(name, distance, speed, error, -210000, false, 300000000);
     }
 
-    public DriveSegment(String name, double distance, double speed, int error, boolean alignHeading) {
+    public DriveSegment(String name, double distance, double speed, double error, boolean alignHeading) {
         this(name, distance, speed, error, -210000, alignHeading, 300000000);
     }
 
-    public DriveSegment(String name, double distance, double speed, int error, int period) {
+    public DriveSegment(String name, double distance, double speed, double error, int period) {
         this(name, distance, speed, error, -210000, false, period);
     }
 
 
-    public DriveSegment(String name, double distance, double speed, int error, double angle, boolean alignHeading, int period) {
+    public DriveSegment(String name, double distance, double speed, double error, double angle, boolean alignHeading, int period) {
         super(name, SegmentType.DRIVE);
         this.distance = distance;
         this.alignHeading = alignHeading;
@@ -40,7 +40,7 @@ public class DriveSegment extends Segment {
         return speed;
     }
 
-    public int getError() {
+    public double getError() {
         return error;
     }
 

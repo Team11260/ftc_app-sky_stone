@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit;
 
 public class Point {
 
-    private final double x, y;
+    protected final double x, y;
 
     public Point(double x, double y) {
         this.x = x;
@@ -17,8 +17,16 @@ public class Point {
         return y;
     }
 
-    public Point addVector(Vector vector) {
-        return new Point(x + vector.getX(), y + vector.getY());
+    public Point add(Vector vector) {
+        return new Point(getX() + vector.getX(), getY() + vector.getY());
+    }
+
+    public Point add(Point point) {
+        return new Point(getX() + point.getX(), getY() + point.getY());
+    }
+
+    public Point subtract(Point point) {
+        return new Point(getX() - point.getX(), getY() - point.getY());
     }
 
     public double distance(Point point) {

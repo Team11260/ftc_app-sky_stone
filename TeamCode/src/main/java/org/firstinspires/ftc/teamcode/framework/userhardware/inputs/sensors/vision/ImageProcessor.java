@@ -14,7 +14,7 @@ public class ImageProcessor {
     }
 
     public ImageProcessor(boolean led) {
-        vuforia = new VuforiaImpl(false, false);
+        vuforia = new VuforiaImpl("WebCam",false, false);
         viewer = new ImageViewer(vuforia.getRotation());
     }
 
