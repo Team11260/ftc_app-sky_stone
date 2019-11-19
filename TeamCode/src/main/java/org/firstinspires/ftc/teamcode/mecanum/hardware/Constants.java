@@ -17,10 +17,15 @@ public final class Constants {
     public final static Path collectCenterSkyStone = new Path("collect center sky stone");
 
     static {
-        collectCenterSkyStone.addSegment((new DriveSegment("collect block", 14, 0.3, 100)));
-    }
+        collectCenterSkyStone.addSegment((new StrafeSegment("strafe to sky stone", -30, 0.5, 1)));
+        collectCenterSkyStone.addSegment((new StrafeSegment("back up from block",6,0.5,1)));
+        collectCenterSkyStone.addSegment((new DriveSegment("drive to foundation",76,0.8,1)));
+       // collectCenterSkyStone.addSegment((new StrafeSegment("strafe to foundation",6,0.3,1)));
+        //collectCenterSkyStone.addSegment(new StrafeSegment("strafe from foundation", -8,0.6,1,false));
+       // collectCenterSkyStone.addSegment((new TurnSegment("turn 90", -80.0, 0.6, 2.0,50000)));
 
-    public final static Path collectLeftSkyStone = new Path("collect  leftsky stone");
+    }
+    public final static Path collectLeftSkyStone = new Path("collect  left sky stone");
 
     static {
         //collectLeftSkyStone.addSegment(new StrafeSegment("strafe to block", 4,0.5,100));
@@ -31,7 +36,7 @@ public final class Constants {
         //collectLeftSkyStone.addSegment((new DriveSegment("drive straight a distance", 14, 0.25, 1)));
     }
 
-    public final static Path collectRightSkyStone = new Path("collect  leftsky stone");
+    public final static Path collectRightSkyStone = new Path("collect  right sky stone");
 
     static {
         //collectRightSkyStone.addSegment(new StrafeSegment("strafe to block", 3,0.5,100));
@@ -42,18 +47,21 @@ public final class Constants {
         //collectRightSkyStone.addSegment((new DriveSegment("back up", 40, 0.25, 0)));
         //collectRightSkyStone.addSegment(new StrafeSegment("strafe to foundation", 75,0.5,0,true));
         //collectRightSkyStone.addSegment(new DriveSegment("drive to foundation", 40, 0.1, 0,3000));
-        //collectRightSkyStone.addSegment(new StrafeSegment("strafe from foundation", 12,0.5,1.0,false));
-        //collectRightSkyStone.addSegment((new TurnSegment("turn 90", -80.0, 0.5, 2.0,50000)));
+        collectRightSkyStone.addSegment(new StrafeSegment("strafe from foundation", 8,0.6,1.0,false));
+        collectRightSkyStone.addSegment((new TurnSegment("turn 90", -80.0, 0.6, 2.0,50000)));
         //collectRightSkyStone.addSegment((new DriveSegment("back up", -8, 0.25, 100)));
         //collectRightSkyStone.addSegment(new StrafeSegment("strafe from foundation", 2.5,0.5,1));
-        collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", 50, 0.4, 2.0)));
-        collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -50, 0.4,2.0)));
+       // collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", 50, 0.4, 2.0)));
+       // collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -50, 0.4,2.0)));
         //collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -95, 0.25, 1)));
 
        // collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -64, 0.25, 100)));
                 //collectRightSkyStone.addSegment(new AngleDriveSegment("angle to block", -4,0.4,0));
         //collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -86, 0.25, 100)));
     }
+
+
+
     public final static Path collectBlock = new Path("collect block");
 
     static {

@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.ImageProcessor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
+import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.DriveController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.IntakeController;
@@ -37,12 +38,11 @@ public class Robot extends AbstractRobot {
         driver.runDrivePath(path);
     }
 
-    public void strafe(double power, int delay){
+    public void strafe(double power, int delay) {
         driver.strafe(power);
         delay(delay);
         driver.stop();
     }
-
 
 
     public void driveToSegment(DriveSegment segment) {
@@ -50,14 +50,14 @@ public class Robot extends AbstractRobot {
     }
 
     public String getSkyStonePositionThreeStones() {
-        int XORIGIN = 300;
-        int YORIGIN = 70;
+        int XORIGIN = 170;
+        int YORIGIN = 60;
         int BLOCKWIDTH = 130;
         int LINEWIDTH = 7;
         int threshold = 100;
         // int height = YORIGIN + (BLOCKHEIGHT/2);
         int height = YORIGIN + 45;
-        int x_left = XORIGIN + 10;
+        int x_left = XORIGIN + 40;
         int x_center = x_left + BLOCKWIDTH;
         int x_right = x_center + BLOCKWIDTH;
         Bitmap image;
@@ -75,6 +75,7 @@ public class Robot extends AbstractRobot {
         // ImageProcessor.drawBox(image, XORIGIN + 30+BLOCKWIDTH+BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
         imageProcessor.setImage(image);
 
+
         String stonePosition;
         if (getLineAverage(image, x_left, height) < threshold) {
             stonePosition = "Left";
@@ -89,9 +90,9 @@ public class Robot extends AbstractRobot {
         }
 
         //telemetry.update();
-        ImageProcessor.drawBox(image, XORIGIN + 20, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
-        ImageProcessor.drawBox(image, XORIGIN + 20 + BLOCKWIDTH, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
-        ImageProcessor.drawBox(image, XORIGIN + 20 + BLOCKWIDTH + BLOCKWIDTH, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
+        ImageProcessor.drawBox(image, x_left, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
+        ImageProcessor.drawBox(image, x_center, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
+        ImageProcessor.drawBox(image, x_right, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
 
         return stonePosition;
     }
@@ -106,6 +107,51 @@ public class Robot extends AbstractRobot {
         return sum / (BLOCKHEIGHT - 50);
     }
 
+    public RobotCallable setArmDownCallable() {
+        return () -> {
+            arm.setArmDownPosition();
+        };
+
+    }
+
+    public void setArmDown() {
+            arm.setArmDownPosition();
+    }
+
+    public RobotCallable setArmUpCallable() {
+        return () -> {
+            arm.setArmUpPosition();
+
+        };
+
+    }
+
+    public void setArmUp() {
+            arm.setArmUpPosition();
+    }
+
+    public RobotCallable setGripperGripCallable() {
+        return () -> {
+            arm.setGripperGripPosition();
+        };
+
+    }
+
+    public void setGripperGrip() {
+            arm.setGripperGripPosition();
+    }
+
+    public RobotCallable setGripperReleaseCallable() {
+        return () -> {
+            arm.setGripperReleasePostion();
+        };
+
+    }
+
+    public void setGripperRelease() {
+            arm.setGripperReleasePostion();
+    }
+
     public void startRotation() {
         intake.startIntake();
     }
@@ -115,11 +161,11 @@ public class Robot extends AbstractRobot {
         intake.stopIntake();
     }
 
-    public void toggleRotation(){
+    public void toggleRotation() {
         intake.toggleRotation();
     }
 
-    public void runTestPurePursuit(){
+    public void runTestPurePursuit() {
         driver.testPurePursuit();
     }
 

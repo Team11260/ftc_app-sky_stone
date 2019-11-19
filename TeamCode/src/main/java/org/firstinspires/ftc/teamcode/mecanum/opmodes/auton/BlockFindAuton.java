@@ -6,12 +6,16 @@ import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 //import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.vuforia.Vuforia;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.ImageProcessor;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
+import org.firstinspires.ftc.teamcode.framework.util.PathState;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
 import org.upacreekrobotics.dashboard.Config;
 
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectCenterSkyStone;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectLeftSkyStone;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectRightSkyStone;
 
@@ -27,7 +31,7 @@ public class BlockFindAuton extends AbstractAuton {
     DecimalFormat DF;
 
     ArmController arm;
-    public static double power=0.19;
+    public static double power = 0.19;
     public static int loopTime = 20;
     public static double velThreshold = 0.5;
 
@@ -36,13 +40,16 @@ public class BlockFindAuton extends AbstractAuton {
 
     @Override
     public void RegisterStates() {
-
-
+      //  addState(new PathState("Lower Arm", "strafe to sky stone", robot.setArmDownCallable()));
+        addState(new PathState("Gripper Grip", "strafe to sky stone", robot.setGripperGripCallable()));
+        addState((new PathState("Raise Arm", "strafe to sky stone", robot.setArmUpCallable())));
+        addState(new PathState("Lower Arm at Foundation", "strafe to foundation", robot.setArmDownCallable()));
+        addState(new PathState("Release Gripper","strafe to foundation",robot.setGripperReleaseCallable()));
     }
 
     public void InitLoop() {
 
-       // arm.setArmUpPosition();
+        // arm.setArmUpPosition();
         telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones());
 
         telemetry.update();
@@ -51,8 +58,11 @@ public class BlockFindAuton extends AbstractAuton {
 
     @Override
     public void Init() {
-
         robot = new Robot();
+
+        robot.setArmDown();
+        robot.setGripperRelease();
+
         //drive = new Drive(hardwareMap, telemetry);
         DF = new DecimalFormat("#.##");
         // imageProcessor = new ImageProcessor(false);
@@ -71,31 +81,30 @@ public class BlockFindAuton extends AbstractAuton {
         //arm.setArmDownPosition();
         //arm.setGripperReleasePostion();
 
-        /*switch (robot.getSkyStonePositionThreeStones()) {
+        switch (robot.getSkyStonePositionThreeStones()) {
             case "Right":
                 robot.runDrivePath(collectRightSkyStone);
-                arm.setGripperGripPosition();
                 break;
 
             case "Left":
                 robot.runDrivePath(collectLeftSkyStone);
-                arm.setGripperGripPosition();
                 break;
 
             case "Center":
                 robot.runDrivePath(collectCenterSkyStone);
-                arm.setGripperGripPosition();
                 break;
 
             default:
                 robot.runDrivePath(collectCenterSkyStone);
-                arm.setGripperGripPosition();
                 break;
 
 
-        }*/
+        }
 
-        robot.runDrivePath(collectRightSkyStone);
+//        robot.arm.setArmDownPosition();
+//        robot.arm.setGripperGripPosition();
+//        delay(1000);
+//        robot.runDrivePath(collectRightSkyStone);
 
         //robot.runTestPurePursuit();
 
@@ -152,8 +161,8 @@ public class BlockFindAuton extends AbstractAuton {
         robot.strafe(0.3, 1200);
         robot.runDrivePath(avoidRobot);
         robot.strafe(0.3, 1200);*/
-     // robot.driver.setPower(-0.3,-0.3);
-       // delay(500);
+        // robot.driver.setPower(-0.3,-0.3);
+        // delay(500);
 
 
         robot.stop();
