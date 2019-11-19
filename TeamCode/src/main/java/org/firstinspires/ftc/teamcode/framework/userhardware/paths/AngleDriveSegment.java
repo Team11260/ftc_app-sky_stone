@@ -3,16 +3,16 @@ package org.firstinspires.ftc.teamcode.framework.userhardware.paths;
 public class AngleDriveSegment extends Segment {
 
     private final double distance, speed, angle;
-    private final int error;
+    private final double error;
     boolean alignHeading;
 
 
-    public AngleDriveSegment(String name, double distance, double speed, int error) {
+    public AngleDriveSegment(String name, double distance, double speed, double error) {
 
         this(name, distance, speed, error, -210000);
     }
 
-    public AngleDriveSegment(String name, double distance, double speed, int error, double angle) {
+    public AngleDriveSegment(String name, double distance, double speed, double error, double angle) {
         super(name, SegmentType.ANGLEDRIVE);
         this.distance = distance;
         this.speed = speed;
@@ -28,7 +28,7 @@ public class AngleDriveSegment extends Segment {
         return speed;
     }
 
-    public int getError() {
+    public double getError() {
         return error;
     }
 

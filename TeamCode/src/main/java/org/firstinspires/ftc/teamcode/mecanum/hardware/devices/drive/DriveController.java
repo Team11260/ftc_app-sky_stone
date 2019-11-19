@@ -189,7 +189,6 @@ public class DriveController extends SubsystemController {
         RecTelemTime.reset();
 
         telemetry.addData(INFO, "Straight encoder position: " + (drive.getStraightPosition()-straightOffset));
-        telemetry.addData(INFO, "Side encoder position: " + drive.getStrafePosition());
         telemetry.update();
 
         runtime.reset();
@@ -243,8 +242,8 @@ public class DriveController extends SubsystemController {
                 leftPower = range(power * (speed + turn));
                 rightPower = range(power * (speed - turn));
             }*/
-            leftPower = range((speed*power*(double)switchDirection) + turn);
-            rightPower = range((speed*power*(double)switchDirection) - turn);
+            leftPower = range((speed*power*switchDirection) + turn);
+            rightPower = range((speed*power*switchDirection) - turn);
             drive.setDrivePowerAll(leftPower, rightPower , leftPower , rightPower);
 
             //  Fill arrays to be graphed in smart Dashboard
@@ -256,8 +255,7 @@ public class DriveController extends SubsystemController {
             //telemetry.addData(INFO, "Power level   " +  power);
             //telemetry.addData(INFO, "Straight encoder position: " + drive.getStraightPosition()/STRAIGHT_COUNTS_PER_INCH);
             //telemetry.update();
-
-            loop++;
+        loop++;
 
         } //end of while loop
 
@@ -340,10 +338,6 @@ public class DriveController extends SubsystemController {
         ArrayList<Double> targetPowerValues = new ArrayList<Double>();
         ArrayList<Double> headingValues = new ArrayList<Double>();
 
-        double anglePropCorr=0.0, angleIntCorr=0.0;
-        double anglePropGain = 1.0, angleIntGain = 1.0;
-        double anglePowerCorr = 0.0;
-
         speed = range(speed);
         drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -355,7 +349,7 @@ public class DriveController extends SubsystemController {
         double angleCorrection=0.0;
         double angleCorrectionGain=0.007*10;
 
-        double currentHeading, turn;
+        double currentHeading, turn=0.0;
         //resetAngleToZero();
 
         int loop = 0;
@@ -469,46 +463,68 @@ public class DriveController extends SubsystemController {
         telemetry.addData(INFO, "");
         telemetry.update();
 
+
         double distance = segment.getDistance(), speed = segment.getSpeed(), angle = baseHeading;
+        String segmentName = segment.getName();
+        double error = segment.getError();
+        //double anglereset = segment.getError();
+        double period = 50000;
+        double switchDirection = 1.0;
+        if (distance<0) switchDirection = -1.0;
+        double destination = (distance*switchDirection);
+
+        //boolean alignHeading = segment.getAlignHeading();
+        distancePID.reset();
 
         double leftPower=0.0, rightPower=0.0;
         double power = 0.0;
+        double velocity = 0.0, oldTime = 0.0;
+        double oldDistance = 0;
+        double straightOffset = 0.0;
+        double strafeOffset = 0.0;
+
         double strafePower = 0.0;
 
         StrafeTrapezoid strafeTrapezoid = new StrafeTrapezoid();
 
-        double destination =  (distance-1 );
-        double driveLeftCorrection = 1.09;
+        double driveLeftCorrection = 1.0;
 
         double distanceTravelled = 0.0;
         double distanceError = destination - distanceTravelled;
 
-        double anglePropCorr=0.0, angleIntCorr=0.0;
-        double anglePropGain = 1.0, angleIntGain = 1.0;
-        double anglePowerCorr = 0.0;
+        ArrayList<Double> velocityValues = new ArrayList<Double>();
+        ArrayList<Double> powerValues = new ArrayList<Double>();
+        ArrayList<Double> positionValues = new ArrayList<Double>();
+        ArrayList<Double> targetPowerValues = new ArrayList<Double>();
+        ArrayList<Double> headingValues = new ArrayList<Double>();
 
-        speed = range(speed);
         drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //drive.encodersZero();
+        straightOffset = drive.getStraightPosition();
+        strafeOffset = drive.getStrafePosition();
 
         double angleError=0.0;
         double angleCorrection=0.0;
-        double angleCorrectionGain=0.007;
+        double angleCorrectionGain=0.007*10;
+
+        double currentHeading, turn=0.0;
         //resetAngleToZero();
-        double switchDirection = 1.0;
+
         int loop = 0;
-        if (destination<0) switchDirection = -1.0;
+
+        //resetAngleToZero();
 
 
         RecTelemTime.reset();
-
-        telemetry.addData(INFO, "Straight encoder position: " + drive.getBackRightPosition());
-        telemetry.addData(INFO, "Side encoder position: " + drive.getBackLeftPosition());
+        telemetry.addData(INFO, "Straight encoder position: " + (drive.getStraightPosition()-straightOffset));
+        telemetry.addData(INFO, "Strafe encoder position: " + (drive.getStrafePosition()-strafeOffset));
         telemetry.update();
         runtime.reset();
-        while ((distanceTravelled < (destination*switchDirection) && opModeIsActive())){
 
+        //while ((distanceTravelled < (destination*switchDirection) && opModeIsActive())){
+        while ((!atPosition(destination, distanceTravelled, error)) && opModeIsActive() && (runtime.milliseconds()< period)){
             if (segment.isDone()) {
                 setPower(0, 0);
                 return;
@@ -517,33 +533,67 @@ public class DriveController extends SubsystemController {
                 setPower(0, 0);
                 continue;
             }
+            //  Get new location values
+
+            distanceTravelled =  (drive.getStraightPosition()-straightOffset)*switchDirection;
+            distanceError = destination - distanceTravelled;
+
+            //   Calculate velocity, if needed
+
+            // velocity = (1000.0*(double)(distanceTravelled - oldDistance))/((double)System.currentTimeMillis()-oldTime);
+            // oldTime = (double) System.currentTimeMillis();
+            // oldDistance = distanceTravelled;
+
+            // Calculate new power based on location in path
+            power = 1.0;
+
+            //power = distancePID.output(destination, distanceTravelled);
+            // power = straightTrapezoid.getPower(segmentName,distanceError,distanceTravelled);
+
 
             //power = straightTrapezoid.getPower("test1",distanceError,distanceTravelled);
-            power = strafeTrapezoid.getPower("test1",distanceError,distanceTravelled);
+            //power = strafeTrapezoid.getPower("test1",distanceError,distanceTravelled);
 
+             // Heading correction
 
-            angleError = getHeading();
+                currentHeading = getHeading();
+                if (angle - currentHeading > 180) {
+                    turn = anglePID.output(angle, 360 + currentHeading);
+                } else if (currentHeading - angle > 180) {
+                    turn = anglePID.output(angle, angle - (360 - (currentHeading - angle)));
+                } else {
+                    turn = anglePID.output(angle, currentHeading);
+                }
+                turn = 0.0;
 
-            if ((Math.abs(distanceTravelled)>4.0) && (Math.abs(distanceError)>(4.0)))
+            /*if ((Math.abs(distanceTravelled)>2.0) && (Math.abs(distanceError)>(2.0)))
                 angleCorrection = angleError * angleCorrectionGain;
-            else
-                angleCorrection = 0.0;
+             else
+                angleCorrection = 0.0;*/
+                //headingValues.add(angleError);
+                //angleCorrection = angleError * angleCorrectionGain;
+                // angleError = getHeading();
 
-            leftPower = power*switchDirection + angleCorrection;
-            rightPower = (power*switchDirection - angleCorrection) * driveLeftCorrection;
+                //   Set power according to corrections
+            /*if (power > 0) {
+                leftPower = range(power * (speed - turn));
+                rightPower = range(power * (speed + turn));
+            } else {
+                leftPower = range(power * (speed + turn));
+                rightPower = range(power * (speed - turn));
+            }*/
+            //leftPower = range((speed*power*switchDirection) + turn);
+            //rightPower = range((speed*power*switchDirection) - turn);
+            //drive.setDrivePowerAll(leftPower, rightPower , leftPower , rightPower);
 
-            power = 0.25;
+            power = 0.3;
             //drive.setDrivePowerAll(leftPower, rightPower , leftPower , rightPower);
             //drive.setDrivePowerAll(leftPower,-rightPower,(-leftPower)*0.91,rightPower);
-            if (destination>0)
-                drive.setDrivePowerAll(power,0,0,power);
+            if (distance<0)
+                drive.setDrivePowerAll(-power,0,0,-power);
             else
-                drive.setDrivePowerAll(0,power,0.91*power,0);
+                drive.setDrivePowerAll(0,power,power,0);
 
-            //distanceTravelled = (double) (drive.getBackRightPosition()) / STRAIGHT_COUNTS_PER_INCH;
-            distanceTravelled = (double) (drive.getBackLeftPosition()) / STRAIGHT_COUNTS_PER_INCH;
-            distanceTravelled = distanceTravelled * switchDirection;
-            distanceError = (destination*switchDirection) - distanceTravelled;
             //telemetry.getSmartdashboard().putGraph("Turbo", "Power",distanceTravelled,leftPower);
 
             loop++;
@@ -552,19 +602,18 @@ public class DriveController extends SubsystemController {
 
         } //end of while loop
 
-       // drive.stop();
+        drive.stop();
 
         telemetry.addData(INFO, "Time for drive: " + runtime.milliseconds());
         telemetry.addData(INFO, "Average loop time for drive: " + runtime.milliseconds() / loop);
         telemetry.addData(INFO, "Loop count " + loop);
         telemetry.addData(INFO, "Straight encoder goal: " + distance );
-        telemetry.addData(INFO, "Straight encoder position: " + drive.getBackRightPosition()/STRAIGHT_COUNTS_PER_INCH);
-        telemetry.addData(INFO, "Side encoder position: " + drive.getBackLeftPosition()/STRAIGHT_COUNTS_PER_INCH);
+        telemetry.addData(INFO, "Straight encoder position: " + (drive.getStraightPosition()-straightOffset));
+        telemetry.addData(INFO, "Strafe encoder position: " + (drive.getStrafePosition()-strafeOffset));
         telemetry.addData(INFO, "Angle heading   " +  getHeading());
         telemetry.update();
-        //factor = 0.91;
-        //drive.setDrivePowerAll(leftPower+straightPower,-rightPower+straightPower,(-leftPower+straightPower)*factor,rightPower+straightPower);
 
+        drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
     public synchronized void turnToSegment(TurnSegment segment) {
 
@@ -585,10 +634,13 @@ public class DriveController extends SubsystemController {
 
         telemetry.addData(INFO, "Angle: " + angle);
         telemetry.addData(INFO, "Baseheading: " + baseHeading);
+        telemetry.addData(INFO, "Initial Angle is: " + getHeading());
+        telemetry.update();
 
         straightPID.reset();
         drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         double power;
         while (opModeIsActive()) {
 
@@ -598,7 +650,7 @@ public class DriveController extends SubsystemController {
             runtime.reset();
 
             //While we are not in the error band keep turning
-            while ((getHeading()<angle) && opModeIsActive()) {
+            while ((getHeading()>angle) && opModeIsActive()) {
 
                 if (segment.isDone()) {
                     setPower(0, 0);
@@ -626,34 +678,39 @@ public class DriveController extends SubsystemController {
                     angleCall = 5;
                     power = straightPID.output(angle, currentHeading);
                 }*/
-                power = 0.4;
+                power = speed;
                 if (power > speed) power = speed;
                 if (power < -speed) power = -speed;
                 //power = 0.3;
 
+                telemetry.addData(INFO, "Final angle: " + DF.format(getHeading()));
+                telemetry.update();
+
                 /*telemetry.addData(INFO,
                         "                                                                                                                                 call = "
                                 + angleCall + " Power = " + DF.format(power) + " Angle = " + getHeading());*/
-                if (angle > 0)
-                    drive.setDrivePowerAll(0, power,0,power);
-                else
-                    drive.setDrivePowerAll(power, 0,power,0);
-
+                //if (angle > 0)
+                //    drive.setDrivePowerAll(0, power,0,power);
+               // else
+                //    drive.setDrivePowerAll(power, 0,power,0);
+                drive.setDrivePowerAll(power, -power,0,0);
                 loop++;
             }
-
-            runtime.reset();
-
-            while (runtime.milliseconds() < period) {
-                if ((abs(getHeading() - baseHeading)) > error && (abs(getHeading() + baseHeading)) > error) break;
-            }
-            if ((abs(getHeading() - baseHeading)) > error && (abs(getHeading() + baseHeading)) > error) continue;
+            drive.stop();
+            //runtime.reset();
+            telemetry.addData(INFO, "Average loop time for turn: " + DF.format(runtime.milliseconds() / loop)
+                    + " Time = " + runtime.milliseconds() + " Loops = " + loop);
+            delay(3000);
+            //while (runtime.milliseconds() < period) {
+            //    if ((abs(getHeading() - baseHeading)) > error && (abs(getHeading() + baseHeading)) > error) break;
+            //}
+            //if ((abs(getHeading() - baseHeading)) > error && (abs(getHeading() + baseHeading)) > error) continue;
 
 
             telemetry.addData(INFO, "");
             telemetry.addData(INFO, "Average loop time for turn: " + DF.format(runtime.milliseconds() / loop)
                     + " Time = " + runtime.milliseconds() + " Loops = " + loop);
-            telemetry.addData(INFO, "Left encoder position: " + DF.format(drive.getFrontLeftPosition()) + "  Right encoder position: " + DF.format(drive.getFrontRightPosition()));
+            //telemetry.addData(INFO, "Left encoder position: " + DF.format(drive.getFrontLeftPosition()) + "  Right encoder position: " + DF.format(drive.getFrontRightPosition()));
             telemetry.addData(INFO, "Final angle: " + DF.format(getHeading()));
             telemetry.update();
 
