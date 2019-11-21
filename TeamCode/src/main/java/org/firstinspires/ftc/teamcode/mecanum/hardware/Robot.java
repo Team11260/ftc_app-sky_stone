@@ -109,7 +109,16 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable setArmDownCallable() {
         return () -> {
+            RobotState.currentPath.pause();
             arm.setArmDownPosition();
+            delay(300);
+            arm.setGripperReleasePostion();
+            delay(400);
+            arm.setArmUpPosition();
+            delay(300);
+           arm.setGripperGripPosition();
+            RobotState.currentPath.resume();
+
         };
 
     }
@@ -136,7 +145,7 @@ public class Robot extends AbstractRobot {
             arm.setGripperGripPosition();
             delay(500);
             arm.setArmUpPosition();
-            delay(500);
+           // delay(500);
             RobotState.currentPath.resume();
         };
 

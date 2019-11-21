@@ -10,7 +10,7 @@ public class ArmController extends SubsystemController {
 
     public static double ARM_DOWN_POSITION = 0.65;
     public static double ARM_PIN_POSITION = 1.0;
-    public static double ARM_UP_POSITION = 0.95;
+    public static double ARM_UP_POSITION = 1.0;
     public static double ARM_BACK_POSITION = 0.3;
     public static double GRIPPER_GRIP_POSITION = 0.3;
     public static double GRIPPER_RELEASE_POSITION = 0.8;

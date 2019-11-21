@@ -2,8 +2,9 @@ package org.firstinspires.ftc.teamcode.framework.userhardware.paths;
 
 public class StrafeSegment extends Segment {
 
-    private final double distance, speed, angle;
+    private final double distance, speed, angle=0.0;
     private final double error;
+    final int period;
     boolean alignHeading;
 
 
@@ -16,13 +17,13 @@ public class StrafeSegment extends Segment {
 
     }
 
-    public StrafeSegment(String name, double distance, double speed, double error, double angle, boolean alignHeading) {
+    public StrafeSegment(String name, double distance, double speed, double error, int period, boolean alignHeading) {
         super(name, SegmentType.STRAFE);
         this.distance = distance;
         this.alignHeading = alignHeading;
         this.speed = speed;
         this.error = error;
-        this.angle = angle;
+        this.period = period;
     }
 
     public double getDistance() {

@@ -4,13 +4,13 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.STRAIGHT
 
 public class StraightTrapezoid {
 
-    double RAMP_UP_DISTANCE = 5.0*STRAIGHT_COUNTS_PER_INCH;
-    double RAMP_DOWN_DISTANCE = 10.0*STRAIGHT_COUNTS_PER_INCH;
+    double RAMP_UP_DISTANCE = 5.0;
+    double RAMP_DOWN_DISTANCE = 10.0;
     double ZOOM_IN_DISTANCE = 20.0;
     double ZERO_STOP = 1.0;
     double ZOOM_IN_POWER = 0.12;
-    double MAX_POWER = 0.60;
-    double INITIAL_POWER = 0.18;
+    double MAX_POWER = 1.0;
+    double INITIAL_POWER = 0.25;
     double STOP_POWER = 0.0;
 
     public double getPower(String name, double distanceError, double distanceTravelled) {
@@ -36,7 +36,7 @@ public class StraightTrapezoid {
                     power = 0.3;
                 break;
             }
-            case "drive straight a distance": {
+            case "drive to foundation": {
 
                 if (distanceError < RAMP_DOWN_DISTANCE)
                     power = MAX_POWER * distanceError  / RAMP_DOWN_DISTANCE;
@@ -50,9 +50,7 @@ public class StraightTrapezoid {
                 if(power<0) power = 0.0;
                 break;
             }
-            case "drive to foundation": {
-                power = 0.1;
-            }
+
         }
         return power;
     }

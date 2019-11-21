@@ -212,9 +212,9 @@ public class DriveController extends SubsystemController {
             //oldDistance = distanceTravelled;
 
             // Calculate new power based on location in path
-            power = 1.0;
+            //power = 1.0;
             //power = distancePID.output(destination, distanceTravelled);
-            //power = straightTrapezoid.getPower(segmentName,distanceError,distanceTravelled);
+            power = straightTrapezoid.getPower(segmentName,distanceError,distanceTravelled);
 
             // Heading correction
             currentHeading = getHeading();
@@ -699,7 +699,7 @@ public class DriveController extends SubsystemController {
             //runtime.reset();
             telemetry.addData(INFO, "Average loop time for turn: " + DF.format(runtime.milliseconds() / loop)
                     + " Time = " + runtime.milliseconds() + " Loops = " + loop);
-            delay(3000);
+
             //while (runtime.milliseconds() < period) {
             //    if ((abs(getHeading() - baseHeading)) > error && (abs(getHeading() + baseHeading)) > error) break;
             //}

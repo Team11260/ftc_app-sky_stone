@@ -44,8 +44,8 @@ public class BlockFindAuton extends AbstractAuton {
       //  addState(new PathState("Lower Arm", "strafe to sky stone", robot.setArmDownCallable()));
         addState(new PathState("Gripper Grip", "strafe to sky stone", robot.setGripperGripCallable()));
 
-        //addState((new PathState("Raise Arm", "Gripper Grip", robot.setArmUpCallable())));
-        //addState(new PathState("Lower Arm at Foundation", "strafe to foundation", robot.setArmDownCallable()));
+     //   addState(new PathState("Raise Arm", "strafe to foundation", robot.setGripperGripCallable()));
+        addState(new PathState("Lower Arm at Foundation", "strafe to foundation", robot.setArmDownCallable()));
         //addState(new PathState("Release Gripper","strafe to foundation",robot.setGripperReleaseCallable()));
     }
 
@@ -85,11 +85,11 @@ public class BlockFindAuton extends AbstractAuton {
 
         switch (robot.getSkyStonePositionThreeStones()) {
             case "Right":
-                //robot.runDrivePath(collectRightSkyStone);
+                robot.runDrivePath(collectRightSkyStone);
                 break;
 
             case "Left":
-                //robot.runDrivePath(collectLeftSkyStone);
+                robot.runDrivePath(collectLeftSkyStone);
                 break;
 
             case "Center":
