@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm;
+package org.firstinspires.ftc.teamcode.mecanum .hardware.devices.arm;
 
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.Arm;
@@ -8,9 +8,9 @@ public class ArmController extends SubsystemController {
     Arm arm;
 
 
-    public static double ARM_DOWN_POSITION = 0.95;
+    public static double ARM_DOWN_POSITION = 0.65;
     public static double ARM_PIN_POSITION = 1.0;
-    public static double ARM_UP_POSITION = 0.5;
+    public static double ARM_UP_POSITION = 0.95;
     public static double ARM_BACK_POSITION = 0.3;
     public static double GRIPPER_GRIP_POSITION = 0.3;
     public static double GRIPPER_RELEASE_POSITION = 0.8;

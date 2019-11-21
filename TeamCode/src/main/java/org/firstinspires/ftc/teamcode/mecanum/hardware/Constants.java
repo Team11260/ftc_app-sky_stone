@@ -17,9 +17,9 @@ public final class Constants {
     public final static Path collectCenterSkyStone = new Path("collect center sky stone");
 
     static {
-        collectCenterSkyStone.addSegment((new StrafeSegment("strafe to sky stone", -30, 0.5, 1)));
-        collectCenterSkyStone.addSegment((new StrafeSegment("back up from block",6,0.5,1)));
-        collectCenterSkyStone.addSegment((new DriveSegment("drive to foundation",76,0.8,1)));
+        collectCenterSkyStone.addSegment((new StrafeSegment("strafe to sky stone", -30, 0.3, 1)));
+        collectCenterSkyStone.addSegment((new StrafeSegment("back up from block",6,0.25,1)));
+        // collectCenterSkyStone.addSegment((new DriveSegment("drive to foundation",76,0.8,1)));
        // collectCenterSkyStone.addSegment((new StrafeSegment("strafe to foundation",6,0.3,1)));
         //collectCenterSkyStone.addSegment(new StrafeSegment("strafe from foundation", -8,0.6,1,false));
        // collectCenterSkyStone.addSegment((new TurnSegment("turn 90", -80.0, 0.6, 2.0,50000)));

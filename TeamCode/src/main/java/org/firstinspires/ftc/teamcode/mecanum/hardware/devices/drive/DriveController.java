@@ -28,6 +28,7 @@ import static java.lang.Math.abs;
 import static java.lang.Math.pow;
 import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry.LogMode.INFO;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.STRAIGHT_COUNTS_PER_INCH;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState.currentPath;
 
 @Config
 public class DriveController extends SubsystemController {
@@ -43,8 +44,6 @@ public class DriveController extends SubsystemController {
     private ElapsedTime runtime;
 
     private DecimalFormat DF;
-
-    public static Path currentPath = null;
 
     //private double DRIVE_COUNTS_PER_INCH = 189;//1440*x/(2.25pi)
     //private double STRAFE_COUNTS_PER_INCH = 196;

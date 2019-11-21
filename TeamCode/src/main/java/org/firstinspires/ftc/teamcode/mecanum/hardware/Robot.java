@@ -132,7 +132,12 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable setGripperGripCallable() {
         return () -> {
+            RobotState.currentPath.pause();
             arm.setGripperGripPosition();
+            delay(500);
+            arm.setArmUpPosition();
+            delay(500);
+            RobotState.currentPath.resume();
         };
 
     }
@@ -169,11 +174,27 @@ public class Robot extends AbstractRobot {
         driver.testPurePursuit();
     }
 
+    public int getPixelStripeAve(){
+
+        Bitmap image;
+        int stripeWidth = 10;
+        int stripeHeight = 50;
+        int sum = 0;
+
+        image = imageProcessor.getImage();
+
+        for(int i=0; i <stripeWidth; i++){
+            for (int j=0; j<stripeHeight; j++){
+                sum = sum + (Color.red(image.getPixel(5 + i, 20 + j)));
+            }
+
+        }
+        return (sum/(stripeHeight*stripeWidth));
+
+    }
 
     public void stop() {
-
         driver.stop();
-
     }
 
     //    public int getPixelNineAve(Bitmap image, int x, int y) {

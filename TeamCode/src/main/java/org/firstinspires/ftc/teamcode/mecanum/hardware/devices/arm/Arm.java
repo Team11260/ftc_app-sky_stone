@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Arm {
 
 
-    public static double ARM_DOWN_POSITION = 0.855;
+    public static double ARM_DOWN_POSITION = 0.6;
     public static double ARM_UP_POSITION = 0.5;
     public static double GRIPPER_GRIP_POSITION = 0.8;
     public static double GRIPPER_RELEASE_POSITION = 0.35;
@@ -16,8 +16,9 @@ public class Arm {
     public Arm(HardwareMap hardwareMap) {
 
         arm = hardwareMap.servo.get("arm_servo");
-        arm.setDirection(Servo.Direction.FORWARD);
+        arm.setDirection(Servo.Direction.REVERSE);
         //arm.setPosition(ARM_UP_POSITION);
+
 
         gripper = hardwareMap.servo.get("gripper_servo");
         gripper.setDirection(Servo.Direction.FORWARD);

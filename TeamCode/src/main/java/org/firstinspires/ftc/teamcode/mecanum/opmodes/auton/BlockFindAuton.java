@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.visi
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.util.PathState;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.Arm;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
 import org.upacreekrobotics.dashboard.Config;
 
@@ -30,7 +31,7 @@ public class BlockFindAuton extends AbstractAuton {
     boolean dashBoardSwitch = true;
     DecimalFormat DF;
 
-    ArmController arm;
+
     public static double power = 0.19;
     public static int loopTime = 20;
     public static double velThreshold = 0.5;
@@ -42,14 +43,16 @@ public class BlockFindAuton extends AbstractAuton {
     public void RegisterStates() {
       //  addState(new PathState("Lower Arm", "strafe to sky stone", robot.setArmDownCallable()));
         addState(new PathState("Gripper Grip", "strafe to sky stone", robot.setGripperGripCallable()));
-        addState((new PathState("Raise Arm", "strafe to sky stone", robot.setArmUpCallable())));
-        addState(new PathState("Lower Arm at Foundation", "strafe to foundation", robot.setArmDownCallable()));
-        addState(new PathState("Release Gripper","strafe to foundation",robot.setGripperReleaseCallable()));
+
+        //addState((new PathState("Raise Arm", "Gripper Grip", robot.setArmUpCallable())));
+        //addState(new PathState("Lower Arm at Foundation", "strafe to foundation", robot.setArmDownCallable()));
+        //addState(new PathState("Release Gripper","strafe to foundation",robot.setGripperReleaseCallable()));
     }
 
     public void InitLoop() {
 
         // arm.setArmUpPosition();
+
         telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones());
 
         telemetry.update();
@@ -60,13 +63,13 @@ public class BlockFindAuton extends AbstractAuton {
     public void Init() {
         robot = new Robot();
 
-        robot.setArmDown();
+        robot.setArmUp();
         robot.setGripperRelease();
 
         //drive = new Drive(hardwareMap, telemetry);
         DF = new DecimalFormat("#.##");
         // imageProcessor = new ImageProcessor(false);
-        //arm = new ArmController();
+
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "init");
         telemetry.update();
@@ -78,16 +81,15 @@ public class BlockFindAuton extends AbstractAuton {
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "run started");
         telemetry.update();
 
-        //arm.setArmDownPosition();
-        //arm.setGripperReleasePostion();
+        robot.setArmDown();
 
         switch (robot.getSkyStonePositionThreeStones()) {
             case "Right":
-                robot.runDrivePath(collectRightSkyStone);
+                //robot.runDrivePath(collectRightSkyStone);
                 break;
 
             case "Left":
-                robot.runDrivePath(collectLeftSkyStone);
+                //robot.runDrivePath(collectLeftSkyStone);
                 break;
 
             case "Center":
@@ -173,5 +175,15 @@ public class BlockFindAuton extends AbstractAuton {
     @Override
     public void Stop() {
         robot.driver.stop();
+    }
+
+
+    public synchronized void findSecondBlock(int position, double power) {
+
+
+        while (robot.getPixelStripeAve() > 50) {
+            telemetry.addData("Pixel average is   " + robot.getPixelStripeAve());
+        }
+
     }
 }
