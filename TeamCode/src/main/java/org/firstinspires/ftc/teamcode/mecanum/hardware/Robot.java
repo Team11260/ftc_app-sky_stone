@@ -14,13 +14,15 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.IntakeCont
 
 import org.firstinspires.ftc.teamcode.mecanum.opmodes.test.AbstractRobot;
 
+import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry.LogMode.INFO;
+
 public class Robot extends AbstractRobot {
 
     private ImageProcessor imageProcessor;
 
     int BLOCKHEIGHT = 66;
     int XORIGIN = 200;
-    int YORIGIN = 62;
+    int YORIGIN = 72;
     int BLOCKWIDTH = 123;
 
     public DriveController driver;
@@ -55,7 +57,7 @@ public class Robot extends AbstractRobot {
     public String getSkyStonePositionThreeStones() {
 
         int LINEWIDTH = 7;
-        int threshold = 100;
+        int threshold = 120;
         // int height = YORIGIN + (BLOCKHEIGHT/2);
         int height = YORIGIN + 45;
         int x_left = XORIGIN;
@@ -78,7 +80,7 @@ public class Robot extends AbstractRobot {
 
 
         String stonePosition;
-        if (getLineAverage(image, x_left, height) < threshold) {
+       /* if (getLineAverage(image, x_left, height) < threshold) {
             stonePosition = "Left";
         } else if (getLineAverage(image, x_center, height) < threshold) {
 
@@ -88,9 +90,22 @@ public class Robot extends AbstractRobot {
             stonePosition = "Right";
         } else {
             stonePosition = "No Sky Stone Found";
-        }
+        }*/
+        if (getPixelStripeAve(image,XORIGIN,YORIGIN) < threshold) {
+            stonePosition = "Left";
+        } else if (getPixelStripeAve(image,XORIGIN+BLOCKWIDTH,YORIGIN) < threshold) {
 
-        //telemetry.update();
+            stonePosition = "Center";
+        } else if (getPixelStripeAve(image,XORIGIN+2*BLOCKWIDTH,YORIGIN) < threshold) {
+
+            stonePosition = "Right";
+        } else {
+            stonePosition = "No Sky Stone Found";
+        }
+        telemetry.addData(INFO,"left box  " + getPixelStripeAve(image,XORIGIN,YORIGIN));
+        telemetry.addData(INFO,"center box  " + getPixelStripeAve(image,XORIGIN+BLOCKWIDTH,YORIGIN));
+        telemetry.addData(INFO,"right box  " + getPixelStripeAve(image,XORIGIN+2*BLOCKWIDTH,YORIGIN));
+        telemetry.update();
         ImageProcessor.drawBox(image, XORIGIN, YORIGIN, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
         ImageProcessor.drawBox(image, x_left+10, YORIGIN+5,BLOCKWIDTH-20, BLOCKHEIGHT-10, LINEWIDTH, Color.rgb(225, 0, 0));
         //delay(500);
@@ -98,6 +113,7 @@ public class Robot extends AbstractRobot {
         //delay(500);
         ImageProcessor.drawBox(image, x_right+10, YORIGIN+5, BLOCKWIDTH-20, BLOCKHEIGHT-10, LINEWIDTH, Color.rgb(225, 0, 0));
         imageProcessor.setImage(image);
+
         //ImageProcessor.drawBox(image, x_left, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
         //ImageProcessor.drawBox(image, x_center, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
         //ImageProcessor.drawBox(image, x_right, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
@@ -115,20 +131,20 @@ public class Robot extends AbstractRobot {
         return sum / (BLOCKHEIGHT - 50);
     }
 
-    /*public int getPixelStripeAve(Bitmap image, int x, int y){
+    public int getPixelStripeAve(Bitmap image, int x, int y){
 
-        int stripeWidth = BLOCKWIDTH;
-        int stripeHeight = BLOCKHEIGHT;
+        int stripeWidth = BLOCKWIDTH-20;
+        int stripeHeight = BLOCKHEIGHT-10;
         int sum = 0;
 
         for(int i=0; i <stripeWidth; i++){
             for (int j=0; j<stripeHeight; j++){
-                sum += Color.red(image.getPixel(x+i, y + j));
+                sum += Color.red(image.getPixel(x+i+10, y + j+5));
             }
         }
         return ((int)(sum/(stripeHeight*stripeWidth)));
 
-    }*/
+    }
 
     public RobotCallable setArmDownCallable() {
         return () -> {

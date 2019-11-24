@@ -103,14 +103,9 @@ public final class Constants {
     static {
         //forwardDrive.addSegment(new StrafeSegment("strafe test", 10,0.3,1,false));
         //forwardDrive.addSegment(new StrafeSegment("strafe test", 10,0.3,1,false));
-        forwardDrive.addSegment(new DriveSegment("drive to foundation", 48, 0.6, 1));
-        forwardDrive.addSegment(new DriveSegment("drive to foundation", -48, 0.6, 1));
-        forwardDrive.addSegment(new DriveSegment("drive to foundation", 48, 0.6, 1));
-        forwardDrive.addSegment(new DriveSegment("drive to foundation", -48, 0.6, 1));
-        forwardDrive.addSegment(new DriveSegment("drive to foundation", 48, 0.6, 1));
-        forwardDrive.addSegment(new DriveSegment("drive to foundation", -48, 0.6, 1));
-        forwardDrive.addSegment(new DriveSegment("drive to foundation", 48, 0.6, 1));
-        forwardDrive.addSegment(new DriveSegment("drive to foundation", -48, 0.6, 1));
+        forwardDrive.addSegment(new DriveSegment("drive to foundation", 60, 0.6, 1));
+        forwardDrive.addSegment(new DriveSegment("drive to foundation", -84, 0.6, 1));
+
         //forwardDrive.addSegment(new DriveSegment("forward drive", 10, 0.3, 1));
     }
 

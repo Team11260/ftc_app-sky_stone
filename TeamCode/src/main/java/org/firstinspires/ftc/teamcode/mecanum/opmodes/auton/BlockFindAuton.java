@@ -87,16 +87,15 @@ public class BlockFindAuton extends AbstractAuton {
 
         runtime.reset();
 
-
+        robot.setGripperGrip();
+        delay(500);
         robot.runDrivePath(forwardDrive);
 
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "time elapsed  " + runtime.milliseconds());
         telemetry.update();
 
-
         robot.setArmDown();
-
         switch (robot.getSkyStonePositionThreeStones()) {
             case "Right":
                // robot.runDrivePath(collectRightSkyStone);
