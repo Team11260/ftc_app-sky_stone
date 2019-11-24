@@ -18,12 +18,14 @@ public class DriveController extends SubsystemController {
     private Drive drive;
 
     private PIDController velocityPID;
+    private PIDController straightPID;
 
     @Override
     public void init() {
         drive = new Drive(hardwareMap);
 
-        velocityPID = new PIDController(1000,0,0);
+        velocityPID = new PIDController(1000, 0, 100);
+        straightPID = new PIDController(25, 1, 35, 0.2);
     }
 
     @Override
@@ -76,28 +78,33 @@ public class DriveController extends SubsystemController {
 
     public void driveToSegment(DriveSegment segment) {
         double position;
-        double power;
-        double heading;
         double velocity;
+        double target;
+        double velocityCorrection;
         double output;
+        double heading;
+        double headingCorrection;
 
         drive.resetHeading();
         drive.resetPosition();
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        TrapezoidTrajectory trajectory = new TrapezoidTrajectory(segment.getDistance(), 0.1, 0.025, 0.5, 0.1);
+        TrapezoidTrajectory trajectory = new TrapezoidTrajectory(segment.getDistance(), 0.1, 0.05, 0.5, 0.05);
 
         while (!trajectory.isDone(position = drive.getStraightPosition()) && opModeIsActive()) {
-            power = trajectory.velocity(drive.getStraightPosition());
-            heading = drive.getHeading() / 10;
+            target = trajectory.velocity(drive.getStraightPosition());
             velocity = drive.getStraightVelocity();
+            velocityCorrection = velocityPID.output(target, velocity);
+            output = (target * 1.2) + velocityCorrection;
 
-            output = velocityPID.output(power, velocity);
+            heading = drive.getHeading();
+            headingCorrection = straightPID.output(0, heading);
 
-            drive.setPower(power + output);
+            drive.setPower(output - headingCorrection, output + headingCorrection);
 
-            telemetry.getSmartdashboard().putGraph("velocity", "profile", position, power);
-            telemetry.getSmartdashboard().putGraph("velocity", "velocity", position, drive.getStraightVelocity());
+            telemetry.getSmartdashboard().putGraph("velocity", "profile", position, target);
+            telemetry.getSmartdashboard().putGraph("velocity", "output", position, output);
+            telemetry.getSmartdashboard().putGraph("velocity", "velocity", position, velocity);
         }
 
         drive.setPower(0);

@@ -1,4 +1,6 @@
-package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive;
+package org.firstinspires.ftc.teamcode.mecanum.hardware.devices;
+
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.DriveController;
 
 public class HardwareDevices {
 

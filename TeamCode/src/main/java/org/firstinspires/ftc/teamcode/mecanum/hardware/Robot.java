@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.mecanum.hardware;
 
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.HardwareDevices;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.HardwareDevices;
 
 public class Robot {
 
