@@ -101,7 +101,17 @@ public final class Constants {
     public static final Path forwardDrive = new Path("forward drive");
 
     static {
-        forwardDrive.addSegment(new DriveSegment("forward drive", 6, 0.5, 100));
+        //forwardDrive.addSegment(new StrafeSegment("strafe test", 10,0.3,1,false));
+        //forwardDrive.addSegment(new StrafeSegment("strafe test", 10,0.3,1,false));
+        forwardDrive.addSegment(new DriveSegment("drive to foundation", 48, 0.6, 1));
+        forwardDrive.addSegment(new DriveSegment("drive to foundation", -48, 0.6, 1));
+        forwardDrive.addSegment(new DriveSegment("drive to foundation", 48, 0.6, 1));
+        forwardDrive.addSegment(new DriveSegment("drive to foundation", -48, 0.6, 1));
+        forwardDrive.addSegment(new DriveSegment("drive to foundation", 48, 0.6, 1));
+        forwardDrive.addSegment(new DriveSegment("drive to foundation", -48, 0.6, 1));
+        forwardDrive.addSegment(new DriveSegment("drive to foundation", 48, 0.6, 1));
+        forwardDrive.addSegment(new DriveSegment("drive to foundation", -48, 0.6, 1));
+        //forwardDrive.addSegment(new DriveSegment("forward drive", 10, 0.3, 1));
     }
 
     public static final Path dragFoundation = new Path("last drive");

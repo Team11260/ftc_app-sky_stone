@@ -18,7 +18,10 @@ public class Robot extends AbstractRobot {
 
     private ImageProcessor imageProcessor;
 
-    int BLOCKHEIGHT = 90;
+    int BLOCKHEIGHT = 66;
+    int XORIGIN = 200;
+    int YORIGIN = 62;
+    int BLOCKWIDTH = 123;
 
     public DriveController driver;
     public IntakeController intake;
@@ -50,14 +53,12 @@ public class Robot extends AbstractRobot {
     }
 
     public String getSkyStonePositionThreeStones() {
-        int XORIGIN = 170;
-        int YORIGIN = 60;
-        int BLOCKWIDTH = 130;
+
         int LINEWIDTH = 7;
         int threshold = 100;
         // int height = YORIGIN + (BLOCKHEIGHT/2);
         int height = YORIGIN + 45;
-        int x_left = XORIGIN + 40;
+        int x_left = XORIGIN;
         int x_center = x_left + BLOCKWIDTH;
         int x_right = x_center + BLOCKWIDTH;
         Bitmap image;
@@ -69,11 +70,11 @@ public class Robot extends AbstractRobot {
         //delay(1000);
 
         // This is the Latest
-        ImageProcessor.drawBox(image, XORIGIN, YORIGIN, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
+        //ImageProcessor.drawBox(image, XORIGIN, YORIGIN, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
         //ImageProcessor.drawBox(image, XORIGIN + 30, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
         // ImageProcessor.drawBox(image, XORIGIN + 30+BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
         // ImageProcessor.drawBox(image, XORIGIN + 30+BLOCKWIDTH+BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
-        imageProcessor.setImage(image);
+        //imageProcessor.setImage(image);
 
 
         String stonePosition;
@@ -90,9 +91,16 @@ public class Robot extends AbstractRobot {
         }
 
         //telemetry.update();
-        ImageProcessor.drawBox(image, x_left, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
-        ImageProcessor.drawBox(image, x_center, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
-        ImageProcessor.drawBox(image, x_right, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
+        ImageProcessor.drawBox(image, XORIGIN, YORIGIN, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
+        ImageProcessor.drawBox(image, x_left+10, YORIGIN+5,BLOCKWIDTH-20, BLOCKHEIGHT-10, LINEWIDTH, Color.rgb(225, 0, 0));
+        //delay(500);
+        ImageProcessor.drawBox(image, x_center+10, YORIGIN+5, BLOCKWIDTH-20, BLOCKHEIGHT-10, LINEWIDTH, Color.rgb(225, 0, 0));
+        //delay(500);
+        ImageProcessor.drawBox(image, x_right+10, YORIGIN+5, BLOCKWIDTH-20, BLOCKHEIGHT-10, LINEWIDTH, Color.rgb(225, 0, 0));
+        imageProcessor.setImage(image);
+        //ImageProcessor.drawBox(image, x_left, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
+        //ImageProcessor.drawBox(image, x_center, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
+        //ImageProcessor.drawBox(image, x_right, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
 
         return stonePosition;
     }
@@ -106,6 +114,21 @@ public class Robot extends AbstractRobot {
         //telemetry.update();
         return sum / (BLOCKHEIGHT - 50);
     }
+
+    /*public int getPixelStripeAve(Bitmap image, int x, int y){
+
+        int stripeWidth = BLOCKWIDTH;
+        int stripeHeight = BLOCKHEIGHT;
+        int sum = 0;
+
+        for(int i=0; i <stripeWidth; i++){
+            for (int j=0; j<stripeHeight; j++){
+                sum += Color.red(image.getPixel(x+i, y + j));
+            }
+        }
+        return ((int)(sum/(stripeHeight*stripeWidth)));
+
+    }*/
 
     public RobotCallable setArmDownCallable() {
         return () -> {
@@ -181,25 +204,6 @@ public class Robot extends AbstractRobot {
 
     public void runTestPurePursuit() {
         driver.testPurePursuit();
-    }
-
-    public int getPixelStripeAve(){
-
-        Bitmap image;
-        int stripeWidth = 10;
-        int stripeHeight = 50;
-        int sum = 0;
-
-        image = imageProcessor.getImage();
-
-        for(int i=0; i <stripeWidth; i++){
-            for (int j=0; j<stripeHeight; j++){
-                sum = sum + (Color.red(image.getPixel(5 + i, 20 + j)));
-            }
-
-        }
-        return (sum/(stripeHeight*stripeWidth));
-
     }
 
     public void stop() {

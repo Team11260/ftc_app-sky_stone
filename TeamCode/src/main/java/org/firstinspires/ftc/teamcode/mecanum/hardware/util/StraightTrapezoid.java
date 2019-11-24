@@ -5,7 +5,7 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.STRAIGHT
 public class StraightTrapezoid {
 
     double RAMP_UP_DISTANCE = 5.0;
-    double RAMP_DOWN_DISTANCE = 10.0;
+    double RAMP_DOWN_DISTANCE = 15.0;
     double ZOOM_IN_DISTANCE = 20.0;
     double ZERO_STOP = 1.0;
     double ZOOM_IN_POWER = 0.12;
@@ -15,7 +15,7 @@ public class StraightTrapezoid {
 
     public double getPower(String name, double distanceError, double distanceTravelled) {
 
-        double power = 0.2;
+        double power = 1.0;
 
         switch (name) {
 

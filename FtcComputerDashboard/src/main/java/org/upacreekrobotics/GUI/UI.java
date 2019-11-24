@@ -1255,7 +1255,6 @@ public class UI extends JFrame implements ActionListener {
         public void run() {
             data = new Data();
             while (running) {
-
                 if (!gotOpModes && data != null && System.currentTimeMillis() - lastOpModesRequest > 1500) {
                     data.write(new Message(MessageType.GET_OP_MODES, "Hi"));
                     lastOpModesRequest = System.currentTimeMillis();
