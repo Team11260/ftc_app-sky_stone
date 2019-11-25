@@ -13,6 +13,39 @@ public final class Constants {
     // static double STRAIGHT_COUNTS_PER_INCH = 189;
     public static double STRAIGHT_COUNTS_PER_INCH = 189.0;
 
+    ////////Arm////////
+    //For Old
+    public static double ARM_DOWN_POSITION = 0.65;
+    public static double ARM_PIN_POSITION = 1.0;
+    public static double ARM_UP_POSITION = 1.0;
+    public static double ARM_BACK_POSITION = 0.3;
+    public static double GRIPPER_GRIP_POSITION = 0.3;
+    public static double GRIPPER_RELEASE_POSITION = 0.8;
+
+
+    ////////Vision////////
+    //For Old
+    public static int BLOCKHEIGHT = 66;
+    public static int XORIGIN = 200;
+    public static int YORIGIN = 72;
+    public static int BLOCKWIDTH = 123;
+
+    public static int LINE_WIDTH = 7;
+    public static int HEIGHT = 45;
+    public static int THRESHOLD = 120;
+
+    ////////Lift////////
+    public static int LIFT_UP = 1234;
+    public static int LIFT_DOWN = 0;
+    public static double TILT_DOWN = 0;
+    public static double TILT_UP = 0.5;
+    public static double GRABBER_OPEN = 0.5;
+    public static double GRABBER_CLOSE = 0;
+    public static double SLIDE_OUT = 0.5;
+    public static double PAN_WIDE = 0;
+    public static double PAN_SHORT = 0.5;
+
+
 
     public final static Path collectCenterSkyStone = new Path("collect center sky stone");
 

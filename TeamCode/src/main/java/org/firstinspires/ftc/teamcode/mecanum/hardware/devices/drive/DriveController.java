@@ -924,6 +924,10 @@ public class DriveController extends SubsystemController {
         drive.setPower(range(left), range(right));
     }
 
+    public synchronized void setDrivePowerAll(double FL,double FR,double BL,double BR){
+        drive.setDrivePowerAll(FL,FR,BL,BR);
+    }
+
     public synchronized void setY(double y) {
         turnY = (float) scaleInput(y);
     }
