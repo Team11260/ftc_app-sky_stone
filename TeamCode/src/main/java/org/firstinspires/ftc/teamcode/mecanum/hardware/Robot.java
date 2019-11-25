@@ -26,7 +26,7 @@ public class Robot extends AbstractRobot {
 
 
     public Robot() {
-        imageProcessor = new ImageProcessor(false);
+        //imageProcessor = new ImageProcessor(false);
         //telemetry = new DoubleTelemetry(super.telemetry, Dashboard.getInstance().getTelemetry(), new Logger(Dashboard.getCurrentOpMode()));
 
         driver = new DriveController();
@@ -179,8 +179,8 @@ public class Robot extends AbstractRobot {
         intake.toggleRotation();
     }
 
-    public void runTestPurePursuit() {
-        driver.testPurePursuit();
+    public void runTestPurePursuit(org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path path) {
+        driver.testPurePursuit(path);
     }
 
     public int getPixelStripeAve(){

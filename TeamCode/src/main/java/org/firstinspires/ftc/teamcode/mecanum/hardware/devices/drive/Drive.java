@@ -4,15 +4,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.IMU;
 import org.firstinspires.ftc.teamcode.framework.userhardware.outputs.SlewDcMotor;
-import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PurePursuitController;
+import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.MecanumPurePursuitController;
 
-import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry.LogMode.INFO;
-
-public class Drive extends PurePursuitController {
+public class Drive extends MecanumPurePursuitController {
 
     private IMU imu;
     private double lastLeftPosition = 0, lastRightPosition = 0;
@@ -52,8 +49,8 @@ public class Drive extends PurePursuitController {
         setSlewRate(2.0);  //Increase slew rate from default 0.1 to 2.0 speed change in 15 ms
 
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         resetPosition();
+        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void setDrivePowerAll(double FL, double FR, double BL, double BR) {
@@ -64,17 +61,17 @@ public class Drive extends PurePursuitController {
         //telemetry.addData(DoubleTelemetry.LogMode.INFO, dcMotorFrontLeft.getCurrentPosition(), dcMotorFrontRight.getCurrentPosition());
     }
 
-    @Override
-    public double getActualHeadingDegrees() {
-        return imu.getHeading();
-    }
-
     public void resetAngleToZero() {
         imu.resetAngleToZero();
 
     }
 
     @Override
+    public double getActualHeadingDegrees() {
+        return imu.getHeading();
+    }
+
+    /*@Override
     public double getLeftActualPositionInches() {
         //return dcMotorFrontLeft.getCurrentPosition() / 163.0;
         return getStraightPosition()/STRAIGHT_ENCODER_COUNTS_INCH;
@@ -83,6 +80,16 @@ public class Drive extends PurePursuitController {
     @Override
     public double getRightActualPositionInches() {
         return getStraightPosition()/STRAIGHT_ENCODER_COUNTS_INCH;
+    }*/
+
+    @Override
+    public double getXActualPositionInches() {
+        return getStraightPosition();
+    }
+
+    @Override
+    public double getYActualPositionInches() {
+        return -getStrafePosition();
     }
 
     public int getFrontLeftPosition() {
@@ -104,19 +111,24 @@ public class Drive extends PurePursuitController {
 
     public  double getStraightPosition(){
 
-        return (((double)(straightEncoder.getCurrentPosition())/STRAIGHT_ENCODER_COUNTS_INCH));
+        return (((double)(straightEncoder.getCurrentPosition())/STRAIGHT_ENCODER_COUNTS_INCH)) - straightOffset;
     }
 
     public  double getStrafePosition(){
-        return (((double)(-strafeEncoder.getCurrentPosition()))/STRAIGHT_ENCODER_COUNTS_INCH);
+        return (((double)(-strafeEncoder.getCurrentPosition()))/STRAIGHT_ENCODER_COUNTS_INCH) - strafeOffset;
     }
 
-    @Override
+    /*@Override
     public void setPower(double l, double r) {
         dcMotorFrontLeft.setPower(l);
         dcMotorBackLeft.setPower(l);
         dcMotorFrontRight.setPower(r);
         dcMotorBackRight.setPower(r);
+    }*/
+
+    @Override
+    public void setMecanumPower(double fl, double fr, double bl, double br) {
+        setDrivePowerAll(fl, fr, bl, br);
     }
 
     public void setMode(DcMotor.RunMode mode) {
@@ -136,9 +148,9 @@ public class Drive extends PurePursuitController {
         lastLeftPosition = 0;
         lastRightPosition = 0;
         straightOffset = 0;
-        straightOffset = getStraightPosition()/STRAIGHT_ENCODER_COUNTS_INCH;
+        straightOffset = getStraightPosition();
         strafeOffset = 0;
-        strafeOffset = getStrafePosition()/STRAIGHT_ENCODER_COUNTS_INCH;
+        strafeOffset = getStrafePosition();
     }
 
     public void setSlewRate(double slewSpeed){

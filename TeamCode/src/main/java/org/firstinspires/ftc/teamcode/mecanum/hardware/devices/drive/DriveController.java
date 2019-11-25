@@ -45,9 +45,6 @@ public class DriveController extends SubsystemController {
 
     private DecimalFormat DF;
 
-    //private double DRIVE_COUNTS_PER_INCH = 189;//1440*x/(2.25pi)
-    //private double STRAFE_COUNTS_PER_INCH = 196;
-
     public static double PATH_P = 15, PATH_F = 5;
 
     public static double PROP_GAIN=0.1,INT_GAIN=0.0,DIFF_GAIN=0.1;
@@ -719,27 +716,27 @@ public class DriveController extends SubsystemController {
         drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
-    public void testPurePursuit(){
+    public void testPurePursuit(org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path path){
 
-        drive.encodersZero();
         drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        drive.resetPosition();
-
-        org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path path =
-                new org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path(
-                new Point(0,0),new Point (40,0));
 
         path.build();
+
+        for(Point point : path.getPoints()) {
+            telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
+        }
 
         drive.follow(path);
 
         while(opModeIsActive() && drive.isFollowing()){
             drive.update();
             Pose currentPose = drive.getCurrentPosition();
-            telemetry.addData(INFO, "P", "Heading: " + currentPose.getHeading() + " X: " + currentPose.getX() + " Y: " + currentPose.getY());
+            //telemetry.addData(INFO, "P", "Heading: " + currentPose.getHeading() + " X: " + currentPose.getX() + " Y: " + currentPose.getY());
+            telemetry.getSmartdashboard().putGraph("position", "position", currentPose.getX(), currentPose.getY());
+            telemetry.getSmartdashboard().putGraph("position", "heading", currentPose.getX(), currentPose.getHeading());
         }
 
-        drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        drive.setPower(0, 0);
     }
 
 
@@ -858,6 +855,7 @@ public class DriveController extends SubsystemController {
             //telemetry.update();
         }
     }
+
     public synchronized void runPath(Path path) {
 
         //drive.follow(path);

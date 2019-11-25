@@ -6,11 +6,11 @@ import org.firstinspires.ftc.teamcode.mecanum.opmodes.test.AbstractRobot;
 
 public abstract class PurePursuitController {
 
-    private final double trackWidth;
-    private double lastLeftPosition = 0, lastRightPosition = 0;
-    private Pose currentPosition = new Pose();
-    private boolean isFollowing = false;
-    private Path currentPath = null;
+    protected final double trackWidth;
+    protected double lastLeftPosition = 0, lastRightPosition = 0;
+    protected Pose currentPosition = new Pose();
+    protected boolean isFollowing = false;
+    protected Path currentPath = null;
     protected DoubleTelemetry telemetry;
 
 

@@ -198,6 +198,26 @@ public class Path {
     }
 
     /**
+     * Calculates and returns the angle from the robots current pose to a specified point.
+     *
+     * @param index           the index of the point, usually the look ahead point
+     * @param currentLocation the current Pose2d of the robot
+     * @return the angle in degrees
+     */
+    public double getAngleFromPathPoint(int index, Pose currentLocation) {
+        if (fPath == null || fPath.size() == 0) return 0.0;
+
+        Vector delta = new Vector(index < getPath().size() - 1 ? getPathPoint(index).subtract(currentLocation) : getPathPoint(getPath().size() - 1).add(new Vector(getPathPoint(getPath().size() - 1).subtract(getPathPoint(getPath().size() - 2))).normalize().scale(fLookAheadDistance - currentLocation.distance(getPathPoint(getPath().size() - 1)))).subtract(currentLocation));
+
+        double angle = Math.toDegrees(Math.atan2(delta.getY(), Math.abs(delta.getX()) > 0.3 ? delta.getX() : 0.3 * Math.signum(delta.getX())));
+
+        fTargetAngle = angle;
+
+        return angle;
+    }
+
+
+    /**
      * Calculates and returns the curvature from the robots current pose to a specified point,
      * used by the follower to steer the robot.
      *
@@ -374,6 +394,10 @@ public class Path {
      * Turns all the waypoints (fPoints) into a path (fPath).
      */
     public void build() {
+
+        if(fPath != null) {
+            return;
+        }
 
         if (fPoints.size() == 0) {
             fPath = new ArrayList<>();
