@@ -223,6 +223,7 @@ public class Robot extends AbstractRobot {
 
     public void runTestPurePursuit(org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path path) {
         driver.testPurePursuit(path);
+    }
 
     public RobotCallable toggleRotationCallable() {
         return () -> toggleRotation();
@@ -244,11 +245,6 @@ public class Robot extends AbstractRobot {
 
     public void setDrivePowerAll(double FL, double FR, double BL, double BR) {
         driver.setDrivePowerAll(FL, FR, BL, BR);
-    }
-
-
-    public void runTestPurePursuit() {
-        driver.testPurePursuit();
     }
 
     public void stop() {
