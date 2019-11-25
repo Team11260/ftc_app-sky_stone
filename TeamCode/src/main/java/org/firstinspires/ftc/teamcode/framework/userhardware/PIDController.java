@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
 import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry.LogMode.INFO;
 
 public class PIDController {
-    private double p, i, d, iVal, lastError = 0, ilimit = 1, minimumOutput = 0;
+    private double p, i, d, iVal=0.0, lastError = 0, ilimit = 1, minimumOutput = 0;
     private boolean logging = false;
     private DecimalFormat DF;
 
@@ -83,7 +83,8 @@ public class PIDController {
     }
 
     private double ITerm(double error) {
-        iVal = (iVal + error) * (i / 1000);
+        //iVal = (iVal + error) * (i / 1000);
+        iVal = iVal + error*(i/1000);
         if (iVal < -ilimit) iVal = -ilimit;
         if (iVal > ilimit) iVal = ilimit;
         if (logging) AbstractOpMode.getTelemetry().addData(INFO, "I", iVal);

@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.mecanum.hardware;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 
-import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.ImageProcessor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
@@ -12,17 +11,21 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.DriveController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.IntakeController;
 
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.lift.LiftController;
 import org.firstinspires.ftc.teamcode.mecanum.opmodes.test.AbstractRobot;
+
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.*;
+
+import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry.LogMode.INFO;
 
 public class Robot extends AbstractRobot {
 
     private ImageProcessor imageProcessor;
 
-    int BLOCKHEIGHT = 90;
-
     public DriveController driver;
     public IntakeController intake;
     public ArmController arm;
+    public LiftController lift;
 
 
     public Robot() {
@@ -32,6 +35,7 @@ public class Robot extends AbstractRobot {
         driver = new DriveController();
         //intake = new IntakeController();
         arm = new ArmController();
+        lift = new LiftController();
     }
 
     public void runDrivePath(Path path) {
@@ -50,14 +54,12 @@ public class Robot extends AbstractRobot {
     }
 
     public String getSkyStonePositionThreeStones() {
-        int XORIGIN = 170;
-        int YORIGIN = 60;
-        int BLOCKWIDTH = 130;
-        int LINEWIDTH = 7;
-        int threshold = 100;
+
+        int LINEWIDTH = LINE_WIDTH;
+        int threshold = THRESHOLD;
         // int height = YORIGIN + (BLOCKHEIGHT/2);
-        int height = YORIGIN + 45;
-        int x_left = XORIGIN + 40;
+        int height = YORIGIN + HEIGHT;
+        int x_left = XORIGIN;
         int x_center = x_left + BLOCKWIDTH;
         int x_right = x_center + BLOCKWIDTH;
         Bitmap image;
@@ -69,15 +71,14 @@ public class Robot extends AbstractRobot {
         //delay(1000);
 
         // This is the Latest
-        ImageProcessor.drawBox(image, XORIGIN, YORIGIN, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
+        //ImageProcessor.drawBox(image, XORIGIN, YORIGIN, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
         //ImageProcessor.drawBox(image, XORIGIN + 30, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
         // ImageProcessor.drawBox(image, XORIGIN + 30+BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
         // ImageProcessor.drawBox(image, XORIGIN + 30+BLOCKWIDTH+BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
-        imageProcessor.setImage(image);
-
+        //imageProcessor.setImage(image);
 
         String stonePosition;
-        if (getLineAverage(image, x_left, height) < threshold) {
+       /* if (getLineAverage(image, x_left, height) < threshold) {
             stonePosition = "Left";
         } else if (getLineAverage(image, x_center, height) < threshold) {
 
@@ -87,16 +88,36 @@ public class Robot extends AbstractRobot {
             stonePosition = "Right";
         } else {
             stonePosition = "No Sky Stone Found";
-        }
+        }*/
+        if (getPixelStripeAve(image, XORIGIN, YORIGIN) < threshold) {
+            stonePosition = "Left";
+        } else if (getPixelStripeAve(image, XORIGIN + BLOCKWIDTH, YORIGIN) < threshold) {
 
-        //telemetry.update();
-        ImageProcessor.drawBox(image, x_left, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
-        ImageProcessor.drawBox(image, x_center, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
-        ImageProcessor.drawBox(image, x_right, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
+            stonePosition = "Center";
+        } else if (getPixelStripeAve(image, XORIGIN + 2 * BLOCKWIDTH, YORIGIN) < threshold) {
+
+            stonePosition = "Right";
+        } else {
+            stonePosition = "No Sky Stone Found";
+        }
+        telemetry.addData(INFO, "left box  " + getPixelStripeAve(image, XORIGIN, YORIGIN));
+        telemetry.addData(INFO, "center box  " + getPixelStripeAve(image, XORIGIN + BLOCKWIDTH, YORIGIN));
+        telemetry.addData(INFO, "right box  " + getPixelStripeAve(image, XORIGIN + 2 * BLOCKWIDTH, YORIGIN));
+        telemetry.update();
+        ImageProcessor.drawBox(image, XORIGIN, YORIGIN, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
+        ImageProcessor.drawBox(image, x_left + 10, YORIGIN + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
+        //delay(500);
+        ImageProcessor.drawBox(image, x_center + 10, YORIGIN + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
+        //delay(500);
+        ImageProcessor.drawBox(image, x_right + 10, YORIGIN + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
+        imageProcessor.setImage(image);
+
+        //ImageProcessor.drawBox(image, x_left, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
+        //ImageProcessor.drawBox(image, x_center, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
+        //ImageProcessor.drawBox(image, x_right, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
 
         return stonePosition;
     }
-
 
     public int getLineAverage(Bitmap image, int x, int y) {
         int sum = 0;
@@ -105,6 +126,21 @@ public class Robot extends AbstractRobot {
         //telemetry.addData(DoubleTelemetry.LogMode.INFO, sum);
         //telemetry.update();
         return sum / (BLOCKHEIGHT - 50);
+    }
+
+    public int getPixelStripeAve(Bitmap image, int x, int y) {
+
+        int stripeWidth = BLOCKWIDTH - 20;
+        int stripeHeight = BLOCKHEIGHT - 10;
+        int sum = 0;
+
+        for (int i = 0; i < stripeWidth; i++) {
+            for (int j = 0; j < stripeHeight; j++) {
+                sum += Color.red(image.getPixel(x + i + 10, y + j + 5));
+            }
+        }
+        return ((int) (sum / (stripeHeight * stripeWidth)));
+
     }
 
     public RobotCallable setArmDownCallable() {
@@ -116,7 +152,7 @@ public class Robot extends AbstractRobot {
             delay(400);
             arm.setArmUpPosition();
             delay(300);
-           arm.setGripperGripPosition();
+            arm.setGripperGripPosition();
             RobotState.currentPath.resume();
 
         };
@@ -124,19 +160,18 @@ public class Robot extends AbstractRobot {
     }
 
     public void setArmDown() {
-            arm.setArmDownPosition();
+        arm.setArmDownPosition();
     }
 
     public RobotCallable setArmUpCallable() {
         return () -> {
             arm.setArmUpPosition();
-
         };
 
     }
 
     public void setArmUp() {
-            arm.setArmUpPosition();
+        arm.setArmUpPosition();
     }
 
     public RobotCallable setGripperGripCallable() {
@@ -145,14 +180,14 @@ public class Robot extends AbstractRobot {
             arm.setGripperGripPosition();
             delay(500);
             arm.setArmUpPosition();
-           // delay(500);
+            // delay(500);
             RobotState.currentPath.resume();
         };
 
     }
 
     public void setGripperGrip() {
-            arm.setGripperGripPosition();
+        arm.setGripperGripPosition();
     }
 
     public RobotCallable setGripperReleaseCallable() {
@@ -163,16 +198,23 @@ public class Robot extends AbstractRobot {
     }
 
     public void setGripperRelease() {
-            arm.setGripperReleasePostion();
+        arm.setGripperReleasePostion();
     }
 
     public void startRotation() {
         intake.startIntake();
     }
 
+    public RobotCallable startRotationCallable() {
+        return () -> startRotation();
+    }
 
     public void stopRotating() {
         intake.stopIntake();
+    }
+
+    public RobotCallable stopRotatingCallable() {
+        return () -> stopRotating();
     }
 
     public void toggleRotation() {
@@ -181,25 +223,32 @@ public class Robot extends AbstractRobot {
 
     public void runTestPurePursuit(org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path path) {
         driver.testPurePursuit(path);
+
+    public RobotCallable toggleRotationCallable() {
+        return () -> toggleRotation();
     }
 
-    public int getPixelStripeAve(){
+    public void toggleConeyor() {
+        intake.toggleConveyor();
+    }
 
-        Bitmap image;
-        int stripeWidth = 10;
-        int stripeHeight = 50;
-        int sum = 0;
 
-        image = imageProcessor.getImage();
+    public RobotCallable toggleConeyorCallable() {
+        return () -> toggleConeyor();
+    }
 
-        for(int i=0; i <stripeWidth; i++){
-            for (int j=0; j<stripeHeight; j++){
-                sum = sum + (Color.red(image.getPixel(5 + i, 20 + j)));
-            }
+    public void toggleTilt(){
 
-        }
-        return (sum/(stripeHeight*stripeWidth));
 
+    }
+
+    public void setDrivePowerAll(double FL, double FR, double BL, double BR) {
+        driver.setDrivePowerAll(FL, FR, BL, BR);
+    }
+
+
+    public void runTestPurePursuit() {
+        driver.testPurePursuit();
     }
 
     public void stop() {

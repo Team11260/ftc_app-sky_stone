@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
@@ -19,6 +20,7 @@ import java.text.DecimalFormat;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectCenterSkyStone;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectLeftSkyStone;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectRightSkyStone;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.forwardDrive;
 
 @Autonomous(name = "BlockFind Auton", group = "New")
 
@@ -30,6 +32,7 @@ public class BlockFindAuton extends AbstractAuton {
     Robot robot;
     boolean dashBoardSwitch = true;
     DecimalFormat DF;
+    private ElapsedTime runtime = new ElapsedTime();
 
 
     public static double power = 0.19;
@@ -56,6 +59,7 @@ public class BlockFindAuton extends AbstractAuton {
         telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones());
 
         telemetry.update();
+        delay(1000);
 
     }
 
@@ -81,23 +85,32 @@ public class BlockFindAuton extends AbstractAuton {
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "run started");
         telemetry.update();
 
-        robot.setArmDown();
+        runtime.reset();
 
+        robot.setGripperGrip();
+        delay(500);
+        robot.runDrivePath(forwardDrive);
+
+
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, "time elapsed  " + runtime.milliseconds());
+        telemetry.update();
+
+        robot.setArmDown();
         switch (robot.getSkyStonePositionThreeStones()) {
             case "Right":
-                robot.runDrivePath(collectRightSkyStone);
+               // robot.runDrivePath(collectRightSkyStone);
                 break;
 
             case "Left":
-                robot.runDrivePath(collectLeftSkyStone);
+               // robot.runDrivePath(collectLeftSkyStone);
                 break;
 
             case "Center":
-                robot.runDrivePath(collectCenterSkyStone);
+                //robot.runDrivePath(collectCenterSkyStone);
                 break;
 
             default:
-                robot.runDrivePath(collectCenterSkyStone);
+                //robot.runDrivePath(collectCenterSkyStone);
                 break;
 
 
@@ -181,9 +194,9 @@ public class BlockFindAuton extends AbstractAuton {
     public synchronized void findSecondBlock(int position, double power) {
 
 
-        while (robot.getPixelStripeAve() > 50) {
-            telemetry.addData("Pixel average is   " + robot.getPixelStripeAve());
-        }
+        //while (robot.getPixelStripeAve() > 50) {
+        //    telemetry.addData("Pixel average is   " + robot.getPixelStripeAve());
+        //}
 
     }
 }
