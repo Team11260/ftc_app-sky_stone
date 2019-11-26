@@ -27,6 +27,7 @@ public class Robot extends AbstractRobot {
     public IntakeController intake;
     public ArmController arm;
     public LiftController lift;
+    public Bitmap image;
 
 
     public Robot() {
@@ -63,7 +64,7 @@ public class Robot extends AbstractRobot {
         int x_left = XORIGIN;
         int x_center = x_left + BLOCKWIDTH;
         int x_right = x_center + BLOCKWIDTH;
-        Bitmap image;
+
 
         image = imageProcessor.getImage();
         // Webcam- Width: 848 Height: 480
@@ -90,20 +91,21 @@ public class Robot extends AbstractRobot {
         } else {
             stonePosition = "No Sky Stone Found";
         }*/
-        if (getPixelStripeAve(image, XORIGIN, YORIGIN) < threshold) {
+        if (getPixelStripeAve(XORIGIN, YORIGIN) < threshold) {
             stonePosition = "Left";
-        } else if (getPixelStripeAve(image, XORIGIN + BLOCKWIDTH, YORIGIN) < threshold) {
+        } else if (getPixelStripeAve(XORIGIN + BLOCKWIDTH, YORIGIN) < threshold) {
 
             stonePosition = "Center";
-        } else if (getPixelStripeAve(image, XORIGIN + 2 * BLOCKWIDTH, YORIGIN) < threshold) {
+        } else if (getPixelStripeAve(XORIGIN + 2 * BLOCKWIDTH, YORIGIN) < threshold) {
 
             stonePosition = "Right";
         } else {
             stonePosition = "No Sky Stone Found";
         }
-        telemetry.addData(INFO, "left box  " + getPixelStripeAve(image, XORIGIN, YORIGIN));
-        telemetry.addData(INFO, "center box  " + getPixelStripeAve(image, XORIGIN + BLOCKWIDTH, YORIGIN));
-        telemetry.addData(INFO, "right box  " + getPixelStripeAve(image, XORIGIN + 2 * BLOCKWIDTH, YORIGIN));
+        telemetry.addData(INFO, "left box  " + getPixelStripeAve( XORIGIN, YORIGIN));
+        telemetry.addData(INFO, "center box  " + getPixelStripeAve(XORIGIN + BLOCKWIDTH, YORIGIN));
+        telemetry.addData(INFO, "right box  " + getPixelStripeAve(XORIGIN + 2 * BLOCKWIDTH, YORIGIN));
+        telemetry.addData(INFO, "Front Third  "  +  getFrontThirdBlock(10, 320));
         telemetry.update();
         ImageProcessor.drawBox(image, XORIGIN, YORIGIN, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
         ImageProcessor.drawBox(image, x_left + 10, YORIGIN + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
@@ -129,7 +131,7 @@ public class Robot extends AbstractRobot {
         return sum / (BLOCKHEIGHT - 50);
     }
 
-    public int getPixelStripeAve(Bitmap image, int x, int y) {
+    public int getPixelStripeAve(int x, int y) {
 
         int stripeWidth = BLOCKWIDTH - 20;
         int stripeHeight = BLOCKHEIGHT - 10;
@@ -142,6 +144,33 @@ public class Robot extends AbstractRobot {
         }
         return ((int) (sum / (stripeHeight * stripeWidth)));
 
+    }
+
+    public int getFrontThirdBlock(int x, int y) {
+
+        int stripeWidth = 200;
+        int stripeHeight = 150;
+        int sum = 0;
+
+        image = imageProcessor.getImage();
+
+        for (int i = 0; i < stripeWidth; i++) {
+            for (int j = 0; j < stripeHeight/10; j++) {
+                sum += Color.red(image.getPixel(x + i + 10, y + 10*j + 5));
+            }
+        }
+        return ((int) ((sum*10) / (stripeHeight * stripeWidth)));
+
+    }
+
+    public int findSecondBlock(){
+        return getFrontThirdBlock(10,320);
+    }
+
+    public RobotCallable armDownCallable(){
+        return () -> {
+            setArmDown();
+        };
     }
 
     public RobotCallable setArmDownCallable() {
@@ -158,6 +187,21 @@ public class Robot extends AbstractRobot {
 
         };
 
+    }
+
+    public void grabBlock(){
+        setGripperGrip();
+        delay(400);
+        setArmUp();
+    }
+
+    public void deliverBlock(){
+        setArmDown();
+        //delay(500);
+        setGripperRelease();
+        delay(400);
+        setArmUp();
+        //delay(500);
     }
 
     public void setArmDown() {
@@ -178,6 +222,13 @@ public class Robot extends AbstractRobot {
 
     }
 
+    public RobotCallable delayedArmDownSecondCallable() {
+        return () -> {
+            delay(2000);
+            arm.setArmDownPosition();
+        };
+
+    }
 
     public void setArmUp() {
         arm.setArmUpPosition();
@@ -187,7 +238,7 @@ public class Robot extends AbstractRobot {
         return () -> {
             RobotState.currentPath.pause();
             arm.setGripperGripPosition();
-            delay(500);
+            delay(600);
             arm.setArmUpPosition();
             // delay(500);
             RobotState.currentPath.resume();

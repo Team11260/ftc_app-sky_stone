@@ -17,12 +17,12 @@ public final class Constants {
 
     ////////Arm////////
     //For Old
-    public static double ARM_DOWN_POSITION = 0.65;
+    public static double ARM_DOWN_POSITION = 0.63;
     public static double ARM_PIN_POSITION = 1.0;
     public static double ARM_UP_POSITION = 1.0;
     public static double ARM_BACK_POSITION = 0.3;
-    public static double GRIPPER_GRIP_POSITION = 0.3;
-    public static double GRIPPER_RELEASE_POSITION = 0.8;
+    public static double GRIPPER_GRIP_POSITION = 0.27;
+    public static double GRIPPER_RELEASE_POSITION = 0.85;
 
 
     ////////Vision////////
@@ -114,72 +114,43 @@ public final class Constants {
         //collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -86, 0.25, 100)));
     }
 
-    public final static PursuitPath goToFirstBlock = new PursuitPath(new Point(0, 0), new Point(0, 31));
+    public final static PursuitPath goToFirstBlock = new PursuitPath(new Point(0, 0), new Point(0, 28));
 
-    static {
-        goToFirstBlock.setMaxSpeed(1);
-        goToFirstBlock.setTrackingErrorSpeed(4.0);
-        goToFirstBlock.setLookAheadDistance(8);
-        goToFirstBlock.setVelocityLookAheadPoints(5);
-        goToFirstBlock.setMaxAcceleration(0.01);
-        goToFirstBlock.setTurnErrorScalar(0);
-    }
+    public final static PursuitPath goToFirstBlockLeft = new PursuitPath(new Point(0, 0), new Point(-8, 28));
 
-    public final static PursuitPath goToFoundation = new PursuitPath(new Point(0, 31), new Point(5, 26), new Point(55, 26), new Point(60, 31));
+    public final static PursuitPath goToFirstBlockRight = new PursuitPath(new Point(0, 0), new Point(8, 28));
 
-    static{
+    public final static PursuitPath goToFoundation = new PursuitPath(new Point(0, 28), new Point(0, 26), new Point(72, 26), new Point(72, 28));
 
-        goToFoundation.setMaxSpeed(1);
-        goToFoundation.setTrackingErrorSpeed(4.0);
-        goToFoundation.setLookAheadDistance(8);
-        goToFoundation.setVelocityLookAheadPoints(5);
-        goToFoundation.setMaxAcceleration(0.01);
-        goToFoundation.setTurnErrorScalar(0);
+    public final static PursuitPath goToFoundationLeft = new PursuitPath(new Point(-8, 28), new Point(-8, 26), new Point(72, 26), new Point(72, 28));
 
-    }
+    public final static PursuitPath goToFoundationRight= new PursuitPath(new Point(8, 28), new Point(8, 26), new Point(72, 26), new Point(72, 28));
 
-    public final static PursuitPath goToSecondBlock = new PursuitPath(new Point(60, 31), new Point(55, 26), new Point(-24, 26), new Point(-24, 31));
+    public final static PursuitPath goToSecondBlock = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(-24, 26), new Point(-24, 28));
 
-    static{
-        goToSecondBlock.setMaxSpeed(1);
-        goToSecondBlock.setTrackingErrorSpeed(4.0);
-        goToSecondBlock.setLookAheadDistance(8);
-        goToSecondBlock.setVelocityLookAheadPoints(5);
-        goToSecondBlock.setMaxAcceleration(0.01);
-        goToSecondBlock.setTurnErrorScalar(0);
-    }
+    public final static PursuitPath goToSecondBlockLeft = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(-32, 26), new Point(-32, 28));
 
-    public final static PursuitPath goBackToFoundation = new PursuitPath(new Point(-24, 31), new Point(-24, 26), new Point(70, 26), new Point(70, 31));
+    public final static PursuitPath goToSecondBlockRight = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(-16, 26), new Point(-16, 28));
 
-    static{
-        goBackToFoundation.setMaxSpeed(1);
-        goBackToFoundation.setTrackingErrorSpeed(4.0);
-        goBackToFoundation.setLookAheadDistance(8);
-        goBackToFoundation.setVelocityLookAheadPoints(5);
-        goBackToFoundation.setMaxAcceleration(0.01);
-        goBackToFoundation.setTurnErrorScalar(0);
-    }
-    public final static PursuitPath goBackToFoundationAgain= new PursuitPath(new Point(8, 31), new Point(8, 26), new Point(65, 26), new Point(65, 31));
+    public final static PursuitPath goBackToFoundation = new PursuitPath(new Point(-24, 28), new Point(-24, 26), new Point(72, 26), new Point(72, 28));
 
-    static{
-        goBackToFoundationAgain.setMaxSpeed(1);
-        goBackToFoundationAgain.setTrackingErrorSpeed(4.0);
-        goBackToFoundationAgain.setLookAheadDistance(8);
-        goBackToFoundationAgain.setVelocityLookAheadPoints(5);
-        goBackToFoundationAgain.setMaxAcceleration(0.01);
-        goBackToFoundationAgain.setTurnErrorScalar(0);
-    }
+    public final static PursuitPath goBackToFoundationLeft = new PursuitPath(new Point(-32, 28), new Point(-32, 26), new Point(72, 26), new Point(72, 28));
 
-    public final static PursuitPath goToThirdBlock = new PursuitPath(new Point(70, 31), new Point(70, 26), new Point(8, 26), new Point(8, 31));
+    public final static PursuitPath goBackToFoundationRight = new PursuitPath(new Point(-16, 28), new Point(-16, 26), new Point(72, 26), new Point(72, 28));
 
-    static{
-        goToThirdBlock.setMaxSpeed(1);
-        goToThirdBlock.setTrackingErrorSpeed(4.0);
-        goToThirdBlock.setLookAheadDistance(8);
-        goToThirdBlock.setVelocityLookAheadPoints(5);
-        goToThirdBlock.setMaxAcceleration(0.01);
-        goToThirdBlock.setTurnErrorScalar(0);
-    }
+    public final static PursuitPath goToThirdBlock = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(8, 26), new Point(8, 28));
+
+    public final static PursuitPath goToThirdBlockLeft = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(8, 26), new Point(8, 28));
+
+    public final static PursuitPath goToThirdBlockRight = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(0, 26), new Point(0, 28));
+
+    public final static PursuitPath goBackToFoundationAgain= new PursuitPath(new Point(8, 28), new Point(8, 26), new Point(72, 26), new Point(72, 28));
+
+    public final static PursuitPath goBackToFoundationAgainLeft= new PursuitPath(new Point(8, 28), new Point(8, 26), new Point(72, 26), new Point(72, 28));
+
+    public final static PursuitPath goBackToFoundationAgainRight= new PursuitPath(new Point(0, 28), new Point(0, 26), new Point(72, 26), new Point(72, 28));
+
+    public final static PursuitPath goToFourthBlockRight = new PursuitPath(new Point(65, 27), new Point(70, 26), new Point(-8, 26), new Point(-8, 30));
 
     public final static Path collectBlock = new Path("collect block");
 
@@ -203,10 +174,10 @@ public final class Constants {
     static {
         //forwardDrive.addSegment(new StrafeSegment("strafe test", 10,0.3,1,false));
         //forwardDrive.addSegment(new StrafeSegment("strafe test", 10,0.3,1,false));
-        forwardDrive.addSegment(new DriveSegment("drive to foundation", 60, 0.6, 1));
-        forwardDrive.addSegment(new DriveSegment("drive to foundation", -84, 0.6, 1));
+        forwardDrive.addSegment(new DriveSegment("drive to foundation", 50, 0.6, 1));
+        //forwardDrive.addSegment(new DriveSegment("drive to foundation", -84, 0.6, 1));
 
-        //forwardDrive.addSegment(new DriveSegment("forward drive", 10, 0.3, 1));
+        //forwardDrive.addSegment(new DriveSegment("forward drive", -5, 0.25, 1));
     }
 
     public static final Path dragFoundation = new Path("last drive");

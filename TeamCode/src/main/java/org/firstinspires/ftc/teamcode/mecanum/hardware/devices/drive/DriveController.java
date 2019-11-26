@@ -725,6 +725,8 @@ public class DriveController extends SubsystemController {
 
     public void testPurePursuit(PursuitPath pursuitPath){
 
+        pursuitPath.reset();
+
         drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         drive.setTargetHeading(0);

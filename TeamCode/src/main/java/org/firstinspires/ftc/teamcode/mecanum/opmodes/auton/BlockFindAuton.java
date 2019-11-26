@@ -88,8 +88,15 @@ public class BlockFindAuton extends AbstractAuton {
         runtime.reset();
 
         robot.setGripperGrip();
-        delay(500);
+        //delay(500);
+        robot.setDrivePowerAll(-0.22,-0.25,-0.22,-0.25);
+        //runtime.reset();
+        //while(robot.findSecondBlock()>100){
+         //   telemetry.addData(DoubleTelemetry.LogMode.INFO,"Find block  " + robot.findSecondBlock());
+        //}
+        robot.stop();
         robot.runDrivePath(forwardDrive);
+
 
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "time elapsed  " + runtime.milliseconds());
