@@ -1049,6 +1049,7 @@ public class UI extends JFrame implements ActionListener {
      * "addOpModes" adds opMode "name" to opMode selector and "opModeButtons" ArrayList, called by "handleIncoming"
      */
     public void addOpMode(String name) {
+        System.out.println(name);
         gotOpModes = true;
         gotOpModesCount = 0;
         for (JRadioButton button : opModeButtons) if (button.getText().equals(name)) return;
@@ -1255,8 +1256,10 @@ public class UI extends JFrame implements ActionListener {
         public void run() {
             data = new Data();
             while (running) {
+                System.out.println(gotOpModes);
                 if (!gotOpModes && data != null && System.currentTimeMillis() - lastOpModesRequest > 1500) {
                     data.write(new Message(MessageType.GET_OP_MODES, "Hi"));
+                    System.out.println("Get op modes");
                     lastOpModesRequest = System.currentTimeMillis();
                     if (gotOpModesCount >= 3) {
                         data = new Data();
@@ -1317,6 +1320,7 @@ public class UI extends JFrame implements ActionListener {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                 }
+                System.out.println("loop");
             }
         }
 

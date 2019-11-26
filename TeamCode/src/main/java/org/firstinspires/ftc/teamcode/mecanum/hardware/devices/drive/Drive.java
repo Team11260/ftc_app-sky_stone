@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
+import org.firstinspires.ftc.teamcode.framework.userhardware.PIDController;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.IMU;
 import org.firstinspires.ftc.teamcode.framework.userhardware.outputs.SlewDcMotor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.MecanumPurePursuitController;
@@ -25,7 +26,7 @@ public class Drive extends MecanumPurePursuitController {
     private double STRAIGHT_ENCODER_COUNTS_INCH = 189.0;
 
     public Drive(HardwareMap hardwareMap, DoubleTelemetry telemetry) {
-        super(20, telemetry);
+        super(20, 1.4, new PIDController(50, 0, 100), telemetry);
 
         imu = new IMU(hardwareMap);
         //imu = hardwareMap.getImu("imu");
@@ -71,17 +72,6 @@ public class Drive extends MecanumPurePursuitController {
         return imu.getHeading();
     }
 
-    /*@Override
-    public double getLeftActualPositionInches() {
-        //return dcMotorFrontLeft.getCurrentPosition() / 163.0;
-        return getStraightPosition()/STRAIGHT_ENCODER_COUNTS_INCH;
-    }
-
-    @Override
-    public double getRightActualPositionInches() {
-        return getStraightPosition()/STRAIGHT_ENCODER_COUNTS_INCH;
-    }*/
-
     @Override
     public double getXActualPositionInches() {
         return getStraightPosition();
@@ -117,14 +107,6 @@ public class Drive extends MecanumPurePursuitController {
     public  double getStrafePosition(){
         return (((double)(-strafeEncoder.getCurrentPosition()))/STRAIGHT_ENCODER_COUNTS_INCH) - strafeOffset;
     }
-
-    /*@Override
-    public void setPower(double l, double r) {
-        dcMotorFrontLeft.setPower(l);
-        dcMotorBackLeft.setPower(l);
-        dcMotorFrontRight.setPower(r);
-        dcMotorBackRight.setPower(r);
-    }*/
 
     @Override
     public void setMecanumPower(double fl, double fr, double bl, double br) {

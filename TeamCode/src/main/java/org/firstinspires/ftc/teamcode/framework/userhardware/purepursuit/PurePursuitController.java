@@ -17,7 +17,6 @@ public abstract class PurePursuitController {
     public PurePursuitController(double trackWidth, DoubleTelemetry telemetry) {
         this.trackWidth = trackWidth;
         this.telemetry = telemetry;
-
     }
 
     public void updateLoop(){

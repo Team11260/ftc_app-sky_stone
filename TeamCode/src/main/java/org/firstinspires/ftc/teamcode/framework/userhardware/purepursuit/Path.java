@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit;
 
+import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -32,6 +34,11 @@ public class Path {
      * Scales following speed based on tacking error (smaller number = better tracking, larger number = faster tracking)
      */
     private double fTrackingErrorSpeed = 1.5;
+
+    /**
+     * Scales how much turn error is added into total error
+     */
+    private double fTurnErrorScalar = 0.125;
 
     /**
      * The max acceleration (total output/point)
@@ -112,6 +119,10 @@ public class Path {
         fTrackingErrorSpeed = trackingErrorSpeed;
     }
 
+    public void setTurnErrorScalar(double turnErrorScalar) {
+        fTurnErrorScalar = turnErrorScalar;
+    }
+
     public void setMaxAcceleration(double maxAcceleration) {
         fMaxAcceleration = maxAcceleration;
     }
@@ -150,6 +161,10 @@ public class Path {
 
     public double getTrackingErrorSpeed() {
         return fTrackingErrorSpeed;
+    }
+
+    public double getTurnErrorScalar(double turnErrorScalar) {
+        return fTurnErrorScalar;
     }
 
     public double getMaxAcceleration() {
@@ -207,7 +222,8 @@ public class Path {
     public double getAngleFromPathPoint(int index, Pose currentLocation) {
         if (fPath == null || fPath.size() == 0) return 0.0;
 
-        Vector delta = new Vector(index < getPath().size() - 1 ? getPathPoint(index).subtract(currentLocation) : getPathPoint(getPath().size() - 1).add(new Vector(getPathPoint(getPath().size() - 1).subtract(getPathPoint(getPath().size() - 2))).normalize().scale(fLookAheadDistance - currentLocation.distance(getPathPoint(getPath().size() - 1)))).subtract(currentLocation));
+        //Vector delta = new Vector(index < getPath().size() - 1 ? getPathPoint(index).subtract(currentLocation) : getPathPoint(getPath().size() - 1).add(new Vector(getPathPoint(getPath().size() - 1).subtract(getPathPoint(getPath().size() - 2))).normalize().scale(fLookAheadDistance - currentLocation.distance(getPathPoint(getPath().size() - 1)))).subtract(currentLocation));
+        Vector delta = new Vector(getPathPoint(index).subtract(currentLocation));
 
         double angle = Math.toDegrees(Math.atan2(delta.getY(), Math.abs(delta.getX()) > 0.3 ? delta.getX() : 0.3 * Math.signum(delta.getX())));
 
@@ -270,8 +286,10 @@ public class Path {
      */
     public double getPathPointVelocity(int index, Pose currentLocation) {
         double speed = fMaxSpeed;
-        for (int i = index; i < index + fVelocityLookAheadPoints; i++) {
-            speed = Math.min(speed, range(getPathPoint(index).getVelocity() / range(getTrackingError(currentLocation) / fTrackingErrorSpeed, 1, 3), fMinSpeed, fMaxSpeed));
+        for (int i = index; i < index + fVelocityLookAheadPoints && i < getPoints().size(); i++) {
+            double error = range(getTrackingError(currentLocation) / fTrackingErrorSpeed, 1, 3);
+            AbstractOpMode.getTelemetry().getSmartdashboard().putGraph("position", "e", index, error);
+            speed = Math.min(speed, range(getPathPoint(i).getVelocity() / error, fMinSpeed, fMaxSpeed));
         }
         return speed;
     }
@@ -347,7 +365,7 @@ public class Path {
      * @return the index of the look ahead point
      */
     public double getTrackingError(Point currentPosition) {
-        return getPathPoint(getClosestPointIndex(currentPosition)).distance(currentPosition) + Math.abs(fDeltaAngle / 8);
+        return getPathPoint(getClosestPointIndex(currentPosition)).distance(currentPosition) + Math.abs(fDeltaAngle * fTurnErrorScalar);
     }
 
     /**Methods creating and clearing the path*/
@@ -534,12 +552,12 @@ public class Path {
      * @return the first calculation of velocity
      */
     private double getPointVelocity(int p) {
-        if (p >= fPoints.size() - 1) return 0.3;
+        if (p >= fPoints.size() - 1) return fMinSpeed;
 
         double d = fPoints.get(p).distance(fPoints.get(p + 1));
 
         if (p <= 0)
-            return Math.max(Math.min(Math.sqrt(2 * fMaxAcceleration * d), fTurnSpeed / getPointCurvature(p)), 0.2);
+            return Math.max(Math.min(Math.sqrt(2 * fMaxAcceleration * d), fTurnSpeed / getPointCurvature(p)), fMinSpeed);
 
         return Math.max(Math.min(Math.sqrt(Math.pow(getPathPoint(p - 1).getVelocity(), 2) + 2 * fMaxAcceleration * d), Math.min(fTurnSpeed / getPointCurvature(p), fMaxSpeed)), 0.2);
     }

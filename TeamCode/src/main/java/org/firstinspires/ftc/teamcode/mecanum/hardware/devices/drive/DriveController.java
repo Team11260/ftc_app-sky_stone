@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.StrafeSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
+import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PathPoint;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Pose;
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
@@ -731,8 +732,9 @@ public class DriveController extends SubsystemController {
 
         path.build();
 
-        for(Point point : path.getPoints()) {
+        for(PathPoint point : path.getPoints()) {
             telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
+            telemetry.getSmartdashboard().putGraph("position", "velocity", point.getX(), point.getVelocity());
         }
 
         drive.follow(path);
