@@ -6,6 +6,7 @@ import android.graphics.Color;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.ImageProcessor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
+import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.DriveController;
@@ -169,6 +170,14 @@ public class Robot extends AbstractRobot {
         };
 
     }
+    public RobotCallable delayedArmDownCallable() {
+        return () -> {
+            delay(2000);
+            arm.setArmDownPosition();
+        };
+
+    }
+
 
     public void setArmUp() {
         arm.setArmUpPosition();
@@ -221,8 +230,8 @@ public class Robot extends AbstractRobot {
         intake.toggleRotation();
     }
 
-    public void runTestPurePursuit(org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path path) {
-        driver.testPurePursuit(path);
+    public void runTestPurePursuit(PursuitPath pursuitPath) {
+        driver.testPurePursuit(pursuitPath);
     }
 
     public RobotCallable toggleRotationCallable() {

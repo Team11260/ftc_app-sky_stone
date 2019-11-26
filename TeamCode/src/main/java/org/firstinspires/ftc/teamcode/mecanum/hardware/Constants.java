@@ -5,6 +5,8 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.StrafeSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
+import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
+import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
 
 public final class Constants {
 
@@ -112,7 +114,72 @@ public final class Constants {
         //collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -86, 0.25, 100)));
     }
 
+    public final static PursuitPath goToFirstBlock = new PursuitPath(new Point(0, 0), new Point(0, 31));
 
+    static {
+        goToFirstBlock.setMaxSpeed(1);
+        goToFirstBlock.setTrackingErrorSpeed(4.0);
+        goToFirstBlock.setLookAheadDistance(8);
+        goToFirstBlock.setVelocityLookAheadPoints(5);
+        goToFirstBlock.setMaxAcceleration(0.01);
+        goToFirstBlock.setTurnErrorScalar(0);
+    }
+
+    public final static PursuitPath goToFoundation = new PursuitPath(new Point(0, 31), new Point(5, 26), new Point(55, 26), new Point(60, 31));
+
+    static{
+
+        goToFoundation.setMaxSpeed(1);
+        goToFoundation.setTrackingErrorSpeed(4.0);
+        goToFoundation.setLookAheadDistance(8);
+        goToFoundation.setVelocityLookAheadPoints(5);
+        goToFoundation.setMaxAcceleration(0.01);
+        goToFoundation.setTurnErrorScalar(0);
+
+    }
+
+    public final static PursuitPath goToSecondBlock = new PursuitPath(new Point(60, 31), new Point(55, 26), new Point(-24, 26), new Point(-24, 31));
+
+    static{
+        goToSecondBlock.setMaxSpeed(1);
+        goToSecondBlock.setTrackingErrorSpeed(4.0);
+        goToSecondBlock.setLookAheadDistance(8);
+        goToSecondBlock.setVelocityLookAheadPoints(5);
+        goToSecondBlock.setMaxAcceleration(0.01);
+        goToSecondBlock.setTurnErrorScalar(0);
+    }
+
+    public final static PursuitPath goBackToFoundation = new PursuitPath(new Point(-24, 31), new Point(-24, 26), new Point(70, 26), new Point(70, 31));
+
+    static{
+        goBackToFoundation.setMaxSpeed(1);
+        goBackToFoundation.setTrackingErrorSpeed(4.0);
+        goBackToFoundation.setLookAheadDistance(8);
+        goBackToFoundation.setVelocityLookAheadPoints(5);
+        goBackToFoundation.setMaxAcceleration(0.01);
+        goBackToFoundation.setTurnErrorScalar(0);
+    }
+    public final static PursuitPath goBackToFoundationAgain= new PursuitPath(new Point(8, 31), new Point(8, 26), new Point(65, 26), new Point(65, 31));
+
+    static{
+        goBackToFoundationAgain.setMaxSpeed(1);
+        goBackToFoundationAgain.setTrackingErrorSpeed(4.0);
+        goBackToFoundationAgain.setLookAheadDistance(8);
+        goBackToFoundationAgain.setVelocityLookAheadPoints(5);
+        goBackToFoundationAgain.setMaxAcceleration(0.01);
+        goBackToFoundationAgain.setTurnErrorScalar(0);
+    }
+
+    public final static PursuitPath goToThirdBlock = new PursuitPath(new Point(70, 31), new Point(70, 26), new Point(8, 26), new Point(8, 31));
+
+    static{
+        goToThirdBlock.setMaxSpeed(1);
+        goToThirdBlock.setTrackingErrorSpeed(4.0);
+        goToThirdBlock.setLookAheadDistance(8);
+        goToThirdBlock.setVelocityLookAheadPoints(5);
+        goToThirdBlock.setMaxAcceleration(0.01);
+        goToThirdBlock.setTurnErrorScalar(0);
+    }
 
     public final static Path collectBlock = new Path("collect block");
 

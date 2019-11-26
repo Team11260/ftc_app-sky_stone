@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.PIDController;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.AngleDriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
@@ -12,11 +11,9 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.StrafeSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PathPoint;
-import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Pose;
+import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.lift.Lift;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.lift.LiftController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.TelemetryRecord;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StrafeTrapezoid;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StraightTrapezoid;
@@ -726,23 +723,24 @@ public class DriveController extends SubsystemController {
         //drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
-    public void testPurePursuit(org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path path){
+    public void testPurePursuit(PursuitPath pursuitPath){
 
         drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        path.build();
+        drive.setTargetHeading(0);
 
-        for(PathPoint point : path.getPoints()) {
+        pursuitPath.build();
+
+        for(PathPoint point : pursuitPath.getPoints()) {
             telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
             telemetry.getSmartdashboard().putGraph("position", "velocity", point.getX(), point.getVelocity());
         }
 
-        drive.follow(path);
+        drive.follow(pursuitPath);
 
         while(opModeIsActive() && drive.isFollowing()){
             drive.update();
             Pose currentPose = drive.getCurrentPosition();
-            //telemetry.addData(INFO, "P", "Heading: " + currentPose.getHeading() + " X: " + currentPose.getX() + " Y: " + currentPose.getY());
             telemetry.getSmartdashboard().putGraph("position", "position", currentPose.getX(), currentPose.getY());
             telemetry.getSmartdashboard().putGraph("position", "heading", currentPose.getX(), currentPose.getHeading());
         }
@@ -989,12 +987,12 @@ public class DriveController extends SubsystemController {
 
         //Auton dump marker sequence
         telemetry.addData(INFO, "Start marker dump");
-        currentPath.pause();
+        currentPursuitPath.pause();
         telemetry.addData(INFO, "Pause path");
         drive.setMarkerServo(DRIVE_TEAM_MARKER_EXTENDED);
         delay(DRIVE_DUMP_TEAM_MARKER_DELAY);
         drive.setMarkerServo(DRIVE_TEAM_MARKER_RETRACTED);
-        currentPath.resume();
+        currentPursuitPath.resume();
         telemetry.addData(INFO, "Marker dumped");
     }*/
 

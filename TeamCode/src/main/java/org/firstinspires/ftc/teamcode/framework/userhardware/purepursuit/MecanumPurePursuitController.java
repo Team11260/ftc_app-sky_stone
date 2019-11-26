@@ -32,8 +32,8 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
     }
 
     @Override
-    public void follow(Path path) {
-        super.follow(path);
+    public void follow(PursuitPath pursuitPath) {
+        super.follow(pursuitPath);
 
         headingController.reset();
     }
@@ -52,7 +52,10 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
         double x = Math.cos(Math.toRadians(heading));
         double y = Math.sin(Math.toRadians(heading));
 
-        currentPosition = new Pose(currentPosition.add(new Vector(xDistance * x, xDistance * y)).add(new Vector(yDistance * y, yDistance * x)), heading);
+        telemetry.getSmartdashboard().putGraph("position", "distance", xDistance, yDistance);
+        telemetry.getSmartdashboard().putGraph("position", "scalars", x, y);
+
+        currentPosition = new Pose(currentPosition.add(new Vector(xDistance * x, xDistance * y)).add(new Vector(-yDistance * y, yDistance * x)), heading);
 
         lastXPosition = xPosition;
         lastYPosition = yPosition;
@@ -67,28 +70,20 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
 
         if(!isFollowing()) return;
 
-        int lookahead = currentPath.getLookAheadPointIndex(currentPosition);
-        int closest = currentPath.getClosestPointIndex(currentPosition);
+        int lookahead = currentPursuitPath.getLookAheadPointIndex(currentPosition);
+        int closest = currentPursuitPath.getClosestPointIndex(currentPosition);
 
         if(lookahead == -1) {
             isFollowing = false;
-            lookahead = currentPath.getPoints().size() - 1;
+            lookahead = currentPursuitPath.getPoints().size() - 1;
         }
 
-        double velocity = currentPath.getPathPointVelocity(closest, currentPosition);
-        double angle = currentPath.getAngleFromPathPoint(lookahead, currentPosition);
+        double velocity = currentPursuitPath.getPathPointVelocity(closest, currentPosition);
+        double angle = currentPursuitPath.getAngleFromPathPoint(lookahead, currentPosition) - currentPosition.getHeading();
 
         double x = Math.cos(Math.toRadians(angle));
         double y = Math.sin(Math.toRadians(angle)) * yScale;
         double z = headingController.output(targetHeading, currentPosition.getHeading());
-
-        /*telemetry.getSmartdashboard().putGraph("powers", "x", closest, x);
-        telemetry.getSmartdashboard().putGraph("powers", "y", closest, y);
-        telemetry.getSmartdashboard().putGraph("powers", "velocity", closest, velocity);
-        telemetry.getSmartdashboard().putGraph("position", "lookahead", closest, lookahead);
-        telemetry.getSmartdashboard().putGraph("position", "angle", closest, angle);*/
-        telemetry.getSmartdashboard().putGraph("position", "error", closest, currentPath.getTrackingError(currentPosition));
-        telemetry.getSmartdashboard().putGraph("position", "v", closest, velocity);
 
         double frontLeft = velocity * (x - y - z);
         double frontRight = velocity * (x + y + z);
@@ -100,7 +95,7 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
 
     @Override
     public boolean isFollowing() {
-        return currentPath != null && (isFollowing || Math.abs(currentPosition.getHeading()) > 1 || currentPosition.distance(currentPath.getPoint(currentPath.getPoints().size() - 1)) > 1);
+        return currentPursuitPath != null && (isFollowing || Math.abs(currentPosition.getHeading() - targetHeading) > 1 || currentPosition.distance(currentPursuitPath.getPoint(currentPursuitPath.getPoints().size() - 1)) > 1);
     }
 
     @Override

@@ -1,12 +1,17 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
-import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path;
-import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
+import org.firstinspires.ftc.teamcode.framework.util.PathState;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
+
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goBackToFoundation;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goBackToFoundationAgain;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFirstBlock;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFoundation;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToSecondBlock;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToThirdBlock;
 
 @Autonomous(name = "PurePursuitTest", group = "Test")
 //@Disabled
@@ -18,52 +23,59 @@ public class PurePursuitTest extends AbstractAuton {
     @Override
     public void RegisterStates() {
 
+        addState(new PathState("Delayed Arm Down", "test", robot.delayedArmDownCallable()));
+
     }
 
     @Override
     public void Init() {
         robot = new Robot();
-        robot.setGripperGrip();
+        //robot.setArmDown();
+        robot.setGripperRelease();
     }
 
     @Override
     public void Run() {
-        /*Path path = new Path(new Point(0,0), new Point (0,-6), new Point (72,-6), new Point(72, 0));
 
-        path.setMaxSpeed(1);
-        path.setTrackingErrorSpeed(4.0);
-        path.setLookAheadDistance(5);
+            robot.setArmDown();
+            robot.runTestPurePursuit(goToFirstBlock);
+            robot.setGripperGrip();
+            delay(500);
+            robot.setArmUp();
+            delay(500);
+            robot.runTestPurePursuit(goToFoundation);
+            robot.setArmDown();
+            delay(500);
+            robot.setGripperRelease();
+            delay(400);
+            robot.setArmUp();
+            delay(500);
+            AbstractAuton.addFinishedState("test");
+            robot.runTestPurePursuit(goToSecondBlock);
+            robot.setGripperGrip();
+            delay(500);
+            robot.setArmUp();
+            delay(500);
+            robot.runTestPurePursuit(goBackToFoundation);
+            robot.setArmDown();
+            delay(500);
+            robot.setGripperRelease();
+            delay(400);
+            robot.setArmUp();
+            delay(500);
+            AbstractAuton.addFinishedState("test");
+            robot.runTestPurePursuit(goToThirdBlock);
+            robot.setGripperGrip();
+            delay(500);
+            robot.setArmUp();
+            delay(500);
+            robot.runTestPurePursuit(goBackToFoundationAgain);
+            robot.setArmDown();
+            delay(500);
+            robot.setGripperRelease();
+            delay(400);
+            robot.setArmUp();
 
-        robot.runTestPurePursuit(path);
 
-        path = new Path(new Point(72,0), new Point (72,-6), new Point (0,-6), new Point(0, 0));
-
-        path.setMaxSpeed(1);
-        path.setTrackingErrorSpeed(4.0);
-        path.setLookAheadDistance(5);*/
-
-        for(int i = 0; i < 3; i++) {
-            Path path = new Path(new Point(0, 0), new Point(0, -6), new Point(72, -6), new Point(72, 0));
-
-            path.setMaxSpeed(1);
-            path.setTrackingErrorSpeed(4.0);
-            path.setLookAheadDistance(8);
-            path.setVelocityLookAheadPoints(5);
-            path.setMaxAcceleration(0.01);
-            path.setTurnErrorScalar(0);
-
-            robot.runTestPurePursuit(path);
-
-            path = new Path(new Point(72, 0), new Point(72, -6), new Point(0, -6), new Point(0, 0));
-
-            path.setMaxSpeed(1);
-            path.setTrackingErrorSpeed(4.0);
-            path.setLookAheadDistance(8);
-            path.setVelocityLookAheadPoints(5);
-            path.setMaxAcceleration(0.01);
-            path.setTurnErrorScalar(0);
-
-            robot.runTestPurePursuit(path);
-        }
     }
 }

@@ -1,19 +1,17 @@
 package org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit;
 
-import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Path is a class which stores points and calculates values to run pure pursuit
+ * PursuitPath is a class which stores points and calculates values to run pure pursuit
  *
  * @author Matthew Oates
  */
 
-public class Path {
+public class PursuitPath {
 
-    /**Path specific creation and following data*/
+    /**PursuitPath specific creation and following data*/
 
     /**
      * Distance between each point (inches)
@@ -31,7 +29,7 @@ public class Path {
     private double fTurnSpeed = 0.05;
 
     /**
-     * Scales following speed based on tacking error (smaller number = better tracking, larger number = faster tracking)
+     * Scales following speed based on tracking error (smaller number = better tracking, larger number = faster tracking)
      */
     private double fTrackingErrorSpeed = 1.5;
 
@@ -88,14 +86,14 @@ public class Path {
     /**
      * Pass in an ArrayList of waypoints
      */
-    public Path(ArrayList<Point> points) {
+    public PursuitPath(ArrayList<Point> points) {
         fPoints = points;
     }
 
     /**
      * Pass in a comma separated list or array of waypoints
      */
-    public Path(Point... points) {
+    public PursuitPath(Point... points) {
         this(new ArrayList<>(Arrays.asList(points)));
     }
 
@@ -287,9 +285,7 @@ public class Path {
     public double getPathPointVelocity(int index, Pose currentLocation) {
         double speed = fMaxSpeed;
         for (int i = index; i < index + fVelocityLookAheadPoints && i < getPoints().size(); i++) {
-            double error = range(getTrackingError(currentLocation) / fTrackingErrorSpeed, 1, 3);
-            AbstractOpMode.getTelemetry().getSmartdashboard().putGraph("position", "e", index, error);
-            speed = Math.min(speed, range(getPathPoint(i).getVelocity() / error, fMinSpeed, fMaxSpeed));
+            speed = Math.min(speed, range(getPathPoint(i).getVelocity() / range(getTrackingError(currentLocation) / fTrackingErrorSpeed, 1, 3), fMinSpeed, fMaxSpeed));
         }
         return speed;
     }

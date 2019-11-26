@@ -95,9 +95,9 @@ public class MecanumLoadingZoneAuton extends AbstractAuton {
         Bitmap image = null;
         ImageView userImage=null;
        /* boolean program = true;
-        //drive.follow(new Path(new Point(0, 0), new Point(18, 0)));
+        //drive.follow(new PursuitPath(new Point(0, 0), new Point(18, 0)));
         //drive.updateLoop();
-        //drive.follow(new Path(new Point(18, -2), new Point(23, -2)));
+        //drive.follow(new PursuitPath(new Point(18, -2), new Point(23, -2)));
         //drive.updateLoop();
         //drive.setDrivePowerAll(0, 0, 0, 0);
         //telemetry.addData(DoubleTelemetry.LogMode.INFO, "X: " + drive.getCurrentPosition().getX() + " Y: " + drive.getCurrentPosition().getY());

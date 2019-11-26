@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit;
-import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
-import org.firstinspires.ftc.teamcode.mecanum.opmodes.test.AbstractRobot;
 
 
 public abstract class PurePursuitController {
@@ -10,7 +8,7 @@ public abstract class PurePursuitController {
     protected double lastLeftPosition = 0, lastRightPosition = 0;
     protected Pose currentPosition = new Pose();
     protected boolean isFollowing = false;
-    protected Path currentPath = null;
+    protected PursuitPath currentPursuitPath = null;
     protected DoubleTelemetry telemetry;
 
 
@@ -48,19 +46,19 @@ public abstract class PurePursuitController {
 
     public void updateFollower() {
 
-        if(!isFollowing || currentPath == null) return;
+        if(!isFollowing || currentPursuitPath == null) return;
 
-        int lookahead = currentPath.getLookAheadPointIndex(currentPosition);
-        int closest = currentPath.getClosestPointIndex(currentPosition);
+        int lookahead = currentPursuitPath.getLookAheadPointIndex(currentPosition);
+        int closest = currentPursuitPath.getClosestPointIndex(currentPosition);
 
         if(lookahead == -1) {
-            currentPath = null;
+            currentPursuitPath = null;
             isFollowing = false;
             return;
         }
 
-        double velocity = currentPath.getPathPointVelocity(closest, currentPosition);
-        double curvature = currentPath.getCurvatureFromPathPoint(lookahead, currentPosition);
+        double velocity = currentPursuitPath.getPathPointVelocity(closest, currentPosition);
+        double curvature = currentPursuitPath.getCurvatureFromPathPoint(lookahead, currentPosition);
 
         double left = velocity * ((2 + curvature * trackWidth)/2);
         double right = velocity * ((2 - curvature * trackWidth)/2);
@@ -68,8 +66,8 @@ public abstract class PurePursuitController {
         setPower(left, right);
     }
 
-    public void follow(Path path) {
-        currentPath = path;
+    public void follow(PursuitPath pursuitPath) {
+        currentPursuitPath = pursuitPath;
         isFollowing = true;
     }
 
