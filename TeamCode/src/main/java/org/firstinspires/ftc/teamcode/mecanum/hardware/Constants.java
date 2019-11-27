@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.mecanum.hardware;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.AngleDriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.PurePursuitSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.StrafeSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
@@ -81,7 +82,7 @@ public final class Constants {
         //collectLeftSkyStone.addSegment((new DriveSegment("drive straight a distance", 14, 0.25, 1)));
     }
 
-    public final static Path collectRightSkyStone = new Path("collect  right sky stone");
+    public final static Path collectRightSkyStone = new Path("collect right sky stone");
 
     static {
         collectRightSkyStone.addSegment(new AngleDriveSegment("angle to block", 6,0.4,0.5));
@@ -114,43 +115,51 @@ public final class Constants {
         //collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -86, 0.25, 100)));
     }
 
-    public final static PursuitPath goToFirstBlock = new PursuitPath(new Point(0, 0), new Point(0, 28));
+    public final static PursuitPath goToFirstBlockCenter = new PursuitPath(new Point(0, 0), new Point(0, 28));
+    public final static PursuitPath goToFoundationCenter = new PursuitPath(new Point(0, 28), new Point(0, 26), new Point(72, 26), new Point(72, 28));
+    public final static PursuitPath goToSecondBlockCenter = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(-24, 26), new Point(-24, 28));
+    public final static PursuitPath goBackToFoundationCenter = new PursuitPath(new Point(-24, 28), new Point(-24, 26), new Point(72, 26), new Point(72, 28));
+
+    public final static Path testPurePursuitCenter = new Path("collect center sky stones");
+
+    static{
+        testPurePursuitCenter.addSegment(new PurePursuitSegment("drive to center sky stone", goToFirstBlockCenter,0));
+        testPurePursuitCenter.addSegment(new PurePursuitSegment("first trip to foundation", goToFoundationCenter,300));
+        //testPurePursuitCenter.addSegment(new PurePursuitSegment("drive to second center sky stone", goToSecondBlockCenter,0));
+        //testPurePursuitCenter.addSegment(new PurePursuitSegment("second trip to foundation", goBackToFoundationCenter,300));
+    }
+
 
     public final static PursuitPath goToFirstBlockLeft = new PursuitPath(new Point(0, 0), new Point(-8, 28));
-
-    public final static PursuitPath goToFirstBlockRight = new PursuitPath(new Point(0, 0), new Point(8, 28));
-
-    public final static PursuitPath goToFoundation = new PursuitPath(new Point(0, 28), new Point(0, 26), new Point(72, 26), new Point(72, 28));
-
     public final static PursuitPath goToFoundationLeft = new PursuitPath(new Point(-8, 28), new Point(-8, 26), new Point(72, 26), new Point(72, 28));
-
-    public final static PursuitPath goToFoundationRight= new PursuitPath(new Point(8, 28), new Point(8, 26), new Point(72, 26), new Point(72, 28));
-
-    public final static PursuitPath goToSecondBlock = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(-24, 26), new Point(-24, 28));
-
     public final static PursuitPath goToSecondBlockLeft = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(-32, 26), new Point(-32, 28));
-
-    public final static PursuitPath goToSecondBlockRight = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(-16, 26), new Point(-16, 28));
-
-    public final static PursuitPath goBackToFoundation = new PursuitPath(new Point(-24, 28), new Point(-24, 26), new Point(72, 26), new Point(72, 28));
-
     public final static PursuitPath goBackToFoundationLeft = new PursuitPath(new Point(-32, 28), new Point(-32, 26), new Point(72, 26), new Point(72, 28));
 
+    public final static Path testPurePursuitLeft = new Path("collect left sky stones");
+
+    static{
+        testPurePursuitLeft.addSegment(new PurePursuitSegment("drive to left sky stone", goToFirstBlockLeft,0));
+        testPurePursuitLeft.addSegment(new PurePursuitSegment("first trip to foundation", goToFoundationLeft,300));
+        //testPurePursuitLeft.addSegment(new PurePursuitSegment("drive to second center sky stone", goToSecondBlockLeft,0));
+        //testPurePursuitLeft.addSegment(new PurePursuitSegment("second trip to foundation", goBackToFoundationLeft,300));
+    }
+
+    public final static PursuitPath goToFirstBlockRight = new PursuitPath(new Point(0, 0), new Point(8, 28));
+    public final static PursuitPath goToFoundationRight= new PursuitPath(new Point(8, 28), new Point(8, 26), new Point(72, 26), new Point(72, 28));
+    public final static PursuitPath goToSecondBlockRight = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(-16, 26), new Point(-16, 28));
     public final static PursuitPath goBackToFoundationRight = new PursuitPath(new Point(-16, 28), new Point(-16, 26), new Point(72, 26), new Point(72, 28));
 
-    public final static PursuitPath goToThirdBlock = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(8, 26), new Point(8, 28));
+    public final static Path testPurePursuitRight = new Path("collect right sky stones");
 
-    public final static PursuitPath goToThirdBlockLeft = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(8, 26), new Point(8, 28));
+    static{
+        testPurePursuitRight.addSegment(new PurePursuitSegment("drive to right sky stone", goToFirstBlockRight,0));
+        testPurePursuitRight.addSegment(new PurePursuitSegment("first trip to foundation", goToFoundationRight,300));
+        //testPurePursuitRight.addSegment(new PurePursuitSegment("drive to second right sky stone", goToSecondBlockRight,0));
+        //testPurePursuitRight.addSegment(new PurePursuitSegment("second trip to foundation", goBackToFoundationRight,300));
+    }
 
-    public final static PursuitPath goToThirdBlockRight = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(0, 26), new Point(0, 28));
 
-    public final static PursuitPath goBackToFoundationAgain= new PursuitPath(new Point(8, 28), new Point(8, 26), new Point(72, 26), new Point(72, 28));
 
-    public final static PursuitPath goBackToFoundationAgainLeft= new PursuitPath(new Point(8, 28), new Point(8, 26), new Point(72, 26), new Point(72, 28));
-
-    public final static PursuitPath goBackToFoundationAgainRight= new PursuitPath(new Point(0, 28), new Point(0, 26), new Point(72, 26), new Point(72, 28));
-
-    public final static PursuitPath goToFourthBlockRight = new PursuitPath(new Point(65, 27), new Point(70, 26), new Point(-8, 26), new Point(-8, 30));
 
     public final static Path collectBlock = new Path("collect block");
 

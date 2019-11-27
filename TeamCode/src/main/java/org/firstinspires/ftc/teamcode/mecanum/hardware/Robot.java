@@ -189,18 +189,36 @@ public class Robot extends AbstractRobot {
 
     }
 
-    public void grabBlock(){
+    public RobotCallable grabStoneCallable(){
+        return () -> {
+            grabStone();
+        };
+    }
+
+    public void grabStone(){
+        //RobotState.currentPath.pause();
         setGripperGrip();
         delay(400);
         setArmUp();
+        //delay(2000);
+        //RobotState.currentPath.resume();
     }
 
-    public void deliverBlock(){
+    public RobotCallable deliverStoneCallable(){
+        return () -> {
+            deliverStone();
+        };
+    }
+
+    public void deliverStone(){
+        //RobotState.currentPath.pause();
         setArmDown();
         //delay(500);
         setGripperRelease();
         delay(400);
         setArmUp();
+        setGripperGrip();
+        //RobotState.currentPath.resume();
         //delay(500);
     }
 
@@ -216,15 +234,16 @@ public class Robot extends AbstractRobot {
     }
     public RobotCallable delayedArmDownCallable() {
         return () -> {
-            delay(2000);
-            arm.setArmDownPosition();
+            delay(1500);
+            setGripperRelease();
+            setArmDown();
         };
 
     }
 
     public RobotCallable delayedArmDownSecondCallable() {
         return () -> {
-            delay(2000);
+            delay(1300);
             arm.setArmDownPosition();
         };
 

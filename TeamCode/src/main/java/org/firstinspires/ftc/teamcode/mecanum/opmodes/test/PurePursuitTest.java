@@ -8,25 +8,25 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Pursuit
 import org.firstinspires.ftc.teamcode.framework.util.PathState;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goBackToFoundation;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goBackToFoundationAgain;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goBackToFoundationAgainLeft;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goBackToFoundationAgainRight;
+
+
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goBackToFoundationCenter;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goBackToFoundationLeft;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goBackToFoundationRight;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFirstBlock;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFirstBlockCenter;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFirstBlockLeft;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFirstBlockRight;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFoundation;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFoundationCenter;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFoundationLeft;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFoundationRight;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFourthBlockRight;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToSecondBlock;
+
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToSecondBlockCenter;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToSecondBlockLeft;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToSecondBlockRight;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToThirdBlock;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToThirdBlockLeft;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToThirdBlockRight;
+
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.testPurePursuitCenter;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.testPurePursuitLeft;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.testPurePursuitRight;
 
 @Autonomous(name = "PurePursuitTest", group = "Test")
 //@Disabled
@@ -38,8 +38,23 @@ public class PurePursuitTest extends AbstractAuton {
     @Override
     public void RegisterStates() {
         addState(new PathState("Delayed Arm Down", "start", robot.armDownCallable()));
-        addState(new PathState("Delayed Arm Down", "test", robot.delayedArmDownCallable()));
-        addState(new PathState("Delayed Arm Down", "test2", robot.delayedArmDownSecondCallable()));
+        addState(new PathState("Grab first stone", "drive to center sky stone", robot.grabStoneCallable()));
+        addState(new PathState("Deliver first stone", "first trip to foundation", robot.deliverStoneCallable()));
+        addState(new PathState("Grab first stone", "drive to left sky stone", robot.grabStoneCallable()));
+        addState(new PathState("Grab first stone", "drive to right sky stone", robot.grabStoneCallable()));
+
+
+        //addState(new PathState("Deliver first stone", "first trip to foundation", robot.deliverStoneCallable()));
+
+        //addState(new PathState("Delayed Arm Down", "Deliver first stone", robot.delayedArmDownCallable()));
+        //addState(new PathState("Grab second stone", "drive to second center sky stone", robot.grabStoneCallable()));
+        //addState(new PathState("Deliver second stone", "second trip to foundation", robot.deliverStoneCallable()));
+
+
+        //addState(new PathState("Delayed Arm Down", "Deliver second stone", robot.delayedArmDownCallable()));
+
+
+        //addState(new PathState("Delayed Arm Down", "test2", robot.delayedArmDownSecondCallable()));
 
     }
 
@@ -53,32 +68,35 @@ public class PurePursuitTest extends AbstractAuton {
     @Override
     public void Run() {
 
-        leftBlockAuton();
-
-    }
-
-    public void centerBlockAuton(){
-
-        robot.runTestPurePursuit(configurePath(goToFirstBlock));
-        robot.grabBlock();
-        robot.runTestPurePursuit(configurePath(goToFoundation));
-        robot.deliverBlock();
-        AbstractAuton.addFinishedState("test");
-        robot.runTestPurePursuit(configurePath(goToSecondBlock));
-        robot.grabBlock();
-        robot.runTestPurePursuit(configurePath(goBackToFoundation));
-        robot.deliverBlock();
-        AbstractAuton.addFinishedState("test2");
-        robot.runTestPurePursuit(configurePath(goToThirdBlock));
-        robot.grabBlock();
-        robot.runTestPurePursuit(configurePath(goBackToFoundationAgain));
-        robot.deliverBlock();
+        robot.runDrivePath(testPurePursuitLeft);
+        //centerBlockAuton();
         telemetry.addData(DoubleTelemetry.LogMode.INFO,"All done " );
         telemetry.update();
         delay(9000);
     }
 
-    public void leftBlockAuton(){
+    public void centerBlockAuton(){
+
+        robot.runTestPurePursuit(configurePath(goToFirstBlockCenter));
+        robot.grabStone();
+        robot.runTestPurePursuit(configurePath(goToFoundationCenter));
+        robot.deliverStone();
+        /*AbstractAuton.addFinishedState("test");
+        robot.runTestPurePursuit(configurePath(goToSecondBlockCenter));
+        robot.grabBlock();
+        robot.runTestPurePursuit(configurePath(goBackToFoundationCenter));
+        robot.deliverBlock();
+        AbstractAuton.addFinishedState("test2");
+        robot.runTestPurePursuit(configurePath(goToThirdBlockCenter));
+        robot.grabBlock();
+        robot.runTestPurePursuit(configurePath(goBackToFoundationAgainCenter));
+        robot.deliverBlock();*/
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"All done " );
+        telemetry.update();
+        delay(9000);
+    }
+
+    /*public void leftBlockAuton(){
 
         robot.runTestPurePursuit(configurePath(goToFirstBlockLeft));
         robot.grabBlock();
@@ -97,8 +115,8 @@ public class PurePursuitTest extends AbstractAuton {
         telemetry.addData(DoubleTelemetry.LogMode.INFO,"All done " );
         telemetry.update();
         delay(9000);
-    }
-    public void rightBlockAuton(){
+    }*/
+   /* public void rightBlockAuton(){
 
         robot.runTestPurePursuit(configurePath(goToFirstBlockRight));
         robot.grabBlock();
@@ -118,10 +136,10 @@ public class PurePursuitTest extends AbstractAuton {
         robot.runTestPurePursuit(configurePath(goToFourthBlockRight));
         robot.grabBlock();
         robot.runTestPurePursuit(configurePath(goToFoundationLeft));*/
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"All done " );
+        /*telemetry.addData(DoubleTelemetry.LogMode.INFO,"All done " );
         telemetry.update();
         delay(9000);
-    }
+    }*/
 
     public PursuitPath configurePath(PursuitPath path) {
         path.setMaxSpeed(1.4);

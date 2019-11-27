@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.PIDController;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.AngleDriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.PurePursuitSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.StrafeSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
@@ -26,6 +27,7 @@ import static java.lang.Math.abs;
 import static java.lang.Math.pow;
 import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry.LogMode.INFO;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.STRAIGHT_COUNTS_PER_INCH;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFoundationCenter;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState.currentPath;
 
 @Config
@@ -122,8 +124,11 @@ public class DriveController extends SubsystemController {
             else if (path.getCurrentSegment().getType() == Segment.SegmentType.STRAFE){
                 strafeToSegment((StrafeSegment) path.getCurrentSegment());
             }
-            else if (path.getCurrentSegment().getType() == Segment.SegmentType.ANGLEDRIVE){
+            else if (path.getCurrentSegment().getType() == Segment.SegmentType.ANGLEDRIVE) {
                 angleDriveToSegment((AngleDriveSegment) path.getCurrentSegment());
+            }
+            else if (path.getCurrentSegment().getType() == Segment.SegmentType.PUREPURSUIT){
+                purePursuitToSegment((PurePursuitSegment) path.getCurrentSegment());
             }
 
             telemetry.addData(INFO, "Finished segment: " + path.getCurrentSegment().getName() + " in path: " + currentPath.getName() + "  paused: " + currentPath.isPaused() + "  done: " + currentPath.isDone());
@@ -132,6 +137,26 @@ public class DriveController extends SubsystemController {
         telemetry.addData(INFO, "Finished path: " + currentPath.getName() + "  paused: " + currentPath.isPaused() + "  done: " + currentPath.isDone());
     }
 
+    public synchronized void purePursuitToSegment(PurePursuitSegment segment) {
+        telemetry.addData(INFO, "Pure Pursuit Segment is starting");
+        telemetry.addData(INFO, "");
+        int period=segment.getPeriod();
+
+        delay(period);
+        testPurePursuit(configurePath(segment.getPursuitPath()));
+    }
+
+    public PursuitPath configurePath(PursuitPath path) {
+        path.setMaxSpeed(1.4);
+        path.setTurnSpeed(1);
+        path.setTrackingErrorSpeed(5.0);
+        path.setLookAheadDistance(5);
+        path.setVelocityLookAheadPoints(8);
+        path.setMaxAcceleration(0.015);
+        path.setTurnErrorScalar(0);
+
+        return path;
+    }
 
     public synchronized void driveToSegment(DriveSegment segment) {
 
