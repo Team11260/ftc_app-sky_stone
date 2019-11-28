@@ -213,7 +213,7 @@ public class Robot extends AbstractRobot {
     public void deliverStone(){
         //RobotState.currentPath.pause();
         setArmDown();
-        //delay(500);
+        delay(200);
         setGripperRelease();
         delay(400);
         setArmUp();

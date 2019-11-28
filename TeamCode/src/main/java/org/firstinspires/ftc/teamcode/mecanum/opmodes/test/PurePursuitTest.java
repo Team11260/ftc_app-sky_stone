@@ -10,23 +10,11 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 
 
 
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goBackToFoundationCenter;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goBackToFoundationLeft;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goBackToFoundationRight;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFirstBlockCenter;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFirstBlockLeft;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFirstBlockRight;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFoundationCenter;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFoundationLeft;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFoundationRight;
 
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToSecondBlockCenter;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToSecondBlockLeft;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToSecondBlockRight;
 
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.testPurePursuitCenter;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.testPurePursuitLeft;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.testPurePursuitRight;
+
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.*;
+
 
 @Autonomous(name = "PurePursuitTest", group = "Test")
 //@Disabled
@@ -43,12 +31,19 @@ public class PurePursuitTest extends AbstractAuton {
         addState(new PathState("Grab first stone", "drive to left sky stone", robot.grabStoneCallable()));
         addState(new PathState("Grab first stone", "drive to right sky stone", robot.grabStoneCallable()));
 
+        addState(new PathState("Deliver first stone", "first trip to foundation", robot.deliverStoneCallable()));
 
-        //addState(new PathState("Deliver first stone", "first trip to foundation", robot.deliverStoneCallable()));
+        addState(new PathState("Delayed Arm Down", "Deliver first stone", robot.delayedArmDownCallable()));
+        addState(new PathState("Grab second stone", "drive to second center sky stone", robot.grabStoneCallable()));
+        addState(new PathState("Grab second stone", "drive to second right sky stone", robot.grabStoneCallable()));
+        addState(new PathState("Grab second stone", "drive to second left sky stone", robot.grabStoneCallable()));
 
-        //addState(new PathState("Delayed Arm Down", "Deliver first stone", robot.delayedArmDownCallable()));
-        //addState(new PathState("Grab second stone", "drive to second center sky stone", robot.grabStoneCallable()));
-        //addState(new PathState("Deliver second stone", "second trip to foundation", robot.deliverStoneCallable()));
+
+
+        addState(new PathState("Deliver second stone", "second trip to foundation", robot.deliverStoneCallable()));
+        addState(new PathState("Delayed Arm Down", "Deliver second stone", robot.delayedArmDownCallable()));
+        addState(new PathState("Grab third stone", "drive to third center sky stone", robot.grabStoneCallable()));
+        addState(new PathState("Deliver third stone", "third trip to foundation", robot.deliverStoneCallable()));
 
 
         //addState(new PathState("Delayed Arm Down", "Deliver second stone", robot.delayedArmDownCallable()));
@@ -64,6 +59,7 @@ public class PurePursuitTest extends AbstractAuton {
         //robot.setArmDown();
         robot.setGripperRelease();
     }
+
 
     @Override
     public void Run() {
