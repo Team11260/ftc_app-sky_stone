@@ -5,7 +5,9 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.StrafeSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
+import org.upacreekrobotics.dashboard.Config;
 
+@Config
 public final class Constants {
 
     ////////Drive////////
@@ -37,13 +39,15 @@ public final class Constants {
     ////////Lift////////
     public static int LIFT_UP = 1234;
     public static int LIFT_DOWN = 0;
-    public static double TILT_DOWN = 0;
-    public static double TILT_UP = 0.5;
-    public static double GRABBER_OPEN = 0.5;
-    public static double GRABBER_CLOSE = 0;
-    public static double SLIDE_OUT = 0.5;
-    public static double PAN_WIDE = 0;
-    public static double PAN_SHORT = 0.5;
+    public static double TILT_DOWN = 1.00;
+    public static double TILT_UP = 0.59;
+    public static double GRABBER_OPEN = 0.45;
+    public static double GRABBER_CLOSE = 0.73;
+    public static double SLIDE_IN = 0.05;
+    public static double SLIDE_OUT = 0.75;
+    public static double PAN_RIGHT = 0;
+    public static double PAN_MIDDLE = 0.5;
+    public static double PAN_LEFT = 1.00;
 
 
 
