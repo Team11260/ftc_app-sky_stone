@@ -232,7 +232,7 @@ extends <a href="../../../../../../org/firstinspires/ftc/robotcore/external/stre
 <td class="colFirst"><code><a href="../../../../../../org/firstinspires/ftc/robotcore/external/navigation/VuforiaTrackables.html" title="interface in org.firstinspires.ftc.robotcore.external.navigation">VuforiaTrackables</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../org/firstinspires/ftc/robotcore/external/navigation/VuforiaLocalizer.html#loadTrackablesFromFile-java.lang.String-">loadTrackablesFromFile</a></span>(java.lang.String&nbsp;absoluteFileName)</code>
 <div class="block">Loads a Vuforia dataset from the indicated file, which must be a .XML file
- and contain the full file path.</div>
+ and contain the full file pursuitPath.</div>
 </td>
 </tr>
 <tr id="i11" class="rowColor">
@@ -296,14 +296,14 @@ extends <a href="../../../../../../org/firstinspires/ftc/robotcore/external/stre
 <h4>loadTrackablesFromFile</h4>
 <pre><a href="../../../../../../org/firstinspires/ftc/robotcore/external/navigation/VuforiaTrackables.html" title="interface in org.firstinspires.ftc.robotcore.external.navigation">VuforiaTrackables</a>&nbsp;loadTrackablesFromFile(java.lang.String&nbsp;absoluteFileName)</pre>
 <div class="block">Loads a Vuforia dataset from the indicated file, which must be a .XML file
- and contain the full file path. The corresponding .DAT file must be a sibling
+ and contain the full file pursuitPath. The corresponding .DAT file must be a sibling
  file in the same directory. Note that this operation can be extremely lengthy,
  possibly taking a few seconds to execute.
 
  <p>Datasets are created using the <a href=https://developer.vuforia.com/target-manager>Vuforia Target Manager</a></p></div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>absoluteFileName</code> - the full path to the .XML file of the dataset</dd>
+<dd><code>absoluteFileName</code> - the full pursuitPath to the .XML file of the dataset</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a DataSet that can be used to manipulate the loaded data</dd>
 <dt><span class="seeLabel">See Also:</span></dt>

@@ -66,7 +66,8 @@ public abstract class Segment {
         DRIVE,
         TURN,
         STRAFE,
-        ANGLEDRIVE
+        ANGLEDRIVE,
+        PUREPURSUIT
     }
 }
 

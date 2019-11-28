@@ -3,11 +3,12 @@ package org.firstinspires.ftc.teamcode.mecanum.hardware;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.AngleDriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.PurePursuitSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.StrafeSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
-import org.upacreekrobotics.dashboard.Config;
+import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
+import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
 
-@Config
 public final class Constants {
 
     ////////Drive////////
@@ -17,12 +18,12 @@ public final class Constants {
 
     ////////Arm////////
     //For Old
-    public static double ARM_DOWN_POSITION = 0.65;
+    public static double ARM_DOWN_POSITION = 0.63;
     public static double ARM_PIN_POSITION = 1.0;
     public static double ARM_UP_POSITION = 1.0;
     public static double ARM_BACK_POSITION = 0.3;
-    public static double GRIPPER_GRIP_POSITION = 0.3;
-    public static double GRIPPER_RELEASE_POSITION = 0.8;
+    public static double GRIPPER_GRIP_POSITION = 0.27;
+    public static double GRIPPER_RELEASE_POSITION = 0.85;
 
 
     ////////Vision////////
@@ -39,15 +40,13 @@ public final class Constants {
     ////////Lift////////
     public static int LIFT_UP = 1234;
     public static int LIFT_DOWN = 0;
-    public static double TILT_DOWN = 1.00;
-    public static double TILT_UP = 0.59;
-    public static double GRABBER_OPEN = 0.45;
-    public static double GRABBER_CLOSE = 0.73;
-    public static double SLIDE_IN = 0.05;
-    public static double SLIDE_OUT = 0.75;
-    public static double PAN_RIGHT = 0;
-    public static double PAN_MIDDLE = 0.5;
-    public static double PAN_LEFT = 1.00;
+    public static double TILT_DOWN = 0;
+    public static double TILT_UP = 0.5;
+    public static double GRABBER_OPEN = 0.5;
+    public static double GRABBER_CLOSE = 0;
+    public static double SLIDE_OUT = 0.5;
+    public static double PAN_WIDE = 0;
+    public static double PAN_SHORT = 0.5;
 
 
 
@@ -83,7 +82,7 @@ public final class Constants {
         //collectLeftSkyStone.addSegment((new DriveSegment("drive straight a distance", 14, 0.25, 1)));
     }
 
-    public final static Path collectRightSkyStone = new Path("collect  right sky stone");
+    public final static Path collectRightSkyStone = new Path("collect right sky stone");
 
     static {
         collectRightSkyStone.addSegment(new AngleDriveSegment("angle to block", 6,0.4,0.5));
@@ -116,6 +115,50 @@ public final class Constants {
         //collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -86, 0.25, 100)));
     }
 
+    public final static PursuitPath goToFirstBlockCenter = new PursuitPath(new Point(0, 0), new Point(0, 28));
+    public final static PursuitPath goToFoundationCenter = new PursuitPath(new Point(0, 28), new Point(0, 26), new Point(72, 26), new Point(72, 28));
+    public final static PursuitPath goToSecondBlockCenter = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(-24, 26), new Point(-24, 28));
+    public final static PursuitPath goBackToFoundationCenter = new PursuitPath(new Point(-24, 28), new Point(-24, 26), new Point(72, 26), new Point(72, 28));
+
+    public final static Path testPurePursuitCenter = new Path("collect center sky stones");
+
+    static{
+        testPurePursuitCenter.addSegment(new PurePursuitSegment("drive to center sky stone", goToFirstBlockCenter,0));
+        testPurePursuitCenter.addSegment(new PurePursuitSegment("first trip to foundation", goToFoundationCenter,300));
+        //testPurePursuitCenter.addSegment(new PurePursuitSegment("drive to second center sky stone", goToSecondBlockCenter,0));
+        //testPurePursuitCenter.addSegment(new PurePursuitSegment("second trip to foundation", goBackToFoundationCenter,300));
+    }
+
+
+    public final static PursuitPath goToFirstBlockLeft = new PursuitPath(new Point(0, 0), new Point(-8, 28));
+    public final static PursuitPath goToFoundationLeft = new PursuitPath(new Point(-8, 28), new Point(-8, 26), new Point(72, 26), new Point(72, 28));
+    public final static PursuitPath goToSecondBlockLeft = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(-32, 26), new Point(-32, 28));
+    public final static PursuitPath goBackToFoundationLeft = new PursuitPath(new Point(-32, 28), new Point(-32, 26), new Point(72, 26), new Point(72, 28));
+
+    public final static Path testPurePursuitLeft = new Path("collect left sky stones");
+
+    static{
+        testPurePursuitLeft.addSegment(new PurePursuitSegment("drive to left sky stone", goToFirstBlockLeft,0));
+        testPurePursuitLeft.addSegment(new PurePursuitSegment("first trip to foundation", goToFoundationLeft,300));
+        //testPurePursuitLeft.addSegment(new PurePursuitSegment("drive to second center sky stone", goToSecondBlockLeft,0));
+        //testPurePursuitLeft.addSegment(new PurePursuitSegment("second trip to foundation", goBackToFoundationLeft,300));
+    }
+
+    public final static PursuitPath goToFirstBlockRight = new PursuitPath(new Point(0, 0), new Point(8, 28));
+    public final static PursuitPath goToFoundationRight= new PursuitPath(new Point(8, 28), new Point(8, 26), new Point(72, 26), new Point(72, 28));
+    public final static PursuitPath goToSecondBlockRight = new PursuitPath(new Point(72, 28), new Point(72, 26), new Point(-16, 26), new Point(-16, 28));
+    public final static PursuitPath goBackToFoundationRight = new PursuitPath(new Point(-16, 28), new Point(-16, 26), new Point(72, 26), new Point(72, 28));
+
+    public final static Path testPurePursuitRight = new Path("collect right sky stones");
+
+    static{
+        testPurePursuitRight.addSegment(new PurePursuitSegment("drive to right sky stone", goToFirstBlockRight,0));
+        testPurePursuitRight.addSegment(new PurePursuitSegment("first trip to foundation", goToFoundationRight,300));
+        //testPurePursuitRight.addSegment(new PurePursuitSegment("drive to second right sky stone", goToSecondBlockRight,0));
+        //testPurePursuitRight.addSegment(new PurePursuitSegment("second trip to foundation", goBackToFoundationRight,300));
+    }
+
+
 
 
     public final static Path collectBlock = new Path("collect block");
@@ -140,10 +183,10 @@ public final class Constants {
     static {
         //forwardDrive.addSegment(new StrafeSegment("strafe test", 10,0.3,1,false));
         //forwardDrive.addSegment(new StrafeSegment("strafe test", 10,0.3,1,false));
-        forwardDrive.addSegment(new DriveSegment("drive to foundation", 60, 0.6, 1));
-        forwardDrive.addSegment(new DriveSegment("drive to foundation", -84, 0.6, 1));
+        forwardDrive.addSegment(new DriveSegment("drive to foundation", 50, 0.6, 1));
+        //forwardDrive.addSegment(new DriveSegment("drive to foundation", -84, 0.6, 1));
 
-        //forwardDrive.addSegment(new DriveSegment("forward drive", 10, 0.3, 1));
+        //forwardDrive.addSegment(new DriveSegment("forward drive", -5, 0.25, 1));
     }
 
     public static final Path dragFoundation = new Path("last drive");

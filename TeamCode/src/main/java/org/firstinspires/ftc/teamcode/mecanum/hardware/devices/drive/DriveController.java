@@ -3,19 +3,18 @@ package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.PIDController;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.AngleDriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.PurePursuitSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.StrafeSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
-import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
+import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PathPoint;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Pose;
+import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.lift.Lift;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.lift.LiftController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.TelemetryRecord;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StrafeTrapezoid;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StraightTrapezoid;
@@ -28,6 +27,7 @@ import static java.lang.Math.abs;
 import static java.lang.Math.pow;
 import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry.LogMode.INFO;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.STRAIGHT_COUNTS_PER_INCH;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFoundationCenter;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState.currentPath;
 
 @Config
@@ -44,9 +44,6 @@ public class DriveController extends SubsystemController {
     private ElapsedTime runtime;
 
     private DecimalFormat DF;
-
-    //private double DRIVE_COUNTS_PER_INCH = 189;//1440*x/(2.25pi)
-    //private double STRAFE_COUNTS_PER_INCH = 196;
 
     public static double PATH_P = 15, PATH_F = 5;
 
@@ -127,8 +124,11 @@ public class DriveController extends SubsystemController {
             else if (path.getCurrentSegment().getType() == Segment.SegmentType.STRAFE){
                 strafeToSegment((StrafeSegment) path.getCurrentSegment());
             }
-            else if (path.getCurrentSegment().getType() == Segment.SegmentType.ANGLEDRIVE){
+            else if (path.getCurrentSegment().getType() == Segment.SegmentType.ANGLEDRIVE) {
                 angleDriveToSegment((AngleDriveSegment) path.getCurrentSegment());
+            }
+            else if (path.getCurrentSegment().getType() == Segment.SegmentType.PUREPURSUIT){
+                purePursuitToSegment((PurePursuitSegment) path.getCurrentSegment());
             }
 
             telemetry.addData(INFO, "Finished segment: " + path.getCurrentSegment().getName() + " in path: " + currentPath.getName() + "  paused: " + currentPath.isPaused() + "  done: " + currentPath.isDone());
@@ -137,6 +137,26 @@ public class DriveController extends SubsystemController {
         telemetry.addData(INFO, "Finished path: " + currentPath.getName() + "  paused: " + currentPath.isPaused() + "  done: " + currentPath.isDone());
     }
 
+    public synchronized void purePursuitToSegment(PurePursuitSegment segment) {
+        telemetry.addData(INFO, "Pure Pursuit Segment is starting");
+        telemetry.addData(INFO, "");
+        int period=segment.getPeriod();
+
+        delay(period);
+        testPurePursuit(configurePath(segment.getPursuitPath()));
+    }
+
+    public PursuitPath configurePath(PursuitPath path) {
+        path.setMaxSpeed(1.4);
+        path.setTurnSpeed(1);
+        path.setTrackingErrorSpeed(5.0);
+        path.setLookAheadDistance(5);
+        path.setVelocityLookAheadPoints(8);
+        path.setMaxAcceleration(0.015);
+        path.setTurnErrorScalar(0);
+
+        return path;
+    }
 
     public synchronized void driveToSegment(DriveSegment segment) {
 
@@ -728,27 +748,31 @@ public class DriveController extends SubsystemController {
         //drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
-    public void testPurePursuit(){
+    public void testPurePursuit(PursuitPath pursuitPath){
 
-        drive.encodersZero();
+        pursuitPath.reset();
+
         drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        drive.resetPosition();
 
-        org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path path =
-                new org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Path(
-                new Point(0,0),new Point (40,0));
+        drive.setTargetHeading(0);
 
-        path.build();
+        pursuitPath.build();
 
-        drive.follow(path);
+        for(PathPoint point : pursuitPath.getPoints()) {
+            telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
+            telemetry.getSmartdashboard().putGraph("position", "velocity", point.getX(), point.getVelocity());
+        }
+
+        drive.follow(pursuitPath);
 
         while(opModeIsActive() && drive.isFollowing()){
             drive.update();
             Pose currentPose = drive.getCurrentPosition();
-            telemetry.addData(INFO, "P", "Heading: " + currentPose.getHeading() + " X: " + currentPose.getX() + " Y: " + currentPose.getY());
+            telemetry.getSmartdashboard().putGraph("position", "position", currentPose.getX(), currentPose.getY());
+            telemetry.getSmartdashboard().putGraph("position", "heading", currentPose.getX(), currentPose.getHeading());
         }
 
-        drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        drive.setPower(0, 0);
     }
 
 
@@ -867,6 +891,7 @@ public class DriveController extends SubsystemController {
             //telemetry.update();
         }
     }
+
     public synchronized void runPath(Path path) {
 
         //drive.follow(path);
@@ -989,12 +1014,12 @@ public class DriveController extends SubsystemController {
 
         //Auton dump marker sequence
         telemetry.addData(INFO, "Start marker dump");
-        currentPath.pause();
+        currentPursuitPath.pause();
         telemetry.addData(INFO, "Pause path");
         drive.setMarkerServo(DRIVE_TEAM_MARKER_EXTENDED);
         delay(DRIVE_DUMP_TEAM_MARKER_DELAY);
         drive.setMarkerServo(DRIVE_TEAM_MARKER_RETRACTED);
-        currentPath.resume();
+        currentPursuitPath.resume();
         telemetry.addData(INFO, "Marker dumped");
     }*/
 
