@@ -7,9 +7,12 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.*;
 
 public class LiftController extends SubsystemController {
 
-    Lift lift;
+    public Lift lift;
 
-    public boolean isTilted = false;
+    boolean isGrabbed = true;
+    boolean isTilted = false;
+    boolean isSlideOut = false;
+    int panCyclePosition = 0;
 
     public LiftController() {
         lift = new Lift(hardwareMap);
@@ -36,6 +39,13 @@ public class LiftController extends SubsystemController {
         lift.setTiltPosition(TILT_UP);
     }
 
+    public void toggleTilt() {
+        if (isTilted)
+            setTiltUp();
+        else
+            setTiltDown();
+        isTilted = !isTilted;
+    }
 
     public void setGrabberOpen() {
         lift.setGrabberPosition(GRABBER_OPEN);
@@ -45,17 +55,57 @@ public class LiftController extends SubsystemController {
         lift.setGrabberPosition(GRABBER_CLOSE);
     }
 
-    public void setSlideout() {
+    public void toggleGrabber() {
+        if (isGrabbed)
+            setGrabberOpen();
+        else
+            setGrabberClose();
+        isGrabbed = !isGrabbed;
+    }
+
+    public void setSlideIn() {
+        lift.setSlidePosition(SLIDE_IN);
+    }
+
+    public void setSlideOut() {
         lift.setSlidePosition(SLIDE_OUT);
     }
 
-    public void setPanWide() {
-        lift.setPanPosition(PAN_WIDE);
+    public void toggleSlide(){
+        if(isSlideOut)
+            setSlideIn();
+        else
+            setSlideOut();
+        isSlideOut= !isSlideOut;
     }
 
-    public void setPanShort() {
-        lift.setPanPosition(PAN_SHORT);
+    public void setPanRight() {
+        lift.setPanPosition(PAN_RIGHT);
     }
+
+    public void setPanMiddle() {
+        lift.setPanPosition(PAN_MIDDLE);
+    }
+
+    public void setPanLeft() {
+        lift.setPanPosition(PAN_LEFT);
+    }
+
+    public void cyclePan(){
+        if (panCyclePosition==1){
+            setPanRight();
+            panCyclePosition=2;
+        }
+        else if(panCyclePosition==2){
+            setPanMiddle();
+            panCyclePosition=0;
+        }
+        else if (panCyclePosition==0){
+            setPanLeft();
+            panCyclePosition=1;
+        }
+    }
+
 
     public int getStraightPosition() {
         return lift.getStraightPosition();
@@ -63,12 +113,6 @@ public class LiftController extends SubsystemController {
 
     public int getStrafePosition() {
         return lift.getStrafePosition();
-    }
-
-
-    public void toggleTilt() {
-        lift.setTiltPosition(isTilted ? 0.5 : 0);
-        isTilted= !isTilted;
     }
 
     @Override

@@ -34,6 +34,10 @@ public class Lift {
         lift.setTargetPosition(position);
     }
 
+    public void setLiftPower(double power){
+        lift.setPower(power);
+    }
+
     public int getLiftPosition(){
         return lift.getCurrentPosition();
     }
