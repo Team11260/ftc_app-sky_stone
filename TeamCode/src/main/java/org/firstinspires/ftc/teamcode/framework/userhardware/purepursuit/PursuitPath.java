@@ -21,7 +21,7 @@ public class PursuitPath {
     /**
      * The amount of smoothing to be done on the path (larger number = more smoothing)
      */
-    private double fPathSmoothing = 0.90;
+    private double fPathSmoothing = 0.1;
 
     /**
      * Speed reduction through turns (larger number = faster turns)
@@ -42,6 +42,11 @@ public class PursuitPath {
      * The max acceleration (total output/point)
      */
     private double fMaxAcceleration = 0.005;
+
+    /**
+     * The max deceleration (total output/point)
+     */
+    private double fMaxDeceleration = 0.005;
 
     /**
      * Minimum follow speed
@@ -125,6 +130,10 @@ public class PursuitPath {
         fMaxAcceleration = maxAcceleration;
     }
 
+    public void setMaxDeceleration(double maxDeceleration) {
+        fMaxDeceleration = maxDeceleration;
+    }
+
     public void setMinSpeed(double minSpeed) {
         fMinSpeed = minSpeed;
     }
@@ -167,6 +176,10 @@ public class PursuitPath {
 
     public double getMaxAcceleration() {
         return fMaxAcceleration;
+    }
+
+    public double getMaxDeceleration() {
+        return fMaxDeceleration;
     }
 
     public double getMinSpeed() {
@@ -452,19 +465,34 @@ public class PursuitPath {
      * Smooths the straight lines of points into a curved path.
      */
     private void smooth() {
-        ArrayList<Point> newPoints = (ArrayList<Point>) fPoints.clone();
+        double change = 0.5;
+        double changedPoints = 1;
+        while (change / changedPoints >= 0.01){
+            change = 0;
+            changedPoints = 0;
 
-        double change = 1;
-        while (change >= 1) {
-            change = 0.0;
+            ArrayList<Point> newPoints = (ArrayList<Point>) fPoints.clone();
+
             for (int i = 1; i < fPoints.size() - 1; i++) {
-                Point point = newPoints.get(i);
-                newPoints.set(i, newPoints.get(i).add(new Vector((1 - fPathSmoothing) * (fPoints.get(i).getX() - newPoints.get(i).getX()) + fPathSmoothing * (newPoints.get(i - 1).getX() + newPoints.get(i + 1).getX() - (2.0 * newPoints.get(i).getX())), (1 - fPathSmoothing) * (fPoints.get(i).getY() - newPoints.get(i).getY()) + fPathSmoothing * (newPoints.get(i - 1).getY() + newPoints.get(i + 1).getY() - (2.0 * newPoints.get(i).getY())))));
-                change += point.distance(newPoints.get(i));
-            }
-        }
+                Point point = fPoints.get(i);
 
-        fPoints = newPoints;
+                Vector middle = new Vector(fPoints.get(i + 1).subtract(fPoints.get(i - 1)));
+
+                middle = new Vector(fPoints.get(i - 1).add(middle.normalize().scale(middle.magnitude() / 2)));
+
+                Vector delta = new Vector(middle.subtract(point));
+
+                Point newPoint = point.add(delta.normalize().scale(delta.magnitude() * fPathSmoothing));
+
+                if (!Double.isNaN(newPoint.getX()) && !Double.isNaN(newPoint.getY())) {
+                    newPoints.set(i, newPoint);
+                    change += point.distance(newPoint);
+                    changedPoints++;
+                }
+            }
+
+            fPoints = newPoints;
+        }
     }
 
     /**
@@ -481,12 +509,6 @@ public class PursuitPath {
         for (int p = fPoints.size() - 2; p >= 0; p--) {
             getPathPoint(p).setVelocity(getPointNewVelocity(p));
         }
-
-        getPathPoint(getPath().size() - 1).setVelocity(getPathPoint(getPath().size() - 2).getVelocity());
-
-        /*for (int p = 0; p < fPoints.size(); p++) {
-            System.out.print("(" + p + "," + getPathPoint(p).getVelocity() + "),");
-        }*/
     }
 
     /**
@@ -548,14 +570,13 @@ public class PursuitPath {
      * @return the first calculation of velocity
      */
     private double getPointVelocity(int p) {
-        if (p >= fPoints.size() - 1) return fMinSpeed;
+        if (p >= fPoints.size() - 2) return fMinSpeed;
 
         double d = fPoints.get(p).distance(fPoints.get(p + 1));
 
-        if (p <= 0)
-            return Math.max(Math.min(Math.sqrt(2 * fMaxAcceleration * d), fTurnSpeed / getPointCurvature(p)), fMinSpeed);
+        if (p <= 0) return Math.max(Math.min(2 * fMaxAcceleration * d, fTurnSpeed / getPointCurvature(p)), fMinSpeed);
 
-        return Math.max(Math.min(Math.sqrt(Math.pow(getPathPoint(p - 1).getVelocity(), 2) + 2 * fMaxAcceleration * d), Math.min(fTurnSpeed / getPointCurvature(p), fMaxSpeed)), 0.2);
+        return Math.max(Math.min(getPathPoint(p - 1).getVelocity() + 2 * fMaxAcceleration * d, Math.min(fTurnSpeed / getPointCurvature(p), fMaxSpeed)), fMinSpeed);
     }
 
     /**
@@ -567,11 +588,11 @@ public class PursuitPath {
      * @return the second/final calculation of velocity
      */
     private double getPointNewVelocity(int p) {
-        if (p >= fPoints.size() - 1) return 0;
+        if (p >= fPoints.size() - 2) return fMinSpeed;
 
         double d = fPoints.get(p).distance(fPoints.get(p + 1));
 
-        return Math.min(getPathPoint(p).getVelocity(), Math.min(Math.sqrt(Math.pow(getPathPoint(p + 1).getVelocity(), 2) + 2 * fMaxAcceleration * d), fMaxSpeed));
+        return Math.min(getPathPoint(p).getVelocity(), Math.min(getPathPoint(p + 1).getVelocity() + 2 * fMaxDeceleration * d, fMaxSpeed));
     }
 
     /**
