@@ -8,12 +8,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Pursuit
 import org.firstinspires.ftc.teamcode.framework.util.PathState;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 
-
-
-
-
-
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.*;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.*;
 
 
 @Autonomous(name = "PurePursuitTest", group = "Test")
@@ -26,30 +21,31 @@ public class PurePursuitTest extends AbstractAuton {
     @Override
     public void RegisterStates() {
         addState(new PathState("Delayed Arm Down", "start", robot.armDownCallable()));
-        addState(new PathState("Grab first stone", "drive to center sky stone", robot.grabStoneCallable()));
-        addState(new PathState("Deliver first stone", "first trip to foundation", robot.deliverStoneCallable()));
-        addState(new PathState("Grab first stone", "drive to left sky stone", robot.grabStoneCallable()));
-        addState(new PathState("Grab first stone", "drive to right sky stone", robot.grabStoneCallable()));
+
+        addState(new PathState("Grab first stone", "drive to first sky stone", robot.grabStoneCallable()));
+        addState(new PathState("Grab second stone", "drive to second sky stone", robot.grabStoneCallable()));
+        addState(new PathState("Grab third stone", "drive to third stone", robot.grabStoneCallable()));
+        addState(new PathState("Grab fourth stone", "drive to fourth stone", robot.grabStoneCallable()));
 
         addState(new PathState("Deliver first stone", "first trip to foundation", robot.deliverStoneCallable()));
+        addState(new PathState("Deliver second stone", "second trip to foundation", robot.deliverStoneCallable()));
+        addState(new PathState("Deliver third stone", "third trip to foundation", robot.deliverStoneCallable()));
+        addState(new PathState("Deliver fourth stone", "fourth trip to foundation", robot.deliverStoneCallable()));
 
         addState(new PathState("Delayed Arm Down", "Deliver first stone", robot.delayedArmDownCallable()));
+        addState(new PathState("Delayed Arm Down", "Deliver second stone", robot.delayedArmDownCallable()));
+        addState(new PathState("Delayed Arm Down", "Deliver third stone", robot.delayedArmDownCallable()));
+
+        /*addState(new PathState("Grab first stone", "drive to right sky stone", robot.grabStoneCallable()));
+        addState(new PathState("Deliver first stone", "first trip to foundation", robot.deliverStoneCallable()));
         addState(new PathState("Grab second stone", "drive to second center sky stone", robot.grabStoneCallable()));
         addState(new PathState("Grab second stone", "drive to second right sky stone", robot.grabStoneCallable()));
         addState(new PathState("Grab second stone", "drive to second left sky stone", robot.grabStoneCallable()));
-
-
-
         addState(new PathState("Deliver second stone", "second trip to foundation", robot.deliverStoneCallable()));
         addState(new PathState("Delayed Arm Down", "Deliver second stone", robot.delayedArmDownCallable()));
         addState(new PathState("Grab third stone", "drive to third center sky stone", robot.grabStoneCallable()));
-        addState(new PathState("Deliver third stone", "third trip to foundation", robot.deliverStoneCallable()));
+        addState(new PathState("Deliver third stone", "third trip to foundation", robot.deliverStoneCallable()));*/
 
-
-        //addState(new PathState("Delayed Arm Down", "Deliver second stone", robot.delayedArmDownCallable()));
-
-
-        //addState(new PathState("Delayed Arm Down", "test2", robot.delayedArmDownSecondCallable()));
 
     }
 
@@ -64,14 +60,14 @@ public class PurePursuitTest extends AbstractAuton {
     @Override
     public void Run() {
 
-        robot.runDrivePath(testPurePursuitLeft);
+        robot.runDrivePath(RedPurePursuitRight);
         //centerBlockAuton();
         telemetry.addData(DoubleTelemetry.LogMode.INFO,"All done " );
         telemetry.update();
         delay(9000);
     }
 
-    public void centerBlockAuton(){
+    /*public void centerBlockAuton(){
 
         robot.runTestPurePursuit(configurePath(goToFirstBlockCenter));
         robot.grabStone();
@@ -87,10 +83,10 @@ public class PurePursuitTest extends AbstractAuton {
         robot.grabBlock();
         robot.runTestPurePursuit(configurePath(goBackToFoundationAgainCenter));
         robot.deliverBlock();*/
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"All done " );
+        /*telemetry.addData(DoubleTelemetry.LogMode.INFO,"All done " );
         telemetry.update();
         delay(9000);
-    }
+    }*/
 
     /*public void leftBlockAuton(){
 

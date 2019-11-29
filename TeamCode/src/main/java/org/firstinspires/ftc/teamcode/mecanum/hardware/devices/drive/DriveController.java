@@ -27,7 +27,7 @@ import static java.lang.Math.abs;
 import static java.lang.Math.pow;
 import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry.LogMode.INFO;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.STRAIGHT_COUNTS_PER_INCH;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.goToFoundationCenter;
+
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState.currentPath;
 
 @Config
