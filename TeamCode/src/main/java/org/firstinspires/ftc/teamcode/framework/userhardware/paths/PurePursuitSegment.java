@@ -6,6 +6,7 @@ public class PurePursuitSegment extends Segment {
 
     PursuitPath path;
     int period=0;
+    double targetHeading = 0.0;
 
     public PurePursuitSegment(String name, PursuitPath path) {
 
@@ -20,6 +21,14 @@ public class PurePursuitSegment extends Segment {
         this.path = path;
     }
 
+    public PurePursuitSegment(String name, PursuitPath path, int period, double targetHeading) {
+
+        super(name,SegmentType.PUREPURSUIT);
+        this.period = period;
+        this.path = path;
+        this.targetHeading = targetHeading;
+    }
+
     public PursuitPath getPursuitPath() {
         return path;
     }
@@ -27,4 +36,6 @@ public class PurePursuitSegment extends Segment {
     public int getPeriod() {
         return period;
     }
+
+    public double getTargetHeading() {return targetHeading;}
 }

@@ -140,23 +140,56 @@ public class DriveController extends SubsystemController {
     public synchronized void purePursuitToSegment(PurePursuitSegment segment) {
         telemetry.addData(INFO, "Pure Pursuit Segment is starting");
         telemetry.addData(INFO, "");
-        int period=segment.getPeriod();
 
-        delay(period);
-        testPurePursuit(configurePath(segment.getPursuitPath()));
+        delay(segment.getPeriod());
+        testPurePursuit(segment.getPursuitPath(), segment.getTargetHeading());
     }
 
-    public PursuitPath configurePath(PursuitPath path) {
+    /*public PursuitPath configurePath(PursuitPath path) {
         path.setMaxSpeed(1.4);
         path.setTurnSpeed(1);
         path.setTrackingErrorSpeed(5.0);
-        path.setLookAheadDistance(5);
-        path.setVelocityLookAheadPoints(8);
-        path.setMaxAcceleration(0.015);
+        path.setLookAheadDistance(3);
+        path.setVelocityLookAheadPoints(1);
+        path.setMaxAcceleration(0.05);
+        path.setMaxDeceleration(0.01);
         path.setTurnErrorScalar(0);
+        path.setPathSmoothing(0.5);
+        path.setMinSpeed(0.2);
 
         return path;
+    }*/
+
+    public void testPurePursuit(PursuitPath pursuitPath, double targetHeading){
+
+        pursuitPath.reset();
+
+        drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        drive.setTargetHeading(targetHeading);
+
+        pursuitPath.build();
+
+        for(PathPoint point : pursuitPath.getPoints()) {
+            telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
+            telemetry.getSmartdashboard().putGraph("position", "velocity", point.getX(), point.getVelocity());
+        }
+
+        drive.follow(pursuitPath);
+
+        while(opModeIsActive() && drive.isFollowing()){
+            drive.update();
+            Pose currentPose = drive.getCurrentPosition();
+            telemetry.getSmartdashboard().putGraph("position", "position", currentPose.getX(), currentPose.getY());
+            telemetry.getSmartdashboard().putGraph("position", "heading", currentPose.getX(), currentPose.getHeading());
+        }
+
+        drive.setPower(0, 0);
     }
+
+
+
+
 
     public synchronized void driveToSegment(DriveSegment segment) {
 
@@ -195,11 +228,9 @@ public class DriveController extends SubsystemController {
         ArrayList<Double> angleCorrectionValues = new ArrayList<Double>();
         ArrayList<Double> headingValues = new ArrayList<Double>();
 
-        //drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        //drive.encodersZero();
         straightOffset = drive.getStraightPosition();
 
         double angleError = 0.0, angleCorrection = 0.0, angleCorrectionGain=0.01*0.0;
@@ -209,10 +240,6 @@ public class DriveController extends SubsystemController {
         int loop = 0;
 
         RecTelemTime.reset();
-
-        //telemetry.addData(INFO, "Straight encoder position: " + (drive.getStraightPosition()-straightOffset));
-        //telemetry.update();
-
         runtime.reset();
 
         while ((!atPosition(destination, distanceTravelled, error)) && opModeIsActive() && (runtime.milliseconds()<period)){
@@ -229,11 +256,6 @@ public class DriveController extends SubsystemController {
             distanceTravelled =  (drive.getStraightPosition()-straightOffset)*switchDirection;
             distanceError = destination - distanceTravelled;
 
-            //   Calculate velocity, if needed
-            //velocity = (1000.0*(double)(distanceTravelled - oldDistance))/((double)System.currentTimeMillis()-oldTime);
-            //oldTime = (double) System.currentTimeMillis();
-            //oldDistance = distanceTravelled;
-
             // Calculate new power based on location in path
             //power = 1.0;
             //power = distancePID.output(destination, distanceTravelled);
@@ -241,21 +263,14 @@ public class DriveController extends SubsystemController {
 
             // Heading correction
             currentHeading = getHeading();
-           /* if (angle - currentHeading > 180) {
+           if (angle - currentHeading > 180) {
                 turn = anglePID.output(angle, 360 + currentHeading);
             } else if (currentHeading - angle > 180) {
                 turn = anglePID.output(angle, angle - (360 - (currentHeading - angle)));
             } else {
                 turn = anglePID.output(angle, currentHeading);
-            }*/
+            }
             turn = -anglePID.output(angle, currentHeading);
-            //turn = -turn;
-            /*if ((Math.abs(distanceTravelled)>2.0) && (Math.abs(distanceError)>(2.0)))
-                angleCorrection = angleError * angleCorrectionGain;
-             else
-                angleCorrection = 0.0;*/
-            //headingValues.add(angleError);
-            //angleCorrection = angleError * angleCorrectionGain;
 
             //   Set power according to corrections
             /*if (power > 0) {
@@ -265,22 +280,16 @@ public class DriveController extends SubsystemController {
                 leftPower = range(power * (speed + turn));
                 rightPower = range(power * (speed - turn));
             }*/
-            noise=0.00;
+
             leftPower = range((speed*power*switchDirection) + turn);
             rightPower = range((speed*power*switchDirection) -turn);
+
             drive.setDrivePowerAll(leftPower, rightPower , leftPower , rightPower);
 
             //  Fill arrays to be graphed in smart Dashboard
 
-            //targetPowerValues.add(angleCorrection);
-            // powerValues.add(power);
-            noiseValues.add(noise);
-            angleCorrectionValues.add(turn);
             headingValues.add(currentHeading);
             positionValues.add(distanceTravelled);
-            //telemetry.addData(INFO, "Power level   " +  power);
-            //telemetry.addData(INFO, "Straight encoder position: " + drive.getStraightPosition()/STRAIGHT_COUNTS_PER_INCH);
-            //telemetry.update();
         loop++;
 
         } //end of while loop
@@ -291,13 +300,6 @@ public class DriveController extends SubsystemController {
 
         //  Fill in smart Dashboard plots after loop to account for after skid
         for(int i=0; i<20; ++i) {
-            //distanceTravelled =  (drive.getBackRightPosition()*switchDirection);
-            //velocity = (distanceTravelled - oldDistance)/((double)runtime.milliseconds()-oldTime);
-            //oldTime = (double) runtime.milliseconds();
-            //oldDistance = distanceTravelled;
-            distanceTravelled =  (drive.getStraightPosition()-straightOffset)*switchDirection;
-            noiseValues.add(noise);
-            angleCorrectionValues.add(turn);
             headingValues.add(currentHeading);
             positionValues.add(distanceTravelled);
             delay(50);
@@ -306,26 +308,19 @@ public class DriveController extends SubsystemController {
         //if (alignHeading)    realignHeading();
         //realignHeading();
 
-        //drive.stop();
-        //  Does the following telemetry cause the delay between segments?
         telemetry.addData(INFO, "Time for drive: " + runtime.milliseconds());
         telemetry.addData(INFO, "Average loop time for drive: " + runtime.milliseconds() / loop);
         telemetry.addData(INFO, "Loop count " + loop);
         telemetry.addData(INFO, "Straight encoder goal: " + distance );
         telemetry.addData(INFO, "Straight encoder position: " + (drive.getStraightPosition()-straightOffset));
-       // telemetry.addData(INFO, "Strafe encoder position: " + drive.getStrafePosition());
-       // telemetry.addData(INFO, "Angle heading   " +  getHeading());
         telemetry.update();
 
         //  Make smart Dashboard plots
         for(int i=0; i< positionValues.size();++i){
             telemetry.getSmartdashboard().putGraph("Turbo", "Angle correction", positionValues.get(i), angleCorrectionValues.get(i));
-            telemetry.getSmartdashboard().putGraph("Turbo", "Heading", positionValues.get(i), headingValues.get(i));
-            telemetry.getSmartdashboard().putGraph("Turbo", "Noise", positionValues.get(i), noiseValues.get(i));
-            //telemetry.getSmartdashboard().putGraph("Turbo", "Target Velocity", positionValues.get(i), targetVelocityValues.get(i));
-        }
+            telemetry.getSmartdashboard().putGraph("Turbo", "Heading", positionValues.get(i), headingValues.get(i));}
         //drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    }
+        }
 
     public synchronized void strafeToSegment(StrafeSegment segment) {
 
@@ -711,8 +706,8 @@ public class DriveController extends SubsystemController {
                 if (power < -speed) power = -speed;
                 //power = 0.3;
 
-                telemetry.addData(INFO, "Final angle: " + DF.format(getHeading()));
-                telemetry.update();
+                //telemetry.addData(INFO, "Final angle: " + DF.format(getHeading()));
+                //telemetry.update();
 
                 /*telemetry.addData(INFO,
                         "                                                                                                                                 call = "
@@ -721,7 +716,7 @@ public class DriveController extends SubsystemController {
                 //    drive.setDrivePowerAll(0, power,0,power);
                // else
                 //    drive.setDrivePowerAll(power, 0,power,0);
-                drive.setDrivePowerAll(power, -power,0,0);
+                drive.setDrivePowerAll(0, -power,0,-power);
                 loop++;
             }
             drive.stop();
@@ -746,33 +741,6 @@ public class DriveController extends SubsystemController {
             //return;
         }
         //drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    }
-
-    public void testPurePursuit(PursuitPath pursuitPath){
-
-        pursuitPath.reset();
-
-        drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        drive.setTargetHeading(0);
-
-        pursuitPath.build();
-
-        for(PathPoint point : pursuitPath.getPoints()) {
-            telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
-            telemetry.getSmartdashboard().putGraph("position", "velocity", point.getX(), point.getVelocity());
-        }
-
-        drive.follow(pursuitPath);
-
-        while(opModeIsActive() && drive.isFollowing()){
-            drive.update();
-            Pose currentPose = drive.getCurrentPosition();
-            telemetry.getSmartdashboard().putGraph("position", "position", currentPose.getX(), currentPose.getY());
-            telemetry.getSmartdashboard().putGraph("position", "heading", currentPose.getX(), currentPose.getHeading());
-        }
-
-        drive.setPower(0, 0);
     }
 
 

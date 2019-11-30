@@ -21,52 +21,52 @@ public class PursuitPath {
     /**
      * The amount of smoothing to be done on the path (larger number = more smoothing)
      */
-    private double fPathSmoothing = 0.1;
+    private double fPathSmoothing = 0.5;
 
     /**
      * Speed reduction through turns (larger number = faster turns)
      */
-    private double fTurnSpeed = 0.05;
+    private double fTurnSpeed = 1.0;
 
     /**
      * Scales following speed based on tracking error (smaller number = better tracking, larger number = faster tracking)
      */
-    private double fTrackingErrorSpeed = 1.5;
+    private double fTrackingErrorSpeed = 5.0;
 
     /**
      * Scales how much turn error is added into total error
      */
-    private double fTurnErrorScalar = 0.125;
+    private double fTurnErrorScalar = 0.0;
 
     /**
      * The max acceleration (total output/point)
      */
-    private double fMaxAcceleration = 0.005;
+    private double fMaxAcceleration = 0.05;
 
     /**
      * The max deceleration (total output/point)
      */
-    private double fMaxDeceleration = 0.005;
+    private double fMaxDeceleration = 0.01;
 
     /**
      * Minimum follow speed
      */
-    private double fMinSpeed = 0.05;
+    private double fMinSpeed = 0.2;
 
     /**
      * Maximum follow speed
      */
-    private double fMaxSpeed = 0.5;
+    private double fMaxSpeed = 1.4;
 
     /**
      * Average look ahead distance
      */
-    private double fLookAheadDistance = 12;
+    private double fLookAheadDistance = 5;
 
     /**
      * Look ahead distance for velocity calculations
      */
-    private int fVelocityLookAheadPoints = 2;
+    private int fVelocityLookAheadPoints = 1;
 
     /**
      * Run specific data, gets reset with reset() method
@@ -126,20 +126,24 @@ public class PursuitPath {
         fTurnErrorScalar = turnErrorScalar;
     }
 
-    public void setMaxAcceleration(double maxAcceleration) {
+    public PursuitPath setMaxAcceleration(double maxAcceleration) {
         fMaxAcceleration = maxAcceleration;
+        return this;
     }
 
-    public void setMaxDeceleration(double maxDeceleration) {
+    public PursuitPath setMaxDeceleration(double maxDeceleration) {
         fMaxDeceleration = maxDeceleration;
+        return this;
     }
 
-    public void setMinSpeed(double minSpeed) {
+    public PursuitPath setMinSpeed(double minSpeed) {
         fMinSpeed = minSpeed;
+        return this;
     }
 
-    public void setMaxSpeed(double maxSpeed) {
+    public PursuitPath setMaxSpeed(double maxSpeed) {
         fMaxSpeed = maxSpeed;
+        return this;
     }
 
     public void setLookAheadDistance(double lookAheadDistance) {

@@ -57,15 +57,15 @@ public final class Constants {
     public final static PursuitPath goToThirdBlockCenter = new PursuitPath(new Point(76, 28), new Point(76, 25), new Point(8, 25), new Point(8, 28));
     public final static PursuitPath goToFoundationThirdCenter = new PursuitPath(new Point(8, 28), new Point(8, 23), new Point(76, 23), new Point(76, 28));
 
-    public final static Path PurePursuitCenter = new Path("collect center sky stones");
+    public final static Path RedPurePursuitCenter = new Path("collect center sky stones");
 
     static{
-        PurePursuitCenter.addSegment(new PurePursuitSegment("drive to center sky stone", goToFirstBlockCenter,0));
-        PurePursuitCenter.addSegment(new PurePursuitSegment("first trip to foundation", goToFoundationCenter,300));
-        PurePursuitCenter.addSegment(new PurePursuitSegment("drive to second center sky stone", goToSecondBlockCenter,0));
-        PurePursuitCenter.addSegment(new PurePursuitSegment("second trip to foundation", goToFoundationSecondCenter,300));
-        PurePursuitCenter.addSegment(new PurePursuitSegment("drive to third center sky stone", goToThirdBlockCenter,0));
-        PurePursuitCenter.addSegment(new PurePursuitSegment("third trip to foundation", goToFoundationThirdCenter,300));
+        RedPurePursuitCenter.addSegment(new PurePursuitSegment("drive to center sky stone", goToFirstBlockCenter,0));
+        RedPurePursuitCenter.addSegment(new PurePursuitSegment("first trip to foundation", goToFoundationCenter,300));
+        RedPurePursuitCenter.addSegment(new PurePursuitSegment("drive to second center sky stone", goToSecondBlockCenter,0));
+        RedPurePursuitCenter.addSegment(new PurePursuitSegment("second trip to foundation", goToFoundationSecondCenter,300));
+        RedPurePursuitCenter.addSegment(new PurePursuitSegment("drive to third center sky stone", goToThirdBlockCenter,0));
+        RedPurePursuitCenter.addSegment(new PurePursuitSegment("third trip to foundation", goToFoundationThirdCenter,300));
     }
 
 
@@ -74,13 +74,13 @@ public final class Constants {
     public final static PursuitPath goToSecondBlockLeft = new PursuitPath(new Point(73, 28), new Point(73, 25), new Point(-32, 25), new Point(-32, 28));
     public final static PursuitPath goBackToFoundationLeft = new PursuitPath(new Point(-32, 28), new Point(-32, 24), new Point(76, 23), new Point(76, 28));
 
-    public final static Path PurePursuitLeft = new Path("collect left sky stones");
+    public final static Path RedPurePursuitLeft = new Path("collect left sky stones");
 
     static{
-        PurePursuitLeft.addSegment(new PurePursuitSegment("drive to left sky stone", goToFirstBlockLeft,0));
-        PurePursuitLeft.addSegment(new PurePursuitSegment("first trip to foundation", goToFoundationLeft,300));
-        PurePursuitLeft.addSegment(new PurePursuitSegment("drive to second left sky stone", goToSecondBlockLeft,0));
-        PurePursuitLeft.addSegment(new PurePursuitSegment("second trip to foundation", goBackToFoundationLeft,300));
+        RedPurePursuitLeft.addSegment(new PurePursuitSegment("drive to left sky stone", goToFirstBlockLeft,0));
+        RedPurePursuitLeft.addSegment(new PurePursuitSegment("first trip to foundation", goToFoundationLeft,300));
+        RedPurePursuitLeft.addSegment(new PurePursuitSegment("drive to second left sky stone", goToSecondBlockLeft,0));
+        RedPurePursuitLeft.addSegment(new PurePursuitSegment("second trip to foundation", goBackToFoundationLeft,300));
     }
 
     public final static PursuitPath goToFirstBlockRight = new PursuitPath(new Point(0, 0), new Point(8, 28));
@@ -159,8 +159,7 @@ public final class Constants {
         //collectRightSkyStone.addSegment(new StrafeSegment("strafe to foundation", 75,0.5,0,true));
         //collectRightSkyStone.addSegment(new DriveSegment("drive to foundation", 40, 0.1, 0,3000));
         //collectRightSkyStone.addSegment(new StrafeSegment("strafe from foundation", 8,0.6,1.0,false));
-        //collectRightSkyStone.addSegment((new TurnSegment("turn 90", -80.0, 0.6, 2.0,50000)));
-        //collectRightSkyStone.addSegment((new DriveSegment("back up", -8, 0.25, 100)));
+
         //collectRightSkyStone.addSegment(new StrafeSegment("strafe from foundation", 2.5,0.5,1));
        // collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", 50, 0.4, 2.0)));
        // collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -50, 0.4,2.0)));
@@ -207,7 +206,10 @@ public final class Constants {
     public static final Path dragFoundation = new Path("last drive");
 
     static {
-        dragFoundation.addSegment(new DriveSegment("drag foundation", -17, 0.3, 100));
+        //dragFoundation.addSegment(new DriveSegment("drag foundation", -17, 0.3, 100));
+        dragFoundation.addSegment((new StrafeSegment("back up", 8, 0.25, 1)));
+        dragFoundation.addSegment((new TurnSegment("turn 90", -83.0, 0.6, 2.0,50000)));
+
     }
 
     public static final Path avoidRobot = new Path("avoid robot");

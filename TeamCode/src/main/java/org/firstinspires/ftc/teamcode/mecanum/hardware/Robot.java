@@ -234,7 +234,7 @@ public class Robot extends AbstractRobot {
     }
     public RobotCallable delayedArmDownCallable() {
         return () -> {
-            delay(1500);
+            delay(1200);
             setGripperRelease();
             setArmDown();
         };
@@ -300,9 +300,9 @@ public class Robot extends AbstractRobot {
         intake.toggleRotation();
     }
 
-    public void runTestPurePursuit(PursuitPath pursuitPath) {
-        driver.testPurePursuit(pursuitPath);
-    }
+    //public void runTestPurePursuit(PursuitPath pursuitPath) {
+     //   driver.testPurePursuit(pursuitPath);
+    //}
 
     public RobotCallable toggleRotationCallable() {
         return () -> toggleRotation();
