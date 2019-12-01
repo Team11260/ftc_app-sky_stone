@@ -41,8 +41,8 @@ public class AutonCWO extends AbstractAuton {
     }
 
     public void InitLoop(int loop) {
-        if (loop%5 == 1)
-        robot.getSkyStonePosition();
+        //if (loop%5 == 1)
+        //robot.getSkyStonePosition();
     }
 
     @Override

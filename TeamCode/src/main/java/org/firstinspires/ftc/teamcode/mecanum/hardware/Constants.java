@@ -30,12 +30,12 @@ public final class Constants {
     //For Old
     public static int BLOCKHEIGHT = 66;
     public static int XORIGIN = 200;
-    public static int YORIGIN = 72;
+    public static int YORIGIN = 156;
     public static int BLOCKWIDTH = 123;
 
     public static int LINE_WIDTH = 7;
     public static int HEIGHT = 45;
-    public static int THRESHOLD = 120;
+    public static int THRESHOLD = 130;
 
     ////////Lift////////
     public static int LIFT_DOWN = 0;

@@ -51,7 +51,7 @@ public class Drive extends MecanumPurePursuitController {
 
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         resetPosition();
-        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void setDrivePowerAll(double FL, double FR, double BL, double BR) {

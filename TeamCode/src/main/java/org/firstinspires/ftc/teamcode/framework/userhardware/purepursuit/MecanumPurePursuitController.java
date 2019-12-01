@@ -7,7 +7,7 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
 
     protected double lastXPosition = 0, lastYPosition = 0;
 
-    protected double positionError = 3.0, headingError = 2.0;
+    protected double positionError = 2.0, headingError = 1.0;
 
     protected final double yScale;
 

@@ -31,7 +31,7 @@ public class Robot extends AbstractRobot {
 
 
     public Robot() {
-        //imageProcessor = new ImageProcessor(false);
+        imageProcessor = new ImageProcessor(false);
         //telemetry = new DoubleTelemetry(super.telemetry, Dashboard.getInstance().getTelemetry(), new Logger(Dashboard.getCurrentOpMode()));
 
         driver = new DriveController();
@@ -55,7 +55,7 @@ public class Robot extends AbstractRobot {
         driver.driveToSegment(segment);
     }
 
-    public String getSkyStonePositionThreeStones() {
+    public String getSkyStonePositionThreeStones(int loopcount) {
 
         int LINEWIDTH = LINE_WIDTH;
         int threshold = THRESHOLD;
@@ -64,6 +64,7 @@ public class Robot extends AbstractRobot {
         int x_left = XORIGIN;
         int x_center = x_left + BLOCKWIDTH;
         int x_right = x_center + BLOCKWIDTH;
+        String stonePosition;
 
 
         image = imageProcessor.getImage();
@@ -79,7 +80,7 @@ public class Robot extends AbstractRobot {
         // ImageProcessor.drawBox(image, XORIGIN + 30+BLOCKWIDTH+BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
         //imageProcessor.setImage(image);
 
-        String stonePosition;
+
        /* if (getLineAverage(image, x_left, height) < threshold) {
             stonePosition = "Left";
         } else if (getLineAverage(image, x_center, height) < threshold) {
@@ -102,23 +103,26 @@ public class Robot extends AbstractRobot {
         } else {
             stonePosition = "No Sky Stone Found";
         }
-        telemetry.addData(INFO, "left box  " + getPixelStripeAve( XORIGIN, YORIGIN));
-        telemetry.addData(INFO, "center box  " + getPixelStripeAve(XORIGIN + BLOCKWIDTH, YORIGIN));
-        telemetry.addData(INFO, "right box  " + getPixelStripeAve(XORIGIN + 2 * BLOCKWIDTH, YORIGIN));
-        telemetry.addData(INFO, "Front Third  "  +  getFrontThirdBlock(10, 320));
-        telemetry.update();
-        ImageProcessor.drawBox(image, XORIGIN, YORIGIN, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
-        ImageProcessor.drawBox(image, x_left + 10, YORIGIN + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
-        //delay(500);
-        ImageProcessor.drawBox(image, x_center + 10, YORIGIN + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
-        //delay(500);
-        ImageProcessor.drawBox(image, x_right + 10, YORIGIN + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
-        imageProcessor.setImage(image);
 
-        //ImageProcessor.drawBox(image, x_left, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
-        //ImageProcessor.drawBox(image, x_center, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
-        //ImageProcessor.drawBox(image, x_right, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
+        /*if(loopcount%10 == 5) {
+            telemetry.addData(INFO, "left box  " + getPixelStripeAve(XORIGIN, YORIGIN));
+            telemetry.addData(INFO, "center box  " + getPixelStripeAve(XORIGIN + BLOCKWIDTH, YORIGIN));
+            telemetry.addData(INFO, "right box  " + getPixelStripeAve(XORIGIN + 2 * BLOCKWIDTH, YORIGIN));
+            //telemetry.addData(INFO, "Front Third  "  +  getFrontThirdBlock(10, 320));
+            telemetry.update();
 
+            ImageProcessor.drawBox(image, XORIGIN, YORIGIN, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
+            ImageProcessor.drawBox(image, x_left + 10, YORIGIN + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
+            //delay(500);
+            ImageProcessor.drawBox(image, x_center + 10, YORIGIN + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
+            //delay(500);
+            ImageProcessor.drawBox(image, x_right + 10, YORIGIN + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
+            imageProcessor.setImage(image);
+
+            //ImageProcessor.drawBox(image, x_left, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
+            //ImageProcessor.drawBox(image, x_center, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
+            //ImageProcessor.drawBox(image, x_right, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
+        }*/
         return stonePosition;
     }
 
@@ -138,11 +142,11 @@ public class Robot extends AbstractRobot {
         int sum = 0;
 
         for (int i = 0; i < stripeWidth; i++) {
-            for (int j = 0; j < stripeHeight; j++) {
-                sum += Color.red(image.getPixel(x + i + 10, y + j + 5));
+            for (int j = 0; j < stripeHeight/3; j++) {
+                sum += Color.red(image.getPixel(x + i + 10, y + 3*j + 5));
             }
         }
-        return ((int) (sum / (stripeHeight * stripeWidth)));
+        return ((int) ((3*sum) / (stripeHeight * stripeWidth)));
 
     }
 

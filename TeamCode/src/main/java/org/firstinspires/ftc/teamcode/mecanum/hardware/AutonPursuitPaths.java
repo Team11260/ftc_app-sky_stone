@@ -43,10 +43,6 @@ public class AutonPursuitPaths {
                 new PursuitPath(new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y), new Point(RED_FOUNDATION_NEAR_X, RED_RUNWAY_Y), new Point(RED_BLOCK6_X, RED_RUNWAY_Y), new Point(RED_BLOCK6_X, RED_BLOCK6_Y)),0));
         RedPurePursuitLeft.addSegment(new PurePursuitSegment("third trip to foundation",
                 new PursuitPath(new Point(RED_BLOCK6_X, RED_BLOCK6_Y), new Point(RED_BLOCK6_X, RED_RUNWAY_Y), new Point(RED_FOUNDATION_NEAR_X, RED_RUNWAY_Y), new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y)),300));
-        RedPurePursuitLeft.addSegment(new PurePursuitSegment("drive to fourth stone",
-                new PursuitPath(new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y), new Point(RED_FOUNDATION_NEAR_X, RED_RUNWAY_Y), new Point(RED_BLOCK5_X, RED_RUNWAY_Y), new Point(RED_BLOCK5_X, RED_BLOCK5_Y)),0));
-        RedPurePursuitLeft.addSegment(new PurePursuitSegment("fourth trip to foundation",
-                new PursuitPath(new Point(RED_BLOCK5_X, RED_BLOCK5_Y), new Point(RED_BLOCK5_X, RED_RUNWAY_Y), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_RUNWAY_Y), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y)),300));
         */
     }
 
@@ -65,10 +61,6 @@ public class AutonPursuitPaths {
                 new PursuitPath(new Point(76, 28), new Point(76, 25), new Point(8, 25), new Point(8, 28)),0));
         RedPurePursuitCenter.addSegment(new PurePursuitSegment("third trip to foundation",
                 new PursuitPath(new Point(8, 28), new Point(8, 25), new Point(73, 25), new Point(73, 28)),300));
-        RedPurePursuitCenter.addSegment(new PurePursuitSegment("drive to fourth stone",
-                new PursuitPath(new Point(73, 28), new Point(73, 25), new Point(-8, 25), new Point(-8, 28)),0));
-        RedPurePursuitCenter.addSegment(new PurePursuitSegment("fourth trip to foundation",
-                new PursuitPath(new Point(-8, 28), new Point(-8, 25), new Point(76, 25), new Point(76, 28)),300));
         */
     }
 
@@ -87,25 +79,17 @@ public class AutonPursuitPaths {
                 new PursuitPath(new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y), new Point(RED_FOUNDATION_NEAR_X, RED_RUNWAY_Y), new Point(RED_BLOCK5_X, RED_RUNWAY_Y), new Point(RED_BLOCK5_X, RED_BLOCK5_Y)),0));
         RedPurePursuitRight.addSegment(new PurePursuitSegment("third trip to foundation",
                 new PursuitPath(new Point(RED_BLOCK5_X, RED_BLOCK5_Y), new Point(RED_BLOCK5_X, RED_RUNWAY_Y), new Point(RED_FOUNDATION_NEAR_X, RED_RUNWAY_Y), new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y)),300));
-        RedPurePursuitRight.addSegment(new PurePursuitSegment("drive to fourth stone",
-                new PursuitPath(new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y), new Point(RED_FOUNDATION_NEAR_X, RED_RUNWAY_Y), new Point(RED_BLOCK4_X, RED_RUNWAY_Y), new Point(RED_BLOCK4_X, RED_BLOCK4_Y)),0));
-        RedPurePursuitRight.addSegment(new PurePursuitSegment("fourth trip to foundation",
-                new PursuitPath(new Point(RED_BLOCK4_X, RED_BLOCK4_Y), new Point(RED_BLOCK4_X, RED_RUNWAY_Y), new Point(RED_FOUNDATION_NEAR_X, RED_RUNWAY_Y), new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y)),300));
         */
     }
 
     public final static Path RedPurePursuitParkFoundation= new Path("drag and park the foundation");
 
     static{
-        //RedPurePursuitParkFoundation.addSegment(new PurePursuitSegment(" drag 8 inches",
-                //new PursuitPath(new Point(0, 0), new Point(0, -8)),0,0));
-        RedPurePursuitParkFoundation.addSegment(new PurePursuitSegment("turn -27 degrees and drag 5 inches",
+        RedPurePursuitParkFoundation.addSegment(new PurePursuitSegment("turn and drag",
                 new PursuitPath(new Point(0, 0), new Point(-9, -17)),0,-27));
-        //RedPurePursuitParkFoundation.addSegment(new PurePursuitSegment("turn -63 degrees and drag 5 inches",
-               // new PursuitPath(new Point(-3, -14), new Point(-9, -17)),0,-63));
-        RedPurePursuitParkFoundation.addSegment(new PurePursuitSegment("turn -90 degrees and push 4 inches",
+        RedPurePursuitParkFoundation.addSegment(new PurePursuitSegment("turn -90 degrees and push ",
                 new PursuitPath(new Point(-9, -17), new Point(4, -17)),0,-90));
-        RedPurePursuitParkFoundation.addSegment(new PurePursuitSegment("turn -90 degrees and push 4 inches",
+        RedPurePursuitParkFoundation.addSegment(new PurePursuitSegment("park the robot",
                 new PursuitPath(new Point(4, -17), new Point(-40, -11)),0,-90));
 
     }

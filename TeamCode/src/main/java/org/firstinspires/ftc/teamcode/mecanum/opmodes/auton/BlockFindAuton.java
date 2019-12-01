@@ -17,6 +17,7 @@ import org.upacreekrobotics.dashboard.Config;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.RedPurePursuitRight;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectCenterSkyStone;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectLeftSkyStone;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectRightSkyStone;
@@ -28,7 +29,7 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.forwardD
 //  At 3 feet a stone is approximately  180x90 pixels
 @Config
 public class BlockFindAuton extends AbstractAuton {
-    ImageProcessor imageProcessor;
+    //ImageProcessor imageProcessor;
     Robot robot;
     boolean dashBoardSwitch = true;
     DecimalFormat DF;
@@ -56,7 +57,7 @@ public class BlockFindAuton extends AbstractAuton {
 
         // arm.setArmUpPosition();
 
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones(0));
 
         telemetry.update();
         delay(1000);
@@ -86,26 +87,10 @@ public class BlockFindAuton extends AbstractAuton {
         telemetry.update();
 
         runtime.reset();
-
-        robot.setGripperGrip();
-        //delay(500);
-        robot.setDrivePowerAll(-0.22,-0.25,-0.22,-0.25);
-        //runtime.reset();
-        //while(robot.findSecondBlock()>100){
-         //   telemetry.addData(DoubleTelemetry.LogMode.INFO,"Find block  " + robot.findSecondBlock());
-        //}
-        robot.stop();
-        robot.runDrivePath(forwardDrive);
-
-
-
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, "time elapsed  " + runtime.milliseconds());
-        telemetry.update();
-
         robot.setArmDown();
-        switch (robot.getSkyStonePositionThreeStones()) {
+        switch (robot.getSkyStonePositionThreeStones(0)) {
             case "Right":
-               // robot.runDrivePath(collectRightSkyStone);
+                robot.runDrivePath(RedPurePursuitRight);
                 break;
 
             case "Left":
@@ -122,7 +107,8 @@ public class BlockFindAuton extends AbstractAuton {
 
 
         }
-
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, "time elapsed  " + runtime.milliseconds());
+        telemetry.update();
 //        robot.arm.setArmDownPosition();
 //        robot.arm.setGripperGripPosition();
 //        delay(1000);
