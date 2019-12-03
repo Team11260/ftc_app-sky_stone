@@ -56,7 +56,7 @@ public class PursuitPath {
     /**
      * Maximum follow speed
      */
-    private double fMaxSpeed = 1.4;
+    private double fMaxSpeed = 1.5;
 
     /**
      * Average look ahead distance

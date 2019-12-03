@@ -238,7 +238,7 @@ public class Robot extends AbstractRobot {
     }
     public RobotCallable delayedArmDownCallable() {
         return () -> {
-            delay(1200);
+            delay(1800);
             setGripperRelease();
             setArmDown();
         };
