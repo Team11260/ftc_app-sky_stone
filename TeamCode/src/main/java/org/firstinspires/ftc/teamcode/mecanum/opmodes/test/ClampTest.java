@@ -18,7 +18,6 @@ public class ClampTest extends AbstractTeleop {
     public void RegisterEvents() {
 
         addEventHandler("1_a_down", ()->clamp.toggleClamp());
-
     }
 
     @Override
