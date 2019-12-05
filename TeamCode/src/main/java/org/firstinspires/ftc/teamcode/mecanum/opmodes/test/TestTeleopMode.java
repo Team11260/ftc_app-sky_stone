@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractTeleop;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.clamp.ClampController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.Intake;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.IntakeController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.lift.LiftController;
@@ -17,6 +18,7 @@ public class TestTeleopMode extends AbstractTeleop {
     Robot robot;
     IntakeController intake;
     LiftController lift;
+    ClampController clamp;
 
     @Override
     public void RegisterEvents() {
@@ -28,6 +30,10 @@ public class TestTeleopMode extends AbstractTeleop {
 
         addEventHandler("1_x_down",()->intake.toggleRotation());
         addEventHandler("1_y_down", ()->intake.toggleConveyor());
+
+        addEventHandler("1_a_down", ()->clamp.toggleClamp());
+
+
     }
 
 
@@ -47,6 +53,7 @@ public class TestTeleopMode extends AbstractTeleop {
         robot = new Robot();
         lift = new LiftController();
         intake = new IntakeController();
+        clamp = new ClampController();
         lift.setTiltUp();
         lift.setGrabberClose();
         lift.setPanMiddle();

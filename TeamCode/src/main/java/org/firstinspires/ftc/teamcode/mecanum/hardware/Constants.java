@@ -49,6 +49,8 @@ public final class Constants {
     public static double PAN_RIGHT = 0;
     public static double PAN_MIDDLE = 0.5;
     public static double PAN_LEFT = 1.00;
+    public static double CLAMP_OPEN = 0.45;
+    public static double CLAMP_CLOSE = 0.73;
 
     /*public final static PursuitPath goToFirstBlockCenter = new PursuitPath(new Point(0, 0), new Point(0, 28));
     public final static PursuitPath goToFoundationCenter = new PursuitPath(new Point(0, 28), new Point(0, 24), new Point(73, 23), new Point(73, 28));

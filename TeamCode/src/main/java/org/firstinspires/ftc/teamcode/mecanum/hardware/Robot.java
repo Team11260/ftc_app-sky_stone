@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.clamp.ClampController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.DriveController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.IntakeController;
 
@@ -27,6 +28,7 @@ public class Robot extends AbstractRobot {
     public IntakeController intake;
     public ArmController arm;
     public LiftController lift;
+    public ClampController clamp;
     public Bitmap image;
 
 
@@ -324,6 +326,16 @@ public class Robot extends AbstractRobot {
     public void toggleTilt(){
 
 
+    }
+
+    public void toggleClamp() {
+        clamp.toggleClamp();
+    }
+
+    public RobotCallable toggleClampCallable(){
+        return () -> {
+            toggleClamp();
+        };
     }
 
     public void setDrivePowerAll(double FL, double FR, double BL, double BR) {

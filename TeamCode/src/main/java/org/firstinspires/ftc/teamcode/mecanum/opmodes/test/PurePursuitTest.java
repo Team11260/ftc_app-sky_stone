@@ -25,11 +25,11 @@ public class PurePursuitTest extends AbstractAuton {
 
         addState(new PathState("Grab first stone", "drive to first sky stone", robot.grabStoneCallable()));
         addState(new PathState("Grab second stone", "drive to second sky stone", robot.grabStoneCallable()));
-        //addState(new PathState("Grab third stone", "drive to third stone", robot.grabStoneCallable()));
+        addState(new PathState("Grab third stone", "drive to third stone", robot.grabStoneCallable()));
 
         addState(new PathState("Deliver first stone", "first trip to foundation", robot.deliverStoneCallable()));
         addState(new PathState("Deliver second stone", "second trip to foundation", robot.deliverStoneCallable()));
-        //addState(new PathState("Deliver third stone", "third trip to foundation", robot.deliverStoneCallable()));
+        addState(new PathState("Deliver third stone", "third trip to foundation", robot.deliverStoneCallable()));
 
         addState(new PathState("Delayed Arm Down", "Deliver first stone", robot.delayedArmDownCallable()));
         addState(new PathState("Delayed Arm Down", "Deliver second stone", robot.delayedArmDownCallable()));

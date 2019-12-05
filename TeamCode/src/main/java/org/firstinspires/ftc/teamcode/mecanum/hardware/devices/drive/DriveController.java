@@ -106,7 +106,7 @@ public class DriveController extends SubsystemController {
 
         if (lastPathPaused) currentPath.pause();
 
-        telemetry.addData(INFO, "Starting path: " + currentPath.getName() + "  paused: " + currentPath.isPaused() + "  done: " + currentPath.isDone());
+       // telemetry.addData(INFO, "Starting path: " + currentPath.getName() + "  paused: " + currentPath.isPaused() + "  done: " + currentPath.isDone());
 
         while (!path.isDone() && opModeIsActive()) {
 
@@ -131,10 +131,10 @@ public class DriveController extends SubsystemController {
                 purePursuitToSegment((PurePursuitSegment) path.getCurrentSegment());
             }
 
-            telemetry.addData(INFO, "Finished segment: " + path.getCurrentSegment().getName() + " in path: " + currentPath.getName() + "  paused: " + currentPath.isPaused() + "  done: " + currentPath.isDone());
+          //  telemetry.addData(INFO, "Finished segment: " + path.getCurrentSegment().getName() + " in path: " + currentPath.getName() + "  paused: " + currentPath.isPaused() + "  done: " + currentPath.isDone());
         }
 
-        telemetry.addData(INFO, "Finished path: " + currentPath.getName() + "  paused: " + currentPath.isPaused() + "  done: " + currentPath.isDone());
+       // telemetry.addData(INFO, "Finished path: " + currentPath.getName() + "  paused: " + currentPath.isPaused() + "  done: " + currentPath.isDone());
     }
 
     public synchronized void purePursuitToSegment(PurePursuitSegment segment) {
@@ -171,8 +171,8 @@ public class DriveController extends SubsystemController {
         pursuitPath.build();
 
         for(PathPoint point : pursuitPath.getPoints()) {
-            telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
-            telemetry.getSmartdashboard().putGraph("position", "velocity", point.getX(), point.getVelocity());
+            //telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
+            //telemetry.getSmartdashboard().putGraph("position", "velocity", point.getX(), point.getVelocity());
         }
 
         drive.follow(pursuitPath);
@@ -180,8 +180,8 @@ public class DriveController extends SubsystemController {
         while(opModeIsActive() && drive.isFollowing()){
             drive.update();
             Pose currentPose = drive.getCurrentPosition();
-            telemetry.getSmartdashboard().putGraph("position", "position", currentPose.getX(), currentPose.getY());
-            telemetry.getSmartdashboard().putGraph("position", "heading", currentPose.getX(), currentPose.getHeading());
+           // telemetry.getSmartdashboard().putGraph("position", "position", currentPose.getX(), currentPose.getY());
+           // telemetry.getSmartdashboard().putGraph("position", "heading", currentPose.getX(), currentPose.getHeading());
         }
 
         drive.setPower(0, 0);
