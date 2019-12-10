@@ -33,11 +33,11 @@ public class Robot extends AbstractRobot {
 
 
     public Robot() {
-        imageProcessor = new ImageProcessor(false);
+        imageProcessor = RobotState.isAutonomous()? new ImageProcessor(false) : null;
         //telemetry = new DoubleTelemetry(super.telemetry, Dashboard.getInstance().getTelemetry(), new Logger(Dashboard.getCurrentOpMode()));
 
         driver = new DriveController();
-        //intake = new IntakeController();
+        intake = new IntakeController();
         arm = new ArmController();
         lift = new LiftController();
     }
@@ -238,6 +238,7 @@ public class Robot extends AbstractRobot {
         };
 
     }
+
     public RobotCallable delayedArmDownCallable() {
         return () -> {
             delay(1800);
@@ -337,6 +338,19 @@ public class Robot extends AbstractRobot {
             toggleClamp();
         };
     }
+
+    public LiftController lift(){
+        return lift;
+    }
+
+    public IntakeController intake(){
+        return intake;
+    }
+
+    public ClampController clamp(){
+        return clamp;
+    }
+
 
     public void setDrivePowerAll(double FL, double FR, double BL, double BR) {
         driver.setDrivePowerAll(FL, FR, BL, BR);
