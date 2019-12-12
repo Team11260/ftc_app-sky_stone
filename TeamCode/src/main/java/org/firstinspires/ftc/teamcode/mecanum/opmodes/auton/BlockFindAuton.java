@@ -46,10 +46,10 @@ public class BlockFindAuton extends AbstractAuton {
     @Override
     public void RegisterStates() {
       //  addState(new PathState("Lower Arm", "strafe to sky stone", robot.setArmDownCallable()));
-        addState(new PathState("Gripper Grip", "strafe to sky stone", robot.setGripperGripCallable()));
-
+       // addState(new PathState("Gripper Grip", "strafe to sky stone", robot.setGripperGripCallable()));
+//
      //   addState(new PathState("Raise Arm", "strafe to foundation", robot.setGripperGripCallable()));
-        addState(new PathState("Lower Arm at Foundation", "strafe to foundation", robot.setArmDownCallable()));
+        //addState(new PathState("Lower Arm at Foundation", "strafe to foundation", robot.setArmDownCallable()));
         //addState(new PathState("Release Gripper","strafe to foundation",robot.setGripperReleaseCallable()));
     }
 
@@ -68,8 +68,8 @@ public class BlockFindAuton extends AbstractAuton {
     public void Init() {
         robot = new Robot();
 
-        robot.setArmUp();
-        robot.setGripperRelease();
+       // robot.setArmUp();
+       // robot.setGripperRelease();
 
         //drive = new Drive(hardwareMap, telemetry);
         DF = new DecimalFormat("#.##");
@@ -87,7 +87,7 @@ public class BlockFindAuton extends AbstractAuton {
         telemetry.update();
 
         runtime.reset();
-        robot.setArmDown();
+        //robot.setArmDown();
         switch (robot.getSkyStonePositionThreeStones(0)) {
             case "Right":
                 robot.runDrivePath(RedPurePursuitRight);

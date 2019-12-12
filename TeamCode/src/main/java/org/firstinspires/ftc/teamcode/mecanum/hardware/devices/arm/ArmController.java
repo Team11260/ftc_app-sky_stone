@@ -5,54 +5,88 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.*;
 
 public class ArmController extends SubsystemController {
 
-    Arm arm;
+    Arm leftArm;
+    Arm rightArm;
 
-    boolean up = true, gripped = true;
+    boolean leftUp = true, rightUp = true, leftGripped = true, rightGripped = true;
 
 
     public ArmController() {
-        arm = new Arm(hardwareMap);
+        leftArm = new Arm(hardwareMap);
+        rightArm = new Arm(hardwareMap);
     }
 
-    public void setArmUpPosition() {
-        arm.setArmPosition(ARM_UP_POSITION);
-        up = true;
+    public void setRightArmUpPosition() {
+        rightArm.setRightArmPosition(RIGHT_ARM_UP_POSITION);
+        rightUp = true;
+    }
+
+    public void setLeftArmUpPosition() {
+        leftArm.setLeftArmPosition(LEFT_ARM_UP_POSITION);
+        leftUp = true;
+    }
+
+    public void setRightArmDownPosition() {
+        rightArm.setRightArmPosition(RIGHT_ARM_DOWN_POSITION);
+        rightUp = true;
+    }
+
+    public void setLeftArmDownPosition() {
+        leftArm.setLeftArmPosition(LEFT_ARM_DOWN_POSITION);
+        leftUp = true;
     }
 
     public void setArmBackPosition() {
-        arm.setArmPosition(ARM_BACK_POSITION);
-        up = true;
+        //leftArm.setLeftArmPosition(ARM_BACK_POSITION);
+        leftUp = true;
     }
 
-    public void setArmDownPosition() {
-        arm.setArmPosition(ARM_DOWN_POSITION);
-        up = false;
-    }
 
     public void setArmPinPosition() {
-        arm.setArmPosition(ARM_PIN_POSITION);
-        up = false;
+        leftArm.setLeftArmPosition(ARM_PIN_POSITION);
+        leftUp = false;
     }
 
 
-    public void setGripperGripPosition() {
-        arm.setGripperPosition(GRIPPER_GRIP_POSITION);
-        gripped = true;
+    public void setLeftGripperGripPosition() {
+        leftArm.setLeftGripperPosition(GRIPPER_GRIP_POSITION);
+        leftGripped = true;
     }
 
-    public void setGripperReleasePostion() {
-        arm.setGripperPosition(GRIPPER_RELEASE_POSITION);
-        gripped = false;
+    public void setRightGripperGripPosition() {
+        rightArm.setRightGripperPosition(GRIPPER_GRIP_POSITION);
+        rightGripped = true;
     }
 
-    public void toggleArmPosition() {
-        arm.setArmPosition(up ? ARM_DOWN_POSITION : ARM_UP_POSITION);
-        up = !up;
+
+    public void setLeftGripperReleasePosition() {
+        leftArm.setLeftGripperPosition(GRIPPER_RELEASE_POSITION);
+        leftGripped = false;
     }
 
-    public void toggleGripperPosition() {
-        arm.setGripperPosition(gripped ? GRIPPER_GRIP_POSITION : GRIPPER_RELEASE_POSITION);
-        gripped = !gripped;
+    public void setRightGripperReleasePostion() {
+        rightArm.setRightGripperPosition(GRIPPER_RELEASE_POSITION);
+        rightGripped = false;
+    }
+
+    public void toggleLeftArmPosition() {
+        leftArm.setLeftArmPosition(leftUp ? LEFT_ARM_DOWN_POSITION : LEFT_ARM_UP_POSITION);
+        leftUp = !leftUp;
+    }
+
+    public void toggleRightArmPosition() {
+        rightArm.setRightArmPosition(rightUp ? RIGHT_ARM_DOWN_POSITION : RIGHT_ARM_UP_POSITION);
+        rightUp = !rightUp;
+    }
+
+    public void toggleLeftGripperPosition() {
+        leftArm.setLeftGripperPosition(leftGripped ? GRIPPER_GRIP_POSITION : GRIPPER_RELEASE_POSITION);
+        leftGripped = !leftGripped;
+    }
+
+    public void toggleRightGripperPosition() {
+        rightArm.setRightGripperPosition(rightGripped ? GRIPPER_GRIP_POSITION : GRIPPER_RELEASE_POSITION);
+        rightGripped = !rightGripped;
     }
 
     @Override

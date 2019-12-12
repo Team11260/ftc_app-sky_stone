@@ -21,7 +21,7 @@ public class PurePursuitTest extends AbstractAuton {
     @Override
     public void RegisterStates() {
 
-        addState(new PathState("Arm Down", "start", robot.armDownCallable()));
+        /*addState(new PathState("Arm Down", "start", robot.armDownCallable()));
 
         addState(new PathState("Grab first stone", "drive to first sky stone", robot.grabStoneCallable()));
         addState(new PathState("Grab second stone", "drive to second sky stone", robot.grabStoneCallable()));
@@ -32,7 +32,7 @@ public class PurePursuitTest extends AbstractAuton {
         addState(new PathState("Deliver third stone", "third trip to foundation", robot.deliverStoneCallable()));
 
         addState(new PathState("Delayed Arm Down", "Deliver first stone", robot.delayedArmDownCallable()));
-        addState(new PathState("Delayed Arm Down", "Deliver second stone", robot.delayedArmDownCallable()));
+        addState(new PathState("Delayed Arm Down", "Deliver second stone", robot.delayedArmDownCallable()));*/
         //addState(new PathState("Delayed Arm Down", "Deliver third stone", robot.delayedArmDownCallable()));
 
     }
@@ -68,8 +68,8 @@ public class PurePursuitTest extends AbstractAuton {
     @Override
     public void Init() {
         robot = new Robot();
-        robot.setArmUp();
-        robot.setGripperRelease();
+        //robot.setArmUp();
+        //robot.setGripperRelease();
     }
 
 

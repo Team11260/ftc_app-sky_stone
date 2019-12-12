@@ -182,13 +182,13 @@ public class Robot extends AbstractRobot {
     public RobotCallable setArmDownCallable() {
         return () -> {
             RobotState.currentPath.pause();
-            arm.setArmDownPosition();
+           // arm.setArmDownPosition();
             delay(300);
-            arm.setGripperReleasePostion();
+            //arm.setGripperReleasePostion();
             delay(400);
-            arm.setArmUpPosition();
+            //arm.setArmUpPosition();
             delay(300);
-            arm.setGripperGripPosition();
+            //arm.setGripperGripPosition();
             RobotState.currentPath.resume();
 
         };
@@ -229,12 +229,12 @@ public class Robot extends AbstractRobot {
     }
 
     public void setArmDown() {
-        arm.setArmDownPosition();
+        //arm.setArmDownPosition();
     }
 
     public RobotCallable setArmUpCallable() {
         return () -> {
-            arm.setArmUpPosition();
+            //arm.setArmUpPosition();
         };
 
     }
@@ -251,21 +251,21 @@ public class Robot extends AbstractRobot {
     public RobotCallable delayedArmDownSecondCallable() {
         return () -> {
             delay(1300);
-            arm.setArmDownPosition();
+            //arm.setArmDownPosition();
         };
 
     }
 
     public void setArmUp() {
-        arm.setArmUpPosition();
+        //arm.setArmUpPosition();
     }
 
     public RobotCallable setGripperGripCallable() {
         return () -> {
             RobotState.currentPath.pause();
-            arm.setGripperGripPosition();
+            //arm.setGripperGripPosition();
             delay(600);
-            arm.setArmUpPosition();
+            //arm.setArmUpPosition();
             // delay(500);
             RobotState.currentPath.resume();
         };
@@ -273,18 +273,18 @@ public class Robot extends AbstractRobot {
     }
 
     public void setGripperGrip() {
-        arm.setGripperGripPosition();
+        //arm.setGripperGripPosition();
     }
 
     public RobotCallable setGripperReleaseCallable() {
         return () -> {
-            arm.setGripperReleasePostion();
+            //arm.setGripperReleasePostion();
         };
 
     }
 
     public void setGripperRelease() {
-        arm.setGripperReleasePostion();
+        //arm.setGripperReleasePostion();
     }
 
     public void startRotation() {

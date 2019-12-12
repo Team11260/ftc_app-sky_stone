@@ -5,28 +5,39 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Arm {
 
-    private Servo arm, gripper;
+    private Servo leftArm, rightArm, leftGripper, rightGripper;
 
     public Arm(HardwareMap hardwareMap) {
 
-        arm = hardwareMap.servo.get("arm_servo");
-        arm.setDirection(Servo.Direction.REVERSE);
+        leftArm = hardwareMap.servo.get("left_arm_servo");
+        rightArm = hardwareMap.servo.get("right_arm_servo");
+        leftArm.setDirection(Servo.Direction.FORWARD);
+        rightArm.setDirection(Servo.Direction.FORWARD);
+
         //arm.setPosition(ARM_UP_POSITION);
 
 
-        gripper = hardwareMap.servo.get("gripper_servo");
-        gripper.setDirection(Servo.Direction.FORWARD);
+        leftGripper = hardwareMap.servo.get("left_gripper_servo");
+        leftGripper.setDirection(Servo.Direction.FORWARD);
+        rightGripper = hardwareMap.servo.get("right_gripper_servo");
+        rightGripper.setDirection(Servo.Direction.FORWARD);
         //gripper.setPosition(GRIPPER_RELEASE_POSITION);
 
 
     }
 
 
-    public void setGripperPosition(double position) {
-        gripper.setPosition(position);
+    public void setLeftGripperPosition(double position) {
+        leftGripper.setPosition(position);
+    }
+    public void setRightGripperPosition(double position) {
+        rightGripper.setPosition(position);
     }
 
-    public void setArmPosition(double position) {
-        arm.setPosition(position);
+    public void setLeftArmPosition(double position) {
+        leftArm.setPosition(position);
+    }
+    public void setRightArmPosition(double position) {
+        rightArm.setPosition(position);
     }
 }

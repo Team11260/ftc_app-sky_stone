@@ -18,12 +18,19 @@ public final class Constants {
 
     ////////Arm////////
     //For Old
-    public static double ARM_DOWN_POSITION = 0.63;
+   // public static double ARM_DOWN_POSITION = 0.63;
+    public static double RIGHT_ARM_DOWN_POSITION = 0.45;
+    public static double LEFT_ARM_DOWN_POSITION = 0.45;
     public static double ARM_PIN_POSITION = 1.0;
-    public static double ARM_UP_POSITION = 1.0;
-    public static double ARM_BACK_POSITION = 0.3;
-    public static double GRIPPER_GRIP_POSITION = 0.27;
-    public static double GRIPPER_RELEASE_POSITION = 0.85;
+    //public static double ARM_UP_POSITION = 1.0;
+    public static double RIGHT_ARM_UP_POSITION = 0.75;
+   // public static double RIGHT_ARM_BACK_POSITION = 0.3;
+    public static double LEFT_ARM_UP_POSITION = 0.75;
+   // public static double LEFT_ARM_BACK_POSITION = 0.3;
+    //public static double GRIPPER_GRIP_POSITION = 0.27;
+    //public static double GRIPPER_RELEASE_POSITION = 0.85;
+    public static double GRIPPER_GRIP_POSITION = 0.4;
+    public static double GRIPPER_RELEASE_POSITION = 0.0;
 
 
     ////////Vision////////
