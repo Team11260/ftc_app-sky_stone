@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.framework.abstractopmodes;
 import org.firstinspires.ftc.teamcode.framework.util.State;
 import org.firstinspires.ftc.teamcode.framework.util.StateConfigurationException;
 import org.firstinspires.ftc.teamcode.framework.util.StateMachine;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -19,6 +20,7 @@ public abstract class AbstractAuton extends AbstractOpMode {
 
     public AbstractAuton() {
         abstractAuton = this;
+        RobotState.currentMatchState = RobotState.MatchState.AUTONOMOUS;
     }
 
     @Override

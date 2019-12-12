@@ -9,6 +9,8 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.PIDController;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.IMU;
 import org.firstinspires.ftc.teamcode.framework.userhardware.outputs.SlewDcMotor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.MecanumPurePursuitController;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState;
 
 public class Drive extends MecanumPurePursuitController {
 
@@ -51,7 +53,8 @@ public class Drive extends MecanumPurePursuitController {
 
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         resetPosition();
-        //setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        setMode(RobotState.isAutonomous() ? DcMotor.RunMode.RUN_USING_ENCODER : DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void setDrivePowerAll(double FL, double FR, double BL, double BR) {

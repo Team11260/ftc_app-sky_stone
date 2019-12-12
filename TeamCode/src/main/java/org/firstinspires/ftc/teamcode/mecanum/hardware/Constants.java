@@ -41,11 +41,12 @@ public final class Constants {
     public static int LIFT_DOWN = 0;
     public static int LIFT_UP = 1234;
     public static double TILT_DOWN = 1.00;
-    public static double TILT_UP = 0.59;
+    public static double TILT_UP = 0.56;
     public static double GRABBER_OPEN = 0.45;
-    public static double GRABBER_CLOSE = 0.73;
+    public static double GRABBER_CLOSE = 0.75;
     public static double SLIDE_IN = 0.05;
     public static double SLIDE_OUT = 0.75;
+    public static double SLIDE_OUT_HALF = 0.35;
     public static double PAN_RIGHT = 0;
     public static double PAN_MIDDLE = 0.5;
     public static double PAN_LEFT = 1.00;

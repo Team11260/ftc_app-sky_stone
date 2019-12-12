@@ -26,6 +26,11 @@ public final class RobotState {
         UNKNOWN
     }
 
+    public static boolean isAutonomous(){
+            return RobotState.currentMatchState == RobotState.MatchState.AUTONOMOUS;
+    }
+
+
     public enum MineralLiftState {
         COLLECT_POSITION,
         DUMP_POSITION,

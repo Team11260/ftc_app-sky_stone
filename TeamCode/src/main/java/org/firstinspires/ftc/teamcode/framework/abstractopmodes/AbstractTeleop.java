@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.framework.util.Emitter;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,11 +20,14 @@ public abstract class AbstractTeleop extends AbstractOpMode {
     private long emitTimeOffset = 0;
     private int emitLoop = 0;
 
+    RobotState.MatchState currentMatchState = RobotState.MatchState.TELEOP;
+
     ButtonStateMap states;
     FloatStateMap floatStates;
 
     public AbstractTeleop() {
-
+        super();
+        RobotState.currentMatchState = RobotState.MatchState.TELEOP;
     }
 
     @Override
@@ -167,6 +171,7 @@ public abstract class AbstractTeleop extends AbstractOpMode {
             event.call();
             return true;
         });
+
     }
 
     public void pauseEvent(String name) {
