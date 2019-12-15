@@ -14,38 +14,36 @@ public class DraggerController extends SubsystemController {
 
     boolean backUp = true, FrontUp = true;
 
-    public DraggerController(){
+    public DraggerController() {
         backDragger = new Dragger(hardwareMap);
         frontDragger = new Dragger(hardwareMap);
     }
 
-    public void setBackUp(){
+    public void setBackUp() {
         backDragger.setBackDraggerPosition(BACK_DRAGGER_UP_POSITION);
         backUp = true;
     }
 
-    public void setFrontUp(){
+    public void setFrontUp() {
         frontDragger.setFrontDraggerPosition(FRONT_DRAGGER_UP_POSITION);
         FrontUp = true;
     }
-    public void setBackDown(){
+
+    public void setBackDown() {
         backDragger.setBackDraggerPosition(BACK_DRAGGER_DOWN_POSITION);
         backUp = false;
     }
-    public void setFrontDown(){
+
+    public void setFrontDown() {
         frontDragger.setFrontDraggerPosition(FRONT_DRAGGER_DOWN_POSITION);
         FrontUp = false;
     }
-    public void toggleBoth(){
-        if (FrontUp && backUp){
-          setFrontDown();
-          setBackDown();
-        }
-        else if (!FrontUp && !backUp){
+
+    public void toggleBoth() {
+        if (!FrontUp && !backUp) {
             setBackUp();
             setFrontUp();
-        }
-        else{
+        } else {
             setFrontDown();
             setBackDown();
         }
