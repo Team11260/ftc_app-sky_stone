@@ -30,9 +30,11 @@ public class TeleopMode extends AbstractTeleop {
         addEventHandler("1_x_down",()->robot.intake().toggleRotation());
         addEventHandler("1_y_down", ()->robot.intake().toggleConveyor());
 
-        addEventHandler("1_a_down", ()->robot.clamp().toggleClamp());
+        addEventHandler("1_a_down", robot.toggleBothCallable());
 
         addEventHandler("1_b_down", ()-> toggleDriveSpeed());
+
+
     }
 
     @Override
