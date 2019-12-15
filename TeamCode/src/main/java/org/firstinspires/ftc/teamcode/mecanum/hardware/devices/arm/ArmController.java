@@ -28,12 +28,12 @@ public class ArmController extends SubsystemController {
 
     public void setRightArmDownPosition() {
         rightArm.setRightArmPosition(RIGHT_ARM_DOWN_POSITION);
-        rightUp = true;
+        rightUp = false;
     }
 
     public void setLeftArmDownPosition() {
         leftArm.setLeftArmPosition(LEFT_ARM_DOWN_POSITION);
-        leftUp = true;
+        leftUp = false;
     }
 
     public void setArmBackPosition() {

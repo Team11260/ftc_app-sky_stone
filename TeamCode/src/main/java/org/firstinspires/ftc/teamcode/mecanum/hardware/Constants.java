@@ -32,6 +32,12 @@ public final class Constants {
     public static double GRIPPER_GRIP_POSITION = 0.4;
     public static double GRIPPER_RELEASE_POSITION = 0.0;
 
+    ////////Dragger////////
+    public static double LEFT_DRAGGER_UP_POSITION = 0.5;
+    public static double RIGHT_DRAGGER_UP_POSITION = 0.5;
+    public static double LEFT_DRAGGER_DOWN_POSITION = 0.5;
+    public static double RIGHT_DRAGGER_DOWN_POSITION = 0.5;
+
 
     ////////Vision////////
     //For Old
