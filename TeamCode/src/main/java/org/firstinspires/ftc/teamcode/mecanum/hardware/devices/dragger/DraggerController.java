@@ -37,11 +37,7 @@ public class DraggerController extends SubsystemController {
         rightUp = false;
     }
     public void toggleBoth(){
-        if (rightUp && leftUp){
-          setRightDown();
-          setLeftDown();
-        }
-        else if (!rightUp && !leftUp){
+        if (!rightUp && !leftUp){
             setLeftUp();
             setRightUp();
         }
