@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<Robot type="FirstInspires-FTC">
+    <Webcam name="WebCam" serialNumber="88B5B26E" />
+    <LynxUsbDevice name="Expansion Hub Portal 1" serialNumber="DQ2CFUSD" parentModuleAddress="2">
+        <LynxModule name="Expansion Hub 2" port="2">
+            <RevRobotics20HDHexMotor name="back_right" port="0" />
+            <RevRobotics20HDHexMotor name="back_left" port="1" />
+            <RevRobotics20HDHexMotor name="front_right" port="2" />
+            <RevRobotics20HDHexMotor name="front_left" port="3" />
+            <Servo name="arm_servo" port="0" />
+            <Servo name="gripper_servo" port="1" />
+            <Servo name="right_intake" port="2" />
+            <Servo name="left_intake" port="3" />
+            <Servo name="conveyor_belt" port="4" />
+            <DigitalDevice name="digital_touch" port="0" />
+            <LynxEmbeddedIMU name="imu" port="0" bus="0" />
+            <LynxColorSensor name="color_distance" port="0" bus="3" />
+        </LynxModule>
+        <LynxModule name="Expansion Hub 3" port="3">
+            <RevRobotics20HDHexMotor name="straight_encoder" port="0" />
+            <RevRobotics20HDHexMotor name="strafe_encoder" port="1" />
+            <RevRobotics20HDHexMotor name="lift" port="2" />
+            <Servo name="tilt_servo" port="0" />
+            <Servo name="pan_servo" port="1" />
+            <Servo name="slide_servo" port="2" />
+            <Servo name="grabber_servo" port="3" />
+            <LynxEmbeddedIMU name="imu 1" port="0" bus="0" />
+        </LynxModule>
+    </LynxUsbDevice>
+</Robot>
