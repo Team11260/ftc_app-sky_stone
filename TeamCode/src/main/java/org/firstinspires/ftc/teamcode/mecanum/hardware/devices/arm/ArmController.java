@@ -12,8 +12,8 @@ public class ArmController extends SubsystemController {
 
 
     public ArmController() {
-        leftArm = new Arm(hardwareMap);
-        rightArm = new Arm(hardwareMap);
+        //leftArm = new Arm(hardwareMap);
+        //rightArm = new Arm(hardwareMap);
     }
 
     public void setRightArmUpPosition() {
