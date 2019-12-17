@@ -49,8 +49,7 @@ public class StateMachine {
         finishedStates.clear();
         startingStates.clear();
 
-        if (activeStates.size() <= 0) return false;
-        return true;
+        return !(activeStates.size() <= 0);
     }
 
     public synchronized void addFinishedState(String stateName) {

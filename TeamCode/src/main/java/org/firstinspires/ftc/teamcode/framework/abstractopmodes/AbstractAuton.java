@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.framework.abstractopmodes;
 
+import org.firstinspires.ftc.teamcode.framework.util.PathState;
+import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.framework.util.State;
 import org.firstinspires.ftc.teamcode.framework.util.StateConfigurationException;
 import org.firstinspires.ftc.teamcode.framework.util.StateMachine;
@@ -65,6 +67,10 @@ public abstract class AbstractAuton extends AbstractOpMode {
 
         while (!isStopRequested() && !CurrentFuture.isDone()) checkException();
 
+        addState(new State("run", "start", () -> {
+            Run();
+        }));
+
         RegisterStates();
 
         try {
@@ -73,17 +79,9 @@ public abstract class AbstractAuton extends AbstractOpMode {
             throwException(e);
         }
 
-        addState(new State("run", "start", () -> {
-            Run();
-        }));
-
-        boolean stateMachineActive = true;
-
-        while (opModeIsActive() && stateMachineActive) {
+        do {
             checkException();
-
-            stateMachineActive = stateMachine.update();
-        }
+        }while (opModeIsActive() && stateMachine.update());
 
         AbstractOpMode.stopRequested();
 
@@ -119,6 +117,10 @@ public abstract class AbstractAuton extends AbstractOpMode {
 
     public void addState(State state) {
         stateMachine.addState(state);
+    }
+
+    public synchronized void addState(String name, String previousState, RobotCallable run) {
+        stateMachine.addState(new PathState(name,previousState,run));
     }
 
     public static void addFinishedState(String state) {

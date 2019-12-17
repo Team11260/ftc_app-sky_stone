@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.TelemetryRecord;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StrafeTrapezoid;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StraightTrapezoid;
+import org.firstinspires.ftc.teamcode.mecanum.vectorgeometry.Vector;
 import org.upacreekrobotics.dashboard.Config;
 
 import java.text.DecimalFormat;
@@ -45,7 +46,7 @@ public class DriveController extends SubsystemController {
 
     private DecimalFormat DF;
 
-    public static double PATH_P = 15, PATH_F = 5;
+    public static double PATH_P = 15, PATH_F = 5, pi = Math.PI;
 
     public static double PROP_GAIN=0.1,INT_GAIN=0.0,DIFF_GAIN=0.1;
 
@@ -90,6 +91,15 @@ public class DriveController extends SubsystemController {
 
     public synchronized void stop() {
         drive.stop();
+    }
+
+    public void driveVector(Vector vector){
+        double angle = vector.getAngle(), mag = range(vector.getMagnitude());
+        setDrivePowerAll(mag*Math.cos((pi/4)-angle),mag*Math.sin((pi/4)-angle),mag*Math.sin((pi/4)-angle),mag*Math.cos((pi/4)-angle));
+    }
+
+    public void driveParametrizedFunction(){
+
     }
 
     //Autonomous Methods

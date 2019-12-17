@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.ImageProcessor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.util.PathState;
+import org.firstinspires.ftc.teamcode.framework.util.State;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.Arm;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
@@ -46,10 +47,10 @@ public class BlockFindAuton extends AbstractAuton {
     @Override
     public void RegisterStates() {
       //  addState(new PathState("Lower Arm", "strafe to sky stone", robot.setArmDownCallable()));
-       // addState(new PathState("Gripper Grip", "strafe to sky stone", robot.setGripperGripCallable()));
-//
+        addState("Gripper Grip", "drive to first sky stone", robot.setGripperGripCallable());
+
      //   addState(new PathState("Raise Arm", "strafe to foundation", robot.setGripperGripCallable()));
-        //addState(new PathState("Lower Arm at Foundation", "strafe to foundation", robot.setArmDownCallable()));
+        addState("Lower Arm at Foundation", "first trip to foundation", robot.setArmDownCallable());
         //addState(new PathState("Release Gripper","strafe to foundation",robot.setGripperReleaseCallable()));
     }
 
