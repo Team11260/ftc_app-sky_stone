@@ -15,6 +15,8 @@ public class Intake {
 
      public static double rightPosition = 1.0, leftPosition = 1.0;
      public static double beltPosition = 1.0;
+     public static double rightReversePosition = 0, leftReversePosition = 0;
+     public static double beltReversePosition = 0;
 
 
     public Intake(HardwareMap hardwareMap){
@@ -42,6 +44,12 @@ public class Intake {
 
         rightIntake.setPosition(rightPosition);
     }
+    public void startReverseRotationLeft(){
+        leftIntake.setPosition(leftReversePosition);
+    }
+    public void startREverseRotationRight(){
+        rightIntake.setPosition(rightReversePosition);
+    }
 
     public void stopRotatingLeft(){
         leftIntake.setPosition(0.5);
@@ -54,6 +62,9 @@ public class Intake {
 
     public void startConveyor(){
         conveyorBelt.setPosition(beltPosition);
+    }
+    public void startReverseConveyor(){
+        conveyorBelt.setPosition(beltReversePosition);
     }
 
     public void stopConveyor() {

@@ -29,8 +29,9 @@ public class TeleopMode extends AbstractTeleop {
 
         addEventHandler("1_x_down",()->robot.intake().toggleRotation());
         addEventHandler("1_y_down", ()->robot.intake().toggleConveyor());
-
         addEventHandler("1_a_down", robot.toggleBothCallable());
+        addEventHandler("1_lb_down",()->robot.intake().toggleReverseConveyor());
+        addEventHandler("1_rb_down",()->robot.intake().toggleReverseRotation());
 
         addEventHandler("1_b_down", ()-> toggleDriveSpeed());
 
@@ -41,9 +42,11 @@ public class TeleopMode extends AbstractTeleop {
     public void UpdateEvents() {
         double liftMultiplier = 0.8;
         double left_stick_x=-gamepad1.left_stick_x,left_stick_y = -gamepad1.left_stick_y, right_stick_x = gamepad1.right_stick_x;
-        robot.setDrivePowerAll(k*(left_stick_y+left_stick_x+right_stick_x),k*(left_stick_y-left_stick_x-right_stick_x),
-                               k*(left_stick_y-left_stick_x+right_stick_x),k*(left_stick_y+left_stick_x-right_stick_x));
+        double right_trigger=gamepad1.right_trigger*0.4,left_trigger = gamepad1.left_trigger*0.4;
+        robot.setDrivePowerAll(k*(left_stick_y+left_stick_x+right_stick_x-right_trigger+left_trigger),k*(left_stick_y-left_stick_x-right_stick_x+right_trigger-left_trigger),
+                               k*(left_stick_y-left_stick_x+right_stick_x+right_trigger-left_trigger),k*(left_stick_y+left_stick_x-right_stick_x-right_trigger+left_trigger));
         robot.lift().lift.setLiftPower(gamepad2.left_stick_y*liftMultiplier);
+
     }
 
     public void toggleDriveSpeed(){

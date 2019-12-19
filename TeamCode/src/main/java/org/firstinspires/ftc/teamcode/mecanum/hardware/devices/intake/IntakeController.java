@@ -7,6 +7,8 @@ public class IntakeController extends SubsystemController {
     Intake intake;
     private boolean isRotating = false;
     private boolean isConveying = false;
+    private boolean isReverseRotating = false;
+    private boolean isReverseConveying = false;
 
     public IntakeController() {
         intake = new Intake(hardwareMap);
@@ -25,10 +27,15 @@ public class IntakeController extends SubsystemController {
         intake.startRotatingLeft();
         intake.startRotatingRight();
     }
+    public void startReverseIntake(){
+        intake.startReverseRotationLeft();
+        intake.startREverseRotationRight();
+    }
     public void stopIntake(){
         intake.stopRotatingLeft();
         intake.stopRotatingRight();
     }
+
 
     public void toggleRotation(){
         if (isRotating)
@@ -38,6 +45,14 @@ public class IntakeController extends SubsystemController {
         isRotating = !isRotating;
     }
 
+    public void toggleReverseRotation(){
+        if (isReverseRotating)
+            stopIntake();
+        else
+            startReverseIntake();
+        isReverseRotating = !isReverseRotating;
+    }
+
     public void toggleConveyor(){
         if (isConveying)
             intake.stopConveyor();
@@ -45,6 +60,14 @@ public class IntakeController extends SubsystemController {
             intake.startConveyor();
         isConveying = !isConveying;
     }
+    public void toggleReverseConveyor(){
+        if (isReverseConveying)
+            intake.stopConveyor();
+        else
+            intake.startReverseConveyor();
+        isReverseConveying = !isReverseConveying;
+    }
+
 
 
 
