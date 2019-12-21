@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive;
 
+import android.icu.text.IDNA;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -18,7 +20,7 @@ import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.TelemetryRecord;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StrafeTrapezoid;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StraightTrapezoid;
-import org.firstinspires.ftc.teamcode.mecanum.vectorgeometry.Vector;
+import org.firstinspires.ftc.teamcode.mecanum.opmodes.auton.vector.Vector;
 import org.upacreekrobotics.dashboard.Config;
 
 import java.text.DecimalFormat;
@@ -93,13 +95,12 @@ public class DriveController extends SubsystemController {
         drive.stop();
     }
 
-    public void driveVector(Vector vector){
-        double angle = vector.getAngle(), mag = range(vector.getMagnitude());
-        setDrivePowerAll(mag*Math.cos((pi/4)-angle),mag*Math.sin((pi/4)-angle),mag*Math.sin((pi/4)-angle),mag*Math.cos((pi/4)-angle));
-    }
-
-    public void driveParametrizedFunction(){
-
+    public void driveToVector(Vector vector){
+        double cos = vector.cos(), sin = vector.sin(),x = vector.x, y = vector.y;
+        setDrivePowerAll(cos*x + sin*y,sin*y - cos*x,sin*y - cos*x, cos*x + sin*y );
+        telemetry.addData(INFO,"cosX: " + cos*x);
+        telemetry.addData(INFO, "sinY: " + sin*y);
+        telemetry.update();
     }
 
     //Autonomous Methods
