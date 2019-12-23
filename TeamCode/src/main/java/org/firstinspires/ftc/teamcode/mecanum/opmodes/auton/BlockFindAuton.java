@@ -18,11 +18,7 @@ import org.upacreekrobotics.dashboard.Config;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.RedPurePursuitRight;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectCenterSkyStone;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectLeftSkyStone;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.collectRightSkyStone;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.forwardDrive;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.*;
 
 @Autonomous(name = "BlockFind Auton", group = "New")
 
@@ -46,10 +42,10 @@ public class BlockFindAuton extends AbstractAuton {
 
     @Override
     public void RegisterStates() {
-      //  addState(new PathState("Lower Arm", "strafe to sky stone", robot.setArmDownCallable()));
+        //  addState(new PathState("Lower Arm", "strafe to sky stone", robot.setArmDownCallable()));
         addState("Gripper Grip", "drive to first sky stone", robot.setGripperGripCallable());
 
-     //   addState(new PathState("Raise Arm", "strafe to foundation", robot.setGripperGripCallable()));
+        //   addState(new PathState("Raise Arm", "strafe to foundation", robot.setGripperGripCallable()));
         addState("Lower Arm at Foundation", "first trip to foundation", robot.setArmDownCallable());
         //addState(new PathState("Release Gripper","strafe to foundation",robot.setGripperReleaseCallable()));
     }
@@ -69,12 +65,12 @@ public class BlockFindAuton extends AbstractAuton {
     public void Init() {
         robot = new Robot();
 
-       // robot.setArmUp();
-       // robot.setGripperRelease();
+        // robot.setArmUp();
+        // robot.setGripperRelease();
 
         //drive = new Drive(hardwareMap, telemetry);
         DF = new DecimalFormat("#.##");
-        // imageProcessor = new ImageProcessor(false);
+        //imageProcessor = new ImageProcessor(false);
 
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "init");
@@ -91,11 +87,11 @@ public class BlockFindAuton extends AbstractAuton {
         //robot.setArmDown();
         switch (robot.getSkyStonePositionThreeStones(0)) {
             case "Right":
-                robot.runDrivePath(RedPurePursuitRight);
+                //robot.runDrivePath(RedPurePursuitRight);
                 break;
 
             case "Left":
-               // robot.runDrivePath(collectLeftSkyStone);
+                robot.runDrivePath(RedPurePursuitLeft);
                 break;
 
             case "Center":

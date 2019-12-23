@@ -233,7 +233,7 @@ public class Robot extends AbstractRobot {
     }
 
     public void setArmDown() {
-        //arm.setArmDownPosition();
+        arm.setArmDownPosition();
     }
 
     public RobotCallable setArmUpCallable() {
@@ -261,7 +261,7 @@ public class Robot extends AbstractRobot {
     }
 
     public void setArmUp() {
-        //arm.setArmUpPosition();
+        arm.setArmUpPosition();
     }
 
     public RobotCallable setGripperGripCallable() {
@@ -277,18 +277,18 @@ public class Robot extends AbstractRobot {
     }
 
     public void setGripperGrip() {
-        //arm.setGripperGripPosition();
+        arm.setGripperGripPosition();
     }
 
     public RobotCallable setGripperReleaseCallable() {
         return () -> {
-            //arm.setGripperReleasePostion();
+            arm.setGripperReleasePosition();
         };
 
     }
 
     public void setGripperRelease() {
-        //arm.setGripperReleasePostion();
+        arm.setGripperReleasePosition();
     }
 
     public void startRotation() {
