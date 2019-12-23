@@ -34,8 +34,8 @@ public class CGAuton extends AbstractAuton {
         drive = new Drive(hardwareMap, telemetry);
         drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        arm.setLeftArmDownPosition();
-        arm.setLeftGripperReleasePosition();
+        arm.setArmDownPosition();
+        arm.setGripperReleasePosition();
     }
 
     public void RegisterStates(){}
@@ -53,9 +53,9 @@ public class CGAuton extends AbstractAuton {
         }
         drive.stop();
 
-        arm.setLeftGripperGripPosition();
+        arm.setGripperGripPosition();
         delay(500);
-        arm.setLeftArmUpPosition();
+        arm.setArmUpPosition();
         delay(1000);
 
         strafe(speed);
@@ -78,11 +78,11 @@ public class CGAuton extends AbstractAuton {
         }
         drive.stop();
 
-        arm.setLeftArmDownPosition();
+        arm.setArmDownPosition();
         delay(500);
-        arm.setLeftGripperReleasePosition();
+        arm.setGripperReleasePosition();
         delay(500);
-        arm.setLeftArmUpPosition();
+        arm.setArmUpPosition();
     }
 
 

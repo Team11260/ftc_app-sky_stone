@@ -35,7 +35,7 @@ public class Robot extends AbstractRobot {
 
 
     public Robot() {
-        imageProcessor = RobotState.isAutonomous()? new ImageProcessor(false) : null;
+        imageProcessor = new ImageProcessor(false);
         //telemetry = new DoubleTelemetry(super.telemetry, Dashboard.getInstance().getTelemetry(), new Logger(Dashboard.getCurrentOpMode()));
 
         driver = new DriveController();
@@ -81,10 +81,10 @@ public class Robot extends AbstractRobot {
 
         // This is the Latest
         //ImageProcessor.drawBox(image, XORIGIN, YORIGIN, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
-        //ImageProcessor.drawBox(image, XORIGIN + 30, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
-        // ImageProcessor.drawBox(image, XORIGIN + 30+BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
-        // ImageProcessor.drawBox(image, XORIGIN + 30+BLOCKWIDTH+BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
-        //imageProcessor.setImage(image);
+       // ImageProcessor.drawBox(image, XORIGIN + 30, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
+       // ImageProcessor.drawBox(image, XORIGIN + 30 + BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
+       // ImageProcessor.drawBox(image, XORIGIN + 30 + BLOCKWIDTH + BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
+       // imageProcessor.setImage(image);
 
 
        /* if (getLineAverage(image, x_left, height) < threshold) {
@@ -110,7 +110,7 @@ public class Robot extends AbstractRobot {
             stonePosition = "No Sky Stone Found";
         }
 
-        /*if(loopcount%10 == 5) {
+        //if (loopcount % 10 == 5) {
             telemetry.addData(INFO, "left box  " + getPixelStripeAve(XORIGIN, YORIGIN));
             telemetry.addData(INFO, "center box  " + getPixelStripeAve(XORIGIN + BLOCKWIDTH, YORIGIN));
             telemetry.addData(INFO, "right box  " + getPixelStripeAve(XORIGIN + 2 * BLOCKWIDTH, YORIGIN));
@@ -128,7 +128,7 @@ public class Robot extends AbstractRobot {
             //ImageProcessor.drawBox(image, x_left, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
             //ImageProcessor.drawBox(image, x_center, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
             //ImageProcessor.drawBox(image, x_right, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
-        }*/
+
         return stonePosition;
     }
 
@@ -148,11 +148,11 @@ public class Robot extends AbstractRobot {
         int sum = 0;
 
         for (int i = 0; i < stripeWidth; i++) {
-            for (int j = 0; j < stripeHeight/3; j++) {
-                sum += Color.red(image.getPixel(x + i + 10, y + 3*j + 5));
+            for (int j = 0; j < stripeHeight / 3; j++) {
+                sum += Color.red(image.getPixel(x + i + 10, y + 3 * j + 5));
             }
         }
-        return ((int) ((3*sum) / (stripeHeight * stripeWidth)));
+        return ((int) ((3 * sum) / (stripeHeight * stripeWidth)));
 
     }
 
@@ -165,19 +165,19 @@ public class Robot extends AbstractRobot {
         image = imageProcessor.getImage();
 
         for (int i = 0; i < stripeWidth; i++) {
-            for (int j = 0; j < stripeHeight/10; j++) {
-                sum += Color.red(image.getPixel(x + i + 10, y + 10*j + 5));
+            for (int j = 0; j < stripeHeight / 10; j++) {
+                sum += Color.red(image.getPixel(x + i + 10, y + 10 * j + 5));
             }
         }
-        return ((int) ((sum*10) / (stripeHeight * stripeWidth)));
+        return ((int) ((sum * 10) / (stripeHeight * stripeWidth)));
 
     }
 
-    public int findSecondBlock(){
-        return getFrontThirdBlock(10,320);
+    public int findSecondBlock() {
+        return getFrontThirdBlock(10, 320);
     }
 
-    public RobotCallable armDownCallable(){
+    public RobotCallable armDownCallable() {
         return () -> {
             setArmDown();
         };
@@ -186,7 +186,7 @@ public class Robot extends AbstractRobot {
     public RobotCallable setArmDownCallable() {
         return () -> {
             RobotState.currentPath.pause();
-           // arm.setArmDownPosition();
+            // arm.setArmDownPosition();
             delay(300);
             //arm.setGripperReleasePostion();
             delay(400);
@@ -199,13 +199,13 @@ public class Robot extends AbstractRobot {
 
     }
 
-    public RobotCallable grabStoneCallable(){
+    public RobotCallable grabStoneCallable() {
         return () -> {
             grabStone();
         };
     }
 
-    public void grabStone(){
+    public void grabStone() {
         //RobotState.currentPath.pause();
         setGripperGrip();
         delay(400);
@@ -214,13 +214,13 @@ public class Robot extends AbstractRobot {
         //RobotState.currentPath.resume();
     }
 
-    public RobotCallable deliverStoneCallable(){
+    public RobotCallable deliverStoneCallable() {
         return () -> {
             deliverStone();
         };
     }
 
-    public void deliverStone(){
+    public void deliverStone() {
         //RobotState.currentPath.pause();
         setArmDown();
         delay(200);
@@ -312,7 +312,7 @@ public class Robot extends AbstractRobot {
     }
 
     //public void runTestPurePursuit(PursuitPath pursuitPath) {
-     //   driver.testPurePursuit(pursuitPath);
+    //   driver.testPurePursuit(pursuitPath);
     //}
 
     public RobotCallable toggleRotationCallable() {
@@ -328,38 +328,40 @@ public class Robot extends AbstractRobot {
         return () -> toggleConeyor();
     }
 
-    public void toggleTilt(){
+    public void toggleTilt() {
 
 
     }
 
-    public void toggleBoth(){
+    public void toggleBoth() {
 
         dragger.toggleBoth();
     }
 
-    public RobotCallable toggleBothCallable(){return () -> toggleBoth();}
+    public RobotCallable toggleBothCallable() {
+        return () -> toggleBoth();
+    }
 
 
     public void toggleClamp() {
         clamp.toggleClamp();
     }
 
-    public RobotCallable toggleClampCallable(){
+    public RobotCallable toggleClampCallable() {
         return () -> {
             toggleClamp();
         };
     }
 
-    public LiftController lift(){
+    public LiftController lift() {
         return lift;
     }
 
-    public IntakeController intake(){
+    public IntakeController intake() {
         return intake;
     }
 
-    public ClampController clamp(){
+    public ClampController clamp() {
         return clamp;
     }
 

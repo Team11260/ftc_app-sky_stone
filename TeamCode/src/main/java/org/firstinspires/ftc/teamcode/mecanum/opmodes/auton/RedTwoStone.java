@@ -24,8 +24,7 @@ public class RedTwoStone extends AbstractAuton {
         robot.setArmDown();
     }
 
-    public void initLoop(){
-
+    public void InitLoop(){
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones(0));
 

@@ -15,7 +15,7 @@ public class Arm {
         //arm.setPosition(ARM_UP_POSITION);
 
 
-        gripper = hardwareMap.servo.get("left_gripper_servo");
+        gripper = hardwareMap.servo.get("gripper_servo");
         gripper.setDirection(Servo.Direction.FORWARD);
         //gripper.setPosition(GRIPPER_RELEASE_POSITION);
 
