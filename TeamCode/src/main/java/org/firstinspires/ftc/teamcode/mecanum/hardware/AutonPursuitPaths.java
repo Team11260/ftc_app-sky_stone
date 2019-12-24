@@ -12,7 +12,7 @@ public class AutonPursuitPaths {
     /*  The origin point (0,0) is the robot's starting position */
     /*  Every point is referenced absolutely to this reference frame - no relative distances */
 
-    public static double RED_BLOCK_LOCATION_Y = 27;
+    public static double RED_BLOCK_LOCATION_Y = 26;
     public static double RED_FOUNDATION_Y = 27.5;
     public static double RED_FOUNDATION_NEAR_X = 72;  //  Play with this parameter
     public static double RED_FOUNDATION_MIDDLE_NEAR_X = 76;  //  Play with this parameter
@@ -22,7 +22,7 @@ public class AutonPursuitPaths {
     public static double RED_BLOCK1_X = -31, RED_BLOCK1_Y = RED_BLOCK_LOCATION_Y;
     public static double RED_BLOCK2_X = -24, RED_BLOCK2_Y = RED_BLOCK_LOCATION_Y;
     public static double RED_BLOCK3_X = -16, RED_BLOCK3_Y = RED_BLOCK_LOCATION_Y;
-    public static double RED_BLOCK4_X = -8, RED_BLOCK4_Y = RED_BLOCK_LOCATION_Y;
+    public static double RED_BLOCK4_X = 8, RED_BLOCK4_Y = RED_BLOCK_LOCATION_Y;
     public static double RED_BLOCK5_X = 0, RED_BLOCK5_Y = RED_BLOCK_LOCATION_Y;
     public static double RED_BLOCK6_X = 8, RED_BLOCK6_Y = RED_BLOCK_LOCATION_Y;
 
@@ -38,12 +38,13 @@ public class AutonPursuitPaths {
 
     }
 
-  /*  public final static Path RedPurePursuitCenter = new Path("collect center sky stones");
+   public final static Path RedPurePursuitCenter = new Path("collect center sky stones");
 
-    static{
+    static {
         RedPurePursuitCenter.addSegment(new PurePursuitSegment("drive to first sky stone",
-                new PursuitPath(new Point(0, 0), new Point(RED_BLOCK5_X, RED_BLOCK5_Y)).setMinSpeed(0.18),0));
-
+                new PursuitPath(new Point(0, 0), new Point(RED_BLOCK5_X, RED_BLOCK5_Y)).setMinSpeed(0.18), 0));
+    }
+/*
 
         RedPurePursuitCenter.addSegment(new PurePursuitSegment("first trip to foundation",
                 //new PursuitPath(new Point(RED_BLOCK5_X, RED_BLOCK5_Y), new Point(36, RED_RUNWAY_Y), new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y)),500));

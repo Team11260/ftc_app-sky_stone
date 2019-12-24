@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import static java.lang.Math.abs;
 import static java.lang.Math.pow;
 import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry.LogMode.INFO;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.STRAIGHT_COUNTS_PER_INCH;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.*;
 
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState.currentPath;
 
@@ -93,6 +93,16 @@ public class DriveController extends SubsystemController {
 
     public synchronized void stop() {
         drive.stop();
+    }
+
+
+    public  double getStraightPosition(){
+
+        return drive.getStraightPosition();
+    }
+
+    public  double getStrafePosition(){
+        return drive.getStrafePosition();
     }
 
     public void driveToVector(Vector vector){
@@ -191,8 +201,10 @@ public class DriveController extends SubsystemController {
         while(opModeIsActive() && drive.isFollowing()){
             drive.update();
             Pose currentPose = drive.getCurrentPosition();
-           // telemetry.getSmartdashboard().putGraph("position", "position", currentPose.getX(), currentPose.getY());
-           // telemetry.getSmartdashboard().putGraph("position", "heading", currentPose.getX(), currentPose.getHeading());
+            telemetry.addData(INFO,"position X:" + currentPose.getX());
+            telemetry.addData(INFO,"position y:" + currentPose.getY());
+            telemetry.update();
+
         }
 
         drive.setPower(0, 0);
@@ -792,16 +804,16 @@ public class DriveController extends SubsystemController {
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         oldTime =  (double) System.currentTimeMillis();
         //oldDistance = -drive.getBackLeftPosition()/STRAIGHT_COUNTS_PER_INCH;
-        oldDistance = drive.getBackRightPosition()/STRAIGHT_COUNTS_PER_INCH;
+        oldDistance = drive.getBackRightPosition()/STRAIGHT_ENCODER_COUNTS_INCH;
         //locations.add(oldDistance);
         //strafe(-power);
         drive.setDrivePowerAll(power,power,power,power);
         delay(startTime);
         //velocity = 1000.0*((-drive.getBackLeftPosition()/STRAIGHT_COUNTS_PER_INCH) - oldDistance)/((double)System.currentTimeMillis()-oldTime);
-        velocity = 1000.0*((drive.getBackRightPosition()/STRAIGHT_COUNTS_PER_INCH) - oldDistance)/((double)System.currentTimeMillis()-oldTime);
+        velocity = 1000.0*((drive.getBackRightPosition()/STRAIGHT_ENCODER_COUNTS_INCH) - oldDistance)/((double)System.currentTimeMillis()-oldTime);
         oldTime =  (double) System.currentTimeMillis();
         //oldDistance = -drive.getBackLeftPosition()/STRAIGHT_COUNTS_PER_INCH;
-        oldDistance = drive.getBackRightPosition()/STRAIGHT_COUNTS_PER_INCH;
+        oldDistance = drive.getBackRightPosition()/STRAIGHT_ENCODER_COUNTS_INCH;
         locations.add(oldDistance);
         velocities.add(velocity);
         runtime.reset();
@@ -811,10 +823,10 @@ public class DriveController extends SubsystemController {
             delay(loopTime);
 
             //velocity = 1000.0*((-drive.getBackLeftPosition()/STRAIGHT_COUNTS_PER_INCH) - oldDistance)/((double)System.currentTimeMillis()-oldTime);
-            velocity = 1000.0*((drive.getBackRightPosition()/STRAIGHT_COUNTS_PER_INCH) - oldDistance)/((double)System.currentTimeMillis()-oldTime);
+            velocity = 1000.0*((drive.getBackRightPosition()/STRAIGHT_ENCODER_COUNTS_INCH) - oldDistance)/((double)System.currentTimeMillis()-oldTime);
             oldTime = (double) System.currentTimeMillis();
             //oldDistance = -drive.getBackLeftPosition()/STRAIGHT_COUNTS_PER_INCH;
-            oldDistance = drive.getBackRightPosition()/STRAIGHT_COUNTS_PER_INCH;
+            oldDistance = drive.getBackRightPosition()/STRAIGHT_ENCODER_COUNTS_INCH;
             //telemetry.addData(INFO, "Side encoder position: " + drive.getBackLeftPosition() / STRAIGHT_COUNTS_PER_INCH);
             //telemetry.update();
             locations.add(oldDistance);
@@ -835,7 +847,7 @@ public class DriveController extends SubsystemController {
         telemetry.addData(INFO, "Time for drive: " + runtime.milliseconds());
         telemetry.addData(INFO, "Average loop time for drive: " + runtime.milliseconds() / loop);
         telemetry.addData(INFO, "Loop count " + loop);
-        telemetry.addData(INFO, "Side encoder position: " + drive.getBackLeftPosition() / STRAIGHT_COUNTS_PER_INCH);
+        telemetry.addData(INFO, "Side encoder position: " + drive.getBackLeftPosition() / STRAIGHT_ENCODER_COUNTS_INCH);
         telemetry.update();
     }
 

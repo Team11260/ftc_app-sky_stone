@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.mecanum.hardware.util;
 
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.STRAIGHT_COUNTS_PER_INCH;
 
 public class StraightTrapezoid {
 

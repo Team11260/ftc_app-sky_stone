@@ -15,38 +15,31 @@ public final class Constants {
 
     ////////Drive////////
     public static int TRACK_WIDTH = 20;
-    // static double STRAIGHT_COUNTS_PER_INCH = 189;
-    public static double STRAIGHT_COUNTS_PER_INCH = 189.0;
+    public static double STRAFE_ENCODER_COUNTS_INCH = 219;
+    public static double STRAIGHT_ENCODER_COUNTS_INCH = 208;
+
 
     ////////Arm////////
     //For Old
-   // public static double ARM_DOWN_POSITION = 0.63;
-    public static double RIGHT_ARM_DOWN_POSITION = 0.45;
-    public static double LEFT_ARM_DOWN_POSITION = 0.45;
+    public static double ARM_DOWN_POSITION = 0.5;
     public static double ARM_PIN_POSITION = 1.0;
-    //public static double ARM_UP_POSITION = 1.0;
-    public static double RIGHT_ARM_UP_POSITION = 0.75;
-   // public static double RIGHT_ARM_BACK_POSITION = 0.3;
-    public static double LEFT_ARM_UP_POSITION = 0.75;
-   // public static double LEFT_ARM_BACK_POSITION = 0.3;
-    //public static double GRIPPER_GRIP_POSITION = 0.27;
-    //public static double GRIPPER_RELEASE_POSITION = 0.85;
+    public static double ARM_UP_POSITION = 0.8;
     public static double GRIPPER_GRIP_POSITION = 0.4;
     public static double GRIPPER_RELEASE_POSITION = 0.0;
 
     ////////Dragger////////
-    public static double BACK_DRAGGER_UP_POSITION = 0.65;
-    public static double FRONT_DRAGGER_UP_POSITION = 0.65;
+    public static double BACK_DRAGGER_UP_POSITION = 0.85;
+    public static double FRONT_DRAGGER_UP_POSITION = 0.85;
     public static double BACK_DRAGGER_DOWN_POSITION = 0.35;
     public static double FRONT_DRAGGER_DOWN_POSITION = 0.35;
 
 
     ////////Vision////////
     //For Old
-    public static int BLOCKHEIGHT = 66;
-    public static int XORIGIN = 200;
-    public static int YORIGIN = 156;
-    public static int BLOCKWIDTH = 123;
+    public static int BLOCKHEIGHT = 132;
+    public static int XORIGIN = 20;
+    public static int YORIGIN = 126;
+    public static int BLOCKWIDTH = 246;
 
     public static int LINE_WIDTH = 7;
     public static int HEIGHT = 45;

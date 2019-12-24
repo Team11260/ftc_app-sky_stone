@@ -59,7 +59,7 @@ public class Vuforia {
     }
 
     protected Vuforia(String camera, boolean viewer) {
-        this(camera, viewer, true);
+        this(camera, viewer, false);
     }
 
     protected VuforiaLocalizer getVuforia() {

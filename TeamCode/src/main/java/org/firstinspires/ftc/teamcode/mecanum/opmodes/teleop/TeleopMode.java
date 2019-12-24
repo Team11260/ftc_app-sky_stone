@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.mecanum.opmodes.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractTeleop;
+import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.clamp.ClampController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.IntakeController;
@@ -67,13 +68,9 @@ public class TeleopMode extends AbstractTeleop {
 
     @Override
     public void Loop() {
-        /*
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"front left position: "+drive.getFrontLeftPosition());
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"front right position: "+ drive.getFrontRightPosition());
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"back left position: "+drive.getBackLeftPosition());
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"back right position: "+drive.getBackRightPosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Strafe position: "+robot.driver.getStrafePosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Straight position: "+ robot.driver.getStraightPosition());
         telemetry.update();
-        */
     }
 
     @Override

@@ -16,12 +16,17 @@ public class RedTwoStone extends AbstractAuton {
     @Override
     public void RegisterStates() {
 
+        addState("Gripper Grip", "drive to first sky stone", robot.setGripperGripCallable());
+
     }
 
     @Override
     public void Init() {
         robot = new Robot();
         robot.setArmDown();
+        robot.setGripperRelease();
+        robot.dragger.setBackUp();
+        robot.dragger.setFrontUp();
     }
 
     public void InitLoop(){
@@ -34,6 +39,9 @@ public class RedTwoStone extends AbstractAuton {
     @Override
     public void Run() {
 
+        robot.driver.setDrivePowerAll(0.5,0.5,0.5,0.5);
+
+
 
         switch (robot.getSkyStonePositionThreeStones(0)) {
             case "Right":
@@ -45,7 +53,7 @@ public class RedTwoStone extends AbstractAuton {
                 break;
 
             case "Center":
-                //robot.runDrivePath(collectCenterSkyStone);
+                robot.runDrivePath(RedPurePursuitCenter);
                 break;
 
             default:

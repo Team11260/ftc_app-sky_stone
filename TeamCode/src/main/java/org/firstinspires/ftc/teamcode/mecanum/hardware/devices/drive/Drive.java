@@ -12,6 +12,8 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Mecanum
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState;
 
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.*;
+
 public class Drive extends MecanumPurePursuitController {
 
     private IMU imu;
@@ -23,9 +25,6 @@ public class Drive extends MecanumPurePursuitController {
     private SlewDcMotor dcMotorBackLeft;
     private SlewDcMotor dcMotorBackRight;
     private SlewDcMotor straightEncoder,strafeEncoder;
-
-    //private double STRAIGHT_ENCODER_COUNTS_INCH = 189.0;
-    private double STRAIGHT_ENCODER_COUNTS_INCH = 189.0;
 
     public Drive(HardwareMap hardwareMap, DoubleTelemetry telemetry) {
         super(20, 1.4, new PIDController(50, 0, 100), telemetry);
@@ -43,6 +42,8 @@ public class Drive extends MecanumPurePursuitController {
 
         dcMotorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         dcMotorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        dcMotorFrontRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        dcMotorBackRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
         dcMotorFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         dcMotorFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -82,7 +83,7 @@ public class Drive extends MecanumPurePursuitController {
 
     @Override
     public double getYActualPositionInches() {
-        return -getStrafePosition();
+        return getStrafePosition();
     }
 
     public int getFrontLeftPosition() {
@@ -104,11 +105,11 @@ public class Drive extends MecanumPurePursuitController {
 
     public  double getStraightPosition(){
 
-        return (((double)(straightEncoder.getCurrentPosition())/STRAIGHT_ENCODER_COUNTS_INCH)) - straightOffset;
+        return (((double)(-straightEncoder.getCurrentPosition())/STRAIGHT_ENCODER_COUNTS_INCH));
     }
 
     public  double getStrafePosition(){
-        return (((double)(-strafeEncoder.getCurrentPosition()))/STRAIGHT_ENCODER_COUNTS_INCH) - strafeOffset;
+        return (((double)(strafeEncoder.getCurrentPosition()))/STRAFE_ENCODER_COUNTS_INCH);
     }
 
     @Override
@@ -122,6 +123,8 @@ public class Drive extends MecanumPurePursuitController {
         dcMotorBackLeft.setMode(mode);
         dcMotorFrontRight.setMode(mode);
         dcMotorBackRight.setMode(mode);
+        strafeEncoder.setMode(mode);
+        straightEncoder.setMode(mode);
     }
 
     public void resetEncoders(){

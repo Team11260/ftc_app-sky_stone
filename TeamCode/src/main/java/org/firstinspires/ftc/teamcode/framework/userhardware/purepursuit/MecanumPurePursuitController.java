@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.PIDController;
 
+import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry.LogMode.INFO;
+
 public abstract class MecanumPurePursuitController extends PurePursuitController {
 
     protected double lastXPosition = 0, lastYPosition = 0;
@@ -45,6 +47,7 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
 
         double xPosition = getXActualPositionInches();
         double yPosition = getYActualPositionInches();
+
 
         double heading = getActualHeadingDegrees();
 
