@@ -17,6 +17,8 @@ public class DraggerController extends SubsystemController {
     public DraggerController() {
         backDragger = new Dragger(hardwareMap);
         frontDragger = new Dragger(hardwareMap);
+        setBackUp();
+        setFrontUp();
     }
 
     public void setBackUp() {

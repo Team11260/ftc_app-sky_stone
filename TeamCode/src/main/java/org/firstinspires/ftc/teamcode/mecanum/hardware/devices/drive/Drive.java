@@ -27,7 +27,8 @@ public class Drive extends MecanumPurePursuitController {
     private SlewDcMotor straightEncoder,strafeEncoder;
 
     public Drive(HardwareMap hardwareMap, DoubleTelemetry telemetry) {
-        super(20, 1.4, new PIDController(50, 0, 100), telemetry);
+        //super(20, 1.4, new PIDController(50, 0, 100), telemetry);
+        super(20, 1.4, new PIDController(25, 0, 50), telemetry);
 
         imu = new IMU(hardwareMap);
         //imu = hardwareMap.getImu("imu");

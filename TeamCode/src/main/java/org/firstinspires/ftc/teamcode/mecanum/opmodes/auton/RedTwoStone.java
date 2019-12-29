@@ -12,40 +12,47 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.
 
 public class RedTwoStone extends AbstractAuton {
     Robot robot;
+    String place;
 
     @Override
     public void RegisterStates() {
 
-        addState("Gripper Grip", "drive to first sky stone", robot.setGripperGripCallable());
+        addState("Pick up first Stone", "drive to first sky stone" , robot.grabStoneCallable());
+        addState("Place first skystone", "first trip to foundation" ,robot.deliverStoneCallable());
+        addState("delayed arm down","Place first skystone",robot.delayedArmDownCallable());
+        addState("Pick up second Stone", "drive to second sky stone" , robot.grabStoneCallable());
+        addState("Place second skystone", "second trip to foundation" ,robot.deliverStoneCallable());
+        addState("delayed arm down","Place second skystone",robot.delayedArmDownCallable());
+        addState("Pick up third Stone", "drive to third stone", robot.grabStoneCallable());
+        addState("Place third skystone", "third trip to foundation" ,robot.deliverStoneCallable());
 
     }
 
     @Override
     public void Init() {
         robot = new Robot();
-        robot.setArmDown();
-        robot.setGripperRelease();
-        robot.dragger.setBackUp();
-        robot.dragger.setFrontUp();
+        robot.arm.setArmInitPosition();
+        robot.arm.setGripperGripPosition();
     }
 
     public void InitLoop(){
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones(0));
-
+        place = robot.getSkyStonePositionThreeStones(0);
         telemetry.update();
     }
 
     @Override
     public void Run() {
 
-        robot.driver.setDrivePowerAll(0.5,0.5,0.5,0.5);
+        robot.runDrivePath(RunwayDrive);
+        /*
+        robot.arm.setArmDownPosition();
+        robot.setGripperRelease();
 
-
-
-        switch (robot.getSkyStonePositionThreeStones(0)) {
+        switch (place) {
             case "Right":
-                //robot.runDrivePath(RedPurePursuitRight);
+                robot.runDrivePath(RedPurePursuitRight);
                 break;
 
             case "Left":
@@ -57,10 +64,8 @@ public class RedTwoStone extends AbstractAuton {
                 break;
 
             default:
-                //robot.runDrivePath(collectCenterSkyStone);
+                robot.runDrivePath(RedPurePursuitCenter);
                 break;
-
-
-        }
+        }*/
     }
 }

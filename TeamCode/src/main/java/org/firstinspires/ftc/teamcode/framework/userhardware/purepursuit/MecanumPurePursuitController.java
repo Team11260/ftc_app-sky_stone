@@ -9,7 +9,7 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
 
     protected double lastXPosition = 0, lastYPosition = 0;
 
-    protected double positionError = 2.0, headingError = 1.0;
+    protected double positionError = 1.0, headingError = 3.0;
 
     protected final double yScale;
 
@@ -90,10 +90,10 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
         double y = Math.sin(Math.toRadians(angle)) * yScale;
         double z = headingController.output(targetHeading, currentPosition.getHeading());
 
-        double frontLeft = velocity * (x - y - z);
-        double frontRight = velocity * (x + y + z);
-        double backLeft = velocity * (x + y - z);
-        double backRight = velocity * (x - y + z);
+        double frontLeft = velocity * (x + y - z);
+        double frontRight = velocity * (x - y + z);
+        double backLeft = velocity * (x - y - z);
+        double backRight = velocity * (x + y + z);
 
         setMecanumPower(frontLeft, frontRight, backLeft, backRight);
     }

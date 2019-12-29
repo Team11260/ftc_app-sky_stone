@@ -12,11 +12,16 @@ public class ArmController extends SubsystemController {
 
     public ArmController() {
         arm = new Arm(hardwareMap);
+
     }
 
     public void setArmUpPosition() {
         arm.setArmPosition(ARM_UP_POSITION);
         up = true;
+    }
+
+    public void setArmInitPosition(){
+        arm.setArmPosition(ARM_INIT_POSITION);
     }
 
     public void setArmDownPosition() {
