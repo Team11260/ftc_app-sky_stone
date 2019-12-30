@@ -185,7 +185,7 @@ public class DriveController extends SubsystemController {
 
         pursuitPath.reset();
 
-        drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         drive.setTargetHeading(targetHeading);
 
@@ -198,20 +198,28 @@ public class DriveController extends SubsystemController {
 
         drive.follow(pursuitPath);
 
+        Pose InitCurrentPose = drive.getCurrentPosition();
+        telemetry.addData(INFO,"Init position X:" + InitCurrentPose.getX());
+        telemetry.addData(INFO,"Init position y:" + InitCurrentPose.getY());
+        telemetry.update();
+
         while(opModeIsActive() && drive.isFollowing()){
             drive.update();
             Pose currentPose = drive.getCurrentPosition();
             telemetry.addData(INFO,"position X:" + currentPose.getX());
             telemetry.addData(INFO,"position y:" + currentPose.getY());
             telemetry.update();
-
         }
 
         drive.setPower(0, 0);
+
+        Pose currentPose = drive.getCurrentPosition();
+        telemetry.addData(INFO,"Final position X:" + currentPose.getX());
+        telemetry.addData(INFO,"Final position y:" + currentPose.getY());
+        telemetry.addData(INFO, "Final Heading"+ drive.getActualHeadingDegrees());
+        telemetry.update();
+
     }
-
-
-
 
 
     public synchronized void driveToSegment(DriveSegment segment) {

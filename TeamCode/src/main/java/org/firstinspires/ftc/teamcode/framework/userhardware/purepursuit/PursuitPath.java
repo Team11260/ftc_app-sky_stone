@@ -41,12 +41,12 @@ public class PursuitPath {
     /**
      * The max acceleration (total output/point)
      */
-    private double fMaxAcceleration = 0.05;
+    private double fMaxAcceleration = 0.1;
 
     /**
      * The max deceleration (total output/point)
      */
-    private double fMaxDeceleration = 0.004;
+    private double fMaxDeceleration = 0.008;
 
     /**
      * Minimum follow speed
@@ -56,7 +56,7 @@ public class PursuitPath {
     /**
      * Maximum follow speed
      */
-    private double fMaxSpeed = 1.0;
+    private double fMaxSpeed = 1.4;
 
     /**
      * Average look ahead distance
@@ -66,7 +66,7 @@ public class PursuitPath {
     /**
      * Look ahead distance for velocity calculations
      */
-    private int fVelocityLookAheadPoints = 5;
+    private int fVelocityLookAheadPoints = 1;
 
     /**
      * Run specific data, gets reset with reset() method

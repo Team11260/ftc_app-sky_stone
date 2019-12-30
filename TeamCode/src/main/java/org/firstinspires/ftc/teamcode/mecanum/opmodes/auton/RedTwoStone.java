@@ -33,6 +33,8 @@ public class RedTwoStone extends AbstractAuton {
         robot = new Robot();
         robot.arm.setArmInitPosition();
         robot.arm.setGripperGripPosition();
+
+
     }
 
     public void InitLoop(){
@@ -45,8 +47,10 @@ public class RedTwoStone extends AbstractAuton {
     @Override
     public void Run() {
 
-        robot.runDrivePath(RunwayDrive);
-        /*
+       // robot.runDrivePath(RunwayDrive);
+
+
+
         robot.arm.setArmDownPosition();
         robot.setGripperRelease();
 
@@ -66,6 +70,6 @@ public class RedTwoStone extends AbstractAuton {
             default:
                 robot.runDrivePath(RedPurePursuitCenter);
                 break;
-        }*/
+        }
     }
 }
