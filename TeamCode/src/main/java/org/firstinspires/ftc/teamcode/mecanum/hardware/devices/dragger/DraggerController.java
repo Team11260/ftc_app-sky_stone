@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.dragger;
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
 
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.BACK_DRAGGER_DOWN_POSITION;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.BACK_DRAGGER_HALFWAY_POSITION;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.BACK_DRAGGER_UP_POSITION;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.FRONT_DRAGGER_DOWN_POSITION;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.FRONT_DRAGGER_HALFWAY_POSITION;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.FRONT_DRAGGER_UP_POSITION;
 
 public class DraggerController extends SubsystemController {
@@ -41,13 +43,21 @@ public class DraggerController extends SubsystemController {
         FrontUp = false;
     }
 
+    public void setFrontHalfway(){
+        frontDragger.setFrontDraggerPosition(FRONT_DRAGGER_HALFWAY_POSITION);
+    }
+
+    public void setBackHalfway(){
+        backDragger.setBackDraggerPosition(BACK_DRAGGER_HALFWAY_POSITION);
+    }
+
     public void toggleBoth() {
         if (!FrontUp && !backUp) {
             setBackUp();
             setFrontUp();
         } else {
-            setFrontDown();
-            setBackDown();
+            setFrontHalfway();
+            setBackHalfway();
         }
     }
 

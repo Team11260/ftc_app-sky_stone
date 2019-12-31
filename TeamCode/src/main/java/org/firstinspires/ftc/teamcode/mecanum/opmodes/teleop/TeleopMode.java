@@ -68,8 +68,9 @@ public class TeleopMode extends AbstractTeleop {
 
     @Override
     public void Loop() {
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Strafe position: "+robot.driver.getStrafePosition());
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Straight position: "+ robot.driver.getStraightPosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Front left position: "+robot.driver.getFrontLeftPosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Back left position: "+ robot.driver.getBackLeftPosition());
+
         telemetry.update();
     }
 

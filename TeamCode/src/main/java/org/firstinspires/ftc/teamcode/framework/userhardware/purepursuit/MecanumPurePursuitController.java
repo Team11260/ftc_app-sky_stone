@@ -95,6 +95,9 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
         double backLeft = velocity * (x - y - z);
         double backRight = velocity * (x + y + z);
 
+        telemetry.addData(INFO,"Front left power: " + frontLeft);
+        telemetry.update();
+
         setMecanumPower(frontLeft, frontRight, backLeft, backRight);
     }
 

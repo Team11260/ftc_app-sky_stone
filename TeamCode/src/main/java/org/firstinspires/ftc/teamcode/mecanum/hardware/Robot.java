@@ -223,8 +223,9 @@ public class Robot extends AbstractRobot {
         setGripperRelease();
         delay(400);
         setArmUp();
+        delay(200);
         setGripperGrip();
-        delay(500);
+        delay(300);
     }
 
     public void setArmDown() {
@@ -240,7 +241,7 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable delayedArmDownCallable() {
         return () -> {
-            delay(1800);
+            delay(1200);
             setGripperRelease();
             setArmDown();
         };
@@ -250,7 +251,7 @@ public class Robot extends AbstractRobot {
     public RobotCallable delayedArmDownSecondCallable() {
         return () -> {
             delay(1300);
-            //arm.setArmDownPosition();
+            arm.setArmDownPosition();
         };
 
     }
@@ -329,7 +330,6 @@ public class Robot extends AbstractRobot {
     }
 
     public void toggleBoth() {
-
         dragger.toggleBoth();
     }
 
@@ -346,6 +346,28 @@ public class Robot extends AbstractRobot {
         return () -> {
             toggleClamp();
         };
+    }
+
+    public void setDraggerDown(){
+        dragger.setBackDown();
+        dragger.setFrontDown();
+    }
+
+    public RobotCallable setDraggerDownCallable(){
+        return ()->{
+            setDraggerDown();
+        };
+    }
+
+    public void setDraggerHalfway(){
+        dragger.setBackHalfway();
+        dragger.setFrontHalfway();
+        delay(300);
+    }
+
+    public RobotCallable setDraggerHalfwayCallable(){
+        return ()->{
+                setDraggerHalfway();};
     }
 
     public LiftController lift() {

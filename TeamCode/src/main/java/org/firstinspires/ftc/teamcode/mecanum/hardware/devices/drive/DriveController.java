@@ -105,6 +105,14 @@ public class DriveController extends SubsystemController {
         return drive.getStrafePosition();
     }
 
+    public double getFrontLeftPosition(){
+        return drive.getFrontLeftPosition();
+    }
+
+    public double getBackLeftPosition(){
+        return drive.getBackLeftPosition();
+    }
+
     public void driveToVector(Vector vector){
         double cos = vector.cos(), sin = vector.sin(),x = vector.x, y = vector.y;
         setDrivePowerAll(cos*x + sin*y,sin*y - cos*x,sin*y - cos*x, cos*x + sin*y );
@@ -210,6 +218,16 @@ public class DriveController extends SubsystemController {
             telemetry.addData(INFO,"position y:" + currentPose.getY());
             telemetry.update();
         }
+
+       // long startTime = System.currentTimeMillis();
+
+//        while(opModeIsActive() && System.currentTimeMillis()-startTime<1000){
+//            drive.update();
+//            Pose currentPose = drive.getCurrentPosition();
+//            telemetry.addData(INFO,"position X1:" + currentPose.getX());
+//            telemetry.addData(INFO,"position y1:" + currentPose.getY());
+//            telemetry.update();
+//        }
 
         drive.setPower(0, 0);
 

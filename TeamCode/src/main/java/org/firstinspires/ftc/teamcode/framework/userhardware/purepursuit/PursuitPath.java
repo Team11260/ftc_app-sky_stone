@@ -26,7 +26,7 @@ public class PursuitPath {
     /**
      * Speed reduction through turns (larger number = faster turns)
      */
-    private double fTurnSpeed = 1.0;
+    private double fTurnSpeed = 0.25;
 
     /**
      * Scales following speed based on tracking error (smaller number = better tracking, larger number = faster tracking)
@@ -41,22 +41,22 @@ public class PursuitPath {
     /**
      * The max acceleration (total output/point)
      */
-    private double fMaxAcceleration = 0.1;
+    private double fMaxAcceleration = 0.05;
 
     /**
      * The max deceleration (total output/point)
      */
-    private double fMaxDeceleration = 0.008;
+    private double fMaxDeceleration = 0.01;
 
     /**
      * Minimum follow speed
      */
-    private double fMinSpeed = 0.2;
+    private double fMinSpeed = 0.13;
 
     /**
      * Maximum follow speed
      */
-    private double fMaxSpeed = 1.4;
+    private double fMaxSpeed = 1.0;
 
     /**
      * Average look ahead distance
