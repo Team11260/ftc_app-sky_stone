@@ -221,7 +221,7 @@ public class Robot extends AbstractRobot {
         setArmDown();
         delay(200);
         setGripperRelease();
-        delay(400);
+        delay(700);
         setArmUp();
         delay(200);
         setGripperGrip();

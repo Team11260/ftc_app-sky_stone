@@ -71,5 +71,7 @@ public class RedTwoStone extends AbstractAuton {
                 robot.runDrivePath(RedPurePursuitCenter);
                 break;
         }
+        delay(10000);
+
     }
 }

@@ -64,8 +64,8 @@ public final class Constants {
     public static double CLAMP_OPEN = 0.45;
     public static double CLAMP_CLOSE = 0.73;
 
-    /*public final static PursuitPath goToFirstBlockCenter = new PursuitPath(new Point(0, 0), new Point(0, 28));
-  */
+    /**/public final static PursuitPath goToFirstBlockCenter = new PursuitPath(new Point(0, 0), new Point(0, 28));
+
 
     public final static Path collectCenterSkyStone = new Path("collect center sky stone");
 
