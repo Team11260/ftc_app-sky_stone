@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 abstract public class BaseTwoStone extends AbstractAuton {
     Robot robot;
     String place;
+    boolean isRed = true;
 
     @Override
     public void RegisterStates() {
@@ -37,8 +38,8 @@ abstract public class BaseTwoStone extends AbstractAuton {
 
     public void InitLoop() {
 
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones(0));
-        place = robot.getSkyStonePositionThreeStones(0);
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones(0, isRed));
+        place = robot.getSkyStonePositionThreeStones(0, isRed);
         telemetry.update();
     }
 

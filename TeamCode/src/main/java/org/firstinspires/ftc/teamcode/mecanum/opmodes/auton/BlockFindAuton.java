@@ -54,7 +54,7 @@ public class BlockFindAuton extends AbstractAuton {
 
         // arm.setArmUpPosition();
 
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones(0));
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones(0,true));
 
         telemetry.update();
         delay(1000);
@@ -85,7 +85,7 @@ public class BlockFindAuton extends AbstractAuton {
 
         runtime.reset();
         //robot.setArmDown();
-        switch (robot.getSkyStonePositionThreeStones(0)) {
+        switch (robot.getSkyStonePositionThreeStones(0,true)) {
             case "Right":
                 //robot.runDrivePath(RedPurePursuitRight);
                 break;

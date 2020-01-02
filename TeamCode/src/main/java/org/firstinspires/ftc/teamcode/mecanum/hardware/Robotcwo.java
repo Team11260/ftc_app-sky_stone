@@ -34,7 +34,7 @@ public class Robotcwo extends Robot {
     public void strafe(int distance){}
 
     public void getSkyStonePosition(){
-        skyStonePosition = getSkyStonePositionThreeStones(0);
+        skyStonePosition = getSkyStonePositionThreeStones(0, true);
     }
 
     public RobotCallable armDownCallable() {

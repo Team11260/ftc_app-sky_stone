@@ -61,7 +61,7 @@ public class Robot extends AbstractRobot {
         driver.driveToSegment(segment);
     }
 
-    public String getSkyStonePositionThreeStones(int loopcount) {
+    public String getSkyStonePositionThreeStones(int loopcount, boolean isRed) {
 
         int LINEWIDTH = LINE_WIDTH;
         int threshold = THRESHOLD;

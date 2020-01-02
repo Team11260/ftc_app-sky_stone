@@ -13,6 +13,11 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.
 
 public class BlueTwoStone extends BaseTwoStone {
 
+    public BlueTwoStone (){
+        super();
+        isRed = false;
+    }
+
     @Override
     public void Run() {
 
