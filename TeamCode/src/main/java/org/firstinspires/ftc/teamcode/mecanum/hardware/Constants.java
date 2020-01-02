@@ -4,6 +4,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.AngleDriveSeg
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.PurePursuitSegment;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.StrafeSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
@@ -131,6 +132,35 @@ public final class Constants {
         //collectRightSkyStone.addSegment((new DriveSegment("drive straight a distance", -86, 0.25, 100)));
     }
 
+    public final static Path redEndgame = new Path("do red endgame");
+
+static {
+
+
+
+        // clamp draggers
+       // robot.setDraggerDown();
+        // drive forward (8-10)
+        redEndgame.addSegment(new DriveSegment("drive to end of foundation",8,0.3,1));
+        // rotate 70-80 degrees
+        redEndgame.addSegment(new TurnSegment("rotate foundation towards wall",70,0.3,2,5000));
+        // strafe 12 inches
+        redEndgame.addSegment(new StrafeSegment("push into wall",12,0.3,1));
+        //unclamp draggers
+//        robot.setDraggerUp();
+        //back up
+        redEndgame.addSegment(new StrafeSegment("back up",-2,0.3,1));
+
+        //turn -90 degrees
+        redEndgame.addSegment(new TurnSegment("rotate to tape measure position", -90, 0.3, 0, 0));
+        // shoot tape measure
+        // drive forward 6 inches
+//        robot.setDrivePowerAll(0.3,0.3,0.3,0.3);
+//        delay(500);
+
+
+
+}
 
 
 

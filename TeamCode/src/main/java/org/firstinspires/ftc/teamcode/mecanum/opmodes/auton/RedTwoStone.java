@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
+import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.*;
@@ -13,6 +15,7 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.
 public class RedTwoStone extends AbstractAuton {
     Robot robot;
     String place;
+
 
     @Override
     public void RegisterStates() {
@@ -74,4 +77,6 @@ public class RedTwoStone extends AbstractAuton {
         delay(10000);
 
     }
+
+
 }
