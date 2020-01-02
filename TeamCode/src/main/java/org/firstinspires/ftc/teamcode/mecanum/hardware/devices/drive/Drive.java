@@ -61,7 +61,7 @@ public class Drive extends MecanumPurePursuitController {
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         resetPosition();
 
-        setMode(RobotState.isAutonomous() ? DcMotor.RunMode.RUN_USING_ENCODER : DcMotor.RunMode.RUN_USING_ENCODER);
+        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         setVelocityPIDCoefficients(new PIDFCoefficients(p,i,d,f));
     }

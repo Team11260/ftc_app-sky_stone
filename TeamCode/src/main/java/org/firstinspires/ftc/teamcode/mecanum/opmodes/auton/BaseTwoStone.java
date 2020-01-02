@@ -9,6 +9,25 @@ abstract public class BaseTwoStone extends AbstractAuton {
     String place;
 
     @Override
+    public void RegisterStates() {
+
+        addState("Pick up first Stone", "drive to first sky stone", robot.grabStoneCallable());
+        addState("Place first skystone", "first trip to foundation", robot.deliverStoneCallable());
+        addState("delayed arm down", "Place first skystone", robot.delayedArmDownCallable());
+        addState("Pick up second Stone", "drive to second sky stone", robot.grabStoneCallable());
+        addState("Place second skystone", "second trip to foundation", robot.deliverStoneCallable());
+        addState("put down dragger halfway", "dragger backup", robot.setDraggerHalfwayCallable());
+        addState("put down dragger full", "dragger forward full", robot.setDraggerDownCallable());
+
+        //addState("delayed arm down", "Place second skystone", robot.delayedArmDownCallable());
+
+        addState("Pick up third Stone", "drive to third stone", robot.grabStoneCallable());
+        addState("Place third skystone", "third trip to foundation", robot.deliverStoneCallable());
+
+
+    }
+
+    @Override
     public void Init() {
         robot = new Robot();
         robot.arm.setArmInitPosition();

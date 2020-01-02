@@ -122,4 +122,9 @@ public class AutonPursuitPaths {
 
     }
 
+    public final static Path BluePurePursuitLeft = new Path("collect left sky stones on blue side");
+
+    public final static Path BluePurePursuitCenter = new Path("collect center sky stones on blue side");
+
+    public final static Path BluePurePursuitRight = new Path("collect right sky stones on blue side");
 }
