@@ -12,10 +12,7 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.
 
 @Autonomous(name = "Red Two Stone", group = "New")
 
-public class RedTwoStone extends AbstractAuton {
-    Robot robot;
-    String place;
-
+public class RedTwoStone extends BaseTwoStone {
 
     @Override
     public void RegisterStates() {
@@ -34,21 +31,6 @@ public class RedTwoStone extends AbstractAuton {
         addState("Place third skystone", "third trip to foundation", robot.deliverStoneCallable());
 
 
-    }
-
-    @Override
-    public void Init() {
-        robot = new Robot();
-        robot.arm.setArmInitPosition();
-        robot.arm.setGripperGripPosition();
-        robot.lift.setTiltUp();
-    }
-
-    public void InitLoop() {
-
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones(0));
-        place = robot.getSkyStonePositionThreeStones(0);
-        telemetry.update();
     }
 
     @Override
