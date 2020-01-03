@@ -26,14 +26,17 @@ public class IntakeController extends SubsystemController {
     public void startIntake() {
         intake.startRotatingLeft();
         intake.startRotatingRight();
+        isRotating = true;
     }
     public void startReverseIntake(){
         intake.startReverseRotationLeft();
         intake.startREverseRotationRight();
+        isRotating = true;
     }
     public void stopIntake(){
         intake.stopRotatingLeft();
         intake.stopRotatingRight();
+        isRotating = false;
     }
 
 

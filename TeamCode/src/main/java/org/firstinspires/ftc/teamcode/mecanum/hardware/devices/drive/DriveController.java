@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.PurePursuitSe
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.StrafeSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.TurnSegment;
+import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.MecanumPurePursuitController;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PathPoint;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Pose;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
@@ -188,6 +189,10 @@ public class DriveController extends SubsystemController {
 
         return path;
     }*/
+
+    public void setHeadingMode(MecanumPurePursuitController.HeadingMode headingMode){
+        drive.setHeadingMode(headingMode);
+    }
 
     public void testPurePursuit(PursuitPath pursuitPath, double targetHeading){
 

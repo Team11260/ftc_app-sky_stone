@@ -6,7 +6,6 @@ import android.graphics.Color;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.ImageProcessor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
-import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.clamp.ClampController;
@@ -192,7 +191,7 @@ public class Robot extends AbstractRobot {
             delay(300);
             arm.setGripperReleasePosition();
             delay(400);
-            arm.setArmUpPosition();
+            arm.setArmAutonPosition();
             delay(300);
             arm.setGripperGripPosition();
 
@@ -236,7 +235,7 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable setArmUpCallable() {
         return () -> {
-            arm.setArmUpPosition();
+            arm.setArmAutonPosition();
         };
 
     }
@@ -259,7 +258,7 @@ public class Robot extends AbstractRobot {
     }
 
     public void setArmUp() {
-        arm.setArmUpPosition();
+        arm.setArmAutonPosition();
     }
 
     public RobotCallable setGripperGripCallable() {
@@ -267,7 +266,7 @@ public class Robot extends AbstractRobot {
             RobotState.currentPath.pause();
             arm.setGripperGripPosition();
             delay(600);
-            arm.setArmUpPosition();
+            arm.setArmAutonPosition();
             delay(500);
             RobotState.currentPath.resume();
         };
@@ -353,6 +352,7 @@ public class Robot extends AbstractRobot {
     public void setDraggerDown(){
         dragger.setBackDown();
         dragger.setFrontDown();
+        delay(500);
     }
 
     public RobotCallable setDraggerDownCallable(){
@@ -382,6 +382,14 @@ public class Robot extends AbstractRobot {
 
     public ClampController clamp() {
         return clamp;
+    }
+
+    public ArmController arm() {
+        return arm;
+    }
+
+    public DraggerController dragger() {
+        return dragger;
     }
 
 

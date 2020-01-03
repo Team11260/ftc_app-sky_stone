@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.MecanumPurePursuitController;
+
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.*;
 
 @Autonomous(name = "Red Two Stone", group = "New")
@@ -12,9 +14,11 @@ public class RedTwoStone extends BaseTwoStone {
     @Override
     public void Run() {
 
-        robot.arm.setArmDownPosition();
-        robot.setGripperRelease();
+//        robot.arm.setArmDownPosition();
+//        robot.setGripperRelease();
+        robot.setDraggerDown();
 
+        /*
         switch (place) {
             case "Right":
                 robot.runDrivePath(RedPurePursuitRight);
@@ -32,9 +36,13 @@ public class RedTwoStone extends BaseTwoStone {
                 robot.runDrivePath(RedPurePursuitCenter);
                 break;
         }
-        delay(10000);
 
+         */
+
+//        robot.setDrivePowerAll(0.5,-0.5,-0.5,0.5);
+//        delay(1000);
+        robot.setDrivePowerAll(0,0,0.6,-0.6);
+        delay(3000);
+        robot.setDrivePowerAll(0,0,0,0);
     }
-
-
 }

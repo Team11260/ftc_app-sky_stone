@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.Drive;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.DriveController;
 
 @Autonomous(name = "CG Auton", group = "New")
 
@@ -55,7 +54,7 @@ public class CGAuton extends AbstractAuton {
 
         arm.setGripperGripPosition();
         delay(500);
-        arm.setArmUpPosition();
+        arm.setArmAutonPosition();
         delay(1000);
 
         strafe(speed);
@@ -82,7 +81,7 @@ public class CGAuton extends AbstractAuton {
         delay(500);
         arm.setGripperReleasePosition();
         delay(500);
-        arm.setArmUpPosition();
+        arm.setArmAutonPosition();
     }
 
 

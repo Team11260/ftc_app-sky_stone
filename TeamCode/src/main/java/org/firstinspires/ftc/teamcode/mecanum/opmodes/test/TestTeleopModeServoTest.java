@@ -53,7 +53,7 @@ public class TestTeleopModeServoTest extends AbstractTeleop {
 
 //        arm = hardwareMap.servo.get("arm_servo");
 //        arm.setDirection(Servo.Direction.FORWARD);
-//        arm.setPosition(ARM_UP_POSITION);
+//        arm.setPosition(ARM_AUTON_POSITION);
 //
 //        gripper = hardwareMap.servo.get("gripper_servo");
 //        gripper.setDirection(Servo.Direction.FORWARD);

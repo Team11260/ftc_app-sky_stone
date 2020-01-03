@@ -19,7 +19,7 @@ public class MecanumLoadingZoneAuton extends AbstractAuton {
     /*public int time1 = 0;
     public double power1 = 0.0;
     public static double ARM_DOWN_POSITION = 0.855;
-    public static double ARM_UP_POSITION = 0.5;
+    public static double ARM_AUTON_POSITION = 0.5;
     public static double GRIPPER_GRIP_POSITION = 0.35;
     public static double GRIPPER_RELEASE_POSITION = 0.8;
 
@@ -107,7 +107,7 @@ public class MecanumLoadingZoneAuton extends AbstractAuton {
         goForward(time1, power1);
         gripper.setPosition(GRIPPER_GRIP_POSITION);
         delay(500);
-        arm.setPosition(ARM_UP_POSITION);
+        arm.setPosition(ARM_AUTON_POSITION);
         delay(500);
         turnBack(0.8);
         time1 = 1700;
@@ -118,7 +118,7 @@ public class MecanumLoadingZoneAuton extends AbstractAuton {
         delay(300);
         gripper.setPosition(GRIPPER_RELEASE_POSITION);
         delay(300);
-        arm.setPosition(ARM_UP_POSITION);
+        arm.setPosition(ARM_AUTON_POSITION);
         while(program){
         }*/
         telemetry.addData(DoubleTelemetry.LogMode.INFO,"run started"+opModeIsActive());

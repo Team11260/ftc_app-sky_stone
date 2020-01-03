@@ -24,14 +24,14 @@ public final class Constants {
     //For Old
     public static double ARM_DOWN_POSITION = 0.5;
     public static double ARM_PIN_POSITION = 1.0;
-    public static double ARM_UP_POSITION = 0.75;
-    public static double ARM_INIT_POSITION = 0.8;
+    public static double ARM_AUTON_POSITION = 0.75;
+    public static double ARM_UP_POSITION = 0.88;
     public static double GRIPPER_GRIP_POSITION = 0.4;
     public static double GRIPPER_RELEASE_POSITION = 0.0;
 
     ////////Dragger////////
-    public static double BACK_DRAGGER_UP_POSITION = 0.95;
-    public static double FRONT_DRAGGER_UP_POSITION = 0.95;
+    public static double BACK_DRAGGER_UP_POSITION = 1.00;
+    public static double FRONT_DRAGGER_UP_POSITION = 1.00;
     public static double BACK_DRAGGER_DOWN_POSITION = 0.35;
     public static double FRONT_DRAGGER_DOWN_POSITION = 0.35;
     public static double BACK_DRAGGER_HALFWAY_POSITION = 0.58;

@@ -94,6 +94,10 @@ public class Drive extends MecanumPurePursuitController {
         return getStrafePosition();
     }
 
+    public void setHeadingMode(HeadingMode headingMode){
+        setHeadingMode(headingMode);
+    }
+
     public int getFrontLeftPosition() {
         return dcMotorFrontLeft.getCurrentPosition();
     }

@@ -15,13 +15,14 @@ public class ArmController extends SubsystemController {
 
     }
 
-    public void setArmUpPosition() {
-        arm.setArmPosition(ARM_UP_POSITION);
+    public void setArmAutonPosition() {
+        arm.setArmPosition(ARM_AUTON_POSITION);
         up = true;
     }
 
-    public void setArmInitPosition(){
-        arm.setArmPosition(ARM_INIT_POSITION);
+    public void setArmUpPosition(){
+        arm.setArmPosition(ARM_UP_POSITION);
+        up = true;
     }
 
     public void setArmDownPosition() {
@@ -45,14 +46,21 @@ public class ArmController extends SubsystemController {
         gripped = false;
     }
 
+
+
     public void toggleArmPosition() {
+
         arm.setArmPosition(up ? ARM_DOWN_POSITION : ARM_UP_POSITION);
         up = !up;
+
     }
+
     public void toggleGripperPosition() {
         arm.setGripperPosition(gripped ? GRIPPER_GRIP_POSITION : GRIPPER_RELEASE_POSITION);
         gripped = !gripped;
     }
+
+
 
     @Override
     public void update() throws Exception {

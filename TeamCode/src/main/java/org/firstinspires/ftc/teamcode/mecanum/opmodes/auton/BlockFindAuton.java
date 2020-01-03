@@ -52,7 +52,7 @@ public class BlockFindAuton extends AbstractAuton {
 
     public void InitLoop() {
 
-        // arm.setArmUpPosition();
+        // arm.setArmAutonPosition();
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones(0,true));
 
@@ -131,7 +131,7 @@ public class BlockFindAuton extends AbstractAuton {
         robot.stop();*/
         /*arm.setGripperGripPosition();
         delay(500);
-        robot.arm.setArmUpPosition();
+        robot.arm.setArmAutonPosition();
         robot.runDrivePath(strafeToTray);
         robot.driver.setPower(0.2,0.23);
         delay(500);
@@ -140,7 +140,7 @@ public class BlockFindAuton extends AbstractAuton {
         delay(200);
         arm.setGripperReleasePostion();
         delay(300);
-        arm.setArmUpPosition();
+        arm.setArmAutonPosition();
         delay(300);*/
 
         //telemetry.addData(DoubleTelemetry.LogMode.INFO, "segment distance");
@@ -155,7 +155,7 @@ public class BlockFindAuton extends AbstractAuton {
        /* robot.runDrivePath(collectBlock);
         arm.setGripperGripPosition();
         delay(500);
-        arm.setArmUpPosition();
+        arm.setArmAutonPosition();
         robot.runDrivePath(backUp);
         robot.strafe(-0.4,2700);
         robot.runDrivePath(forwardDrive);
