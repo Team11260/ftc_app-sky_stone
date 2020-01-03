@@ -219,9 +219,9 @@ public class DriveController extends SubsystemController {
         while(opModeIsActive() && drive.isFollowing()){
             drive.update();
             Pose currentPose = drive.getCurrentPosition();
-            telemetry.addData(INFO,"position X:" + currentPose.getX());
-            telemetry.addData(INFO,"position y:" + currentPose.getY());
-            telemetry.update();
+            //telemetry.addData(INFO,"position X:" + currentPose.getX());
+            //telemetry.addData(INFO,"position y:" + currentPose.getY());
+           // telemetry.update();
         }
 
        // long startTime = System.currentTimeMillis();

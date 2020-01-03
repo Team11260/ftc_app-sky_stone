@@ -33,7 +33,7 @@ public class Drive extends MecanumPurePursuitController {
 
     public Drive(HardwareMap hardwareMap, DoubleTelemetry telemetry) {
         //super(20, 1.4, new PIDController(50, 0, 100), telemetry);
-        super(20, 1.4, new PIDController(25, 0, 50), telemetry);
+        super(20, 1.4, new PIDController(40, 0, 40), telemetry);
 
         imu = new IMU(hardwareMap);
         //imu = hardwareMap.getImu("imu");
