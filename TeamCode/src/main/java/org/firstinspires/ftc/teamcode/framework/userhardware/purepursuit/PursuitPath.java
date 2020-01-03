@@ -494,7 +494,6 @@ public class PursuitPath {
                     changedPoints++;
                 }
             }
-
             fPoints = newPoints;
         }
     }

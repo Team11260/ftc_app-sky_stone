@@ -884,8 +884,7 @@ public class DriveController extends SubsystemController {
 
     public void strafe(double power) {
 
-
-        drive.setDrivePowerAll(power, -power,-power,power);
+        drive.setDrivePowerAll(power, -power, -power, power);
 
     }
 

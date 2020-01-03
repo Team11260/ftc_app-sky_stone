@@ -36,9 +36,6 @@ public class TeleopMode extends AbstractTeleop {
         addEventHandler("1_dpd_down",()->robot.arm.toggleArmPosition());
         addEventHandler("1_dpl_down",()->robot.arm.toggleGripperPosition());
 
-
-
-
     }
 
     @Override
