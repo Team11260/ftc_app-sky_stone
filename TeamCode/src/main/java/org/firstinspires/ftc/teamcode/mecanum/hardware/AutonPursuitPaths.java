@@ -135,8 +135,8 @@ public class AutonPursuitPaths {
     public final static Path BluePurePursuitLeft = new Path("collect left sky stones on blue side");
 
     static {
-        RedPurePursuitLeft.addSegment(new PurePursuitSegment("drive to first sky stone on blue side",
-                new PursuitPath(new Point(0, 0), new Point(BLUE_BLOCK4_X, BLUE_BLOCK_LOCATION_Y)).setMinSpeed(0.17), 0));
+        BluePurePursuitLeft.addSegment(new PurePursuitSegment("drive to first sky stone on blue side",
+                new PursuitPath(new Point(0, 0), new Point(BLUE_BLOCK6_X, BLUE_BLOCK_LOCATION_Y)).setMinSpeed(0.17), 0));
 //        RedPurePursuitLeft.addSegment(new PurePursuitSegment("first trip to foundation",
 //                new PursuitPath(new Point(RED_BLOCK4_X, RED_BLOCK_LOCATION_Y), new Point(RED_BLOCK4_X, RED_RUNWAY_Y), new Point(RED_FOUNDATION_NEAR_X, RED_RUNWAY_Y), new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y)), 300));
 //        RedPurePursuitLeft.addSegment(new PurePursuitSegment("drive to second sky stone",
@@ -159,6 +159,6 @@ public class AutonPursuitPaths {
 
     static {
         BluePurePursuitRight.addSegment(new PurePursuitSegment("drive to first sky stone on blue side",
-                new PursuitPath(new Point(0, 0), new Point(BLUE_BLOCK6_X, BLUE_BLOCK_LOCATION_Y)), 0));
+                new PursuitPath(new Point(0, 0), new Point(BLUE_BLOCK4_X, BLUE_BLOCK_LOCATION_Y)), 0));
     }
 }
