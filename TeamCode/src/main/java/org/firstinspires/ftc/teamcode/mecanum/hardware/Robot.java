@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.DriveContro
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.IntakeController;
 
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.lift.LiftController;
+import org.firstinspires.ftc.teamcode.mecanum.opmodes.auton.BaseTwoStone;
 import org.firstinspires.ftc.teamcode.mecanum.opmodes.test.AbstractRobot;
 
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.*;
@@ -62,12 +63,13 @@ public class Robot extends AbstractRobot {
     }
 
     public String getSkyStonePositionThreeStones(int loopcount, boolean isRed) {
-
+        int xorigin = isRed? RED_XORIGIN: BLUE_XORIGIN;
+        int yorigin = isRed? RED_YORIGIN: BLUE_YORIGIN;
         int LINEWIDTH = LINE_WIDTH;
         int threshold = THRESHOLD;
         // int height = YORIGIN + (BLOCKHEIGHT/2);
-        int height = YORIGIN + HEIGHT;
-        int x_left = XORIGIN;
+        int height = yorigin + HEIGHT;
+        int x_left = xorigin;
         int x_center = x_left + BLOCKWIDTH;
         int x_right = x_center + BLOCKWIDTH;
         String stonePosition;
@@ -98,12 +100,12 @@ public class Robot extends AbstractRobot {
         } else {
             stonePosition = "No Sky Stone Found";
         }*/
-        if (getPixelStripeAve(XORIGIN, YORIGIN) < threshold) {
+        if (getPixelStripeAve(xorigin, yorigin) < threshold) {
             stonePosition = "Left";
-        } else if (getPixelStripeAve(XORIGIN + BLOCKWIDTH, YORIGIN) < threshold) {
+        } else if (getPixelStripeAve(xorigin + BLOCKWIDTH, yorigin) < threshold) {
 
             stonePosition = "Center";
-        } else if (getPixelStripeAve(XORIGIN + 2 * BLOCKWIDTH, YORIGIN) < threshold) {
+        } else if (getPixelStripeAve(xorigin + 2 * BLOCKWIDTH, yorigin) < threshold) {
 
             stonePosition = "Right";
         } else {
@@ -111,18 +113,18 @@ public class Robot extends AbstractRobot {
         }
 
         //if (loopcount % 10 == 5) {
-            telemetry.addData(INFO, "left box  " + getPixelStripeAve(XORIGIN, YORIGIN));
-            telemetry.addData(INFO, "center box  " + getPixelStripeAve(XORIGIN + BLOCKWIDTH, YORIGIN));
-            telemetry.addData(INFO, "right box  " + getPixelStripeAve(XORIGIN + 2 * BLOCKWIDTH, YORIGIN));
+            telemetry.addData(INFO, "left box  " + getPixelStripeAve(xorigin, yorigin));
+            telemetry.addData(INFO, "center box  " + getPixelStripeAve(xorigin + BLOCKWIDTH, yorigin));
+            telemetry.addData(INFO, "right box  " + getPixelStripeAve(xorigin + 2 * BLOCKWIDTH, yorigin));
             //telemetry.addData(INFO, "Front Third  "  +  getFrontThirdBlock(10, 320));
             telemetry.update();
 
-            ImageProcessor.drawBox(image, XORIGIN, YORIGIN, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
-            ImageProcessor.drawBox(image, x_left + 10, YORIGIN + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
+            ImageProcessor.drawBox(image, xorigin, yorigin, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
+            ImageProcessor.drawBox(image, x_left + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
             //delay(500);
-            ImageProcessor.drawBox(image, x_center + 10, YORIGIN + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
+            ImageProcessor.drawBox(image, x_center + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
             //delay(500);
-            ImageProcessor.drawBox(image, x_right + 10, YORIGIN + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
+            ImageProcessor.drawBox(image, x_right + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
             imageProcessor.setImage(image);
 
             //ImageProcessor.drawBox(image, x_left, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
