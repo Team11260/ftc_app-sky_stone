@@ -47,6 +47,7 @@ public final class Constants {
     public static int BLUE_YORIGIN = 100;
     public static int BLOCKWIDTH = 246;
 
+
     public static int LINE_WIDTH = 7;
     public static int HEIGHT = 45;
     public static int THRESHOLD = 130;

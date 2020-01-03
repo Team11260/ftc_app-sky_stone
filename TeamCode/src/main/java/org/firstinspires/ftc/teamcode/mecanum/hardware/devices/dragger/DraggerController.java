@@ -11,56 +11,60 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.FRONT_DR
 
 public class DraggerController extends SubsystemController {
 
-    Dragger backDragger;
-    Dragger frontDragger;
+    Dragger dragger;
 
-    boolean backUp = true, FrontUp = true;
+    boolean draggerUp = true;
+
 
     public DraggerController() {
-        backDragger = new Dragger(hardwareMap);
-        frontDragger = new Dragger(hardwareMap);
+        dragger = new Dragger(hardwareMap);
         setBackUp();
         setFrontUp();
     }
 
     public void setBackUp() {
-        backDragger.setBackDraggerPosition(BACK_DRAGGER_UP_POSITION);
-        backUp = true;
+        dragger.setBackDraggerPosition(BACK_DRAGGER_UP_POSITION);
+
     }
 
     public void setFrontUp() {
-        frontDragger.setFrontDraggerPosition(FRONT_DRAGGER_UP_POSITION);
-        FrontUp = true;
+        dragger.setFrontDraggerPosition(FRONT_DRAGGER_UP_POSITION);
     }
 
     public void setBackDown() {
-        backDragger.setBackDraggerPosition(BACK_DRAGGER_DOWN_POSITION);
-        backUp = false;
+        dragger.setBackDraggerPosition(BACK_DRAGGER_DOWN_POSITION);
+
     }
 
     public void setFrontDown() {
-        frontDragger.setFrontDraggerPosition(FRONT_DRAGGER_DOWN_POSITION);
-        FrontUp = false;
+        dragger.setFrontDraggerPosition(FRONT_DRAGGER_DOWN_POSITION);
     }
 
-    public void setFrontHalfway(){
-        frontDragger.setFrontDraggerPosition(FRONT_DRAGGER_HALFWAY_POSITION);
+    public void setFrontHalfway() {
+        dragger.setFrontDraggerPosition(FRONT_DRAGGER_HALFWAY_POSITION);
     }
 
-    public void setBackHalfway(){
-        backDragger.setBackDraggerPosition(BACK_DRAGGER_HALFWAY_POSITION);
+    public void setBackHalfway() {
+        dragger.setBackDraggerPosition(BACK_DRAGGER_HALFWAY_POSITION);
     }
 
 
+    public void setDraggerDown() {
+        setFrontDown();
+        setBackDown();
+    }
 
-    public void toggleBoth() {
-        if (!FrontUp && !backUp) {
-            setBackUp();
-            setFrontUp();
-        } else {
-            setFrontHalfway();
-            setBackHalfway();
-        }
+    public void setDraggerUp() {
+        setFrontUp();
+        setBackUp();
+    }
+
+    public void toggleDragger() {
+        if (draggerUp)
+            setDraggerDown();
+        else
+            setDraggerUp();
+        draggerUp = !draggerUp;
     }
 
     @Override

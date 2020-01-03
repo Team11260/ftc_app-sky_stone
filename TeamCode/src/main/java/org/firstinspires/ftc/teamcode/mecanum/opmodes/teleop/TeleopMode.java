@@ -25,16 +25,22 @@ public class TeleopMode extends AbstractTeleop {
         addEventHandler("2_b_down", ()->robot.lift().cyclePan());
         addEventHandler("2_rb_down",()-> robot.lift().setSlideOutHalf());
 
-        addEventHandler("1_x_down",()->robot.intake().toggleRotation());
-        addEventHandler("1_y_down", ()->robot.intake().toggleConveyor());
+        addEventHandler("1_x_down",()->robot.intake.toggleRotation());
+        addEventHandler("1_y_down", ()->robot.intake.toggleConveyor());
         addEventHandler("1_a_down", ()-> robot.toggleBoth());
-        addEventHandler("1_lb_down",()->robot.intake().toggleReverseConveyor());
-        addEventHandler("1_rb_down",()->robot.intake().startReverseIntake());
+        addEventHandler("1_lb_down",()->robot.intake.toggleReverseConveyor());
+        addEventHandler("1_rb_down",()->robot.intake.startReverseIntake());
 
         addEventHandler("1_b_down", ()-> toggleDriveSpeed());
 
         addEventHandler("1_dpd_down",()->robot.arm.toggleArmPosition());
         addEventHandler("1_dpl_down",()->robot.arm.toggleGripperPosition());
+
+        addEventHandler("1_dpu_down",()->robot.tapeMeasure.extend());
+        addEventHandler("1_dpr_down",()->robot.tapeMeasure.retract());
+
+        addEventHandler("1_dpu_up",()->robot.tapeMeasure.stop());
+        addEventHandler("1_dpr_up",()->robot.tapeMeasure.stop());
 
     }
 

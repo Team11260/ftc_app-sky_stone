@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake;
 
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.Intake;
 
 public class IntakeController extends SubsystemController {
     Intake intake;
@@ -26,17 +25,17 @@ public class IntakeController extends SubsystemController {
     public void startIntake() {
         intake.startRotatingLeft();
         intake.startRotatingRight();
-        isRotating = true;
     }
+
     public void startReverseIntake(){
         intake.startReverseRotationLeft();
-        intake.startREverseRotationRight();
+        intake.startReverseRotationRight();
         isRotating = true;
     }
+
     public void stopIntake(){
         intake.stopRotatingLeft();
         intake.stopRotatingRight();
-        isRotating = false;
     }
 
 

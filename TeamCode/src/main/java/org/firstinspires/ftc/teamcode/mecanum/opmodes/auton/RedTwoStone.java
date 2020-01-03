@@ -18,7 +18,7 @@ public class RedTwoStone extends BaseTwoStone {
 //        robot.setGripperRelease();
         robot.setDraggerDown();
 
-        /*
+
         switch (place) {
             case "Right":
                 robot.runDrivePath(RedPurePursuitRight);
@@ -37,7 +37,7 @@ public class RedTwoStone extends BaseTwoStone {
                 break;
         }
 
-         */
+
 
 //        robot.setDrivePowerAll(0.5,-0.5,-0.5,0.5);
 //        delay(1000);

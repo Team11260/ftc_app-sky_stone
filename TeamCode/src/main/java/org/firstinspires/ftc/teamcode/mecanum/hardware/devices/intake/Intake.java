@@ -47,7 +47,7 @@ public class Intake {
     public void startReverseRotationLeft(){
         leftIntake.setPosition(leftReversePosition);
     }
-    public void startREverseRotationRight(){
+    public void startReverseRotationRight(){
         rightIntake.setPosition(rightReversePosition);
     }
 

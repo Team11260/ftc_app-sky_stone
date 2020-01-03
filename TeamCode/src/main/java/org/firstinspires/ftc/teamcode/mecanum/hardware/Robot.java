@@ -8,13 +8,13 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.clamp.ClampController;
+
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.dragger.DraggerController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.DriveController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.IntakeController;
 
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.lift.LiftController;
-import org.firstinspires.ftc.teamcode.mecanum.opmodes.auton.BaseTwoStone;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.tapemeasure.TapeMeasureController;
 import org.firstinspires.ftc.teamcode.mecanum.opmodes.test.AbstractRobot;
 
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.*;
@@ -29,7 +29,8 @@ public class Robot extends AbstractRobot {
     public IntakeController intake;
     public ArmController arm;
     public LiftController lift;
-    public ClampController clamp;
+    public TapeMeasureController tapeMeasure;
+
     public DraggerController dragger;
     public Bitmap image;
 
@@ -37,13 +38,12 @@ public class Robot extends AbstractRobot {
     public Robot() {
         imageProcessor = new ImageProcessor(false);
         //telemetry = new DoubleTelemetry(super.telemetry, Dashboard.getInstance().getTelemetry(), new Logger(Dashboard.getCurrentOpMode()));
-
         driver = new DriveController();
         intake = new IntakeController();
         arm = new ArmController();
         lift = new LiftController();
         dragger = new DraggerController();
-
+        tapeMeasure = new TapeMeasureController();
     }
 
     public void runDrivePath(Path path) {
@@ -331,7 +331,7 @@ public class Robot extends AbstractRobot {
     }
 
     public void toggleBoth() {
-        dragger.toggleBoth();
+        dragger.toggleDragger();
     }
 
     public RobotCallable toggleBothCallable() {
@@ -339,15 +339,9 @@ public class Robot extends AbstractRobot {
     }
 
 
-    public void toggleClamp() {
-        clamp.toggleClamp();
-    }
 
-    public RobotCallable toggleClampCallable() {
-        return () -> {
-            toggleClamp();
-        };
-    }
+
+
 
     public void setDraggerDown(){
         dragger.setBackDown();
@@ -380,9 +374,11 @@ public class Robot extends AbstractRobot {
         return intake;
     }
 
-    public ClampController clamp() {
-        return clamp;
+    public TapeMeasureController tapeMeasure(){
+        return tapeMeasure;
     }
+
+
 
     public ArmController arm() {
         return arm;
@@ -391,6 +387,8 @@ public class Robot extends AbstractRobot {
     public DraggerController dragger() {
         return dragger;
     }
+
+
 
 
     public void setDrivePowerAll(double FL, double FR, double BL, double BR) {

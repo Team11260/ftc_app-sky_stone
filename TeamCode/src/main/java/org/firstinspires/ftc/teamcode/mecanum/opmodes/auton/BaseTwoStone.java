@@ -26,6 +26,9 @@ abstract public class BaseTwoStone extends AbstractAuton {
         addState("Place third skystone", "third trip to foundation", robot.deliverStoneCallable());
 
 
+
+
+
     }
 
     @Override
