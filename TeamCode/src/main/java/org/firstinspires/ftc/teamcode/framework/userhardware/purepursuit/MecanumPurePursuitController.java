@@ -90,10 +90,10 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
         double y = Math.sin(Math.toRadians(angle)) * yScale;
         double z = headingController.output(targetHeading, currentPosition.getHeading());
 
-        double frontLeft = velocity * (x + y - z);
-        double frontRight = velocity * (x - y + z);
-        double backLeft = velocity * (x - y - z);
-        double backRight = velocity * (x + y + z);
+        double frontLeft = velocity * (x - y - z);
+        double frontRight = velocity * (x + y + z);
+        double backLeft = velocity * (x + y - z);
+        double backRight = velocity * (x - y + z);
 
         telemetry.addData(INFO,"Front left power: " + frontLeft);
         telemetry.update();
