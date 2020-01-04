@@ -32,6 +32,7 @@ public class IMU implements Runnable {
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
         parameters.loggingEnabled = false;
         parameters.mode = BNO055IMU.SensorMode.IMU;
+        GyroTimeOut = new ElapsedTime();
 
         imu = hwMap.get(BNO055IMU.class, "imu");
 

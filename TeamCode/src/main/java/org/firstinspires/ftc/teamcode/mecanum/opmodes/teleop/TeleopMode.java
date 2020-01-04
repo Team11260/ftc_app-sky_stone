@@ -47,7 +47,7 @@ public class TeleopMode extends AbstractTeleop {
     @Override
     public void UpdateEvents() {
         double liftMultiplier = 0.8;
-        double left_stick_x=-gamepad1.left_stick_x,left_stick_y = -gamepad1.left_stick_y, right_stick_x = gamepad1.right_stick_x;
+        double left_stick_x=gamepad1.left_stick_x,left_stick_y = -gamepad1.left_stick_y, right_stick_x = gamepad1.right_stick_x;
         double right_trigger=gamepad1.right_trigger*0.4,left_trigger = gamepad1.left_trigger*0.4;
         robot.setDrivePowerAll(k*(left_stick_y+left_stick_x+right_stick_x-right_trigger+left_trigger),k*(left_stick_y-left_stick_x-right_stick_x+right_trigger-left_trigger),
                                k*(left_stick_y-left_stick_x+right_stick_x+right_trigger-left_trigger),k*(left_stick_y+left_stick_x-right_stick_x-right_trigger+left_trigger));

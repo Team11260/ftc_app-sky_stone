@@ -32,8 +32,8 @@ public final class Constants {
     ////////Dragger////////
     public static double BACK_DRAGGER_UP_POSITION = 1.00;
     public static double FRONT_DRAGGER_UP_POSITION = 1.00;
-    public static double BACK_DRAGGER_DOWN_POSITION = 0.35;
-    public static double FRONT_DRAGGER_DOWN_POSITION = 0.35;
+    public static double BACK_DRAGGER_DOWN_POSITION = 0.41;
+    public static double FRONT_DRAGGER_DOWN_POSITION = 0.38;
     public static double BACK_DRAGGER_HALFWAY_POSITION = 0.58;
     public static double FRONT_DRAGGER_HALFWAY_POSITION = 0.58;
 
