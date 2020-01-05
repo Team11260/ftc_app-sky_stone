@@ -64,6 +64,7 @@ public class LiftController extends SubsystemController {
     }
 
     public void setSlideIn() {
+
         lift.setSlidePosition(SLIDE_IN);
     }
 

@@ -332,12 +332,18 @@ public class Robot extends AbstractRobot {
 
     }
 
-    public void toggleBoth() {
+    public void toggleBothDraggersFull() {
         dragger.toggleDragger();
     }
 
     public RobotCallable toggleBothCallable() {
-        return () -> toggleBoth();
+        return () -> toggleBothDraggersFull();
+    }
+
+    public void toggleBothDraggersHalf(){
+        dragger.toggleDraggerHalf();
+
+
     }
 
 

@@ -33,9 +33,9 @@ public final class Constants {
     public static double BACK_DRAGGER_UP_POSITION = 1.00;
     public static double FRONT_DRAGGER_UP_POSITION = 1.00;
     public static double BACK_DRAGGER_DOWN_POSITION = 0.41;
-    public static double FRONT_DRAGGER_DOWN_POSITION = 0.38;
-    public static double BACK_DRAGGER_HALFWAY_POSITION = 0.5;
-    public static double FRONT_DRAGGER_HALFWAY_POSITION = 0.5;
+    public static double FRONT_DRAGGER_DOWN_POSITION = 0.40;
+    public static double BACK_DRAGGER_HALFWAY_POSITION = 0.51;
+    public static double FRONT_DRAGGER_HALFWAY_POSITION = 0.51;
 
 
     ////////Vision////////
@@ -43,8 +43,10 @@ public final class Constants {
     public static int BLOCKHEIGHT = 132;
     public static int RED_XORIGIN = 20;
     public static int RED_YORIGIN = 126;
-    public static int BLUE_XORIGIN = 512;
-    public static int BLUE_YORIGIN = 100;
+//    public static int BLUE_XORIGIN = 512;
+//    public static int BLUE_YORIGIN = 100;
+    public static int BLUE_XORIGIN = 490;
+    public static int BLUU_YORIGIN = 70;
     public static int BLOCKWIDTH = 246;
 
 

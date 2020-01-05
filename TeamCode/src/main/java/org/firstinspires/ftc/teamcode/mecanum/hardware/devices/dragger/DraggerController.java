@@ -59,12 +59,28 @@ public class DraggerController extends SubsystemController {
         setBackUp();
     }
 
+    public void setDraggerHalf(){
+        setFrontHalfway();
+        setBackHalfway();
+
+    }
+
     public void toggleDragger() {
         if (draggerUp)
             setDraggerDown();
         else
             setDraggerUp();
         draggerUp = !draggerUp;
+    }
+
+    public void toggleDraggerHalf(){
+        if(draggerUp)
+            setDraggerDown();
+        else
+            setDraggerHalf();
+        draggerUp = !draggerUp;
+
+
     }
 
     @Override

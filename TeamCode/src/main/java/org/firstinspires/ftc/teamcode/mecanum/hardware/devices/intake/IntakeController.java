@@ -47,6 +47,7 @@ public class IntakeController extends SubsystemController {
         isRotating = !isRotating;
     }
 
+
     public void toggleReverseRotation(){
         if (isReverseRotating)
             stopIntake();
@@ -62,12 +63,15 @@ public class IntakeController extends SubsystemController {
             intake.startConveyor();
         isConveying = !isConveying;
     }
+
+    public void startReverseConveyor(){
+        intake.startReverseConveyor();
+        isConveying = true;
+
+    }
+
     public void toggleReverseConveyor(){
-        if (isReverseConveying)
-            intake.stopConveyor();
-        else
             intake.startReverseConveyor();
-        isReverseConveying = !isReverseConveying;
     }
 
 
