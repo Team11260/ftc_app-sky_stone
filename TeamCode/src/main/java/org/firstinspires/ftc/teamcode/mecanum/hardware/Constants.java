@@ -45,7 +45,7 @@ public final class Constants {
     public static int RED_YORIGIN = 126;
 //    public static int BLUE_XORIGIN = 512;
 //    public static int BLUE_YORIGIN = 100;
-    public static int BLUE_XORIGIN = 490;
+    public static int BLUE_XORIGIN = 500 ;
     public static int BLUE_YORIGIN = 70;
     public static int BLOCKWIDTH = 246;
 

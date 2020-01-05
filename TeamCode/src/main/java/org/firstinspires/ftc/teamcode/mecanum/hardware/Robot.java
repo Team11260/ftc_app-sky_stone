@@ -55,6 +55,7 @@ public class Robot extends AbstractRobot {
         delay(delay);
         driver.stop();
     }
+
     public void update() {
         driver.update();
     }
@@ -64,8 +65,8 @@ public class Robot extends AbstractRobot {
     }
 
     public String getSkyStonePositionThreeStones(int loopcount, boolean isRed) {
-        int xorigin = isRed? RED_XORIGIN: BLUE_XORIGIN;
-        int yorigin = isRed? RED_YORIGIN: BLUE_YORIGIN;
+        int xorigin = isRed ? RED_XORIGIN : BLUE_XORIGIN;
+        int yorigin = isRed ? RED_YORIGIN : BLUE_YORIGIN;
         int LINEWIDTH = LINE_WIDTH;
         int threshold = THRESHOLD;
         // int height = YORIGIN + (BLOCKHEIGHT/2);
@@ -73,64 +74,47 @@ public class Robot extends AbstractRobot {
         int x_left = xorigin;
         int x_center = x_left + BLOCKWIDTH;
         int x_right = x_center + BLOCKWIDTH;
-        String stonePosition;
+        String stonePosition = "Center";
 
 
         image = imageProcessor.getImage();
-        // Webcam- Width: 848 Height: 480
-        //telemetry.addData(DoubleTelemetry.LogMode.INFO,"width: "+image.getWidth()+" height: "+image.getHeight());
-        //telemetry.update();
-        //delay(1000);
-
-        // This is the Latest
-        //ImageProcessor.drawBox(image, XORIGIN, YORIGIN, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
-       // ImageProcessor.drawBox(image, XORIGIN + 30, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
-       // ImageProcessor.drawBox(image, XORIGIN + 30 + BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
-       // ImageProcessor.drawBox(image, XORIGIN + 30 + BLOCKWIDTH + BLOCKWIDTH, YORIGIN + 10, 1, BLOCKHEIGHT - 50, LINEWIDTH = 4, Color.rgb(225, 0, 0));
-       // imageProcessor.setImage(image);
 
 
-       /* if (getLineAverage(image, x_left, height) < threshold) {
-            stonePosition = "Left";
-        } else if (getLineAverage(image, x_center, height) < threshold) {
+        int lowest = 999999;
+        String[] positions = {"Left", "Center", "Right"};
+        for (int i = 0; i < 3; i++) {
+            int pos = getPixelStripeAve(xorigin + i * BLOCKWIDTH, yorigin);
 
-            stonePosition = "Center";
-        } else if (getLineAverage(image, x_right, height) < threshold) {
 
-            stonePosition = "Right";
-        } else {
-            stonePosition = "No Sky Stone Found";
-        }*/
-        if (getPixelStripeAve(xorigin, yorigin) < threshold) {
-            stonePosition = "Left";
-        } else if (getPixelStripeAve(xorigin + BLOCKWIDTH, yorigin) < threshold) {
+            if (pos < lowest) {
+                lowest = pos;
+                stonePosition = positions[i];
 
-            stonePosition = "Center";
-        } else if (getPixelStripeAve(xorigin + 2 * BLOCKWIDTH, yorigin) < threshold) {
+            }
 
-            stonePosition = "Right";
-        } else {
-            stonePosition = "No Sky Stone Found";
         }
 
-        //if (loopcount % 10 == 5) {
-            telemetry.addData(INFO, "left box  " + getPixelStripeAve(xorigin, yorigin));
-            telemetry.addData(INFO, "center box  " + getPixelStripeAve(xorigin + BLOCKWIDTH, yorigin));
-            telemetry.addData(INFO, "right box  " + getPixelStripeAve(xorigin + 2 * BLOCKWIDTH, yorigin));
-            //telemetry.addData(INFO, "Front Third  "  +  getFrontThirdBlock(10, 320));
+        if (lowest == 999999) {
+            telemetry.addData(INFO, "No SkyStone Found");
             telemetry.update();
+        }
 
-            ImageProcessor.drawBox(image, xorigin, yorigin, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
-            ImageProcessor.drawBox(image, x_left + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
-            //delay(500);
-            ImageProcessor.drawBox(image, x_center + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
-            //delay(500);
-            ImageProcessor.drawBox(image, x_right + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
-            imageProcessor.setImage(image);
 
-            //ImageProcessor.drawBox(image, x_left, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
-            //ImageProcessor.drawBox(image, x_center, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
-            //ImageProcessor.drawBox(image, x_right, YORIGIN + 20, 1, BLOCKHEIGHT - 50, LINEWIDTH, Color.rgb(225, 0, 0));
+        telemetry.addData(INFO, "left box  " + getPixelStripeAve(xorigin, yorigin));
+        telemetry.addData(INFO, "center box  " + getPixelStripeAve(xorigin + BLOCKWIDTH, yorigin));
+        telemetry.addData(INFO, "right box  " + getPixelStripeAve(xorigin + 2 * BLOCKWIDTH, yorigin));
+        //telemetry.addData(INFO, "Front Third  "  +  getFrontThirdBlock(10, 320));
+        telemetry.update();
+
+        ImageProcessor.drawBox(image, xorigin, yorigin, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
+        ImageProcessor.drawBox(image, x_left + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
+        //delay(500);
+        ImageProcessor.drawBox(image, x_center + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
+        //delay(500);
+        ImageProcessor.drawBox(image, x_right + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
+        imageProcessor.setImage(image);
+
+
 
         return stonePosition;
     }
@@ -340,38 +324,35 @@ public class Robot extends AbstractRobot {
         return () -> toggleBothDraggersFull();
     }
 
-    public void toggleBothDraggersHalf(){
+    public void toggleBothDraggersHalf() {
         dragger.toggleDraggerHalf();
 
 
     }
 
 
-
-
-
-
-    public void setDraggerDown(){
+    public void setDraggerDown() {
         dragger.setBackDown();
         dragger.setFrontDown();
         delay(500);
     }
 
-    public RobotCallable setDraggerDownCallable(){
-        return ()->{
+    public RobotCallable setDraggerDownCallable() {
+        return () -> {
             setDraggerDown();
         };
     }
 
-    public void setDraggerHalfway(){
+    public void setDraggerHalfway() {
         dragger.setBackHalfway();
         dragger.setFrontHalfway();
         delay(300);
     }
 
-    public RobotCallable setDraggerHalfwayCallable(){
-        return ()->{
-                setDraggerHalfway();};
+    public RobotCallable setDraggerHalfwayCallable() {
+        return () -> {
+            setDraggerHalfway();
+        };
     }
 
     public LiftController lift() {
@@ -382,10 +363,9 @@ public class Robot extends AbstractRobot {
         return intake;
     }
 
-    public TapeMeasureController tapeMeasure(){
+    public TapeMeasureController tapeMeasure() {
         return tapeMeasure;
     }
-
 
 
     public ArmController arm() {
@@ -395,8 +375,6 @@ public class Robot extends AbstractRobot {
     public DraggerController dragger() {
         return dragger;
     }
-
-
 
 
     public void setDrivePowerAll(double FL, double FR, double BL, double BR) {
