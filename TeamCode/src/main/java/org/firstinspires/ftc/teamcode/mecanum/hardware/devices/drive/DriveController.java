@@ -1061,6 +1061,10 @@ public class DriveController extends SubsystemController {
         telemetry.addData(INFO, "Marker dumped");
     }*/
 
+    public Pose getCurrentPosition(){
+        return drive.getCurrentPosition();
+    }
+
     public void resetPosition() {
         drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }

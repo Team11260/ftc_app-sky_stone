@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.PIDController;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.IMU;
 import org.firstinspires.ftc.teamcode.framework.userhardware.outputs.SlewDcMotor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.MecanumPurePursuitController;
+import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Pose;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState;
 import org.upacreekrobotics.dashboard.Config;
@@ -76,7 +77,10 @@ public class Drive extends MecanumPurePursuitController {
 
     public void resetAngleToZero() {
         imu.resetAngleToZero();
+    }
 
+    public Pose getCurrentPosition(){
+        return currentPosition;
     }
 
     @Override

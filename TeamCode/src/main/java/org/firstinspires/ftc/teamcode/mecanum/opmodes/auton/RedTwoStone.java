@@ -63,26 +63,23 @@ public class RedTwoStone extends BaseTwoStone {
 
         // robot.setDrivePowerAll(frontLeft,frontRight,backLeft,backRight);
 
-
-        //delay(1300);
-        robot.setDrivePowerAll(0, 0, 0, 0);
-        //telemetry.addData(DoubleTelemetry.LogMode.INFO," Finish Turn Heading  XXXXXXXXXX: " + robot.driver.getHeading());
-        //telemetry.update();
-       // delay(200);
-       // robot.dragger.setDraggerUp();
-        //robot.setDrivePowerAll(0.5,-0.5,-0.5,0.5);
-        //delay(800);
-        //robot.driver.runDrivePath(DragFoundation);
-        robot.setDrivePowerAll(0, 0, 0, 0);
-        // robot.driver.resetPosition();
-        //robot.driver.resetAngleToZero();
-        robot.driver.runDrivePath(CalibrationPath);
-
+        robot.setDrivePowerAll(frontLeft,frontRight,backLeft,backRight);
+        while (robot.driver.getHeading()>-80);
+        //delay(1700);
+        robot.setDrivePowerAll(0,0,0,0);
+        delay(200);
+        robot.dragger.setDraggerUp();
+        robot.setDrivePowerAll(0.5,-0.5,-0.5,0.5);
         delay(1000);
+        robot.setDrivePowerAll(0,0,0,0);
 
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, " Pose after X: " + robot.driver.getStraightPosition());
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, " Pose after Y: " + robot.driver.getStrafePosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO," Pose X: " + robot.driver.getCurrentPosition().getX());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO," Pose Y: " + robot.driver.getCurrentPosition().getY());
+
+        //robot.driver.resetPosition();
+        //robot.driver.resetAngleToZero();
         telemetry.update();
 
+        //robot.driver.runDrivePath(DragFoundation);
     }
 }
