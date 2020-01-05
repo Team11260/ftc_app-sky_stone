@@ -205,12 +205,12 @@ public class Robot extends AbstractRobot {
     }
 
     public void deliverStone() {
-        setArmDown();
+        arm.setArmHalfwayPosition();
         delay(200);
         setGripperRelease();
         delay(500);
         setArmUp();
-        delay(500);
+        delay(700);
         setGripperGrip();
         //delay(300);
     }
