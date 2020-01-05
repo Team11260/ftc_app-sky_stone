@@ -27,7 +27,7 @@ public class RedTwoStone extends BaseTwoStone {
 //        robot.setGripperRelease();
         robot.setDraggerDown();
 
-        delay(2000);
+        //delay(100);
 
         /*
         switch (place) {
@@ -54,33 +54,35 @@ public class RedTwoStone extends BaseTwoStone {
 //        delay(1000);
 
 
-
-
-
         double frontLeft = (x - y - z);
         double frontRight = (x + y + z);
         double backLeft = (x + y - z);
         double backRight = (x - y + z);
-
-        robot.setDrivePowerAll(frontLeft,frontRight,backLeft,backRight);
-        delay(1700);
-        robot.setDrivePowerAll(0,0,0,0);
-        delay(200);
-        robot.dragger.setDraggerUp();
-        robot.setDrivePowerAll(0.5,-0.5,-0.5,0.5);
-        delay(1000);
-        robot.setDrivePowerAll(0,0,0,0);
-
-        telemetry.addData(DoubleTelemetry.LogMode.INFO," Pose X: " + robot.driver.getStraightPosition());
-        telemetry.addData(DoubleTelemetry.LogMode.INFO," Pose Y: " + robot.driver.getStrafePosition());
-
-       // robot.driver.resetPosition();
-        //robot.driver.resetAngleToZero();
-
-        telemetry.addData(DoubleTelemetry.LogMode.INFO," Pose after reset X: " + robot.driver.getStraightPosition());
-        telemetry.addData(DoubleTelemetry.LogMode.INFO," Pose after reset Y: " + robot.driver.getStrafePosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, " heading: " + robot.driver.getHeading());
         telemetry.update();
 
-        robot.driver.runDrivePath(DragFoundation);
+        // robot.setDrivePowerAll(frontLeft,frontRight,backLeft,backRight);
+
+
+        //delay(1300);
+        robot.setDrivePowerAll(0, 0, 0, 0);
+        //telemetry.addData(DoubleTelemetry.LogMode.INFO," Finish Turn Heading  XXXXXXXXXX: " + robot.driver.getHeading());
+        //telemetry.update();
+       // delay(200);
+       // robot.dragger.setDraggerUp();
+        //robot.setDrivePowerAll(0.5,-0.5,-0.5,0.5);
+        //delay(800);
+        //robot.driver.runDrivePath(DragFoundation);
+        robot.setDrivePowerAll(0, 0, 0, 0);
+        // robot.driver.resetPosition();
+        //robot.driver.resetAngleToZero();
+        robot.driver.runDrivePath(CalibrationPath);
+
+        delay(1000);
+
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, " Pose after X: " + robot.driver.getStraightPosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, " Pose after Y: " + robot.driver.getStrafePosition());
+        telemetry.update();
+
     }
 }

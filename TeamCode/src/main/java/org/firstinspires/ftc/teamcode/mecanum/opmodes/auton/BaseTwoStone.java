@@ -12,6 +12,8 @@ abstract public class BaseTwoStone extends AbstractAuton {
     @Override
     public void RegisterStates() {
 
+
+
         addState("Pick up first Stone", "drive to first sky stone", robot.grabStoneCallable());
         addState("Place first skystone", "first trip to foundation", robot.deliverStoneCallable());
         addState("delayed arm down", "Place first skystone", robot.delayedArmDownCallable());
@@ -37,6 +39,7 @@ abstract public class BaseTwoStone extends AbstractAuton {
         robot.arm.setArmUpPosition();
         robot.arm.setGripperGripPosition();
         robot.lift.setTiltUp();
+
     }
 
     public void InitLoop() {

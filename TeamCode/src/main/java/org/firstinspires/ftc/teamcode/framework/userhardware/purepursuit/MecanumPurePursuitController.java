@@ -96,26 +96,12 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
         double backLeft = velocity * (x + y - z);
         double backRight = velocity * (x - y + z);
 
-       /* telemetry.addData(INFO,"angle: " + angle);
-        telemetry.addData(INFO,"velocity: " + velocity);
+
         telemetry.addData(INFO,"heading: " + currentPosition.getHeading());
-        telemetry.addData(INFO,"lookahead: " + lookahead);
-        telemetry.addData(INFO,"lookaheadx: " + currentPursuitPath.getPoint(lookahead).getX());
-        telemetry.addData(INFO,"lookaheady: " + currentPursuitPath.getPoint(lookahead).getY());
-        telemetry.addData(INFO,"deltax: " + delta.getX());
-        telemetry.addData(INFO,"deltay: " + delta.getY());
-        telemetry.addData(INFO,"path heading: " + currentPursuitPath.getAngleFromPathPoint(lookahead, currentPosition));
         telemetry.addData(INFO,"x position: " + currentPosition.getX());
         telemetry.addData(INFO,"y position: " + currentPosition.getY());
-        telemetry.addData(INFO,"x: " + x);
-        telemetry.addData(INFO,"y: " + y);
-        telemetry.addData(INFO,"z: " + z);
-        telemetry.addData(INFO,"Front left power: " + frontLeft);
-        telemetry.addData(INFO,"Front right power: " + frontRight);
-        telemetry.addData(INFO,"Back left power: " + backLeft);
-        telemetry.addData(INFO,"Back right power: " + backRight);
         telemetry.addData(INFO," " );
-        telemetry.update();*/
+        telemetry.update();
 
         setMecanumPower(frontLeft, frontRight, backLeft, backRight);
     }

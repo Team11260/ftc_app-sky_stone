@@ -23,7 +23,7 @@ public class Drive extends MecanumPurePursuitController {
     private IMU imu;
     private double lastLeftPosition = 0, lastRightPosition = 0;
     private double strafeOffset = 0.0, straightOffset = 0.0;
-    public static double p=16,i=0,d=0,f=16;
+    public static double p=16,i=0,d=0,f=12;
 
     private SlewDcMotor dcMotorFrontLeft;
     private SlewDcMotor dcMotorFrontRight;
@@ -33,7 +33,7 @@ public class Drive extends MecanumPurePursuitController {
 
     public Drive(HardwareMap hardwareMap, DoubleTelemetry telemetry) {
         //super(20, 1.4, new PIDController(50, 0, 100), telemetry);
-        super(20, 1.4, new PIDController(40, 0, 40), telemetry);
+        super(20, 1.4, new PIDController(40, 0, 20), telemetry);
 
         imu = new IMU(hardwareMap);
         //imu = hardwareMap.getImu("imu");

@@ -89,6 +89,16 @@ public class DriveController extends SubsystemController {
     }
 
     public synchronized void update() {
+        drive.updatePose();
+
+        Pose currentPosition = drive.getCurrentPosition();
+
+        telemetry.getSmartdashboard().putGraph("Pure Pursuit", "Position", currentPosition.getX(), currentPosition.getY());
+        telemetry.addData(INFO, "X: " + drive.getXActualPositionInches() + " Y: " + drive.getYActualPositionInches() + " Is following: " + drive.isFollowing());
+        telemetry.addData(INFO, "Calc X: " + currentPosition.getX() + " calc Y: " + currentPosition.getY() + " Is following: " + drive.isFollowing());
+
+        telemetry.addData(INFO, "Heading: " + drive.getHeading());
+        telemetry.update();
 
     }
 
@@ -243,7 +253,6 @@ public class DriveController extends SubsystemController {
         telemetry.update();
 
     }
-
 
     public synchronized void driveToSegment(DriveSegment segment) {
 
@@ -692,6 +701,14 @@ public class DriveController extends SubsystemController {
 
         //drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
+
+    public synchronized void startDrag(){
+
+        while ((getHeading()>-85) && opModeIsActive()){
+
+            }
+        }
+
     public synchronized void turnToSegment(TurnSegment segment) {
 
         double angle = segment.getAngle(), speed = segment.getSpeed(), error = segment.getError(), period = segment.getPeriod();

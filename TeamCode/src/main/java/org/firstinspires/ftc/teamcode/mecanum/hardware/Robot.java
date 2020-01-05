@@ -55,7 +55,9 @@ public class Robot extends AbstractRobot {
         delay(delay);
         driver.stop();
     }
-
+    public void update() {
+        driver.update();
+    }
 
     public void driveToSegment(DriveSegment segment) {
         driver.driveToSegment(segment);
@@ -222,11 +224,11 @@ public class Robot extends AbstractRobot {
         setArmDown();
         delay(200);
         setGripperRelease();
-        delay(700);
+        delay(500);
         setArmUp();
-        delay(200);
+        delay(500);
         setGripperGrip();
-        delay(300);
+        //delay(300);
     }
 
     public void setArmDown() {

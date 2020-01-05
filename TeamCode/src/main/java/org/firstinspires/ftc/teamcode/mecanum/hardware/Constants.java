@@ -34,8 +34,8 @@ public final class Constants {
     public static double FRONT_DRAGGER_UP_POSITION = 1.00;
     public static double BACK_DRAGGER_DOWN_POSITION = 0.41;
     public static double FRONT_DRAGGER_DOWN_POSITION = 0.38;
-    public static double BACK_DRAGGER_HALFWAY_POSITION = 0.58;
-    public static double FRONT_DRAGGER_HALFWAY_POSITION = 0.58;
+    public static double BACK_DRAGGER_HALFWAY_POSITION = 0.5;
+    public static double FRONT_DRAGGER_HALFWAY_POSITION = 0.5;
 
 
     ////////Vision////////
@@ -50,7 +50,7 @@ public final class Constants {
 
     public static int LINE_WIDTH = 7;
     public static int HEIGHT = 45;
-    public static int THRESHOLD = 130;
+    public static int THRESHOLD = 80;
 
     ////////Lift////////
     public static int LIFT_DOWN = 0;

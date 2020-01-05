@@ -40,11 +40,12 @@ public class AutonPursuitPaths {
     public static double RED_BLOCK5_X = 0;
     public static double RED_BLOCK6_X = -8;
 
-    public static double BLUE_RUNWAY_Y = -18;
-    public static double BLUE_FOUNDATION_Y = -27;
-    public static double BLUE_FOUNDATION_Y_2ND = -30;
-    public static double BLUE_FOUNDATION_MIDDLE_X = 82;
-    public static double BLUE_FOUNDATION_NEAR_X = 72;
+    public static double BLUE_RUNWAY_Y = -20;
+    public static double BLUE_RUNWAY_Y_2 = -23;
+    public static double BLUE_FOUNDATION_Y = -27.5;
+    public static double BLUE_FOUNDATION_Y_2ND = -27.5;
+    public static double BLUE_FOUNDATION_MIDDLE_X = 80;
+    public static double BLUE_FOUNDATION_NEAR_X = 71;
     public static double BLUE_BLOCK_LOCATION_Y = -26.5;
 
     public static double BLUE_BLOCK1_X = -31;
@@ -125,7 +126,27 @@ public class AutonPursuitPaths {
     public final static Path DragFoundation = new Path("Drag Foundation");
 
     static {
-        DragFoundation.addSegment(new PurePursuitSegment("Drag the foundation", new PursuitPath(new Point(0, 0), new Point(0, 10), new Point(10, 10))));
+
+        DragFoundation.addSegment(new PurePursuitSegment("Push the foundation", new PursuitPath(new Point(33, 4), new Point(20, 0)).setMinSpeed(0.4), 0, -90));
+        //DragFoundation.addSegment(new PurePursuitSegment("Park the robot", new PursuitPath(new Point(20, 0), new Point(45, -3)).setMinSpeed(0.4),0,-90));
+
+    }
+
+    public final static Path CalibrationPath = new Path("Calibration Path");
+
+    static {
+
+        CalibrationPath.addSegment(new PurePursuitSegment("first trip to foundation", new PursuitPath(
+                new Point(0, 0),
+                new Point(0, 10),
+                new Point(80, 10),
+                new Point(80, 0))));
+        CalibrationPath.addSegment(new PurePursuitSegment("drive back", new PursuitPath(
+                new Point(80, 0),
+                new Point(80, 10),
+                new Point(0, 10),
+                new Point(0, 0))));
+
     }
 
     public final static Path RunwayDrive = new Path("Drive along runway");
@@ -165,12 +186,16 @@ public class AutonPursuitPaths {
                         new Point(BLUE_BLOCK3_X, BLUE_BLOCK_LOCATION_Y)), 0));
         BluePurePursuitLeft.addSegment(new PurePursuitSegment("second trip to foundation",
                 new PursuitPath(new Point(BLUE_BLOCK3_X, BLUE_BLOCK_LOCATION_Y),
-                        new Point(BLUE_BLOCK3_X, BLUE_RUNWAY_Y),
-                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y),
+                        new Point(BLUE_BLOCK3_X, BLUE_RUNWAY_Y_2),
+                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y_2),
                         new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y_2ND)), 300));
-        BluePurePursuitLeft.addSegment(new PurePursuitSegment("Backup",
+        BluePurePursuitLeft.addSegment(new PurePursuitSegment("dragger backup",
                 new PursuitPath(new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y_2ND),
-                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y_2ND - 3)), 0));
+                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y_2ND + 6)), 0));
+        BluePurePursuitLeft.addSegment(new PurePursuitSegment("dragger forward full",
+                new PursuitPath(
+                        new Point(BLUE_FOUNDATION_MIDDLE_X,BLUE_FOUNDATION_Y_2ND+6),
+                        new Point(BLUE_FOUNDATION_MIDDLE_X-6, BLUE_FOUNDATION_Y_2ND -3))));
 //        RedPurePursuitLeft.addSegment(new PurePursuitSegment("move foundation",new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_X,RED_BLOCK_LOCATION_Y))));
 
     }
@@ -180,12 +205,12 @@ public class AutonPursuitPaths {
 
     static {
         BluePurePursuitCenter.addSegment(new PurePursuitSegment("drive to first sky stone",
-                new PursuitPath(new Point(0, 0), new Point(BLUE_BLOCK5_X, BLUE_BLOCK_LOCATION_Y)).setMinSpeed(0.17), 0));
+                new PursuitPath(new Point(0, 0), new Point(BLUE_BLOCK5_X, BLUE_BLOCK_LOCATION_Y)), 0));
         BluePurePursuitCenter.addSegment(new PurePursuitSegment("first trip to foundation",
                 new PursuitPath(new Point(BLUE_BLOCK5_X, BLUE_BLOCK_LOCATION_Y),
                         new Point(BLUE_BLOCK5_X, BLUE_RUNWAY_Y),
                         new Point(BLUE_FOUNDATION_NEAR_X, BLUE_RUNWAY_Y),
-                        new Point(BLUE_FOUNDATION_NEAR_X, BLUE_FOUNDATION_Y)), 300));
+                        new Point(BLUE_FOUNDATION_NEAR_X, BLUE_FOUNDATION_Y)), 0));
 
         BluePurePursuitCenter.addSegment(new PurePursuitSegment("drive to second sky stone",
                 new PursuitPath(new Point(BLUE_FOUNDATION_NEAR_X, BLUE_FOUNDATION_Y),
@@ -194,12 +219,16 @@ public class AutonPursuitPaths {
                         new Point(BLUE_BLOCK2_X, BLUE_BLOCK_LOCATION_Y)), 0));
         BluePurePursuitCenter.addSegment(new PurePursuitSegment("second trip to foundation",
                 new PursuitPath(new Point(BLUE_BLOCK2_X, BLUE_BLOCK_LOCATION_Y),
-                        new Point(BLUE_BLOCK2_X, BLUE_RUNWAY_Y),
-                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y),
-                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y_2ND)), 300));
-        BluePurePursuitCenter.addSegment(new PurePursuitSegment("Backup",
+                        new Point(BLUE_BLOCK2_X, BLUE_RUNWAY_Y_2),
+                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y_2),
+                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y_2ND-2)), 0));
+        BluePurePursuitCenter.addSegment(new PurePursuitSegment("dragger backup",
                 new PursuitPath(new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y_2ND),
-                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y_2ND - 3)), 0));
+                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y_2ND + 6)), 300));
+        BluePurePursuitCenter.addSegment((new PurePursuitSegment("dragger forward full",
+                new PursuitPath(
+                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y_2ND+6),
+                        new Point(BLUE_FOUNDATION_MIDDLE_X-6, BLUE_FOUNDATION_Y_2ND -3)))));
     }
 
     public final static Path BluePurePursuitRight = new Path("collect right sky stones on blue side");
@@ -211,7 +240,7 @@ public class AutonPursuitPaths {
                 new PursuitPath(new Point(BLUE_BLOCK4_X, BLUE_BLOCK_LOCATION_Y),
                         new Point(BLUE_BLOCK4_X, BLUE_RUNWAY_Y),
                         new Point(BLUE_FOUNDATION_NEAR_X, BLUE_RUNWAY_Y),
-                        new Point(BLUE_FOUNDATION_NEAR_X, BLUE_FOUNDATION_Y)), 300));
+                        new Point(BLUE_FOUNDATION_NEAR_X, BLUE_FOUNDATION_Y)), 0));
 
         BluePurePursuitRight.addSegment(new PurePursuitSegment("drive to second sky stone",
                 new PursuitPath(new Point(BLUE_FOUNDATION_NEAR_X, BLUE_FOUNDATION_Y),
@@ -220,12 +249,17 @@ public class AutonPursuitPaths {
                         new Point(BLUE_BLOCK1_X, BLUE_BLOCK_LOCATION_Y)), 0));
         BluePurePursuitRight.addSegment(new PurePursuitSegment("second trip to foundation",
                 new PursuitPath(new Point(BLUE_BLOCK1_X, BLUE_BLOCK_LOCATION_Y),
-                        new Point(BLUE_BLOCK1_X, BLUE_RUNWAY_Y),
-                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y),
-                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y_2ND)), 300));
-        BluePurePursuitRight.addSegment(new PurePursuitSegment("Backup",
+                        new Point(BLUE_BLOCK1_X, BLUE_RUNWAY_Y_2),
+                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y_2),
+                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y_2ND)), 0));
+        BluePurePursuitRight.addSegment(new PurePursuitSegment("dragger backup",
                 new PursuitPath(new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y_2ND),
-                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y_2ND - 3)), 0));
+                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y_2ND +6)), 300));
+        BluePurePursuitRight.addSegment(new PurePursuitSegment("dragger forward full",
+                new PursuitPath(
+                        new Point(BLUE_FOUNDATION_MIDDLE_X,BLUE_FOUNDATION_Y_2ND+6),
+                        new Point(BLUE_FOUNDATION_MIDDLE_X-6, BLUE_FOUNDATION_Y_2ND -3))));
+
     }
 
     public final static Path RedShortPath = new Path("park robot");
