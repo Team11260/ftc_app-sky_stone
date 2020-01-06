@@ -41,6 +41,10 @@ public class BlueTwoStone extends BaseTwoStone {
                 robot.runDrivePath(BluePurePursuitCenter);
                 break;
         }
+
+        robot.blueDragFoundation();
+        //robot.blueParkWithTape();
+
 //        delay(10000);
 
     }

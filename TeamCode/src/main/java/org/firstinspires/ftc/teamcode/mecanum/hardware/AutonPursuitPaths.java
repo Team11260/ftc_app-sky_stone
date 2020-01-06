@@ -124,10 +124,8 @@ public class AutonPursuitPaths {
     }
 
     public final static Path DragFoundation = new Path("Drag Foundation");
-
     static {
-
-        DragFoundation.addSegment(new PurePursuitSegment("Push the foundation", new PursuitPath(new Point(33, 4), new Point(20, 0)).setMinSpeed(0.4), 0, -90));
+        DragFoundation.addSegment(new PurePursuitSegment("Pull the foundation", new PursuitPath(new Point(0, 0), new Point(10, 0),new Point(10,8)).setMinSpeed(0.3), 0));
         //DragFoundation.addSegment(new PurePursuitSegment("Park the robot", new PursuitPath(new Point(20, 0), new Point(45, -3)).setMinSpeed(0.4),0,-90));
 
     }

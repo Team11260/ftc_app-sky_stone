@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PathPoi
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Pose;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.Intake;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.TelemetryRecord;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StrafeTrapezoid;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StraightTrapezoid;
@@ -28,6 +29,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.addExact;
 import static java.lang.Math.pow;
 import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry.LogMode.INFO;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.*;
@@ -1063,6 +1065,13 @@ public class DriveController extends SubsystemController {
 
     public Pose getCurrentPosition(){
         return drive.getCurrentPosition();
+    }
+
+    public void updatePose(){
+        drive.updatePose();
+        telemetry.addData(INFO,"Pose X: "+ getCurrentPosition().getX());
+        telemetry.addData(INFO,"pose y: "+getCurrentPosition().getY());
+        telemetry.update();
     }
 
     public void resetPosition() {
