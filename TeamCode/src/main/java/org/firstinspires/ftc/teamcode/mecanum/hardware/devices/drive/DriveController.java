@@ -57,6 +57,12 @@ public class DriveController extends SubsystemController {
     private DecimalFormat DFpwr, DFenc;
     private boolean isMotorIntaking = false;
 
+    private boolean boolEmergencyStop = false;
+
+    private final boolean BOOL_ODOMETRY_CODE_ENABLED = false;
+
+    private final double ODOMETRY_ERROR_THRESHOLD_IN_INCHES = 1;
+
     TelemetryRecord[] RecTelem = new TelemetryRecord[1000];
     ElapsedTime RecTelemTime;
 
