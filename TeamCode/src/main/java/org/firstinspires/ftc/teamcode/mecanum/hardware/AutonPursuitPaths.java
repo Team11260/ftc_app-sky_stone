@@ -21,27 +21,27 @@ public class AutonPursuitPaths {
 
     public static double RED_BLOCK_LOCATION_Y = -26.5;
     public static double RED_FOUNDATION_Y = -27.5;
-    public static double RED_FOUNDATION_Y_2ND = -32;
+    public static double RED_FOUNDATION_Y_2ND = -29.5;
     public static double RED_FOUNDATION_NEAR_X = -72;  //  Play with this parameter
     public static double RED_FOUNDATION_MIDDLE_NEAR_X = -76;  //  Play with this parameter
     public static double RED_FOUNDATION_MIDDLE_X = -83;  //Measure this parameter
 
     // public static double RED_FOUNDATION_DRAGGER_X = -75;
-    public static double RED_RUNWAY_Y = -20;  //  Play with this parameter
-    public static double RED_RUNWAY_Y_2 = -23;
+    public static double RED_RUNWAY_Y = -19;  //  Play with this parameter
+    public static double RED_RUNWAY_Y_2 = -22;
     public static double RED_DRAGGER_BACKUP_Y = -23;
     public static double RED_DRAGGER_FORWARD_HALFWAY_Y = -26;
     public static double RED_DRAGGER_FORWARD_FULL_Y = -29;
     public static double OFF_SET = -2;
     //count from wall
-    public static double RED_BLOCK1_X = 31;
-    public static double RED_BLOCK2_X = 24;
-    public static double RED_BLOCK3_X = 15;   //Was 16
-    public static double RED_BLOCK4_X = 7;
-    public static double RED_BLOCK5_X = 0;
-    public static double RED_BLOCK6_X = -8;
+    public static double RED_BLOCK1_X = 30;
+    public static double RED_BLOCK2_X = 23;
+    public static double RED_BLOCK3_X = 14;   //Was 16
+    public static double RED_BLOCK4_X = 6;
+    public static double RED_BLOCK5_X = -1;
+    public static double RED_BLOCK6_X = -9;
 
-    public static double BLUE_RUNWAY_Y = -20;
+    public static double BLUE_RUNWAY_Y = -21;
     public static double BLUE_RUNWAY_Y_2 = -23;
     public static double BLUE_FOUNDATION_Y = -27.5;
     public static double BLUE_FOUNDATION_Y_2ND = -31;
@@ -75,7 +75,7 @@ public class AutonPursuitPaths {
         RedPurePursuitLeft.addSegment(new PurePursuitSegment("dragger forward full",
                 new PursuitPath(
                         new Point(RED_FOUNDATION_MIDDLE_X, RED_FOUNDATION_Y_2ND + 6),
-                        new Point(RED_FOUNDATION_MIDDLE_X + 6, BLUE_FOUNDATION_Y_2ND - 3)), 300));
+                        new Point(RED_FOUNDATION_MIDDLE_X + 6, BLUE_FOUNDATION_Y_2ND - 1.5)), 300));
 
 //        RedPurePursuitLeft.addSegment(new PurePursuitSegment("drive to third stone",
 //                new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_X, RED_FOUNDATION_Y), new Point(RED_FOUNDATION_MIDDLE_X, RED_RUNWAY_Y), new Point(RED_BLOCK6_X, RED_RUNWAY_Y), new Point(RED_BLOCK6_X, RED_BLOCK_LOCATION_Y)), 0));
@@ -99,7 +99,7 @@ public class AutonPursuitPaths {
         //RedPurePursuitCenter.addSegment(new PurePursuitSegment("dragger forward half",
         //        new PursuitPath(new Point(RED_FOUNDATION_NEAR_X,RED_DRAGGER_BACKUP_Y), new Point(RED_FOUNDATION_NEAR_X,RED_DRAGGER_FORWARD_HALFWAY_Y))));
         RedPurePursuitCenter.addSegment(new PurePursuitSegment("dragger forward full",
-                new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_X, RED_FOUNDATION_Y_2ND + 6), new Point(RED_FOUNDATION_MIDDLE_X + 6, RED_FOUNDATION_Y_2ND - 3)),300));
+                new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_X, RED_FOUNDATION_Y_2ND + 6), new Point(RED_FOUNDATION_MIDDLE_X + 6, RED_FOUNDATION_Y_2ND - 1.5)),300));
 
 
         //        RedPurePursuitCenter.addSegment(new PurePursuitSegment("dragger safety drive",
@@ -126,7 +126,7 @@ public class AutonPursuitPaths {
         RedPurePursuitRight.addSegment(new PurePursuitSegment("dragger forward full",
                 new PursuitPath(
                         new Point(RED_FOUNDATION_MIDDLE_X, RED_FOUNDATION_Y_2ND + 6),
-                        new Point(RED_FOUNDATION_MIDDLE_X + 6, BLUE_FOUNDATION_Y_2ND - 3)), 300));
+                        new Point(RED_FOUNDATION_MIDDLE_X + 6, BLUE_FOUNDATION_Y_2ND - 1.5)), 300));
 //        RedPurePursuitRight.addSegment(new PurePursuitSegment("drive to third stone",
 //                new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_X, RED_FOUNDATION_Y), new Point(RED_FOUNDATION_MIDDLE_X, RED_RUNWAY_Y), new Point(RED_BLOCK5_X, RED_RUNWAY_Y), new Point(RED_BLOCK5_X, RED_BLOCK_LOCATION_Y)),0));
 //        RedPurePursuitRight.addSegment(new PurePursuitSegment("third trip to foundation",

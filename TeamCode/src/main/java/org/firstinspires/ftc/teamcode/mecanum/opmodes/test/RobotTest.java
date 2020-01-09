@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -9,6 +10,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import java.util.ArrayList;
 
 @TeleOp(name = "RobotTest", group = "Teleop")
+@Disabled
 
 public class RobotTest extends AbstractTeleop {
 

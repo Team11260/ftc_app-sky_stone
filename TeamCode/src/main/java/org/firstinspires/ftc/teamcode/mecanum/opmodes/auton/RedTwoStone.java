@@ -24,7 +24,7 @@ public class RedTwoStone extends BaseTwoStone {
 
         robot.arm.setArmDownPosition();
         robot.setGripperRelease();
-        robot.setDraggerDown();
+        //robot.setDraggerDown();
 
         switch (place) {
             case "Right":

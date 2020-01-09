@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.Drive;
 
 @Autonomous(name = "CG Auton", group = "New")
+@Disabled
 
 public class CGAuton extends AbstractAuton {
     HardwareMap hardwareMap;

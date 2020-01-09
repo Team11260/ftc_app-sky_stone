@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
@@ -21,6 +22,7 @@ import java.text.DecimalFormat;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.*;
 
 @Autonomous(name = "BlockFind Auton", group = "New")
+@Disabled
 
 
 //  At 3 feet a stone is approximately  180x90 pixels

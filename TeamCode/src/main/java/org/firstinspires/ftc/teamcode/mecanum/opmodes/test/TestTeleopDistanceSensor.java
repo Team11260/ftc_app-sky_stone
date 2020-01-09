@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -16,6 +17,7 @@ import org.upacreekrobotics.dashboard.Config;
 import java.util.Locale;
 
 @TeleOp(name = "Test Teleop Sensor", group = "New")
+@Disabled
 
 @Config
 public class TestTeleopDistanceSensor extends AbstractTeleop {

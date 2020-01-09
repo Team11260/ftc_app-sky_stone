@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.Intake;
 import org.upacreekrobotics.dashboard.Config;
 
 @TeleOp(name = "Test Opmode Craig", group = "New")
+@Disabled
 
 @Config
 public class TestOpmodeCraig extends AbstractTeleop {

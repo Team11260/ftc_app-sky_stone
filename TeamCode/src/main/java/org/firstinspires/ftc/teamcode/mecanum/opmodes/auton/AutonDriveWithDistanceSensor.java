@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robotcwo;
 
 @Autonomous(name = "Auton Drive with DistSensor", group = "Test")
+@Disabled
 
 public class AutonDriveWithDistanceSensor extends AbstractAuton {
 

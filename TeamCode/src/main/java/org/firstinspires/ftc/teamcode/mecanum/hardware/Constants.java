@@ -22,7 +22,7 @@ public final class Constants {
 
     ////////Arm////////
     //For Old
-    public static double ARM_DOWN_POSITION = 0.5;
+    public static double ARM_DOWN_POSITION = 0.52;
     public static double ARM_PIN_POSITION = 1.0;
     public static double ARM_AUTON_POSITION = 0.75;
     public static double ARM_UP_POSITION = 0.88;
@@ -42,8 +42,8 @@ public final class Constants {
     ////////Vision////////
     //For Old
     public static int BLOCKHEIGHT = 132;
-    public static int RED_XORIGIN = 20;
-    public static int RED_YORIGIN = 126;
+    public static int RED_XORIGIN = 50;
+    public static int RED_YORIGIN = 85;
 //    public static int BLUE_XORIGIN = 512;
 //    public static int BLUE_YORIGIN = 100;
     public static int BLUE_XORIGIN = 500 ;
