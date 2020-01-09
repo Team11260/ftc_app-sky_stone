@@ -22,13 +22,10 @@ public class RedTwoStone extends BaseTwoStone {
     @Override
     public void Run() {
 
-//        robot.arm.setArmDownPosition();
-//        robot.setGripperRelease();
+        robot.arm.setArmDownPosition();
+        robot.setGripperRelease();
         robot.setDraggerDown();
 
-        //delay(100);
-
-        /*
         switch (place) {
             case "Right":
                 robot.runDrivePath(RedPurePursuitRight);
@@ -47,29 +44,15 @@ public class RedTwoStone extends BaseTwoStone {
                 break;
         }
 
-         */
-
-//        robot.setDrivePowerAll(0.5,-0.5,-0.5,0.5);
-//        delay(1000);
-
-
-//        robot.driver.setHeadingMode(MecanumPurePursuitController.HeadingMode.DYNAMIC);
-//
-//        robot.runDrivePath(DragFoundation);
-//
         robot.redDragFoundation();
         robot.redParkWithTape();
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, " heading: " + robot.driver.getHeading());
         telemetry.update();
 
-        telemetry.addData(DoubleTelemetry.LogMode.INFO," Pose X: " + robot.driver.getCurrentPosition().getX());
-        telemetry.addData(DoubleTelemetry.LogMode.INFO," Pose Y: " + robot.driver.getCurrentPosition().getY());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, " Pose X: " + robot.driver.getCurrentPosition().getX());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, " Pose Y: " + robot.driver.getCurrentPosition().getY());
 
-        //robot.driver.resetPosition();
-        //robot.driver.resetAngleToZero();
         telemetry.update();
-
-        //robot.driver.runDrivePath(DragFoundation);
     }
 }

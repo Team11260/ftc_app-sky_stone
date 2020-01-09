@@ -32,6 +32,7 @@ abstract public class BaseTwoStone extends AbstractAuton {
         robot.arm.setArmUpPosition();
         robot.arm.setGripperGripPosition();
         robot.lift.setTiltUp();
+        robot.dragger.setDraggerUp();
     }
 
     public void InitLoop() {

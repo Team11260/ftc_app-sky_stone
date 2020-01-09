@@ -43,7 +43,7 @@ public class BlueTwoStone extends BaseTwoStone {
         }
 
         robot.blueDragFoundation();
-        //robot.blueParkWithTape();
+        robot.blueParkWithTape();
 
 //        delay(10000);
 

@@ -26,7 +26,7 @@ public final class Constants {
     public static double ARM_PIN_POSITION = 1.0;
     public static double ARM_AUTON_POSITION = 0.75;
     public static double ARM_UP_POSITION = 0.88;
-    public static double ARM_HALFWAY_POSITION = 0.6;
+    public static double ARM_HALFWAY_POSITION = 0.65;
     public static double GRIPPER_GRIP_POSITION = 0.4;
     public static double GRIPPER_RELEASE_POSITION = 0.0;
 

@@ -378,7 +378,7 @@ public class Robot extends AbstractRobot {
 
 
     public void blueDragFoundation(){
-        double x =-0.2,y=0.5,z=0.3;
+        double x =-0.2,y=0.6,z=0.3;
 
         double frontLeft = (x - y - z);
         double frontRight = (x + y + z);
@@ -386,7 +386,7 @@ public class Robot extends AbstractRobot {
         double backRight = (x - y + z);
 
         setDrivePowerAll(frontLeft,frontRight,backLeft,backRight);
-        while (driver.getHeading()<75);
+        while (driver.getHeading()<80);
         setDrivePowerAll(0,0,0,0);
         delay(200);
         dragger.setDraggerUp();
@@ -426,10 +426,10 @@ public class Robot extends AbstractRobot {
         delay(200);
         dragger.setDraggerUp();
         setDrivePowerAll(0.6,-0.6,-0.6,0.6);
-        delay(1100);
-        tapeMeasure.extend();
-        delay(300);
+        delay(1300);
         setDrivePowerAll(0,0,0,0);
+        tapeMeasure.extend();
+        delay(100);
     }
 
     public void redParkWithTape(){
@@ -442,7 +442,7 @@ public class Robot extends AbstractRobot {
         setDrivePowerAll(frontLeft,frontRight,backLeft,backRight);
         while (driver.getHeading()<-25);
         setDrivePowerAll(0,0,0,0);
-        delay(500);
+        delay(700);
         tapeMeasure.stop();
     }
 
