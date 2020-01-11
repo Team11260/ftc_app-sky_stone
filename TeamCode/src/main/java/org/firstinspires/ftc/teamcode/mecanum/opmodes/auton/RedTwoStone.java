@@ -47,12 +47,6 @@ public class RedTwoStone extends BaseTwoStone {
         robot.redDragFoundation();
         robot.redParkWithTape();
 
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, " heading: " + robot.driver.getHeading());
-        telemetry.update();
-
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, " Pose X: " + robot.driver.getCurrentPosition().getX());
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, " Pose Y: " + robot.driver.getCurrentPosition().getY());
-
-        telemetry.update();
+        robot.arm.setArmUpPosition();
     }
 }

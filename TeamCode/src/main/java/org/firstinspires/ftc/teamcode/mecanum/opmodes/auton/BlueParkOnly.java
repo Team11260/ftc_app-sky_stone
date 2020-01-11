@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.Constants;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
+import org.upacreekrobotics.dashboard.Dashboard;
 
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.BlueShortPath;
 @Autonomous(group = "new",name = "Blue Park Only")
@@ -33,5 +35,10 @@ public class BlueParkOnly extends AbstractAuton {
         delay(3000);
         robot.runDrivePath(BlueShortPath);
 
+    }
+
+    public void Stop(){
+
+        Dashboard.startOpMode(Constants.OPMODE_TO_START_AFTER_AUTON);
     }
 }

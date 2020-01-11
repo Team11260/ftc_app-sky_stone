@@ -14,6 +14,9 @@ import org.upacreekrobotics.dashboard.Config;
 @Config
 public final class Constants {
 
+    ////////OpMode////////
+    public static final String OPMODE_TO_START_AFTER_AUTON = "Teleop Mode";
+
     ////////Drive////////
     public static int TRACK_WIDTH = 20;
     public static double STRAFE_ENCODER_COUNTS_INCH = 219;
@@ -34,7 +37,7 @@ public final class Constants {
     public static double BACK_DRAGGER_UP_POSITION = 1.00;
     public static double FRONT_DRAGGER_UP_POSITION = 1.00;
     public static double BACK_DRAGGER_DOWN_POSITION = 0.41;
-    public static double FRONT_DRAGGER_DOWN_POSITION = 0.40;
+    public static double FRONT_DRAGGER_DOWN_POSITION = 0.36;//was 40 because of give we have to compensate
     public static double BACK_DRAGGER_HALFWAY_POSITION = 0.51;
     public static double FRONT_DRAGGER_HALFWAY_POSITION = 0.51;
 
@@ -63,7 +66,7 @@ public final class Constants {
     public static double GRABBER_OPEN = 0.45;
     public static double GRABBER_CLOSE = 0.8;
     public static double SLIDE_IN = 0.05;
-    public static double SLIDE_OUT = 0.75;
+    public static double SLIDE_OUT = 0.77;
     public static double SLIDE_OUT_HALF = 0.35;
     public static double PAN_RIGHT = 0;
     public static double PAN_MIDDLE = 0.5;

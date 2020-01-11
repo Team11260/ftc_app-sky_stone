@@ -2,7 +2,9 @@ package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.Constants;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
+import org.upacreekrobotics.dashboard.Dashboard;
 
 abstract public class BaseTwoStone extends AbstractAuton {
     Robot robot;
@@ -40,6 +42,12 @@ abstract public class BaseTwoStone extends AbstractAuton {
         telemetry.addData(DoubleTelemetry.LogMode.INFO, robot.getSkyStonePositionThreeStones(0, isRed));
         place = robot.getSkyStonePositionThreeStones(0, isRed);
         telemetry.update();
+    }
+
+    @Override
+    public void Stop(){
+
+        Dashboard.startOpMode(Constants.OPMODE_TO_START_AFTER_AUTON);
     }
 
 }

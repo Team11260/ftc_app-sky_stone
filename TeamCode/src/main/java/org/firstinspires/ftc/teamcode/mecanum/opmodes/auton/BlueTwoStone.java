@@ -45,7 +45,6 @@ public class BlueTwoStone extends BaseTwoStone {
         robot.blueDragFoundation();
         robot.blueParkWithTape();
 
-//        delay(10000);
-
+        robot.arm.setArmUpPosition();
     }
 }

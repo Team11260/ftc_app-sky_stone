@@ -49,9 +49,15 @@ public class Lift {
     public void setPanPosition(double position){
         pan.setPosition(position);
     }
+
     public void setSlidePosition(double position){
         slide.setPosition(position);
     }
+
+    public double getSlidePosition(){
+        return slide.getPosition();
+    }
+
     public void setGrabberPosition(double position){
         grabber.setPosition(position);
     }

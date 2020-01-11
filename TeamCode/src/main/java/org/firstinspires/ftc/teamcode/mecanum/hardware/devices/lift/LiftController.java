@@ -7,11 +7,12 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.*;
 
 public class LiftController extends SubsystemController {
 
-    public Lift lift;
+    private Lift lift;
 
     boolean isGrabbed = true;
     boolean isTilted = false;
     boolean isSlideOut = false;
+    boolean tiltOnce = true;
     int panCyclePosition = 0;
 
     public LiftController() {
@@ -21,6 +22,10 @@ public class LiftController extends SubsystemController {
     @Override
     public void update() throws Exception {
 
+    }
+
+    public void setLiftPower(double power){
+        lift.setLiftPower(power);
     }
 
     public void setLiftUp() {
@@ -37,6 +42,12 @@ public class LiftController extends SubsystemController {
 
     public void setTiltUp() {
         lift.setTiltPosition(TILT_UP);
+    }
+
+    public void setTiltUpOnce() {
+        if(tiltOnce)
+        lift.setTiltPosition(TILT_UP);
+        tiltOnce = false;
     }
 
     public void toggleTilt() {
@@ -64,7 +75,6 @@ public class LiftController extends SubsystemController {
     }
 
     public void setSlideIn() {
-
         lift.setSlidePosition(SLIDE_IN);
     }
 
@@ -82,6 +92,14 @@ public class LiftController extends SubsystemController {
         else
             setSlideOut();
         isSlideOut= !isSlideOut;
+    }
+
+    public void pushSlideOut(){
+        lift.setSlidePosition(lift.getSlidePosition()+0.02);
+    }
+
+    public void pullSlideIn(){
+        lift.setSlidePosition(lift.getSlidePosition()-0.02);
     }
 
     public void setPanRight() {

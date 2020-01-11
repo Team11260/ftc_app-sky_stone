@@ -3,8 +3,10 @@ package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.Constants;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 import org.firstinspires.ftc.teamcode.mecanum.opmodes.auton.BaseTwoStone;
+import org.upacreekrobotics.dashboard.Dashboard;
 
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.RedShortPath;
 
@@ -36,4 +38,8 @@ public class RedParkOnly extends AbstractAuton {
         robot.runDrivePath(RedShortPath);
     }
 
+    public void Stop(){
+
+        Dashboard.startOpMode(Constants.OPMODE_TO_START_AFTER_AUTON);
+    }
 }
