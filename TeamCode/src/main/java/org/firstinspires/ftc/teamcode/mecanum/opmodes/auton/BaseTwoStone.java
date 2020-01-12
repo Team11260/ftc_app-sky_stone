@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Constants;
@@ -10,10 +12,24 @@ abstract public class BaseTwoStone extends AbstractAuton {
     Robot robot;
     String place;
     boolean isRed = true;
+    double counter;
 
     @Override
     public void RegisterStates() {
 
+        /*
+        addState("update position check","start",()->{
+            ElapsedTime runTime = new ElapsedTime();
+            runTime.reset();
+            while(runTime.milliseconds()<5000);
+            while(isOpModeActive()){
+                if(robot.driver.getStrafePosition()<1.0)
+                    counter+=1;
+                else counter = 0;
+                if(counter==5) break;
+            }
+            requestOpModeStop();
+        });*/
         addState("Pick up first Stone", "drive to first sky stone", robot.grabStoneCallable());
         addState("Place first skystone", "first trip to foundation", robot.deliverStoneCallable());
         addState("delayed arm down", "Place first skystone", robot.delayedArmDownCallable());

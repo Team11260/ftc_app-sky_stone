@@ -19,7 +19,9 @@ public class AutonPursuitPaths {
     public static double BLUE_PARK_X = 8.0;
     public static double BLUE_PARK_Y = -0.5;
 
-    public static double RED_BLOCK_LOCATION_Y = -26.5;
+    public static double FIELD_OFFSET = -0.75;
+
+    public static double RED_BLOCK_LOCATION_Y = -26.5 + FIELD_OFFSET;
     public static double RED_FOUNDATION_Y = -27.5;
     public static double RED_FOUNDATION_Y_2ND = -29.5;
     public static double RED_FOUNDATION_NEAR_X = -72;  //  Play with this parameter
@@ -41,13 +43,13 @@ public class AutonPursuitPaths {
     public static double RED_BLOCK5_X = -1;
     public static double RED_BLOCK6_X = -9;
 
-    public static double BLUE_RUNWAY_Y = -21;
-    public static double BLUE_RUNWAY_Y_2 = -23;
+    public static double BLUE_RUNWAY_Y = -19;
+    public static double BLUE_RUNWAY_Y_2 = -20;
     public static double BLUE_FOUNDATION_Y = -27.5;
     public static double BLUE_FOUNDATION_Y_2ND = -31;
     public static double BLUE_FOUNDATION_MIDDLE_X = 83.5;
     public static double BLUE_FOUNDATION_NEAR_X = 72.5;
-    public static double BLUE_BLOCK_LOCATION_Y = -26.5;
+    public static double BLUE_BLOCK_LOCATION_Y = -26.5 + FIELD_OFFSET;
     //count from wall
     public static double BLUE_BLOCK1_X = -31;
     public static double BLUE_BLOCK2_X = -24;

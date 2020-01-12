@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive;
 
-import android.icu.text.IDNA;
-
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -18,7 +16,6 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PathPoi
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Pose;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.Intake;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.TelemetryRecord;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StrafeTrapezoid;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StraightTrapezoid;
