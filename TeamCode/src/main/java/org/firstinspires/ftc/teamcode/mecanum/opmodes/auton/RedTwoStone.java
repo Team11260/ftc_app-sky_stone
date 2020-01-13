@@ -22,6 +22,8 @@ public class RedTwoStone extends BaseTwoStone {
     @Override
     public void Run() {
 
+
+
         robot.arm.setArmDownPosition();
         robot.setGripperRelease();
         //robot.setDraggerDown();
@@ -43,7 +45,6 @@ public class RedTwoStone extends BaseTwoStone {
                 robot.runDrivePath(RedPurePursuitCenter);
                 break;
         }
-
         robot.redDragFoundation();
         robot.redParkWithTape();
 

@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.outputs.Logger;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.lift.Lift;
 import org.openftc.revextensions2.RevExtensions2;
 import org.upacreekrobotics.dashboard.Dashboard;
 
@@ -75,8 +76,16 @@ public abstract class AbstractOpMode extends LinearOpMode {
         return !linearOpMode.isStopRequested();
     }
 
+    public static boolean isRunActive(){
+        return linearOpMode.isStarted();
+    }
+
     protected static void stopRequested() {
         Dashboard.onOpModePreStop();
+    }
+
+    public static void requestStopOpMode(){
+        linearOpMode.requestOpModeStop();
     }
 
     public static void staticThrowException(Exception e){

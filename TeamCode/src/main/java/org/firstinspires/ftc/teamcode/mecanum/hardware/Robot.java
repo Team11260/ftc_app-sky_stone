@@ -3,6 +3,11 @@ package org.firstinspires.ftc.teamcode.mecanum.hardware;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
+import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
+import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.ImageProcessor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
@@ -45,6 +50,7 @@ public class Robot extends AbstractRobot {
         dragger = new DraggerController();
         tapeMeasure = new TapeMeasureController();
     }
+
 
     public void runDrivePath(Path path) {
         driver.runDrivePath(path);
@@ -92,6 +98,7 @@ public class Robot extends AbstractRobot {
 
             }
 
+            if (AbstractAuton.isRunActive()) return null;
         }
 
         if (lowest == 999999) {
@@ -115,7 +122,6 @@ public class Robot extends AbstractRobot {
         imageProcessor.setImage(image);
 
 
-
         return stonePosition;
     }
 
@@ -136,6 +142,7 @@ public class Robot extends AbstractRobot {
 
         for (int i = 0; i < stripeWidth; i++) {
             for (int j = 0; j < stripeHeight / 3; j++) {
+                if (AbstractOpMode.isRunActive()) return -1;
                 sum += Color.red(image.getPixel(x + i + 10, y + 3 * j + 5));
             }
         }
@@ -162,6 +169,29 @@ public class Robot extends AbstractRobot {
 
     public int findSecondBlock() {
         return getFrontThirdBlock(10, 320);
+    }
+
+
+    public RobotCallable checkPositionCallable() {
+        return () -> {
+
+            double sum = 0.0;
+            ElapsedTime runTime = new ElapsedTime();
+            runTime.reset();
+            while (runTime.milliseconds() < 5000) ;
+
+            for (int i = 1; i <= 10; i++) {
+                sum += driver.getStrafePosition();
+                telemetry.addData(DoubleTelemetry.LogMode.INFO, "strafe position sum: " + sum);
+                telemetry.update();
+            }
+
+            if (Math.abs(sum / 10) < 5.00) {
+                //driver.setDrivePowerAll(0, 0, 0, 0);
+                AbstractOpMode.requestStopOpMode();
+            }
+
+        };
     }
 
     public RobotCallable armDownCallable() {
@@ -206,9 +236,8 @@ public class Robot extends AbstractRobot {
 
     public void deliverStone() {
         arm.setArmHalfwayPosition();
-        delay(200);
         setGripperRelease();
-        delay(500);
+        delay(700);
         setArmUp();
         delay(700);
         setGripperGrip();
@@ -228,7 +257,7 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable delayedArmDownCallable() {
         return () -> {
-            delay(1200);
+            delay(1700);
             setGripperRelease();
             setArmDown();
         };
@@ -349,6 +378,13 @@ public class Robot extends AbstractRobot {
         delay(300);
     }
 
+    public RobotCallable delayedDraggerHalfwayCallable(){
+        return () -> {
+            delay(2000);
+            setDraggerHalfway();
+        };
+    }
+
     public RobotCallable setDraggerHalfwayCallable() {
         return () -> {
             setDraggerHalfway();
@@ -377,86 +413,120 @@ public class Robot extends AbstractRobot {
     }
 
 
-    public void blueDragFoundation(){
-        double x =-0.2,y=0.6,z=0.3;
+    public void blueDragFoundation() {
+        double x = -0.2, y = 0.6, z = 0.3;
 
         double frontLeft = (x - y - z);
         double frontRight = (x + y + z);
         double backLeft = (x + y - z);
         double backRight = (x - y + z);
 
-        setDrivePowerAll(frontLeft,frontRight,backLeft,backRight);
-        while (driver.getHeading()<80);
-        setDrivePowerAll(0,0,0,0);
+        setDrivePowerAll(frontLeft, frontRight, backLeft, backRight);
+        while (driver.getHeading() < 80) ;
+        setDrivePowerAll(0, 0, 0, 0);
         delay(200);
         dragger.setDraggerUp();
-        setDrivePowerAll(0.6,-0.6,-0.6,0.6);
+        setDrivePowerAll(0.6, -0.6, -0.6, 0.6);
         delay(1100);
         tapeMeasure.extend();
         delay(300);
-        setDrivePowerAll(0,0,0,0);
+        setDrivePowerAll(0, 0, 0, 0);
     }
 
-    public void blueParkWithTape(){
-        double x = 0.0,y=0.3,z=0.15;
+    public void blueParkWithTape() {
+        double x = 0.0, y = 0.3, z = 0.15;
 
         double frontLeft = (x - y - z);
         double frontRight = (x + y + z);
         double backLeft = (x + y - z);
         double backRight = (x - y + z);
-        setDrivePowerAll(frontLeft,frontRight,backLeft,backRight);
-        while (driver.getHeading()<150);
-        setDrivePowerAll(0,0,0,0);
+        setDrivePowerAll(frontLeft, frontRight, backLeft, backRight);
+        while (driver.getHeading() < 150) ;
+        setDrivePowerAll(0, 0, 0, 0);
         delay(500);
         tapeMeasure.stop();
     }
 
-    public void redDragFoundation(){
+    public void redDragFoundation() {
+        /*
+        delay(600);
 
-        double x = 0.2,y=0.5,z=-0.3;
+        double x = 0.0, y = 0.5, z = -0.3;
 
         double frontLeft = (x - y - z);
         double frontRight = (x + y + z);
         double backLeft = (x + y - z);
         double backRight = (x - y + z);
 
-        setDrivePowerAll(frontLeft,frontRight,backLeft,backRight);
-        while (driver.getHeading()>-75);
-        setDrivePowerAll(0,0,0,0);
+        setDrivePowerAll(frontLeft, frontRight, backLeft, backRight);
+        while (driver.getHeading() > -75) ;
+        setDrivePowerAll(0, 0, 0, 0);
         delay(200);
         dragger.setDraggerUp();
-        setDrivePowerAll(0.6,-0.6,-0.6,0.6);
+        setDrivePowerAll(0.6, -0.6, -0.6, 0.6);
         delay(1300);
-        setDrivePowerAll(0,0,0,0);
+        setDrivePowerAll(0, 0, 0, 0);
         tapeMeasure.extend();
-        delay(100);
-    }
+        delay(100);*/
 
-    public void redParkWithTape(){
-        double x = 0.0,y=0.3,z=0.15;
+        delay(600);
+
+        double x = 0.0, y = 0.6, z = 0.0;
 
         double frontLeft = (x - y - z);
         double frontRight = (x + y + z);
         double backLeft = (x + y - z);
         double backRight = (x - y + z);
-        setDrivePowerAll(frontLeft,frontRight,backLeft,backRight);
-        while (driver.getHeading()<-25);
-        setDrivePowerAll(0,0,0,0);
+
+        setDrivePowerAll(frontLeft, frontRight, backLeft, backRight);
+
+        delay(1500);
+
+         x = 0.0;
+         y = 0.6;
+         z = -0.3;
+
+        frontLeft = (x - y - z);
+        frontRight = (x + y + z);
+        backLeft = (x + y - z);
+        backRight = (x - y + z);
+
+        setDrivePowerAll(frontLeft, frontRight, backLeft, backRight);
+        while (driver.getHeading() > -75) ;
+        dragger.setDraggerUp();
+        setDrivePowerAll(0.6, -0.6, -0.6, 0.6);
+        delay(1300);
+        setDrivePowerAll(0, 0, 0, 0);
+        tapeMeasure.extend();
+        delay(100);
+
+    }
+
+    public void redParkWithTape() {
+        double x = 0.0, y = 0.3, z = 0.15;
+
+        double frontLeft = (x - y - z);
+        double frontRight = (x + y + z);
+        double backLeft = (x + y - z);
+        double backRight = (x - y + z);
+        setDrivePowerAll(frontLeft, frontRight, backLeft, backRight);
+        while (driver.getHeading() < -25) ;
+        setDrivePowerAll(0, 0, 0, 0);
         delay(700);
         tapeMeasure.stop();
     }
 
-    public void redPark(){
-        double x =0.0,y=0.6,z=0.0;
+    public void redPark() {
+        double x = 0.0, y = 0.6, z = 0.0;
 
         double frontLeft = (x - y - z);
         double frontRight = (x + y + z);
         double backLeft = (x + y - z);
         double backRight = (x - y + z);
 
-        setDrivePowerAll(frontLeft,frontRight,backLeft,backRight);
+        setDrivePowerAll(frontLeft, frontRight, backLeft, backRight);
         delay(1700);
-        setDrivePowerAll(0,0,0,0);
+        setDrivePowerAll(0, 0, 0, 0);
     }
 
     public void setDrivePowerAll(double FL, double FR, double BL, double BR) {

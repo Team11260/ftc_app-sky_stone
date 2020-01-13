@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
 
+import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 

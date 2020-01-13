@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vis
 
 import android.graphics.Bitmap;
 
+import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.vuforia.VuforiaImpl;
 
 public class ImageProcessor {
@@ -34,6 +35,7 @@ public class ImageProcessor {
     public static void drawHorizontalLine(Bitmap bitmap, int position, int start, int end, int width, int color) {
         for(int p = start; p < end; p++) {
             for(int w = 0; w < width; w++) {
+                if(AbstractOpMode.isRunActive()) return;
                 bitmap.setPixel(p, position + w, color);
             }
         }
@@ -50,6 +52,7 @@ public class ImageProcessor {
     public static void drawVerticalLine(Bitmap bitmap, int position, int start, int end, int width, int color) {
         for(int p = start; p < end; p++) {
             for(int w = 0; w < width; w++) {
+                if(AbstractOpMode.isRunActive()) return;
                 bitmap.setPixel(position + w, p, color);
             }
         }
