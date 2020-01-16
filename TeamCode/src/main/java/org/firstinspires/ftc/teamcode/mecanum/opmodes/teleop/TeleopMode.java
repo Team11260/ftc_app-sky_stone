@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 import org.upacreekrobotics.dashboard.Config;
 
-@TeleOp(name = "Teleop Mode", group = "New")
+@TeleOp(name = "Teleop Mode 700pm", group = "New")
 
 @Config
 public class TeleopMode extends AbstractTeleop {

@@ -98,6 +98,8 @@ public class Dashboard implements OpModeManagerImpl.Notifications, BatteryChecke
 
     ////////////////Returns current dashboard instance for use in user OpModes////////////////
     public static Dashboard getInstance() {
+        if (dashboard == null)
+            start();
         return dashboard;
     }
 
