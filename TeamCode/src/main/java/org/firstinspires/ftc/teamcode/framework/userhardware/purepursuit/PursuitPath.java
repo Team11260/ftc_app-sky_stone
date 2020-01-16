@@ -41,7 +41,7 @@ public class PursuitPath {
     /**
      * The max acceleration (total output/point)
      */
-    private double fMaxAcceleration = 0.08;
+    private double fMaxAcceleration = 0.2;
 
     /**
      * The max deceleration (total output/point)
@@ -51,12 +51,12 @@ public class PursuitPath {
     /**
      * Minimum follow speed
      */
-    private double fMinSpeed = 0.13;
+    private double fMinSpeed = 0.15;
 
     /**
      * Maximum follow speed
      */
-    private double fMaxSpeed = 1.0;
+    private double fMaxSpeed = 1.3;
 
     /**
      * Average look ahead distance
@@ -110,8 +110,9 @@ public class PursuitPath {
         fPointSpacing = pointSpacing;
     }
 
-    public void setPathSmoothing(double pathSmoothing) {
+    public PursuitPath setPathSmoothing(double pathSmoothing) {
         fPathSmoothing = pathSmoothing;
+        return this;
     }
 
     public void setTurnSpeed(double turnSpeed) {
