@@ -44,6 +44,7 @@ public class AutonPursuitPaths {
 
     public static double BLUE_RUNWAY_Y = -19;
     public static double BLUE_RUNWAY_Y_2 = -20;
+
     public static double BLUE_FOUNDATION_Y = -27.5;
     public static double BLUE_FOUNDATION_Y_2ND = -31;
     public static double BLUE_FOUNDATION_MIDDLE_X = 83.5;

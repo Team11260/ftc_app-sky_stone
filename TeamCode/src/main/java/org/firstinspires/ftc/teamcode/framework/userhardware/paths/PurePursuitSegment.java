@@ -29,6 +29,8 @@ public class PurePursuitSegment extends Segment {
         this.targetHeading = targetHeading;
     }
 
+
+
     public PursuitPath getPursuitPath() {
         return path;
     }
