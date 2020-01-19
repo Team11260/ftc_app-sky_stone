@@ -374,8 +374,20 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable setDraggerDownCallable() {
         return () -> {
+
             setDraggerDown();
         };
+    }
+
+    public RobotCallable setDraggerDownDelayedCallable(){
+
+        return ()->{
+            delay(1500);
+            setDraggerDown();
+        };
+
+
+
     }
 
     public void setDraggerHalfway() {
