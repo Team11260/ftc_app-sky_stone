@@ -29,8 +29,8 @@ public class AutonPursuitPaths {
     public static double RED_FOUNDATION_MIDDLE_X = -83;  //Measure this parameter
 
     // public static double RED_FOUNDATION_DRAGGER_X = -75;
-    public static double RED_RUNWAY_Y = -19;  //  Play with this parameter
-    public static double RED_RUNWAY_Y_2 = -22;
+    public static double RED_RUNWAY_Y = -18;  //  Play with this parameter
+    public static double RED_RUNWAY_Y_2 = -21;
     public static double RED_DRAGGER_BACKUP_Y = -23;
     public static double RED_DRAGGER_FORWARD_HALFWAY_Y = -26;
     public static double RED_DRAGGER_FORWARD_FULL_Y = -29;
@@ -72,10 +72,12 @@ public class AutonPursuitPaths {
         RedPurePursuitLeft.addSegment(new PurePursuitSegment("first trip to foundation",
                 new PursuitPath(
                         new Point(RED_BLOCK4_X, RED_BLOCK_LOCATION_Y),
-                        new Point(-18, -19),
-                        new Point(-38,-18),
-                        new Point(-56, -19),
-                        new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y)).setMaxAcceleration(1.8).setPathSmoothing(0.51), 300));
+                        new Point(4, -24),
+//                        new Point(-8,-20),
+                        new Point(-30, -17),
+//                        new Point(-54,-20),
+                        new Point(-66,-24),
+                        new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y)), 300));
         RedPurePursuitLeft.addSegment(new PurePursuitSegment("drive to second sky stone",
                 new PursuitPath(
                         new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y),
@@ -99,7 +101,7 @@ public class AutonPursuitPaths {
                         new Point(RED_BLOCK6_X, RED_BLOCK_LOCATION_Y),
                         new Point(RED_BLOCK6_X, RED_RUNWAY_Y_2),
                         new Point(RED_FOUNDATION_MIDDLE_X, RED_RUNWAY_Y_2),
-                        new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y_2ND)), 300));
+                        new Point(RED_FOUNDATION_MIDDLE_X, RED_FOUNDATION_Y_2ND)), 300));
 
 //        RedPurePursuitLeft.addSegment(new PurePursuitSegment("dragger backup",
 //                new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_X, RED_FOUNDATION_Y_2ND), new Point(RED_FOUNDATION_MIDDLE_X, RED_FOUNDATION_Y_2ND + 6)), 300));
