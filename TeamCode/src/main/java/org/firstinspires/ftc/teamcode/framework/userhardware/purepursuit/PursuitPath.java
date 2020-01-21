@@ -26,7 +26,7 @@ public class PursuitPath {
     /**
      * Speed reduction through turns (larger number = faster turns)
      */
-    private double fTurnSpeed = 0.05;
+    private double fTurnSpeed = 0.07;
 
     /**
      * Scales following speed based on tracking error (smaller number = better tracking, larger number = faster tracking)
@@ -130,6 +130,12 @@ public class PursuitPath {
 
     public PursuitPath setTurnSpeed(double turnSpeed) {
         fTurnSpeed = turnSpeed;
+        return this;
+    }
+
+    public PursuitPath setTurnSpeedReturn(double turnSpeed) {
+        fTurnSpeed = turnSpeed;
+
         return this;
     }
 

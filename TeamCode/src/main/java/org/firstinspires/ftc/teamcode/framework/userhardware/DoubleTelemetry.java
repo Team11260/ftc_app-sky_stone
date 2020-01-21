@@ -91,10 +91,11 @@ public class DoubleTelemetry {
     public void update() {
         try {
             telemetry.update();
+            dashtelem.updateInfo();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        dashtelem.updateInfo();
+
     }
 
     public void log(Object data) {
