@@ -226,6 +226,7 @@ public class Robot extends AbstractRobot {
         setGripperGrip();
         delay(400);
         setArmUp();
+        delay(500);
     }
 
     public RobotCallable deliverStoneCallable() {
@@ -392,7 +393,7 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable delayedDraggerHalfwayCallable(){
         return () -> {
-            delay(2000);
+            delay(500);
             setDraggerHalfway();
         };
     }
