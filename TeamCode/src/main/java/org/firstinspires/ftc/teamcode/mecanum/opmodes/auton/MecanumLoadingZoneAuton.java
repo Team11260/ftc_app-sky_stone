@@ -20,7 +20,7 @@ public class MecanumLoadingZoneAuton extends AbstractAuton {
     public double power1 = 0.0;
     public static double ARM_DOWN_POSITION = 0.855;
     public static double ARM_AUTON_POSITION = 0.5;
-    public static double GRIPPER_GRIP_POSITION = 0.35;
+    public static double GRIPPER_GRIP_POSITION_FOR_LONG_ARM = 0.35;
     public static double GRIPPER_RELEASE_POSITION = 0.8;
 
     private Drive drive;
@@ -105,7 +105,7 @@ public class MecanumLoadingZoneAuton extends AbstractAuton {
         time1 = 850;
         power1 = 0.4;
         goForward(time1, power1);
-        gripper.setPosition(GRIPPER_GRIP_POSITION);
+        gripper.setPosition(GRIPPER_GRIP_POSITION_FOR_LONG_ARM);
         delay(500);
         arm.setPosition(ARM_AUTON_POSITION);
         delay(500);

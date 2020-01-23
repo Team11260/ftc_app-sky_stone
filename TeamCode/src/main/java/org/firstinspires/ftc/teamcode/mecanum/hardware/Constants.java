@@ -25,19 +25,20 @@ public final class Constants {
 
     ////////Arm////////
     //For Old
-    public static double ARM_DOWN_POSITION = 0.52;
+    public static double ARM_DOWN_POSITION = 0.49;
     public static double ARM_PIN_POSITION = 1.0;
     public static double ARM_AUTON_POSITION = 0.75;
     public static double ARM_UP_POSITION = 0.83;
     public static double ARM_HALFWAY_POSITION = 0.7;
     public static double GRIPPER_GRIP_POSITION = 0.4;
+    public static double GRIPPER_GRIP_POSITION_FOR_LONG_ARM = 0.45;
     public static double GRIPPER_RELEASE_POSITION = 0.0;
 
     ////////Dragger////////
     public static double BACK_DRAGGER_UP_POSITION = 1.00;
     public static double FRONT_DRAGGER_UP_POSITION = 1.00;
-    public static double BACK_DRAGGER_DOWN_POSITION = 0.41;
-    public static double FRONT_DRAGGER_DOWN_POSITION = 0.36;//was 40 because of give we have to compensate
+    public static double BACK_DRAGGER_DOWN_POSITION = 0.39;
+    public static double FRONT_DRAGGER_DOWN_POSITION = 0.39;
     public static double BACK_DRAGGER_HALFWAY_POSITION = 0.51;
     public static double FRONT_DRAGGER_HALFWAY_POSITION = 0.51;
 

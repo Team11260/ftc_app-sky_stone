@@ -39,7 +39,6 @@ public class Robot extends AbstractRobot {
     public DraggerController dragger;
     public Bitmap image;
 
-
     public Robot() {
         imageProcessor = new ImageProcessor(false);
         //telemetry = new DoubleTelemetry(super.telemetry, Dashboard.getInstance().getTelemetry(), new Logger(Dashboard.getCurrentOpMode()));
@@ -320,7 +319,7 @@ public class Robot extends AbstractRobot {
     }
 
     public void toggleRotation() {
-        intake.toggleRotation();
+        intake.toggleIntake();
     }
 
     //public void runTestPurePursuit(PursuitPath pursuitPath) {
@@ -378,12 +377,31 @@ public class Robot extends AbstractRobot {
         delay(300);
     }
 
+    public void setDraggerUp(){
+        dragger.setDraggerUp();
+    }
+
     public RobotCallable delayedDraggerHalfwayCallable(){
         return () -> {
-            delay(2000);
+            delay(1000);
             setDraggerHalfway();
         };
     }
+
+    public RobotCallable delayedDraggerUpCallable(){
+        return () -> {
+            delay(1000);
+            setDraggerUp();
+        };
+    }
+
+    public RobotCallable delayedDraggerDownCallable(){
+        return ()-> {
+            delay(1000);
+            setDraggerDown();
+        };
+    }
+
 
     public RobotCallable setDraggerHalfwayCallable() {
         return () -> {
@@ -499,7 +517,6 @@ public class Robot extends AbstractRobot {
         setDrivePowerAll(0, 0, 0, 0);
         tapeMeasure.extend();
         delay(100);
-
     }
 
     public void redParkWithTape() {

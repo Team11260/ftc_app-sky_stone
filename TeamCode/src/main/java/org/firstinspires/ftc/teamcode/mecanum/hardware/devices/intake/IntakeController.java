@@ -1,13 +1,15 @@
 package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake;
 
+import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.Drive;
 
 public class IntakeController extends SubsystemController {
     Intake intake;
     private boolean isRotating = false;
     private boolean isConveying = false;
     private boolean isReverseRotating = false;
-    private boolean isReverseConveying = false;
+    private boolean isMotorIntaking = false;
 
     public IntakeController() {
         intake = new Intake(hardwareMap);
@@ -18,7 +20,7 @@ public class IntakeController extends SubsystemController {
 
     }
 
-    public void startRotatingRight(){
+    public void startRotatingRight() {
         intake.startRotatingRight();
     }
 
@@ -27,19 +29,19 @@ public class IntakeController extends SubsystemController {
         intake.startRotatingRight();
     }
 
-    public void startReverseIntake(){
+    public void startReverseIntake() {
         intake.startReverseRotationLeft();
         intake.startReverseRotationRight();
         isRotating = true;
     }
 
-    public void stopIntake(){
+    public void stopIntake() {
         intake.stopRotatingLeft();
         intake.stopRotatingRight();
     }
 
 
-    public void toggleRotation(){
+    public void toggleIntake() {
         if (isRotating)
             stopIntake();
         else
@@ -47,8 +49,7 @@ public class IntakeController extends SubsystemController {
         isRotating = !isRotating;
     }
 
-
-    public void toggleReverseRotation(){
+    public void toggleReverseRotation() {
         if (isReverseRotating)
             stopIntake();
         else
@@ -56,7 +57,7 @@ public class IntakeController extends SubsystemController {
         isReverseRotating = !isReverseRotating;
     }
 
-    public void toggleConveyor(){
+    public void toggleConveyor() {
         if (isConveying)
             intake.stopConveyor();
         else
@@ -64,18 +65,15 @@ public class IntakeController extends SubsystemController {
         isConveying = !isConveying;
     }
 
-    public void startReverseConveyor(){
+    public void startReverseConveyor() {
         intake.startReverseConveyor();
         isConveying = true;
 
     }
 
-    public void toggleReverseConveyor(){
-            intake.startReverseConveyor();
+    public void toggleReverseConveyor() {
+        intake.startReverseConveyor();
     }
-
-
-
 
 
     @Override

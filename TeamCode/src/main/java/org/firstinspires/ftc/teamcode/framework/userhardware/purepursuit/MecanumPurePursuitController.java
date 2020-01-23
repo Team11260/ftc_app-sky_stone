@@ -9,7 +9,7 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
 
     protected double lastXPosition = 0, lastYPosition = 0;
 
-    protected double positionError = 2.0, headingError = 5.0;
+    protected double positionError = 4.0, headingError = 5.0;
 
     protected final double yScale;
 
@@ -33,6 +33,10 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
 
     public void setHeadingMode(HeadingMode headingMode) {
         this.headingMode = headingMode;
+    }
+
+    public void setPositionError(double positionError){
+        this.positionError = positionError;
     }
 
     @Override
@@ -108,7 +112,7 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
 
     @Override
     public boolean isFollowing() {
-        return currentPursuitPath != null && (isFollowing || Math.abs(currentPosition.getHeading() - targetHeading) > headingError || currentPosition.distance(currentPursuitPath.getPoint(currentPursuitPath.getPoints().size() - 1)) > positionError);
+        return currentPursuitPath != null && (isFollowing || Math.abs(currentPosition.getHeading() - targetHeading) > headingError || currentPosition.distance(currentPursuitPath.getPoint(currentPursuitPath.getPoints().size() - 1)) > currentPursuitPath.getPositionError());
     }
 
     @Override

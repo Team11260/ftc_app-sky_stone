@@ -42,7 +42,7 @@ public class TestTeleopDistanceSensor extends AbstractTeleop {
 
     @Override
     public void RegisterEvents() {
-      //  addEventHandler("1_x_down", () -> toggleRotation());
+      //  addEventHandler("1_x_down", () -> toggleIntake());
       //  addEventHandler("l_y_down", () -> toggleConveyor());
     }
 

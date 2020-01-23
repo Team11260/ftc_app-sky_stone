@@ -18,15 +18,11 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.
 @Config
 public class RedTwoStone extends BaseTwoStone {
 
-
     @Override
     public void Run() {
 
-
-
         robot.arm.setArmDownPosition();
         robot.setGripperRelease();
-        //robot.setDraggerDown();
 
         switch (place) {
             case "Right":
@@ -45,9 +41,6 @@ public class RedTwoStone extends BaseTwoStone {
                 robot.runDrivePath(RedPurePursuitCenter);
                 break;
         }
-        robot.redDragFoundation();
-        robot.redParkWithTape();
-
-        robot.arm.setArmUpPosition();
+        robot.runDrivePath(RedDragFoundation);
     }
 }

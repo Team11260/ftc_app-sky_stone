@@ -41,7 +41,7 @@ public class ArmController extends SubsystemController {
 
 
     public void setGripperGripPosition() {
-        arm.setGripperPosition(GRIPPER_GRIP_POSITION);
+        arm.setGripperPosition(GRIPPER_GRIP_POSITION_FOR_LONG_ARM);
         gripped = true;
     }
 
@@ -60,7 +60,7 @@ public class ArmController extends SubsystemController {
     }
 
     public void toggleGripperPosition() {
-        arm.setGripperPosition(gripped ? GRIPPER_GRIP_POSITION : GRIPPER_RELEASE_POSITION);
+        arm.setGripperPosition(gripped ? GRIPPER_GRIP_POSITION_FOR_LONG_ARM : GRIPPER_RELEASE_POSITION);
         gripped = !gripped;
     }
 
