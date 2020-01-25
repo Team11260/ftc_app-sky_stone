@@ -171,9 +171,9 @@ public class DriveController extends SubsystemController {
                 purePursuitToSegment((PurePursuitSegment) path.getCurrentSegment());
             }
 
-          //  telemetry.addData(INFO, "Finished segment: " + path.getCurrentSegment().getName() + " in path: " + currentPath.getName() + "  paused: " + currentPath.isPaused() + "  done: " + currentPath.isDone());
+            telemetry.addData(INFO, "Finished segment: " + path.getCurrentSegment().getName() + " in path: " + currentPath.getName() + "  paused: " + currentPath.isPaused() + "  done: " + currentPath.isDone());
         }
-
+        telemetry.update();
        // telemetry.addData(INFO, "Finished path: " + currentPath.getName() + "  paused: " + currentPath.isPaused() + "  done: " + currentPath.isDone());
     }
 
@@ -218,17 +218,17 @@ public class DriveController extends SubsystemController {
 
         pursuitPath.build();
 
-        for(PathPoint point : pursuitPath.getPoints()) {
-            //telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
-            //telemetry.getSmartdashboard().putGraph("position", "velocity", point.getX(), point.getVelocity());
-        }
+//        for(PathPoint point : pursuitPath.getPoints()) {
+//            //telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
+//            //telemetry.getSmartdashboard().putGraph("position", "velocity", point.getX(), point.getVelocity());
+//        }
 
         drive.follow(pursuitPath);
 
         Pose InitCurrentPose = drive.getCurrentPosition();
-        telemetry.addData(INFO,"Init position X:" + InitCurrentPose.getX());
-        telemetry.addData(INFO,"Init position y:" + InitCurrentPose.getY());
-        telemetry.update();
+//        telemetry.addData(INFO,"Init position X:" + InitCurrentPose.getX());
+//        telemetry.addData(INFO,"Init position y:" + InitCurrentPose.getY());
+//        telemetry.update();
 
         while(opModeIsActive() && drive.isFollowing()){
             drive.update();
@@ -251,10 +251,10 @@ public class DriveController extends SubsystemController {
         drive.setPower(0, 0);
 
         Pose currentPose = drive.getCurrentPosition();
-        telemetry.addData(INFO,"Final position X:" + currentPose.getX());
-        telemetry.addData(INFO,"Final position y:" + currentPose.getY());
-        telemetry.addData(INFO, "Final Heading"+ drive.getActualHeadingDegrees());
-        telemetry.update();
+//        telemetry.addData(INFO,"Final position X:" + currentPose.getX());
+//        telemetry.addData(INFO,"Final position y:" + currentPose.getY());
+//        telemetry.addData(INFO, "Final Heading"+ drive.getActualHeadingDegrees());
+//        telemetry.update();
 
     }
 

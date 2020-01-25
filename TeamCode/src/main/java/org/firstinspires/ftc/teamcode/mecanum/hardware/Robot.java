@@ -181,8 +181,6 @@ public class Robot extends AbstractRobot {
 
             for (int i = 1; i <= 10; i++) {
                 sum += driver.getStrafePosition();
-                telemetry.addData(DoubleTelemetry.LogMode.INFO, "strafe position sum: " + sum);
-                telemetry.update();
             }
 
             if (Math.abs(sum / 10) < 5.00) {

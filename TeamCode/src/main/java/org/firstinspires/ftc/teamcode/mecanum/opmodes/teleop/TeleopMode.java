@@ -79,15 +79,15 @@ public class TeleopMode extends AbstractTeleop {
         robot.dragger.setFrontUp();
         robot.dragger.setBackUp();
 
-
-    }
-
-    @Override
-    public void Loop() {
         telemetry.addData(DoubleTelemetry.LogMode.INFO,"Front left position: "+robot.driver.getFrontLeftPosition());
         telemetry.addData(DoubleTelemetry.LogMode.INFO,"Back left position: "+ robot.driver.getBackLeftPosition());
 
         telemetry.update();
+    }
+
+    @Override
+    public void Loop() {
+
     }
 
     @Override

@@ -143,8 +143,8 @@ public class DoubleTelemetry {
 
     public enum LogMode {
         TRACE(0),
+        DEBUG(1),
         INFO(1),
-        DEBUG(2),
         ERROR(3);
 
         private int level;

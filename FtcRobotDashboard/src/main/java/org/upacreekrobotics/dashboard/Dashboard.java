@@ -674,7 +674,7 @@ public class Dashboard implements OpModeManagerImpl.Notifications, BatteryChecke
         }
 
         public void info(String text) {
-            infoText = infoText + text + "!#@$";
+            infoText = text + "!#@$";
         }
 
         public void info(int text) {
