@@ -41,7 +41,7 @@ public class PursuitPath {
     /**
      * The max acceleration (total output/point)
      */
-    private double fMaxAcceleration = 0.08;
+    private double fMaxAcceleration = 0.2;
 
     /**
      * The max deceleration (total output/point)
@@ -56,7 +56,7 @@ public class PursuitPath {
     /**
      * Maximum follow speed
      */
-    private double fMaxSpeed = 1.0;
+    private double fMaxSpeed = 2.0;
 
     /**
      * Average look ahead distance

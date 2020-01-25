@@ -124,8 +124,8 @@ public class AutonPursuitPaths {
 
     static {
         RedDragFoundation.addSegment(new PurePursuitSegment("Pull the foundation", new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y_2ND+2), new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 20, RED_FOUNDATION_Y_2ND + 12)).setMinSpeed(0.5).setPositionError(4.0), 400, -35));
-        RedDragFoundation.addSegment(new PurePursuitSegment("park the foundation", new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 20, RED_FOUNDATION_Y_2ND + 12), new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 22, RED_FOUNDATION_Y_2ND + 12)).setMinSpeed(0.4).setPositionError(4.0), 0, -90));
-        RedDragFoundation.addSegment(new PurePursuitSegment("park the robot", new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 22, RED_FOUNDATION_Y_2ND + 12), new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 26, RED_FOUNDATION_Y_2ND + 5), new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 52, RED_FOUNDATION_Y_2ND + 2)).setMinSpeed(0.3).setPositionError(4.0), 0, -90));
+        RedDragFoundation.addSegment(new PurePursuitSegment("park the foundation", new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 20, RED_FOUNDATION_Y_2ND + 12), new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 22, RED_FOUNDATION_Y_2ND + 6)).setMinSpeed(0.4).setPositionError(4.0), 0, -90));
+        RedDragFoundation.addSegment(new PurePursuitSegment("park the robot", new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 22, RED_FOUNDATION_Y_2ND + 6), new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 26, RED_FOUNDATION_Y_2ND + 5), new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 52, RED_FOUNDATION_Y_2ND + 2)).setMinSpeed(0.3).setPositionError(4.0), 0, -90));
     }
 
     public final static Path RedDragFoundationTest = new Path("Red Drag Foundation Test");

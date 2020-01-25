@@ -179,9 +179,8 @@ public class Robot extends AbstractRobot {
             runTime.reset();
             while (runTime.milliseconds() < 5000) ;
 
-            for (int i = 1; i <= 10; i++) {
+            for (int i = 1; i <= 10; i++)
                 sum += driver.getStrafePosition();
-            }
 
             if (Math.abs(sum / 10) < 5.00) {
                 //driver.setDrivePowerAll(0, 0, 0, 0);
@@ -375,26 +374,26 @@ public class Robot extends AbstractRobot {
         delay(300);
     }
 
-    public void setDraggerUp(){
+    public void setDraggerUp() {
         dragger.setDraggerUp();
     }
 
-    public RobotCallable delayedDraggerHalfwayCallable(){
+    public RobotCallable delayedDraggerHalfwayCallable() {
         return () -> {
             delay(1000);
             setDraggerHalfway();
         };
     }
 
-    public RobotCallable delayedDraggerUpCallable(){
+    public RobotCallable delayedDraggerUpCallable() {
         return () -> {
-            delay(1000);
+            delay(1200);
             setDraggerUp();
         };
     }
 
-    public RobotCallable delayedDraggerDownCallable(){
-        return ()-> {
+    public RobotCallable delayedDraggerDownCallable() {
+        return () -> {
             delay(1000);
             setDraggerDown();
         };
@@ -498,9 +497,9 @@ public class Robot extends AbstractRobot {
 
         delay(1500);
 
-         x = 0.0;
-         y = 0.6;
-         z = -0.3;
+        x = 0.0;
+        y = 0.6;
+        z = -0.3;
 
         frontLeft = (x - y - z);
         frontRight = (x + y + z);

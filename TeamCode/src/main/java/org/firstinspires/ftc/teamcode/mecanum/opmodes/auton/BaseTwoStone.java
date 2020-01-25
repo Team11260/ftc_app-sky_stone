@@ -27,11 +27,6 @@ abstract public class BaseTwoStone extends AbstractAuton {
         addState("Place third skystone", "third trip to foundation", robot.deliverStoneCallable());
         addState("put down dragger full", "third trip to foundation", robot.setDraggerDownCallable());
         addState("release dragger","Pull the foundation",robot.delayedDraggerUpCallable());
-
-//        addState("delayed arm down", "Place second skystone", robot.delayedArmDownCallable());
-
-//      addState("Pick up third Stone", "drive to third stone", robot.grabStoneCallable());
-//      addState("Place third skystone", "third trip to foundation", robot.deliverStoneCallable());
     }
 
     @Override
