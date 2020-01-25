@@ -115,9 +115,9 @@ public class Robot extends AbstractRobot {
 
         ImageProcessor.drawBox(image, xorigin, yorigin, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
         ImageProcessor.drawBox(image, x_left + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
-        //delay(500);
+
         ImageProcessor.drawBox(image, x_center + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
-        //delay(500);
+
         ImageProcessor.drawBox(image, x_right + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
         imageProcessor.setImage(image);
 
@@ -226,6 +226,7 @@ public class Robot extends AbstractRobot {
         setGripperGrip();
         delay(400);
         setArmUp();
+        delay(500);
     }
 
     public RobotCallable deliverStoneCallable() {
@@ -368,8 +369,20 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable setDraggerDownCallable() {
         return () -> {
+
             setDraggerDown();
         };
+    }
+
+    public RobotCallable setDraggerDownDelayedCallable(){
+
+        return ()->{
+            delay(1500);
+            setDraggerDown();
+        };
+
+
+
     }
 
     public void setDraggerHalfway() {
@@ -380,7 +393,7 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable delayedDraggerHalfwayCallable(){
         return () -> {
-            delay(2000);
+            delay(500);
             setDraggerHalfway();
         };
     }

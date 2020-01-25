@@ -56,6 +56,12 @@ public class DriveController extends SubsystemController {
 
     private DecimalFormat DFpwr, DFenc;
 
+    private boolean boolEmergencyStop = false;
+
+    private final boolean BOOL_ODOMETRY_CODE_ENABLED = false;
+
+    private final double ODOMETRY_ERROR_THRESHOLD_IN_INCHES = 1;
+
     TelemetryRecord[] RecTelem = new TelemetryRecord[1000];
     ElapsedTime RecTelemTime;
 
@@ -224,10 +230,25 @@ public class DriveController extends SubsystemController {
         telemetry.addData(INFO,"Init position X:" + InitCurrentPose.getX());
         telemetry.addData(INFO,"Init position y:" + InitCurrentPose.getY());
         telemetry.update();
+        double counterEncoderCheck = 0;
+        double badEncoderCount = 0;
 
-        while(opModeIsActive() && drive.isFollowing()){
+        while(opModeIsActive() && drive.isFollowing()& !boolEmergencyStop){
             drive.update();
             Pose currentPose = drive.getCurrentPosition();
+            counterEncoderCheck ++;
+            if ((BOOL_ODOMETRY_CODE_ENABLED && (counterEncoderCheck >= 20))){ // only check after 10 samples
+                // now the robot is moving, it is safe to check the counts
+                if (Math.abs(drive.getStrafePosition()) <= ODOMETRY_ERROR_THRESHOLD_IN_INCHES){ // if moving in Y direction, getY should never be less or equal to 5
+                    badEncoderCount ++;
+                    telemetry.addData(INFO,"check position y:" + currentPose.getY());
+                    telemetry.update();
+                    if (badEncoderCount >= 5) {
+                        boolEmergencyStop = true;
+                    }
+                }
+
+            }
             //telemetry.addData(INFO,"position X:" + currentPose.getX());
             //telemetry.addData(INFO,"position y:" + currentPose.getY());
            // telemetry.update();
@@ -244,6 +265,14 @@ public class DriveController extends SubsystemController {
 //        }
 
         drive.setPower(0, 0);
+
+
+        if (badEncoderCount >= 5&&BOOL_ODOMETRY_CODE_ENABLED){
+            Pose currentPose = drive.getCurrentPosition();
+            telemetry.addData(INFO,"bad position y:" + currentPose.getY());
+            telemetry.update();
+            delay(5000);
+        }
 
         Pose currentPose = drive.getCurrentPosition();
         telemetry.addData(INFO,"Final position X:" + currentPose.getX());

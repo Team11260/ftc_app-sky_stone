@@ -45,9 +45,9 @@ public class RedTwoStone extends BaseTwoStone {
                 robot.runDrivePath(RedPurePursuitCenter);
                 break;
         }
-        robot.redDragFoundation();
-        robot.redParkWithTape();
-
-        robot.arm.setArmUpPosition();
+//        robot.redDragFoundation();
+//        robot.redParkWithTape();
+//
+//        robot.arm.setArmUpPosition();
     }
 }
