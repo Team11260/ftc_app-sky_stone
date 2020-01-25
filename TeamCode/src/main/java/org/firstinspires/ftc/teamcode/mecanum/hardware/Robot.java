@@ -124,6 +124,17 @@ public class Robot extends AbstractRobot {
         return stonePosition;
     }
 
+    public static String place;
+
+    public RobotCallable findLastStone(){
+        return ()->{
+            ElapsedTime runTime = new ElapsedTime();
+            runTime.reset();
+            while(runTime.milliseconds()<5000)
+            place = getSkyStonePositionThreeStones(0,true);
+        };
+    }
+
     public int getLineAverage(Bitmap image, int x, int y) {
         int sum = 0;
         for (int i = 0; i < (BLOCKHEIGHT - 50); i++)
@@ -146,7 +157,6 @@ public class Robot extends AbstractRobot {
             }
         }
         return ((int) ((3 * sum) / (stripeHeight * stripeWidth)));
-
     }
 
     public int getFrontThirdBlock(int x, int y) {
@@ -387,7 +397,7 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable delayedDraggerUpCallable() {
         return () -> {
-            delay(1200);
+            delay(1300);
             setDraggerUp();
         };
     }

@@ -119,8 +119,13 @@ public class PursuitPath {
         fPathSmoothing = pathSmoothing;
     }
 
-    public void setTurnSpeed(double turnSpeed) {
+    /*public void setTurnSpeed(double turnSpeed) {
         fTurnSpeed = turnSpeed;
+    }*/
+
+    public PursuitPath setTurnSpeed(double turnSpeed) {
+        fTurnSpeed = turnSpeed;
+        return this;
     }
 
     public void setTrackingErrorSpeed(double trackingErrorSpeed) {
