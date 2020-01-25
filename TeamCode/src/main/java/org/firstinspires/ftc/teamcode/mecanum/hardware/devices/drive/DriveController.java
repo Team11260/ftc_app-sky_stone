@@ -55,7 +55,6 @@ public class DriveController extends SubsystemController {
     private double previousTime;
 
     private DecimalFormat DFpwr, DFenc;
-    private boolean isMotorIntaking = false;
 
     TelemetryRecord[] RecTelem = new TelemetryRecord[1000];
     ElapsedTime RecTelemTime;
@@ -202,10 +201,6 @@ public class DriveController extends SubsystemController {
 
     public void setHeadingMode(MecanumPurePursuitController.HeadingMode headingMode){
         drive.setHeadingMode(headingMode);
-    }
-
-    public void setPositionError(double positionError){
-        drive.setPositionError(positionError);
     }
 
     public void testPurePursuit(PursuitPath pursuitPath, double targetHeading){
@@ -1074,27 +1069,6 @@ public class DriveController extends SubsystemController {
         telemetry.addData(INFO,"Pose X: "+ getCurrentPosition().getX());
         telemetry.addData(INFO,"pose y: "+getCurrentPosition().getY());
         telemetry.update();
-    }
-
-    public void startMotorIntake(){
-        drive.setLeftMotorIntakePower(1.0);
-        drive.setRightMotorIntakePower(1.0);
-    }
-
-    public void stopMotorIntake(){
-        drive.setLeftMotorIntakePower(0.0);
-        drive.setRightMotorIntakePower(0.0);
-    }
-
-    public void reverseMotorIntake(){
-        drive.setLeftMotorIntakePower(-1.0);
-        drive.setRightMotorIntakePower(-1.0);
-    }
-
-    public void toggleMotorIntake(){
-        if(isMotorIntaking) stopMotorIntake();
-        else startMotorIntake();
-        isMotorIntaking = !isMotorIntaking;
     }
 
     public void resetPosition() {

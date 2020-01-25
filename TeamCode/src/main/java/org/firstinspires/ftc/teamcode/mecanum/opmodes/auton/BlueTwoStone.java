@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.BlueDragFoundation;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.BluePurePursuitCenter;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.BluePurePursuitLeft;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.BluePurePursuitRight;
@@ -43,6 +42,9 @@ public class BlueTwoStone extends BaseTwoStone {
                 break;
         }
 
-       robot.runDrivePath(BlueDragFoundation);
+        robot.blueDragFoundation();
+        robot.blueParkWithTape();
+
+        robot.arm.setArmUpPosition();
     }
 }

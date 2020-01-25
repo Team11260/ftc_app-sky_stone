@@ -37,7 +37,7 @@ public class TestTeleopModeServoTest extends AbstractTeleop {
 
     @Override
     public void RegisterEvents() {
-      //  addEventHandler("1_x_down", () -> toggleIntake());
+      //  addEventHandler("1_x_down", () -> toggleRotation());
       //  addEventHandler("l_y_down", () -> toggleConveyor());
     }
 

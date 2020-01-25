@@ -51,7 +51,7 @@ public class PursuitPath {
     /**
      * Minimum follow speed
      */
-    private double fMinSpeed = 0.17;
+    private double fMinSpeed = 0.13;
 
     /**
      * Maximum follow speed
@@ -67,11 +67,6 @@ public class PursuitPath {
      * Look ahead distance for velocity calculations
      */
     private int fVelocityLookAheadPoints = 1;
-
-    /**
-     * Position error that it allows
-     */
-    private double fPositionError = 2.0;
 
     /**
      * Run specific data, gets reset with reset() method
@@ -159,11 +154,6 @@ public class PursuitPath {
         fVelocityLookAheadPoints = lookAheadPoints;
     }
 
-    public PursuitPath setPositionError(double positionError) {
-        fPositionError = positionError;
-        return this;
-    }
-
     /**
      * Getters for path specific creation and following data
      */
@@ -212,9 +202,6 @@ public class PursuitPath {
         return fVelocityLookAheadPoints;
     }
 
-    public double getPositionError(){
-        return fPositionError;
-    }
     /**Methods for path following*/
 
     /**
@@ -254,7 +241,7 @@ public class PursuitPath {
         Vector delta = new Vector(getPathPoint(index).subtract(currentLocation));
 
 //        double angle = Math.toDegrees(Math.atan2(delta.getY(), Math.abs(delta.getX()) > 0.3 ? delta.getX() : 0.3 * Math.signum(delta.getX())));
-        double angle = Math.toDegrees(Math.atan2(delta.getY(), delta.getX()));
+        double angle = Math.toDegrees(Math.atan2(delta.getY(),delta.getX()));
 
         fTargetAngle = angle;
 
@@ -281,8 +268,7 @@ public class PursuitPath {
 
         fDeltaAngle = currentLocation.getHeading() - angle;
 
-        if (Math.abs(fDeltaAngle) > 180)
-            fDeltaAngle = -Math.signum(fDeltaAngle) * (360 - Math.abs(fDeltaAngle));
+        if (Math.abs(fDeltaAngle) > 180) fDeltaAngle = -Math.signum(fDeltaAngle) * (360 - Math.abs(fDeltaAngle));
 
         double curvature = (Math.abs(fDeltaAngle) > 90 ? Math.signum(fDeltaAngle) : Math.sin(Math.toRadians(fDeltaAngle))) / (delta.magnitude() / 2);
 
@@ -441,7 +427,7 @@ public class PursuitPath {
      */
     public void build() {
 
-        if (fPath != null) {
+        if(fPath != null) {
             return;
         }
 
@@ -486,7 +472,7 @@ public class PursuitPath {
     private void smooth() {
         double change = 0.5;
         double changedPoints = 1;
-        while (change / changedPoints >= 0.01) {
+        while (change / changedPoints >= 0.01){
             change = 0;
             changedPoints = 0;
 
@@ -592,8 +578,7 @@ public class PursuitPath {
 
         double d = fPoints.get(p).distance(fPoints.get(p + 1));
 
-        if (p <= 0)
-            return Math.max(Math.min(2 * fMaxAcceleration * d, fTurnSpeed / getPointCurvature(p)), fMinSpeed);
+        if (p <= 0) return Math.max(Math.min(2 * fMaxAcceleration * d, fTurnSpeed / getPointCurvature(p)), fMinSpeed);
 
         return Math.max(Math.min(getPathPoint(p - 1).getVelocity() + 2 * fMaxAcceleration * d, Math.min(fTurnSpeed / getPointCurvature(p), fMaxSpeed)), fMinSpeed);
     }

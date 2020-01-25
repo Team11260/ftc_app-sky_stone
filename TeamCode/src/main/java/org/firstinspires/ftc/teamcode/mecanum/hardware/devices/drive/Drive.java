@@ -62,17 +62,9 @@ public class Drive extends MecanumPurePursuitController {
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         resetPosition();
 
-        setMode(RobotState.MatchState.AUTONOMOUS == RobotState.currentMatchState ? DcMotor.RunMode.RUN_USING_ENCODER : DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         setVelocityPIDCoefficients(new PIDFCoefficients(p,i,d,f));
-    }
-
-    public void setLeftMotorIntakePower(double power){
-        straightEncoder.setPower(power);
-    }
-
-    public void setRightMotorIntakePower(double power){
-        strafeEncoder.setPower(-power);
     }
 
     public void setDrivePowerAll(double FL, double FR, double BL, double BR) {
@@ -108,7 +100,7 @@ public class Drive extends MecanumPurePursuitController {
     }
 
     public void setHeadingMode(HeadingMode headingMode){
-        super.setHeadingMode(headingMode);
+        setHeadingMode(headingMode);
     }
 
     public int getFrontLeftPosition() {
