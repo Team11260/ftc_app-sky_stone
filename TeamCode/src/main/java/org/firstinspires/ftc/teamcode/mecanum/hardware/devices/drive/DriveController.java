@@ -218,26 +218,38 @@ public class DriveController extends SubsystemController {
 
         pursuitPath.build();
 
-//        for(PathPoint point : pursuitPath.getPoints()) {
-//            //telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
-//            //telemetry.getSmartdashboard().putGraph("position", "velocity", point.getX(), point.getVelocity());
-//        }
+        for(PathPoint point : pursuitPath.getPoints()) {
+            telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
+            telemetry.getSmartdashboard().putGraph("position", "velocity", point.getX(), point.getVelocity());
+        }
 
         drive.follow(pursuitPath);
+        ElapsedTime runtime =new ElapsedTime();
+        runtime.reset();
+        int loopCounts=0;
 
         Pose InitCurrentPose = drive.getCurrentPosition();
 //        telemetry.addData(INFO,"Init position X:" + InitCurrentPose.getX());
 //        telemetry.addData(INFO,"Init position y:" + InitCurrentPose.getY());
 //        telemetry.update();
 
+
+        double lastTime = 0.000001;
         while(opModeIsActive() && drive.isFollowing()){
             drive.update();
             Pose currentPose = drive.getCurrentPosition();
-            //telemetry.addData(INFO,"position X:" + currentPose.getX());
-            //telemetry.addData(INFO,"position y:" + currentPose.getY());
-           // telemetry.update();
+            loopCounts++;
+            telemetry.getSmartdashboard().putGraph("position","actual",drive.getCurrentPosition().getX(),currentPose.getY());
+            telemetry.getSmartdashboard().putGraph("velocity","actual",currentPose.getX(),drive.getDistance()/(runtime.seconds()-lastTime));
+
+
+            lastTime = runtime.seconds();
         }
 
+        telemetry.addData(INFO,"loop counts: "+ loopCounts);
+        telemetry.addData(INFO,"runtime: "+runtime.toString());
+        telemetry.addData(INFO,"loop time: "+runtime.seconds()/loopCounts);
+        telemetry.update();
        // long startTime = System.currentTimeMillis();
 
 //        while(opModeIsActive() && System.currentTimeMillis()-startTime<1000){

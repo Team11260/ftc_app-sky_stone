@@ -15,6 +15,8 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
 
     protected double targetHeading = 0.0;
 
+    protected double nextDistance = 0.0;
+
     protected HeadingMode headingMode = HeadingMode.FIXED;
 
     private PIDController headingController;
@@ -61,13 +63,15 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
         double x = Math.cos(Math.toRadians(heading));
         double y = Math.sin(Math.toRadians(heading));
 
-//        telemetry.getSmartdashboard().putGraph("position", "distance", xPosition, heading);
-//        telemetry.getSmartdashboard().putGraph("position", "scalars", x, y);
+        telemetry.getSmartdashboard().putGraph("position", "distance", xPosition, heading);
+        telemetry.getSmartdashboard().putGraph("position", "scalars", x, y);
 
         currentPosition = new Pose(currentPosition.add(new Vector(xDistance * x, xDistance * y)).add(new Vector(-yDistance * y, yDistance * x)), heading);
 
         lastXPosition = xPosition;
         lastYPosition = yPosition;
+
+        nextDistance = new Vector(xDistance,yDistance).magnitude();
     }
 
     @Override
@@ -108,6 +112,10 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
 //        telemetry.update();
 
         setMecanumPower(frontLeft, frontRight, backLeft, backRight);
+    }
+
+    public double getDistance(){
+        return nextDistance;
     }
 
     @Override
