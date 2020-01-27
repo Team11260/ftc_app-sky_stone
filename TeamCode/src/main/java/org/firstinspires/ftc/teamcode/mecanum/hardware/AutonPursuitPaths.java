@@ -33,7 +33,7 @@ public class AutonPursuitPaths {
     public static double RED_DRAGGER_BACKUP_Y = -23;
     public static double RED_DRAGGER_FORWARD_HALFWAY_Y = -26;
     public static double RED_DRAGGER_FORWARD_FULL_Y = -29;
-    public static double OFF_SET = -2;
+    public static double OFF_SET = 0;
     //count from wall
     public static double RED_BLOCK1_X = 30;
     public static double RED_BLOCK2_X = 23;
@@ -83,7 +83,7 @@ public class AutonPursuitPaths {
 
     static {
         RedPurePursuitCenter.addSegment(new PurePursuitSegment("drive to first sky stone",
-                new PursuitPath(new Point(0, 0), new Point(RED_BLOCK5_X, RED_BLOCK_LOCATION_Y)).setMaxAcceleration(0.02), 0));
+                new PursuitPath(new Point(0, 0), new Point(RED_BLOCK5_X, RED_BLOCK_LOCATION_Y)).setMaxAcceleration(0.01), 0));
         RedPurePursuitCenter.addSegment(new PurePursuitSegment("first trip to foundation",
                 new PursuitPath(new Point(RED_BLOCK5_X, RED_BLOCK_LOCATION_Y), new Point(RED_BLOCK5_X, RED_RUNWAY_Y), new Point(RED_FOUNDATION_MIDDLE_X, RED_RUNWAY_Y), new Point(RED_FOUNDATION_MIDDLE_X, RED_FOUNDATION_Y)), 0));
         RedPurePursuitCenter.addSegment(new PurePursuitSegment("drive to second sky stone",
@@ -91,13 +91,13 @@ public class AutonPursuitPaths {
         RedPurePursuitCenter.addSegment(new PurePursuitSegment("second trip to foundation",
                 new PursuitPath(new Point(RED_BLOCK2_X, RED_BLOCK_LOCATION_Y + OFF_SET), new Point(RED_BLOCK2_X, RED_RUNWAY_Y_2), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_RUNWAY_Y_2), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y)), 50));
         RedPurePursuitCenter.addSegment(new PurePursuitSegment("drive to third sky stone",
-                new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_RUNWAY_Y_2), new Point(RED_BLOCK6_X, RED_RUNWAY_Y_2), new Point(RED_BLOCK6_X, RED_BLOCK_LOCATION_Y)), 100));
-        RedPurePursuitCenter.addSegment(new PurePursuitSegment("third trip to foundation",
-                new PursuitPath(new Point(RED_BLOCK6_X, RED_BLOCK_LOCATION_Y), new Point(RED_BLOCK6_X, RED_RUNWAY_Y_2), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_RUNWAY_Y_2), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y_2ND)), 100));
-        RedPurePursuitCenter.addSegment(new PurePursuitSegment("drive to fourth sky stone",
-                new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y_2ND), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_RUNWAY_Y_2), new Point(RED_BLOCK4_X, RED_RUNWAY_Y_2), new Point(RED_BLOCK4_X, RED_BLOCK_LOCATION_Y)), 100));
-        RedPurePursuitCenter.addSegment(new PurePursuitSegment("fourth trip to foundation",
-                new PursuitPath(new Point(RED_BLOCK4_X, RED_BLOCK_LOCATION_Y), new Point(RED_BLOCK4_X, RED_RUNWAY_Y_2), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_RUNWAY_Y_2), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y_2ND)), 100));
+                new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_RUNWAY_Y_2), new Point(RED_BLOCK6_X, RED_RUNWAY_Y_2), new Point(RED_BLOCK6_X, RED_BLOCK_LOCATION_Y)).setMaxDeceleration(0.01), 100));
+        RedPurePursuitCenter.addSegment(new PurePursuitSegment("last trip to foundation",
+                new PursuitPath(new Point(RED_BLOCK6_X, RED_BLOCK_LOCATION_Y), new Point(RED_BLOCK6_X+10, RED_RUNWAY_Y_2), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_RUNWAY_Y_2), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y_2ND)), 100));
+//        RedPurePursuitCenter.addSegment(new PurePursuitSegment("drive to fourth sky stone",
+//                new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y_2ND), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_RUNWAY_Y_2), new Point(RED_BLOCK4_X, RED_RUNWAY_Y_2), new Point(RED_BLOCK4_X, RED_BLOCK_LOCATION_Y)), 100));
+//        RedPurePursuitCenter.addSegment(new PurePursuitSegment("fourth trip to foundation",
+//                new PursuitPath(new Point(RED_BLOCK4_X, RED_BLOCK_LOCATION_Y), new Point(RED_BLOCK4_X, RED_RUNWAY_Y_2), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_RUNWAY_Y_2), new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y_2ND)), 100));
 
 
     }
@@ -123,9 +123,9 @@ public class AutonPursuitPaths {
     public final static Path RedDragFoundation = new Path("Red Drag Foundation");
 
     static {
-        RedDragFoundation.addSegment(new PurePursuitSegment("Pull the foundation", new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y_2ND+2), new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 20, RED_FOUNDATION_Y_2ND + 12)).setMinSpeed(0.5).setPositionError(4.0), 400, -35));
-        RedDragFoundation.addSegment(new PurePursuitSegment("park the foundation", new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 20, RED_FOUNDATION_Y_2ND + 12), new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 22, RED_FOUNDATION_Y_2ND + 6)).setMinSpeed(0.4).setPositionError(4.0), 0, -90));
-        RedDragFoundation.addSegment(new PurePursuitSegment("park the robot", new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 22, RED_FOUNDATION_Y_2ND + 6), new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 26, RED_FOUNDATION_Y_2ND + 5), new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 52, RED_FOUNDATION_Y_2ND + 2)).setMinSpeed(0.3).setPositionError(4.0), 0, -90));
+        RedDragFoundation.addSegment(new PurePursuitSegment("Pull the foundation", new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y_2ND), new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 20, RED_FOUNDATION_Y_2ND + 12)).setMinSpeed(0.5).setPositionError(4.0).setTurnSpeed(0.8), 400, -35));
+        RedDragFoundation.addSegment(new PurePursuitSegment("park the foundation", new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 20, RED_FOUNDATION_Y_2ND + 12), new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 22, RED_FOUNDATION_Y_2ND + 12)).setMinSpeed(0.4).setPositionError(4.0).setTurnSpeed(0.8), 0, -90));
+        RedDragFoundation.addSegment(new PurePursuitSegment("park the robot", new PursuitPath(new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 22, RED_FOUNDATION_Y_2ND + 6), new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 26, RED_FOUNDATION_Y_2ND + 5), new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 52, RED_FOUNDATION_Y_2ND + 2)).setMinSpeed(0.3).setPositionError(4.0).setTurnSpeed(0.8), 0, -90));
     }
 
     public final static Path RedDragFoundationTest = new Path("Red Drag Foundation Test");

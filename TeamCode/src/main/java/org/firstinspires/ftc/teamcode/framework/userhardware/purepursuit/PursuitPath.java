@@ -71,7 +71,7 @@ public class PursuitPath {
     /**
      * Position error that it allows
      */
-    private double fPositionError = 2.0;
+    private double fPositionError = 2.5;
 
     /**
      * Run specific data, gets reset with reset() method
