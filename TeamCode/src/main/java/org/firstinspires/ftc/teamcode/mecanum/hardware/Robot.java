@@ -397,7 +397,7 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable delayedDraggerUpCallable() {
         return () -> {
-            delay(1300);
+            delay(2500);
             setDraggerUp();
         };
     }

@@ -74,6 +74,11 @@ public class PursuitPath {
     private double fPositionError = 2.5;
 
     /**
+     * Heading error that it allows
+     */
+    private double fHeadingError = 5.0;
+
+    /**
      * Run specific data, gets reset with reset() method
      */
 
@@ -169,6 +174,14 @@ public class PursuitPath {
         return this;
     }
 
+    public PursuitPath setHeadingError(double headingError) {
+        fHeadingError = headingError;
+        return this;
+    }
+
+    public double getHeadingError() {
+        return fHeadingError;
+    }
     /**
      * Getters for path specific creation and following data
      */

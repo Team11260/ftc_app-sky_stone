@@ -128,7 +128,7 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
 
     @Override
     public boolean isFollowing() {
-        return currentPursuitPath != null && (isFollowing || Math.abs(currentPosition.getHeading() - targetHeading) > headingError || currentPosition.distance(currentPursuitPath.getPoint(currentPursuitPath.getPoints().size() - 1)) > currentPursuitPath.getPositionError());
+        return currentPursuitPath != null && (isFollowing || Math.abs(currentPosition.getHeading() - targetHeading) > currentPursuitPath.getHeadingError() || currentPosition.distance(currentPursuitPath.getPoint(currentPursuitPath.getPoints().size() - 1)) > currentPursuitPath.getPositionError());
     }
 
     @Override

@@ -32,7 +32,7 @@ public class TestDraggers extends AbstractAuton {
 
     @Override
     public void Run() {
-        robot.runDrivePath(BlueDragFoundationTest);
+        robot.runDrivePath(RedDragFoundationTest);
 
         robot.dragger.setDraggerUp();
     }
