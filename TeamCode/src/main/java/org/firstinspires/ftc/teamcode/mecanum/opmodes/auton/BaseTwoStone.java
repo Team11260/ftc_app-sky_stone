@@ -20,12 +20,17 @@ abstract public class BaseTwoStone extends AbstractAuton {
         addState("delayed arm down", "Place first skystone", robot.delayedArmDownCallable());
         addState("Pick up second Stone", "drive to second sky stone", robot.grabStoneCallable());
         addState("Place second skystone", "second trip to foundation", robot.deliverStoneCallable());
-        addState("Draggers down", "second trip to foundation", robot.delayedDraggerDownCallable());
+        //addState("Draggers down", "second trip to foundation", robot.delayedDraggerDownCallable());
         addState("delayed arm down after 2nd skystone", "Place second skystone", robot.delayedArmDownCallable());
         addState("Pick up third Stone", "drive to third sky stone", robot.grabStoneCallable());
-        addState("Draggers halfway up", "drive to third sky stone", robot.delayedDraggerHalfwayCallable());
+        //addState("Draggers halfway up", "drive to third sky stone", robot.delayedDraggerHalfwayCallable());
         addState("Place third skystone", "third trip to foundation", robot.deliverStoneCallable());
-        addState("put down dragger full", "third trip to foundation", robot.setDraggerDownCallable());
+        addState("delayed arm down after 3rd skystone", "Place third skystone", robot.delayedArmDownCallable());
+        addState("Delayed draggers down", "third trip to foundation", robot.delayedDraggerDownCallable());
+        addState("Pick up fourth Stone", "drive to fourth sky stone", robot.grabStoneCallable());
+        addState("Draggers halfway up", "drive to fourth sky stone", robot.delayedDraggerHalfwayCallable());
+        addState("Place fourth skystone", "fourth trip to foundation", robot.deliverStoneCallable());
+        addState("Draggers down", "fourth trip to foundation", robot.setDraggerDownCallable());
         addState("release dragger","Pull the foundation",robot.delayedDraggerUpCallable());
     }
 
