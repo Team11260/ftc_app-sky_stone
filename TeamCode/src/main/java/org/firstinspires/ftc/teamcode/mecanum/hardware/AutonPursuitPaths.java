@@ -131,8 +131,8 @@ public class AutonPursuitPaths {
     public final static Path RedDragFoundationTest = new Path("Red Drag Foundation Test");
 
     static {
-        RedDragFoundationTest.addSegment(new PurePursuitSegment("Pull the foundation", new PursuitPath(new Point(0, 0), new Point(20, 12)).setMinSpeed(0.6).setPositionError(10.0).setHeadingError(20.0), 0, -65));
-        //RedDragFoundationTest.addSegment(new PurePursuitSegment("park the foundation", new PursuitPath(new Point(22, 13), new Point(20, 17)).setMinSpeed(0.4).setPositionError(10.0).setHeadingError(20.0), 0, -90));
+        RedDragFoundationTest.addSegment(new PurePursuitSegment("Pull the foundation", new PursuitPath(new Point(0, 0), new Point(23, 15)).setMinSpeed(0.6).setPositionError(10.0).setHeadingError(20.0), 0, -65));
+        RedDragFoundationTest.addSegment(new PurePursuitSegment("park the foundation", new PursuitPath(new Point(27, 16), new Point(20, 18)).setMinSpeed(0.5).setPositionError(10.0).setHeadingError(20.0), 0, -90));
 //        RedDragFoundationTest.addSegment(new PurePursuitSegment("park the robot", new PursuitPath(new Point(22, 6), new Point(26, 5), new Point(52, 2)).setMinSpeed(0.3).setPositionError(4.0), 0, -90));
 
     }
