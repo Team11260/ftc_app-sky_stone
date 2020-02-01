@@ -74,6 +74,13 @@ public class LiftController extends SubsystemController {
         isGrabbed = !isGrabbed;
     }
 
+
+    public void openGrabberWide(){
+        lift.setGrabberPosition(GRABBER_OPEN_WIDE);
+        isGrabbed = false;
+
+    }
+
     public void setSlideIn() {
         lift.setSlidePosition(SLIDE_IN);
     }

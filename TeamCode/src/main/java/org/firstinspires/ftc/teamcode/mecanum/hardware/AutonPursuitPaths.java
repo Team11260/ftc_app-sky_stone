@@ -310,5 +310,32 @@ public class AutonPursuitPaths {
 
     }
 
+    public final static Path PlatformParkOnlyPath = new Path("move foundation and park");
+
+    static {
+        PlatformParkOnlyPath.addSegment(new PurePursuitSegment("drive to building zone",
+                new PursuitPath(
+                        new Point(0, 0),
+                        new Point(-12, 0))));
+        PlatformParkOnlyPath.addSegment(new PurePursuitSegment("strafe to foundation",
+                new PursuitPath(
+                        new Point(-12, 0),
+                        new Point(-12, RED_FOUNDATION_Y_2ND)), 300));
+        PlatformParkOnlyPath.addSegment(new PurePursuitSegment("Pull the foundation",
+                new PursuitPath(
+                        new Point(-12, RED_FOUNDATION_Y_2ND),
+                        new Point(8, RED_FOUNDATION_Y_2ND + 12)).setMinSpeed(0.5).setPositionError(4.0), 400, -35));
+        PlatformParkOnlyPath.addSegment(new PurePursuitSegment("park the foundation",
+                new PursuitPath(
+                        new Point(8, RED_FOUNDATION_Y_2ND + 12),
+                        new Point(10, RED_FOUNDATION_Y_2ND + 12)).setMinSpeed(0.5).setPositionError(4.0), 0, -90));
+        PlatformParkOnlyPath.addSegment(new PurePursuitSegment("park the robot",
+                new PursuitPath(
+                        new Point(40, RED_FOUNDATION_Y_2ND + 12),
+                        new Point(44, RED_FOUNDATION_Y_2ND + 5),
+                        new Point(24, 0)).setMinSpeed(0.3), 0, -90));
+    }
 
 }
+
+

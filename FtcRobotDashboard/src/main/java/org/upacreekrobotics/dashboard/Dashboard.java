@@ -401,7 +401,7 @@ public class Dashboard implements OpModeManagerImpl.Notifications, BatteryChecke
                     voltage += voltageSensor.getVoltage();
                 }
             } catch (Exception e) {
-                DashboardTelemtry.write("Robot Battery Voltage Read Error");
+                if (DashboardTelemtry != null) DashboardTelemtry.write("Robot Battery Voltage Read Error");
             }
         }
         return String.format("%.2f", voltage / sensors);
@@ -603,12 +603,14 @@ public class Dashboard implements OpModeManagerImpl.Notifications, BatteryChecke
     private class DashboardHandler implements Runnable {
 
         public DashboardHandler() {
+            DashboardTelemtry = new dashboardtelemetry();
+            SmartDashboard = new smartdashboard();
         }
 
         @Override
         public void run() {
-            DashboardTelemtry = new dashboardtelemetry();
-            SmartDashboard = new smartdashboard();
+//            DashboardTelemtry = new dashboardtelemetry();
+//            SmartDashboard = new smartdashboard();
             while (isRunning) {
                 receiveMessage();
             }

@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 import org.upacreekrobotics.dashboard.Config;
 
-@TeleOp(name = "Teleop Mode 700pm", group = "New")
+@TeleOp(name = "Teleop Mode", group = "New")
 
 @Config
 public class TeleopMode extends AbstractTeleop {
@@ -49,6 +49,8 @@ public class TeleopMode extends AbstractTeleop {
 
         addEventHandler("2_dpl_down",()->robot.lift.pushSlideOut());
         addEventHandler("2_dpd_down",()->robot.lift.pullSlideIn());
+
+        addEventHandler("2_lb_down", () ->robot.lift.openGrabberWide());
 
     }
 
