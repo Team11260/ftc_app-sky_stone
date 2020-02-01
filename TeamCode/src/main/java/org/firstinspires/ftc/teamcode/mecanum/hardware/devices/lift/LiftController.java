@@ -60,10 +60,13 @@ public class LiftController extends SubsystemController {
 
     public void setGrabberOpen() {
         lift.setGrabberPosition(GRABBER_OPEN);
+        isGrabbed = false;
     }
 
     public void setGrabberClose() {
         lift.setGrabberPosition(GRABBER_CLOSE);
+        isGrabbed = true;
+
     }
 
     public void toggleGrabber() {
@@ -71,7 +74,6 @@ public class LiftController extends SubsystemController {
             setGrabberOpen();
         else
             setGrabberClose();
-        isGrabbed = !isGrabbed;
     }
 
 
@@ -83,6 +85,7 @@ public class LiftController extends SubsystemController {
 
     public void setSlideIn() {
         lift.setSlidePosition(SLIDE_IN);
+        setGrabberClose();
     }
 
     public void setSlideOutHalf() {

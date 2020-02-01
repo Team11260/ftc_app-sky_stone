@@ -1105,8 +1105,8 @@ public class DriveController extends SubsystemController {
     }
 
     public void reverseMotorIntake(){
-        drive.setLeftMotorIntakePower(-1.0);
-        drive.setRightMotorIntakePower(-1.0);
+        drive.setLeftMotorIntakePower(-0.7);
+        drive.setRightMotorIntakePower(-0.7);
     }
 
     public void toggleMotorIntake(){

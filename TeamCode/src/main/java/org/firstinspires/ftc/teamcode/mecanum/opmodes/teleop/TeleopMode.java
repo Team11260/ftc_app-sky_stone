@@ -18,12 +18,12 @@ public class TeleopMode extends AbstractTeleop {
 
     @Override
     public void RegisterEvents() {
-        addEventHandler("2_y_down", ()->robot.lift().toggleTilt());
-        addEventHandler("2_x_down", ()->robot.lift().toggleGrabber());
+        addEventHandler("2_y_down", ()->robot.lift.toggleTilt());
+        addEventHandler("2_x_down", ()->robot.lift.toggleGrabber());
 
-        addEventHandler("2_a_down", ()->robot.lift().toggleSlide());
-        addEventHandler("2_b_down", ()->robot.lift().cyclePan());
-        addEventHandler("2_rb_down",()-> robot.lift().setSlideOutHalf());
+        addEventHandler("2_a_down", ()->robot.lift.toggleSlide());
+        addEventHandler("2_b_down", ()->robot.lift.cyclePan());
+        addEventHandler("2_rb_down",()-> robot.lift.setSlideOutHalf());
         addEventHandler("1_a_down", ()-> robot.toggleBothDraggersHalf());
 
 

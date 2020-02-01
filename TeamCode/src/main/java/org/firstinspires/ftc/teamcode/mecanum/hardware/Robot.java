@@ -126,12 +126,12 @@ public class Robot extends AbstractRobot {
 
     public static String place;
 
-    public RobotCallable findLastStone(){
-        return ()->{
+    public RobotCallable findLastStone() {
+        return () -> {
             ElapsedTime runTime = new ElapsedTime();
             runTime.reset();
-            while(runTime.milliseconds()<5000)
-            place = getSkyStonePositionThreeStones(0,true);
+            while (runTime.milliseconds() < 5000)
+                place = getSkyStonePositionThreeStones(0, true);
         };
     }
 
@@ -230,7 +230,7 @@ public class Robot extends AbstractRobot {
 
     public void grabStone() {
         setGripperGrip();
-        delay(400);
+        delay(500);
         setArmUp();
     }
 
@@ -245,7 +245,7 @@ public class Robot extends AbstractRobot {
         setGripperRelease();
         delay(700);
         setArmUp();
-        delay(700);
+        //delay(700);
         setGripperGrip();
         //delay(300);
     }
@@ -263,17 +263,18 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable delayedArmDownCallable() {
         return () -> {
-            delay(700);
+            while (driver.getCurrentPosition().getX() < -28) ;
             setGripperRelease();
             setArmDown();
         };
 
     }
 
-    public RobotCallable delayedArmDownSecondCallable() {
+    public RobotCallable delayedArmDownLongCallable() {
         return () -> {
-            delay(1300);
-            arm.setArmDownPosition();
+            while (driver.getCurrentPosition().getX() < -28)
+                setGripperRelease();
+            setArmDown();
         };
 
     }
@@ -408,14 +409,20 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable delayedDraggerUpCallable() {
         return () -> {
-            delay(2500);
+            delay(2000);
+            setDraggerUp();
+        };
+    }
+
+    public RobotCallable setDraggerUpCallable() {
+        return () -> {
             setDraggerUp();
         };
     }
 
     public RobotCallable delayedDraggerDownCallable() {
         return () -> {
-            delay(1000);
+            delay(2000);
             setDraggerDown();
         };
     }
@@ -538,17 +545,30 @@ public class Robot extends AbstractRobot {
     }
 
     public void redParkWithTape() {
-        double x = 0.0, y = 0.3, z = 0.15;
+        delay(300);
+        double x = 0.1, y = 0.0, z = -0.8;
 
         double frontLeft = (x - y - z);
         double frontRight = (x + y + z);
         double backLeft = (x + y - z);
         double backRight = (x - y + z);
         setDrivePowerAll(frontLeft, frontRight, backLeft, backRight);
-        while (driver.getHeading() < -25) ;
+        while (driver.getHeading() > -80) ;
         setDrivePowerAll(0, 0, 0, 0);
-        delay(700);
-        tapeMeasure.stop();
+        delay(300);
+
+        x = -0.7;
+        y = 0.0;
+        z = 0.0;
+
+        frontLeft = (x - y - z);
+        frontRight = (x + y + z);
+        backLeft = (x + y - z);
+        backRight = (x - y + z);
+        setDrivePowerAll(frontLeft, frontRight, backLeft, backRight);
+        delay(1000);
+        setDrivePowerAll(0, 0, 0, 0);
+        setDraggerUp();
     }
 
     public void redPark() {
