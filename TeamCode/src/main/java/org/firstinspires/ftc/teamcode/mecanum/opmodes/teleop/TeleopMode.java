@@ -52,16 +52,21 @@ public class TeleopMode extends AbstractTeleop {
 
         addEventHandler("2_lb_down", () ->robot.lift.openGrabberWide());
 
+        addEventHandler("2_lt_down", () ->robot.lift.setSlideOutPark());
+
     }
 
     @Override
     public void UpdateEvents() {
-        double liftMultiplier = 0.8;
+        double liftMultiplier = -gamepad2.left_stick_y > 0 ? 1.0 : 0.8;
         double left_stick_x=gamepad1.left_stick_x,left_stick_y = -gamepad1.left_stick_y, right_stick_x = gamepad1.right_stick_x;
         double right_trigger=gamepad1.right_trigger*0.32,left_trigger = gamepad1.left_trigger*0.32;
         robot.setDrivePowerAll(k*(left_stick_y+left_stick_x+right_stick_x)-right_trigger+left_trigger,k*(left_stick_y-left_stick_x-right_stick_x)+right_trigger-left_trigger,
                                k*(left_stick_y-left_stick_x+right_stick_x)+right_trigger-left_trigger,k*(left_stick_y+left_stick_x-right_stick_x)-right_trigger+left_trigger);
         robot.lift.setLiftPower(-gamepad2.left_stick_y*liftMultiplier);
+
+        checkBooleanInput("2_lt", gamepad2.left_trigger > 0.5);
+        checkBooleanInput("2_rt", gamepad2.right_trigger > 0.5);
 
     }
 

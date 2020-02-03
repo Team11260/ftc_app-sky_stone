@@ -96,6 +96,10 @@ public class LiftController extends SubsystemController {
         lift.setSlidePosition(SLIDE_OUT);
     }
 
+    public void setSlideOutPark() {
+        lift.setSlidePosition(SLIDE_OUT_PARK);
+    }
+
     public void toggleSlide(){
         if(isSlideOut)
             setSlideIn();

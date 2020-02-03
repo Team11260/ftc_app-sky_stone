@@ -21,8 +21,6 @@ public class RedTwoStone extends BaseTwoStone {
     @Override
     public void Run() {
 
-        robot.arm.setArmDownPosition();
-        robot.setGripperRelease();
 
         switch (place) {
             case "Right":
@@ -42,7 +40,9 @@ public class RedTwoStone extends BaseTwoStone {
                 break;
         }
         robot.setDraggerDown();
-        robot.redParkWithTape();
+
         robot.runDrivePath(RedDragFoundationPark);
+        robot.redParkWithTape();
+        robot.runDrivePath(RedRobotPark);
     }
 }

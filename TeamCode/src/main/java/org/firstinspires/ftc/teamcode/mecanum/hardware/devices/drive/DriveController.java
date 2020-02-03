@@ -224,13 +224,13 @@ public class DriveController extends SubsystemController {
 
         pursuitPath.build();
 
-        for(PathPoint point : pursuitPath.getPoints()) {
-            telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
-            telemetry.getSmartdashboard().putGraph("position", "velocity", point.getX(), point.getVelocity());
-        }
+//        for(PathPoint point : pursuitPath.getPoints()) {
+//            telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
+//            telemetry.getSmartdashboard().putGraph("position", "velocity", point.getX(), point.getVelocity());
+//        }
 
         drive.follow(pursuitPath);
-        ElapsedTime runtime =new ElapsedTime();
+        ElapsedTime runtime = new ElapsedTime();
         runtime.reset();
         int loopCounts=0;
 
@@ -245,34 +245,24 @@ public class DriveController extends SubsystemController {
             drive.update();
             Pose currentPose = drive.getCurrentPosition();
             loopCounts++;
-            telemetry.getSmartdashboard().putGraph("position","actual",drive.getCurrentPosition().getX(),currentPose.getY());
-            telemetry.getSmartdashboard().putGraph("velocity","actual",currentPose.getX(),drive.getDistance()/(runtime.seconds()-lastTime));
+
+            telemetry.addData(INFO,"X Position: " + currentPose.getX());
+            telemetry.addData(INFO,"Y Position: " + currentPose.getY());
+            telemetry.update();
+//            telemetry.getSmartdashboard().putGraph("position","actual",drive.getCurrentPosition().getX(),currentPose.getY());
+//            telemetry.getSmartdashboard().putGraph("velocity","actual",currentPose.getX(),drive.getDistance()/(runtime.seconds()-lastTime));
 
 
-            lastTime = runtime.seconds();
         }
+        lastTime = runtime.seconds();
 
         telemetry.addData(INFO,"loop counts: "+ loopCounts);
-        telemetry.addData(INFO,"runtime: "+runtime.toString());
-        telemetry.addData(INFO,"loop time: "+runtime.seconds()/loopCounts);
+        telemetry.addData(INFO,"runtime: "+lastTime );
+        telemetry.addData(INFO,"loop time: "+ lastTime/loopCounts );
         telemetry.update();
-       // long startTime = System.currentTimeMillis();
 
-//        while(opModeIsActive() && System.currentTimeMillis()-startTime<1000){
-//            drive.update();
-//            Pose currentPose = drive.getCurrentPosition();
-//            telemetry.addData(INFO,"position X1:" + currentPose.getX());
-//            telemetry.addData(INFO,"position y1:" + currentPose.getY());
-//            telemetry.update();
-//        }
 
         drive.setPower(0, 0);
-
-        Pose currentPose = drive.getCurrentPosition();
-//        telemetry.addData(INFO,"Final position X:" + currentPose.getX());
-//        telemetry.addData(INFO,"Final position y:" + currentPose.getY());
-//        telemetry.addData(INFO, "Final Heading"+ drive.getActualHeadingDegrees());
-//        telemetry.update();
 
     }
 
@@ -633,6 +623,7 @@ public class DriveController extends SubsystemController {
 
         //while ((distanceTravelled < (destination*switchDirection) && opModeIsActive())){
         while ((!atPosition(destination, distanceTravelled, error)) && opModeIsActive() && (runtime.milliseconds()< period)){
+            loop++;
             if (segment.isDone()) {
                 setPower(0, 0);
                 return;
@@ -704,16 +695,18 @@ public class DriveController extends SubsystemController {
 
             //telemetry.getSmartdashboard().putGraph("Turbo", "Power",distanceTravelled,leftPower);
 
-            loop++;
+
             // telemetry.addData(INFO, "Angle heading   " +  angleError);
             // telemetry.update();
 
         } //end of while loop
 
+        double averageRuntime = runtime.milliseconds();
+
         drive.stop();
 
-        telemetry.addData(INFO, "Time for drive: " + runtime.milliseconds());
-        telemetry.addData(INFO, "Average loop time for drive: " + runtime.milliseconds() / loop);
+        telemetry.addData(INFO, "Time for drive: " + averageRuntime);
+        telemetry.addData(INFO, "Average loop time for drive: " + averageRuntime / loop);
         telemetry.addData(INFO, "Loop count " + loop);
         telemetry.addData(INFO, "Straight encoder goal: " + distance );
         telemetry.addData(INFO, "Straight encoder position: " + (drive.getStraightPosition()-straightOffset));
@@ -723,6 +716,7 @@ public class DriveController extends SubsystemController {
 
         //drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
+
 
     public synchronized void startDrag(){
 

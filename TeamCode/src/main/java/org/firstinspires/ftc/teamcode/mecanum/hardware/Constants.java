@@ -39,7 +39,7 @@ public final class Constants {
     public static double BACK_DRAGGER_UP_POSITION = 1.00;
     public static double FRONT_DRAGGER_UP_POSITION = 1.00;
     public static double BACK_DRAGGER_DOWN_POSITION = 0.39;
-    public static double FRONT_DRAGGER_DOWN_POSITION = 0.39;
+    public static double FRONT_DRAGGER_DOWN_POSITION = 0.37;
     public static double BACK_DRAGGER_HALFWAY_POSITION = 0.51;
     public static double FRONT_DRAGGER_HALFWAY_POSITION = 0.51;
 
@@ -67,9 +67,10 @@ public final class Constants {
     public static double TILT_UP = 0.59;
     public static double GRABBER_OPEN = 0.45;
     public static double GRABBER_CLOSE = 0.8;
-    public static double GRABBER_OPEN_WIDE = 0.38;
+    public static double GRABBER_OPEN_WIDE = 0.36;
     public static double SLIDE_IN = 0.05;
     public static double SLIDE_OUT = 0.77;
+    public static double SLIDE_OUT_PARK = 0.98;
     public static double SLIDE_OUT_HALF = 0.35;
     public static double PAN_RIGHT = 0;
     public static double PAN_MIDDLE = 0.5;

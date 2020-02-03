@@ -200,6 +200,7 @@ public class Robot extends AbstractRobot {
         };
     }
 
+
     public RobotCallable armDownCallable() {
         return () -> {
             setArmDown();
@@ -218,6 +219,14 @@ public class Robot extends AbstractRobot {
             arm.setGripperGripPosition();
 
 
+        };
+
+    }
+
+    public RobotCallable preparePickUpCallable() {
+        return () -> {
+            arm.setArmDownPosition();
+            setGripperRelease();
         };
 
     }
@@ -261,23 +270,39 @@ public class Robot extends AbstractRobot {
 
     }
 
-    public RobotCallable delayedArmDownCallable() {
+    public RobotCallable redDelayedArmDownCallable() {
         return () -> {
             while (driver.getCurrentPosition().getX() < -28) ;
             setGripperRelease();
             setArmDown();
         };
-
     }
 
-    public RobotCallable delayedArmDownLongCallable() {
+    public RobotCallable redDelayedArmDownLongCallable() {
         return () -> {
-            while (driver.getCurrentPosition().getX() < -28)
-                setGripperRelease();
+            while (driver.getCurrentPosition().getX() < 0) ;
+            setGripperRelease();
             setArmDown();
         };
-
     }
+
+    public RobotCallable blueDelayedArmDownCallable() {
+        return () -> {
+            while (driver.getCurrentPosition().getX() > 28) ;
+            setGripperRelease();
+            setArmDown();
+        };
+    }
+
+    public RobotCallable blueDelayedArmDownLongCallable() {
+        return () -> {
+            while (driver.getCurrentPosition().getX() > 0) ;
+            setGripperRelease();
+            setArmDown();
+        };
+    }
+
+
 
     public void setArmUp() {
         arm.setArmAutonPosition();
@@ -546,7 +571,7 @@ public class Robot extends AbstractRobot {
 
     public void redParkWithTape() {
         delay(300);
-        double x = 0.1, y = 0.0, z = -0.8;
+        double x = 0., y = 0.0, z = -0.8;
 
         double frontLeft = (x - y - z);
         double frontRight = (x + y + z);
@@ -556,18 +581,6 @@ public class Robot extends AbstractRobot {
         while (driver.getHeading() > -80) ;
         setDrivePowerAll(0, 0, 0, 0);
         delay(300);
-
-        x = -0.7;
-        y = 0.0;
-        z = 0.0;
-
-        frontLeft = (x - y - z);
-        frontRight = (x + y + z);
-        backLeft = (x + y - z);
-        backRight = (x - y + z);
-        setDrivePowerAll(frontLeft, frontRight, backLeft, backRight);
-        delay(1000);
-        setDrivePowerAll(0, 0, 0, 0);
         setDraggerUp();
     }
 

@@ -22,9 +22,6 @@ public class BlueTwoStone extends BaseTwoStone {
     @Override
     public void Run() {
 
-        robot.arm.setArmDownPosition();
-        robot.setGripperRelease();
-
         switch (place) {
             case "Right":
                 robot.runDrivePath(BluePurePursuitRight);
