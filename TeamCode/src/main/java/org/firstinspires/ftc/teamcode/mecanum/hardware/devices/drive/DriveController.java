@@ -246,9 +246,9 @@ public class DriveController extends SubsystemController {
             Pose currentPose = drive.getCurrentPosition();
             loopCounts++;
 
-            telemetry.addData(INFO,"X Position: " + currentPose.getX());
-            telemetry.addData(INFO,"Y Position: " + currentPose.getY());
-            telemetry.update();
+//            telemetry.addData(INFO,"X Position: " + currentPose.getX());
+//            telemetry.addData(INFO,"Y Position: " + currentPose.getY());
+            //telemetry.update();
 //            telemetry.getSmartdashboard().putGraph("position","actual",drive.getCurrentPosition().getX(),currentPose.getY());
 //            telemetry.getSmartdashboard().putGraph("velocity","actual",currentPose.getX(),drive.getDistance()/(runtime.seconds()-lastTime));
 

@@ -45,6 +45,8 @@ public class DoubleTelemetry {
     }
 
     public void addData(LogMode mode, Object caption, Object data) {
+        int a =0; if (a==0)
+            return;
         String message = "[" + mode.toString() + "] " + String.valueOf(caption) + ": " + String.valueOf(data);
         log(message);
         if (loggingMode.shouldLog(mode)) {
@@ -55,6 +57,8 @@ public class DoubleTelemetry {
     }
 
     public void addData(LogMode mode, Object data) {
+        int a =0; if (a==0)
+        return;
         String message = "[" + mode.toString() + "] " + String.valueOf(data);
         log(message);
         if (loggingMode.shouldLog(mode)) {

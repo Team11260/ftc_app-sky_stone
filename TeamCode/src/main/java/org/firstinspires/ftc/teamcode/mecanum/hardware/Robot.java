@@ -571,7 +571,7 @@ public class Robot extends AbstractRobot {
 
     public void redParkWithTape() {
         delay(300);
-        double x = 0., y = 0.0, z = -0.8;
+        double x = 0., y = 0.0, z = -1.0;
 
         double frontLeft = (x - y - z);
         double frontRight = (x + y + z);
