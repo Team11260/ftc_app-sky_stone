@@ -8,13 +8,14 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.BluePurePursuitCenter;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.BluePurePursuitLeft;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.BluePurePursuitRight;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.BlueRobotPark;
 
 @Autonomous(name = "Blue Two Stone", group = "New")
 
 
 public class BlueTwoStone extends BaseTwoStone {
 
-    public BlueTwoStone (){
+    public BlueTwoStone() {
         super();
         isRed = false;
     }
@@ -40,6 +41,9 @@ public class BlueTwoStone extends BaseTwoStone {
                 break;
         }
 
-       robot.runDrivePath(BlueDragFoundation);
+        robot.runDrivePath(BlueDragFoundation);
+        robot.blueParkWithTape();
+        robot.runDrivePath(BlueRobotPark);
+
     }
 }

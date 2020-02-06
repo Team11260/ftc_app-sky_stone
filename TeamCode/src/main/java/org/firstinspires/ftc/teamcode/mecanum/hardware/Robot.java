@@ -502,17 +502,17 @@ public class Robot extends AbstractRobot {
     }
 
     public void blueParkWithTape() {
-        double x = 0.0, y = 0.3, z = 0.15;
+        double x = 0.0, y = 0.0, z = 1.0;
 
         double frontLeft = (x - y - z);
         double frontRight = (x + y + z);
         double backLeft = (x + y - z);
         double backRight = (x - y + z);
         setDrivePowerAll(frontLeft, frontRight, backLeft, backRight);
-        while (driver.getHeading() < 150) ;
+        while (driver.getHeading() < 90) ;
         setDrivePowerAll(0, 0, 0, 0);
-        delay(500);
-        tapeMeasure.stop();
+        delay(300);
+        setDraggerUp();
     }
 
     public void redDragFoundation() {
