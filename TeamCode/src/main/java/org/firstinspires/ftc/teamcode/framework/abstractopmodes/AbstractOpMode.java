@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.framework.abstractopmodes;
 
+import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -50,6 +51,11 @@ public abstract class AbstractOpMode extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        List<LynxModule> allHubs = hardwareMap.getAll(LynxModule.class);
+        for (LynxModule module : allHubs) {
+            module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
+        }
+
         runOpmode();
     }
 
