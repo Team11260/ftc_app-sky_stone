@@ -383,6 +383,13 @@ public class FtcRobotControllerActivity extends Activity
         if (preferencesHelper.readBoolean(getString(R.string.pref_wifi_automute), false)) {
             initWifiMute(true);
         }
+
+        //START 11260 CODE
+        Dashboard.start();
+        RestartChecker = new RobotRestartChecker();
+        RestartThread = new Thread(RestartChecker);
+        RestartThread.start();
+        //END 11260 CODE
     }
 
     protected UpdateUI createUpdateUI() {
