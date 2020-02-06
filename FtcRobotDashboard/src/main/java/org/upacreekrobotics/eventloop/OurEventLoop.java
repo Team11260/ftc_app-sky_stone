@@ -6,7 +6,6 @@ import android.os.Build;
 
 import com.qualcomm.ftccommon.CommandList;
 import com.qualcomm.ftccommon.FtcEventLoopBase;
-import com.qualcomm.ftccommon.ProgrammingModeController;
 import com.qualcomm.ftccommon.UpdateUI;
 import com.qualcomm.ftccommon.UsbModuleAttachmentHandler;
 import com.qualcomm.ftccommon.configuration.FtcConfigurationActivity;
@@ -36,6 +35,7 @@ import org.firstinspires.ftc.robotcore.internal.ftdi.FtDeviceIOException;
 import org.firstinspires.ftc.robotcore.internal.ftdi.FtDeviceManager;
 import org.firstinspires.ftc.robotcore.internal.network.CallbackResult;
 import org.firstinspires.ftc.robotcore.internal.opmode.OpModeManagerImpl;
+import org.firstinspires.ftc.robotserver.internal.programmingmode.ProgrammingModeManager;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -67,8 +67,8 @@ public class OurEventLoop extends FtcEventLoopBase {
     // Construction
     //------------------------------------------------------------------------------------------------
 
-    public OurEventLoop(HardwareFactory hardwareFactory, OpModeRegister userOpmodeRegister, UpdateUI.Callback callback, Activity activityContext, ProgrammingModeController programmingModeController) {
-        super(hardwareFactory, userOpmodeRegister, callback, activityContext, programmingModeController);
+    public OurEventLoop(HardwareFactory hardwareFactory, OpModeRegister userOpmodeRegister, UpdateUI.Callback callback, Activity activityContext, ProgrammingModeManager programmingModeController) {
+        super(hardwareFactory, userOpmodeRegister, callback, activityContext);
 
         //OUR CODE
         activity = activityContext;
@@ -241,7 +241,7 @@ public class OurEventLoop extends FtcEventLoopBase {
     }
 
     /**
-     * @see FtcConfigurationActivity#doUSBScanAndUpdateUI()
+     * @see FtcConfigurationActivity
      */
     protected void handleCommandScan(String extra) throws RobotCoreException, InterruptedException {
         RobotLog.vv(FtcConfigurationActivity.TAG, "handling command SCAN");

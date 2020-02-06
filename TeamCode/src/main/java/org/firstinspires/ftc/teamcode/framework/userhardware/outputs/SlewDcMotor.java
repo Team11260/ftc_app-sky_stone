@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
 import org.openftc.revextensions2.ExpansionHubMotor;
 
@@ -303,6 +304,26 @@ public class SlewDcMotor implements DcMotor, DcMotorEx, Runnable {
     @Override
     public int getTargetPositionTolerance() {
         return motorEx.getTargetPositionTolerance();
+    }
+
+    @Override
+    public double getCurrent(CurrentUnit unit) {
+        return motorEx.getCurrent(unit);
+    }
+
+    @Override
+    public double getCurrentAlert(CurrentUnit unit) {
+        return motorEx.getCurrentAlert(unit);
+    }
+
+    @Override
+    public void setCurrentAlert(double current, CurrentUnit unit) {
+        motorEx.setCurrentAlert(current, unit);
+    }
+
+    @Override
+    public boolean isOverCurrent() {
+        return motorEx.isOverCurrent();
     }
 
     public double getCurrentDraw() {
