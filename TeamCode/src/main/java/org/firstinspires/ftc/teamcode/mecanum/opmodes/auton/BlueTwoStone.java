@@ -22,6 +22,8 @@ public class BlueTwoStone extends BaseTwoStone {
     @Override
     public void Run() {
 
+        super.Run();
+
         switch (place) {
             case "Right":
                 robot.runDrivePath(BluePurePursuitRight);

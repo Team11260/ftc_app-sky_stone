@@ -51,8 +51,16 @@ abstract public class BaseTwoStone extends AbstractAuton {
 
         if(newPlace != null)  place = newPlace;
 
+
+
         telemetry.addData(DoubleTelemetry.LogMode.INFO, place);
         telemetry.update();
+    }
+
+    public void Run(){
+        robot.imageShutDown();
+
+
     }
 
     @Override

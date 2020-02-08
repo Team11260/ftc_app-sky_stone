@@ -32,6 +32,8 @@ public class BlueParkOnly extends AbstractAuton {
 
     @Override
     public void Run() {
+
+
         delay(3000);
         robot.runDrivePath(BlueShortPath);
 

@@ -121,8 +121,16 @@ public class Robot extends AbstractRobot {
         imageProcessor.setImage(image);
 
 
+
         return stonePosition;
+
+
     }
+
+    public void imageShutDown(){
+        imageProcessor.shutdown();
+    }
+
 
     public static String place;
 
