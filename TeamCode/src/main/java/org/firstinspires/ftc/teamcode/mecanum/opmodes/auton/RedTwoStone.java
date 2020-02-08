@@ -21,6 +21,8 @@ public class RedTwoStone extends BaseTwoStone {
     @Override
     public void Run() {
 
+        super.Run();
+
 
         switch (place) {
             case "Right":
