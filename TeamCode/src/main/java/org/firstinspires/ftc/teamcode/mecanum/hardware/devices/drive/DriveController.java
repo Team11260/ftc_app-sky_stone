@@ -188,7 +188,7 @@ public class DriveController extends SubsystemController {
         telemetry.addData(INFO, "");
 
         delay(segment.getPeriod());
-        testPurePursuit(segment.getPursuitPath(), segment.getTargetHeading());
+        testPurePursuit(segment.getPursuitPath(), segment.getTargetHeading(),segment.getTimeOut());
     }
 
     /*public PursuitPath configurePath(PursuitPath path) {
@@ -214,7 +214,7 @@ public class DriveController extends SubsystemController {
         drive.setPositionError(positionError);
     }
 
-    public void testPurePursuit(PursuitPath pursuitPath, double targetHeading){
+    public void testPurePursuit(PursuitPath pursuitPath, double targetHeading, double timeOut){
 
         pursuitPath.reset();
 
@@ -241,7 +241,7 @@ public class DriveController extends SubsystemController {
 
 
         double lastTime = 0.000001;
-        while(opModeIsActive() && drive.isFollowing()){
+        while(opModeIsActive() && drive.isFollowing() && runtime.milliseconds()<timeOut){
             drive.update();
             Pose currentPose = drive.getCurrentPosition();
             loopCounts++;

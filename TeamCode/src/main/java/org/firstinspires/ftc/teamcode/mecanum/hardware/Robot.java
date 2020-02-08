@@ -416,7 +416,7 @@ public class Robot extends AbstractRobot {
     public RobotCallable setDraggerDownDelayedCallable() {
 
         return () -> {
-            delay(1500);
+            while (driver.getCurrentPosition().getY()>-30);
             setDraggerDown();
         };
 
@@ -442,7 +442,7 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable delayedDraggerUpCallable() {
         return () -> {
-            delay(2000);
+            delay(1500);
             setDraggerUp();
         };
     }

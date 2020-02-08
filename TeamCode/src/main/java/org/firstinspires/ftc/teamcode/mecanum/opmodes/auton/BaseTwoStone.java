@@ -59,8 +59,6 @@ abstract public class BaseTwoStone extends AbstractAuton {
 
     public void Run(){
         robot.imageShutDown();
-
-
     }
 
     @Override
