@@ -247,29 +247,29 @@ public class AutonPursuitPaths {
 
     static {
         RedDragFoundation.addSegment(new PurePursuitSegment("Pull the foundation", new PursuitPath(
-                new Point(RED_FOUNDATION_MIDDLE_NEAR_X+0, RED_FOUNDATION_Y_2ND+0),
-                new Point(RED_FOUNDATION_MIDDLE_NEAR_X+20, RED_FOUNDATION_Y_2ND+16))
+                new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 0, RED_FOUNDATION_Y_2ND + 0),
+                new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 20, RED_FOUNDATION_Y_2ND + 16))
                 .setMinSpeed(0.7)
                 .setTurnSpeed(1.0)
                 .setTurnGain(1.0)
                 .setPositionError(15.0)
                 .setHeadingError(10.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 500, -55,1500));
+                .setPointSpacing(1.0), 500, -55, 1500));
         RedDragFoundation.addSegment(new PurePursuitSegment("park the foundation", new PursuitPath(
-                new Point(RED_FOUNDATION_MIDDLE_NEAR_X+20, RED_FOUNDATION_Y_2ND+14),
-                new Point(RED_FOUNDATION_MIDDLE_NEAR_X+6, RED_FOUNDATION_Y_2ND+8))
+                new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 20, RED_FOUNDATION_Y_2ND + 14),
+                new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 6, RED_FOUNDATION_Y_2ND + 8))
                 .setMinSpeed(0.8)
                 .setTurnSpeed(1.0)
                 .setTurnGain(2.0)
                 .setPositionError(15.0)
                 .setHeadingError(10.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 0, -90,1300));
+                .setPointSpacing(1.0), 0, -90, 1300));
         RedDragFoundation.addSegment(new PurePursuitSegment("park the robot", new PursuitPath(
-                new Point(RED_FOUNDATION_MIDDLE_NEAR_X+14, RED_FOUNDATION_Y_2ND+5),
-                new Point(RED_FOUNDATION_MIDDLE_NEAR_X+18, RED_FOUNDATION_Y_2ND+1),
-                new Point(RED_FOUNDATION_MIDDLE_NEAR_X+52,RED_FOUNDATION_Y_2ND+2))
+                new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 14, RED_FOUNDATION_Y_2ND + 5),
+                new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 18, RED_FOUNDATION_Y_2ND + 1),
+                new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 52, RED_FOUNDATION_Y_2ND + 2))
                 .setMinSpeed(0.25)
                 .setMaxSpeed(0.6)
                 .setTurnSpeed(0.1)
@@ -277,7 +277,7 @@ public class AutonPursuitPaths {
                 .setPositionError(6.0)
                 .setHeadingError(8.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 0, -90,3000));
+                .setPointSpacing(1.0), 0, -90, 3000));
 
     }
 
@@ -293,7 +293,7 @@ public class AutonPursuitPaths {
                 .setPositionError(15.0)
                 .setHeadingError(10.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 500, -55,1500));
+                .setPointSpacing(1.0), 500, -55, 1500));
         RedDragFoundationTest.addSegment(new PurePursuitSegment("park the foundation", new PursuitPath(
                 new Point(20, +14),
                 new Point(6, +8))
@@ -303,11 +303,11 @@ public class AutonPursuitPaths {
                 .setPositionError(15.0)
                 .setHeadingError(10.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 0, -90,1300));
+                .setPointSpacing(1.0), 0, -90, 1300));
         RedDragFoundationTest.addSegment(new PurePursuitSegment("park the robot", new PursuitPath(
                 new Point(14, +5),
                 new Point(18, 1),
-                new Point(52,2))
+                new Point(52, 2))
                 .setMinSpeed(0.25)
                 .setMaxSpeed(0.6)
                 .setTurnSpeed(0.1)
@@ -315,7 +315,7 @@ public class AutonPursuitPaths {
                 .setPositionError(6.0)
                 .setHeadingError(8.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 0, -90,3000));
+                .setPointSpacing(1.0), 0, -90, 3000));
 
 //        BlueDragFoundationTest.addSegment(new PurePursuitSegment("park the foundation", new PursuitPath(new Point(-20, +12), new Point(-17, +4)).setMinSpeed(0.3).setPositionError(4.0), 0, 90));
 //        BlueDragFoundationTest.addSegment(new PurePursuitSegment("park the robot", new PursuitPath(new Point(- -17, +4), new Point(-26, +1), new Point(-48, +-2)).setMinSpeed(0.3).setPositionError(4.0), 0, 90));
@@ -450,7 +450,7 @@ public class AutonPursuitPaths {
 
     static {
         BluePurePursuitLeft.addSegment(new PurePursuitSegment("drive to first sky stone",
-                new PursuitPath(new Point(0, 0), new Point(BLUE_BLOCK6_X, BLUE_BLOCK_LOCATION_Y +1)).setMaxAcceleration(0.01).setMaxDeceleration(0.015), PERIOD));
+                new PursuitPath(new Point(0, 0), new Point(BLUE_BLOCK6_X, BLUE_BLOCK_LOCATION_Y + 1)).setMaxAcceleration(0.01).setMaxDeceleration(0.015), 0));
         BluePurePursuitLeft.addSegment(new PurePursuitSegment("first trip to foundation",
                 new PursuitPath(new Point(BLUE_BLOCK6_X, BLUE_BLOCK_LOCATION_Y),
                         new Point(BLUE_BLOCK6_X, BLUE_RUNWAY_Y),
@@ -489,14 +489,14 @@ public class AutonPursuitPaths {
         BluePurePursuitCenter.addSegment(new PurePursuitSegment("drive to first sky stone",
                 new PursuitPath(
                         new Point(0, 0),
-                        new Point(BLUE_BLOCK5_X, BLUE_BLOCK_LOCATION_Y+1))
-                        .setMaxAcceleration(0.01).setMaxDeceleration(0.015), PERIOD));
+                        new Point(BLUE_BLOCK5_X, BLUE_BLOCK_LOCATION_Y + 1))
+                        .setMaxAcceleration(0.01).setMaxDeceleration(0.015), 0));
         BluePurePursuitCenter.addSegment(new PurePursuitSegment("first trip to foundation",
                 new PursuitPath(
                         new Point(BLUE_BLOCK5_X, BLUE_BLOCK_LOCATION_Y),
                         new Point(BLUE_BLOCK5_X, BLUE_RUNWAY_Y),
                         new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y),
-                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y+1)).setMaxDeceleration(0.015), PERIOD));
+                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y + 1)).setMaxDeceleration(0.015), PERIOD+200));
         BluePurePursuitCenter.addSegment(new PurePursuitSegment("drive to second sky stone",
                 new PursuitPath(new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y),
                         new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y),
@@ -510,8 +510,8 @@ public class AutonPursuitPaths {
         BluePurePursuitCenter.addSegment(new PurePursuitSegment("drive to third sky stone",
                 new PursuitPath(new Point(BLUE_FOUNDATION_NEAR_X, BLUE_FOUNDATION_Y),
                         new Point(BLUE_FOUNDATION_NEAR_X, BLUE_RUNWAY_Y),
-                        new Point(BLUE_BLOCK6_X+3, BLUE_RUNWAY_Y + OFF_SET),
-                        new Point(BLUE_BLOCK6_X+3, BLUE_BLOCK_LOCATION_Y)).setMaxDeceleration(0.017), PERIOD));
+                        new Point(BLUE_BLOCK6_X + 3, BLUE_RUNWAY_Y + OFF_SET),
+                        new Point(BLUE_BLOCK6_X + 3, BLUE_BLOCK_LOCATION_Y)).setMaxDeceleration(0.017), PERIOD));
         BluePurePursuitCenter.addSegment(new PurePursuitSegment("last trip to foundation",
                 new PursuitPath(new Point(BLUE_BLOCK6_X, BLUE_BLOCK_LOCATION_Y),
                         new Point(BLUE_BLOCK6_X, BLUE_RUNWAY_Y_2),
@@ -526,12 +526,12 @@ public class AutonPursuitPaths {
 
     static {
         BluePurePursuitRight.addSegment(new PurePursuitSegment("drive to first sky stone",
-                new PursuitPath(new Point(0, 0), new Point(BLUE_BLOCK4_X, BLUE_BLOCK_LOCATION_Y+1)).setMaxAcceleration(0.01).setMaxDeceleration(0.015), PERIOD));
+                new PursuitPath(new Point(0, 0), new Point(BLUE_BLOCK4_X, BLUE_BLOCK_LOCATION_Y + 1)).setMaxAcceleration(0.01).setMaxDeceleration(0.015), 0));
         BluePurePursuitRight.addSegment(new PurePursuitSegment("first trip to foundation",
                 new PursuitPath(new Point(BLUE_BLOCK4_X, BLUE_BLOCK_LOCATION_Y),
                         new Point(BLUE_BLOCK4_X, BLUE_RUNWAY_Y),
                         new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y),
-                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y+2))
+                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y + 2))
                         .setMaxDeceleration(0.015), PERIOD));
         BluePurePursuitRight.addSegment(new PurePursuitSegment("drive to second sky stone",
                 new PursuitPath(new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y),
@@ -546,8 +546,8 @@ public class AutonPursuitPaths {
         BluePurePursuitRight.addSegment(new PurePursuitSegment("drive to third sky stone",
                 new PursuitPath(new Point(BLUE_FOUNDATION_NEAR_X, BLUE_FOUNDATION_Y),
                         new Point(BLUE_FOUNDATION_NEAR_X, BLUE_RUNWAY_Y),
-                        new Point(BLUE_BLOCK6_X+3, BLUE_RUNWAY_Y + OFF_SET),
-                        new Point(BLUE_BLOCK6_X+3, BLUE_BLOCK_LOCATION_Y)).setMaxDeceleration(0.017), PERIOD));
+                        new Point(BLUE_BLOCK6_X + 3, BLUE_RUNWAY_Y + OFF_SET),
+                        new Point(BLUE_BLOCK6_X + 3, BLUE_BLOCK_LOCATION_Y)).setMaxDeceleration(0.017), PERIOD));
         BluePurePursuitRight.addSegment(new PurePursuitSegment("last trip to foundation",
                 new PursuitPath(new Point(BLUE_BLOCK6_X, BLUE_BLOCK_LOCATION_Y),
                         new Point(BLUE_BLOCK6_X, BLUE_RUNWAY_Y_2),
@@ -564,28 +564,28 @@ public class AutonPursuitPaths {
     static {
         BlueDragFoundation.addSegment(new PurePursuitSegment("Pull the foundation", new PursuitPath(
                 new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X - 0, BLUE_FOUNDATION_Y_2ND + 0),
-                new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X-20, BLUE_FOUNDATION_Y_2ND + 16))
+                new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X - 20, BLUE_FOUNDATION_Y_2ND + 16))
                 .setMinSpeed(0.8)
                 .setTurnSpeed(1.0)
                 .setTurnGain(1.0)
                 .setPositionError(15.0)
                 .setHeadingError(10.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 1000, 55,1600));
+                .setPointSpacing(1.0), 1000, 55, 1600));
         BlueDragFoundation.addSegment(new PurePursuitSegment("park the foundation", new PursuitPath(
-                new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X-20, BLUE_FOUNDATION_Y_2ND + 14),
-                new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X-6, BLUE_FOUNDATION_Y_2ND + 8))
-                .setMinSpeed(1.0)
+                new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X - 20, BLUE_FOUNDATION_Y_2ND + 14),
+                new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X - 6, BLUE_FOUNDATION_Y_2ND + 8))
+                .setMinSpeed(1.1)
                 .setTurnSpeed(1.0)
-                .setTurnGain(2.0)
+                .setTurnGain(3.0)
                 .setPositionError(15.0)
                 .setHeadingError(10.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 0, 90,1400));
+                .setPointSpacing(1.0), 0, 90, 1500));
         BlueDragFoundation.addSegment(new PurePursuitSegment("park the robot", new PursuitPath(
-                new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X-14, BLUE_FOUNDATION_Y_2ND + 5),
-                new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X-18, +BLUE_FOUNDATION_Y_2ND + 1),
-                new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X-50,BLUE_FOUNDATION_Y_2ND - 2))
+                new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X - 14, BLUE_FOUNDATION_Y_2ND + 5),
+                new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X - 18, +BLUE_FOUNDATION_Y_2ND + 1),
+                new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X - 50, BLUE_FOUNDATION_Y_2ND - 2))
                 .setMinSpeed(0.25)
                 .setMaxSpeed(0.6)
                 .setTurnSpeed(0.1)
@@ -593,7 +593,7 @@ public class AutonPursuitPaths {
                 .setPositionError(6.0)
                 .setHeadingError(8.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 0, 90,3000));
+                .setPointSpacing(1.0), 0, 90, 3000));
     }
 
     public final static Path BlueDragFoundationTest = new Path("Blue Drag Foundation Test");
@@ -608,7 +608,7 @@ public class AutonPursuitPaths {
                 .setPositionError(15.0)
                 .setHeadingError(10.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 0, 55,1600));
+                .setPointSpacing(1.0), 0, 55, 1600));
         BlueDragFoundationTest.addSegment(new PurePursuitSegment("park the foundation", new PursuitPath(
                 new Point(-20, +14),
                 new Point(-6, +8))
@@ -618,11 +618,11 @@ public class AutonPursuitPaths {
                 .setPositionError(15.0)
                 .setHeadingError(10.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 0, 90,1400));
+                .setPointSpacing(1.0), 0, 90, 1400));
         BlueDragFoundationTest.addSegment(new PurePursuitSegment("park the robot", new PursuitPath(
                 new Point(-14, +5),
                 new Point(-18, 1),
-                new Point(-50,-2))
+                new Point(-50, -2))
                 .setMinSpeed(0.25)
                 .setMaxSpeed(0.6)
                 .setTurnSpeed(0.1)
@@ -630,7 +630,7 @@ public class AutonPursuitPaths {
                 .setPositionError(6.0)
                 .setHeadingError(8.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 0, 90,3000));
+                .setPointSpacing(1.0), 0, 90, 3000));
 
 //        BlueDragFoundationTest.addSegment(new PurePursuitSegment("park the foundation", new PursuitPath(new Point(-20, +12), new Point(-17, +4)).setMinSpeed(0.3).setPositionError(4.0), 0, 90));
 //        BlueDragFoundationTest.addSegment(new PurePursuitSegment("park the robot", new PursuitPath(new Point(- -17, +4), new Point(-26, +1), new Point(-48, +-2)).setMinSpeed(0.3).setPositionError(4.0), 0, 90));
@@ -652,31 +652,6 @@ public class AutonPursuitPaths {
 
     }
 
-    public final static Path PlatformParkOnlyPath = new Path("move foundation and park");
-
-    static {
-        PlatformParkOnlyPath.addSegment(new PurePursuitSegment("drive to building zone",
-                new PursuitPath(
-                        new Point(0, 0),
-                        new Point(-12, 0))));
-        PlatformParkOnlyPath.addSegment(new PurePursuitSegment("strafe to foundation",
-                new PursuitPath(
-                        new Point(-12, 0),
-                        new Point(-12, RED_FOUNDATION_Y_2ND)), 300));
-        PlatformParkOnlyPath.addSegment(new PurePursuitSegment("Pull the foundation",
-                new PursuitPath(
-                        new Point(-12, RED_FOUNDATION_Y_2ND),
-                        new Point(8, RED_FOUNDATION_Y_2ND + 12)).setMinSpeed(0.5).setPositionError(4.0), 400, -35));
-        PlatformParkOnlyPath.addSegment(new PurePursuitSegment("park the foundation",
-                new PursuitPath(
-                        new Point(8, RED_FOUNDATION_Y_2ND + 12),
-                        new Point(10, RED_FOUNDATION_Y_2ND + 12)).setMinSpeed(0.5).setPositionError(4.0), 0, -90));
-        PlatformParkOnlyPath.addSegment(new PurePursuitSegment("park the robot",
-                new PursuitPath(
-                        new Point(40, RED_FOUNDATION_Y_2ND + 12),
-                        new Point(44, RED_FOUNDATION_Y_2ND + 5),
-                        new Point(24, 0)).setMinSpeed(0.3), 0, -90));
-    }
 
 }
 

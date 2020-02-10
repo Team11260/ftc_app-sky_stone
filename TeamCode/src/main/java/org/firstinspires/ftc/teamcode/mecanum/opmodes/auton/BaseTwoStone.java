@@ -63,7 +63,6 @@ abstract public class BaseTwoStone extends AbstractAuton {
 
     @Override
     public void Stop(){
-
         Dashboard.startOpMode(Constants.OPMODE_TO_START_AFTER_AUTON);
     }
 

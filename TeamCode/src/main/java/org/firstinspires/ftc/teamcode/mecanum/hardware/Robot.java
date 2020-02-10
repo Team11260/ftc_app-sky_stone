@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.ImageProcessor;
-import org.firstinspires.ftc.teamcode.framework.userhardware.paths.DriveSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
@@ -65,9 +64,6 @@ public class Robot extends AbstractRobot {
         driver.update();
     }
 
-    public void driveToSegment(DriveSegment segment) {
-        driver.driveToSegment(segment);
-    }
 
     public String getSkyStonePositionThreeStones(int loopcount, boolean isRed) {
         int xorigin = isRed ? RED_XORIGIN : BLUE_XORIGIN;

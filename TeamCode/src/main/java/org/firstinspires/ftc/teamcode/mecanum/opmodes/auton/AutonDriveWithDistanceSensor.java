@@ -7,39 +7,39 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.util.PathState;
 import org.firstinspires.ftc.teamcode.framework.util.State;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.Constantscwo;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.Constants;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.Robotcwo;
 
 @Autonomous(name = "Auton Drive with DistSensor", group = "Test")
 @Disabled
 
 public class AutonDriveWithDistanceSensor extends AbstractAuton {
 
-    Robotcwo robot;
+    Robot robot;
     private Servo arm, gripper;
 
     @Override
     public void RegisterStates() {
 
         addState(new State("arm down to collect", "start", robot.armDownCallable()));
-        addState(new PathState("arm grips the stone", "drive to sky stone", robot.gripperGripCallable()));
-        addState(new State("arm up", "arm grips the stone", robot.armUpCallable()));
+        addState(new PathState("arm grips the stone", "drive to sky stone", robot.setGripperGripCallable()));
+        addState(new State("arm up", "arm grips the stone", robot.setArmUpCallable()));
         addState(new PathState("gripping pause", "drive to sky stone", () -> {
             RobotState.currentPath.pause();
-            delay(Constantscwo.GRIPPING_DELAY);
+            delay(Constants.GRIPPING_DELAY);
             RobotState.currentPath.resume();
         }));
         addState(new PathState("arm down with block", "drive to tray", robot.armDownCallable()));
-        addState(new State("release stone", "arm down with block", robot.releaseStoneCallable()));
-        addState(new State("tray latch down", "arm down with block", robot.trayArmDownCallable()));
-        addState(new PathState("tray latch up", "pull tray", robot.trayArmUpCallable()));
+        addState(new State("release stone", "arm down with block", robot.deliverStoneCallable()));
+        addState(new State("tray latch down", "arm down with block", robot.setDraggerDownCallable()));
+        addState(new PathState("tray latch up", "pull tray", robot.setDraggerUpCallable()));
     }
 
     @Override
     public void Init() {
 
-        robot = new Robotcwo();
+        robot = new Robot();
 
     }
 
@@ -51,29 +51,6 @@ public class AutonDriveWithDistanceSensor extends AbstractAuton {
     @Override
     public void Run() {
 
-
-
-
-        /*robot.runDrivePath(Constantscwo.approachTheStones);
-        switch(robot.skyStonePosition){
-            case "Right":
-                robot.strafe(6);
-                robot.runDrivePath(Constantscwo.collectRightSkyStone);
-                break;
-            case "Left":
-                robot.strafe(-6);
-                robot.runDrivePath(Constantscwo.collectLeftSkyStone);
-                break;
-            case "Center":
-                robot.runDrivePath(Constantscwo.collectCenterSkyStone);
-                break;
-            default:
-                robot.runDrivePath(Constantscwo.collectCenterSkyStone);
-                break;
-        }
-        robot.runDrivePath(Constantscwo.dumpAndDrag);
-        robot.strafe(-30);
-        robot.runDrivePath(Constantscwo.park);*/
 
     }
 
