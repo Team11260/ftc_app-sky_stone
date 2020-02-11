@@ -5,23 +5,25 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.BlueDragFoundation;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.BlueDragFoundationTest;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.BluePurePursuitCenter;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.BluePurePursuitLeft;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.BluePurePursuitRight;
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.BlueRobotPark;
 
 @Autonomous(name = "Blue Two Stone", group = "New")
 
 
 public class BlueTwoStone extends BaseTwoStone {
 
-    public BlueTwoStone() {
+    public BlueTwoStone (){
         super();
         isRed = false;
     }
 
     @Override
     public void Run() {
+
+        super.Run();
 
         switch (place) {
             case "Right":
@@ -40,10 +42,6 @@ public class BlueTwoStone extends BaseTwoStone {
                 robot.runDrivePath(BluePurePursuitCenter);
                 break;
         }
-
-        robot.runDrivePath(BlueDragFoundation);
-        robot.blueParkWithTape();
-        robot.runDrivePath(BlueRobotPark);
-
+       robot.runDrivePath(BlueDragFoundation);
     }
 }

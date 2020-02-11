@@ -98,18 +98,19 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
 
         double x = Math.cos(Math.toRadians(angle));
         double y = Math.sin(Math.toRadians(angle)) * yScale;
-        double z = headingController.output(targetHeading, currentPosition.getHeading());
+        double z = currentPursuitPath.getTurnGain() * headingController.output(targetHeading, currentPosition.getHeading());
 
-        telemetry.getSmartdashboard().putGraph("Position","Target Heading", closest ,angle);
+
+        //telemetry.getSmartdashboard().putGraph("Position","Target Heading", closest ,angle);
 
         double frontLeft = velocity * (x - y - z);
         double frontRight = velocity * (x + y + z);
         double backLeft = velocity * (x + y - z);
         double backRight = velocity * (x - y + z);
 
-        telemetry.getSmartdashboard().putGraph("outputs","x", closest ,x);
-        telemetry.getSmartdashboard().putGraph("outputs","y", closest ,y);
-        telemetry.getSmartdashboard().putGraph("outputs","z", closest ,z);
+//        telemetry.getSmartdashboard().putGraph("outputs","x", closest ,x);
+//        telemetry.getSmartdashboard().putGraph("outputs","y", closest ,y);
+//        telemetry.getSmartdashboard().putGraph("outputs","z", closest ,z);
 
 
 

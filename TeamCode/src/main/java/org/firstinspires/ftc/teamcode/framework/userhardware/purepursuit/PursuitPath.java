@@ -87,6 +87,7 @@ public class PursuitPath {
     private double fTargetAngle = 0;
     private double fDeltaAngle = 0;
     private double fCurvature = 0.000001;
+    private double turnGain = 1.0;
 
     /**
      * Waypoints along path specified by behavior
@@ -116,17 +117,28 @@ public class PursuitPath {
      * Setters for path specific creation and following data
      */
 
-    public void setPointSpacing(double pointSpacing) {
+    public PursuitPath setPointSpacing(double pointSpacing) {
         fPointSpacing = pointSpacing;
+        return this;
     }
 
-    public void setPathSmoothing(double pathSmoothing) {
+    public PursuitPath setPathSmoothing(double pathSmoothing) {
         fPathSmoothing = pathSmoothing;
+        return this;
     }
 
     /*public void setTurnSpeed(double turnSpeed) {
         fTurnSpeed = turnSpeed;
     }*/
+
+    public PursuitPath setTurnGain(double turnGain){
+        this.turnGain = turnGain;
+        return this;
+    }
+
+    public double getTurnGain(){
+        return turnGain;
+    }
 
     public PursuitPath setTurnSpeed(double turnSpeed) {
         fTurnSpeed = turnSpeed;
