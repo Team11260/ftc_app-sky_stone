@@ -249,27 +249,27 @@ public class AutonPursuitPaths {
         RedDragFoundation.addSegment(new PurePursuitSegment("Pull the foundation", new PursuitPath(
                 new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 0, RED_FOUNDATION_Y_2ND + 0),
                 new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 20, RED_FOUNDATION_Y_2ND + 16))
-                .setMinSpeed(0.7)
+                .setMinSpeed(0.8)
                 .setTurnSpeed(1.0)
                 .setTurnGain(1.0)
                 .setPositionError(15.0)
                 .setHeadingError(10.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 500, -55, 1500));
+                .setPointSpacing(1.0), 1000, -55, 1600));
         RedDragFoundation.addSegment(new PurePursuitSegment("park the foundation", new PursuitPath(
                 new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 20, RED_FOUNDATION_Y_2ND + 14),
                 new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 6, RED_FOUNDATION_Y_2ND + 8))
-                .setMinSpeed(0.8)
+                .setMinSpeed(1.1)
                 .setTurnSpeed(1.0)
-                .setTurnGain(2.0)
+                .setTurnGain(3.0)
                 .setPositionError(15.0)
                 .setHeadingError(10.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 0, -90, 1300));
+                .setPointSpacing(1.0), 0, -90, 1500));
         RedDragFoundation.addSegment(new PurePursuitSegment("park the robot", new PursuitPath(
                 new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 14, RED_FOUNDATION_Y_2ND + 5),
                 new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 18, RED_FOUNDATION_Y_2ND + 1),
-                new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 52, RED_FOUNDATION_Y_2ND + 2))
+                new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 52, RED_FOUNDATION_Y_2ND - 2))
                 .setMinSpeed(0.25)
                 .setMaxSpeed(0.6)
                 .setTurnSpeed(0.1)
@@ -496,7 +496,7 @@ public class AutonPursuitPaths {
                         new Point(BLUE_BLOCK5_X, BLUE_BLOCK_LOCATION_Y),
                         new Point(BLUE_BLOCK5_X, BLUE_RUNWAY_Y),
                         new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y),
-                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y + 1)).setMaxDeceleration(0.015), PERIOD+200));
+                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y + 1)).setMaxDeceleration(0.015), PERIOD+250));
         BluePurePursuitCenter.addSegment(new PurePursuitSegment("drive to second sky stone",
                 new PursuitPath(new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y),
                         new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y),
@@ -526,13 +526,17 @@ public class AutonPursuitPaths {
 
     static {
         BluePurePursuitRight.addSegment(new PurePursuitSegment("drive to first sky stone",
-                new PursuitPath(new Point(0, 0), new Point(BLUE_BLOCK4_X, BLUE_BLOCK_LOCATION_Y + 1)).setMaxAcceleration(0.01).setMaxDeceleration(0.015), 0));
+                new PursuitPath(
+                        new Point(0, 0),
+                        new Point(BLUE_BLOCK4_X, BLUE_BLOCK_LOCATION_Y + 1))
+                        .setMaxAcceleration(0.01)
+                        .setMaxDeceleration(0.015), 0));
         BluePurePursuitRight.addSegment(new PurePursuitSegment("first trip to foundation",
                 new PursuitPath(new Point(BLUE_BLOCK4_X, BLUE_BLOCK_LOCATION_Y),
                         new Point(BLUE_BLOCK4_X, BLUE_RUNWAY_Y),
                         new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y),
                         new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y + 2))
-                        .setMaxDeceleration(0.015), PERIOD));
+                        .setMaxDeceleration(0.015), PERIOD + 250));
         BluePurePursuitRight.addSegment(new PurePursuitSegment("drive to second sky stone",
                 new PursuitPath(new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y),
                         new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y),

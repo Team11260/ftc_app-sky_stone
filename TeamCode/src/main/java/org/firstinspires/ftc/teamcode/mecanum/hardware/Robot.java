@@ -429,10 +429,17 @@ public class Robot extends AbstractRobot {
         dragger.setDraggerUp();
     }
 
-    public RobotCallable delayedDraggerHalfwayCallable() {
+    public RobotCallable delayedBlueDraggerHalfwayCallable() {
         return () -> {
-            delay(1000);
+            while (driver.getCurrentPosition().getX()<20);
             setDraggerHalfway();
+        };
+    }
+
+    public RobotCallable delayedRedDraggerHalfwayCallable() {
+        return () -> {
+            while (driver.getCurrentPosition().getX()>-20);
+                setDraggerHalfway();
         };
     }
 
