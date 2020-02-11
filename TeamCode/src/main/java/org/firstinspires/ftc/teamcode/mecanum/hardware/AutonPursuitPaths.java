@@ -526,7 +526,11 @@ public class AutonPursuitPaths {
 
     static {
         BluePurePursuitRight.addSegment(new PurePursuitSegment("drive to first sky stone",
-                new PursuitPath(new Point(0, 0), new Point(BLUE_BLOCK4_X, BLUE_BLOCK_LOCATION_Y + 1)).setMaxAcceleration(0.01).setMaxDeceleration(0.015), 0));
+                new PursuitPath(
+                        new Point(0, 0),
+                        new Point(BLUE_BLOCK4_X, BLUE_BLOCK_LOCATION_Y + 1))
+                        .setMaxAcceleration(0.01)
+                        .setMaxDeceleration(0.015), 0));
         BluePurePursuitRight.addSegment(new PurePursuitSegment("first trip to foundation",
                 new PursuitPath(new Point(BLUE_BLOCK4_X, BLUE_BLOCK_LOCATION_Y),
                         new Point(BLUE_BLOCK4_X, BLUE_RUNWAY_Y),

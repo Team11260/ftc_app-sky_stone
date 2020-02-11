@@ -55,7 +55,6 @@ public abstract class AbstractOpMode extends LinearOpMode {
         for (LynxModule module : allHubs) {
             module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
         }
-
         runOpmode();
     }
 
