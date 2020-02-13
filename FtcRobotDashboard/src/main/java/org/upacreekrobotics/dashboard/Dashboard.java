@@ -465,8 +465,11 @@ public class Dashboard implements OpModeManagerImpl.Notifications, BatteryChecke
     }
 
     private void internalStartOpMode(String name) {
+        if (opModeManager == null){
+            return;
+        }
         new Thread(() -> {
-            while (!opModeManager.getActiveOpModeName().equals("$Stop$Robot$")) ;
+            while (!("$Stop$Robot$").equals(opModeManager.getActiveOpModeName()));
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
