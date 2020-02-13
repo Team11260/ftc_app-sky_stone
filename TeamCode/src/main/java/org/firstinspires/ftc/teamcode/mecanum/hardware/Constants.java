@@ -41,12 +41,12 @@ public final class Constants {
     ////////Vision////////
     //For Old
     public static int BLOCKHEIGHT = 132;
-    public static int RED_XORIGIN = 50;
-    public static int RED_YORIGIN = 85;
+    public static int RED_XORIGIN = 85;
+    public static int RED_YORIGIN = 60;
     //    public static int BLUE_XORIGIN = 512;
 //    public static int BLUE_YORIGIN = 100;
-    public static int BLUE_XORIGIN = 500;
-    public static int BLUE_YORIGIN = 70;
+    public static int BLUE_XORIGIN = 515;
+    public static int BLUE_YORIGIN = 45;
     public static int BLOCKWIDTH = 246;
 
 
