@@ -27,7 +27,7 @@ public class BlueTwoStone extends BaseTwoStone {
 
         switch (place) {
             case "Right":
-                robot.runDrivePath(rightPath());
+                robot.runDrivePath(BluePurePursuitRight);
                 break;
 
             case "Left":
