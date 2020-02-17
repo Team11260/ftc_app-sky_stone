@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
-import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.vision.ImageProcessor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
@@ -240,6 +239,10 @@ public class Robot extends AbstractRobot {
             grabStone();
         };
     }
+
+
+
+
 
     public void grabStone() {
         setGripperGrip();
@@ -645,4 +648,12 @@ public class Robot extends AbstractRobot {
 //    }
 
 
+    public static class BigRobot extends org.firstinspires.ftc.teamcode.framework.util.AbstractRobot {
+
+        public void stop(){}
+
+
+
+
+    }
 }

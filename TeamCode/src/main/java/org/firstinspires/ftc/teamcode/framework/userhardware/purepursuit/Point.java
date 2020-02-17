@@ -17,6 +17,9 @@ public class Point {
         return y;
     }
 
+
+
+
     public Point add(Vector vector) {
         return new Point(getX() + vector.getX(), getY() + vector.getY());
     }
