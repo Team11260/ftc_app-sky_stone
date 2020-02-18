@@ -300,7 +300,7 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable blueDelayedArmDownLongCallable() {
         return () -> {
-            while (driver.getCurrentPosition().getX() > 0) ;
+            while (driver.getCurrentPosition().getX() > 10) ;
             setGripperRelease();
             setArmDown();
         };

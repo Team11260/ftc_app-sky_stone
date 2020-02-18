@@ -1,10 +1,12 @@
-package org.firstinspires.ftc.teamcode.mecanum .hardware.devices.arm;
+package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm;
 
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
+
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.*;
 
 public class ArmController extends SubsystemController {
 
+    boolean halfUp = true;
     Arm arm;
 
     boolean up = true, gripped = true;
@@ -20,7 +22,21 @@ public class ArmController extends SubsystemController {
         up = true;
     }
 
-    public void setArmUpPosition(){
+    public void setArmHalfUpPositionOnce() {
+        if (halfUp) {
+            arm.setArmPosition(ARM_UP_POSITION - 0.03);
+
+        }
+        halfUp = false;
+    }
+
+    public void setArmUpPosition() {
+        arm.setArmPosition(ARM_UP_POSITION);
+        up = true;
+    }
+
+    public void delayedSetArmUpPosition() {
+        delay(10000);
         arm.setArmPosition(ARM_UP_POSITION);
         up = true;
     }
@@ -35,7 +51,7 @@ public class ArmController extends SubsystemController {
         up = false;
     }
 
-    public void setArmHalfwayPosition(){
+    public void setArmHalfwayPosition() {
         arm.setArmPosition(ARM_HALFWAY_POSITION);
     }
 
@@ -51,7 +67,6 @@ public class ArmController extends SubsystemController {
     }
 
 
-
     public void toggleArmPosition() {
 
         arm.setArmPosition(up ? ARM_DOWN_POSITION : ARM_UP_POSITION);
@@ -63,8 +78,6 @@ public class ArmController extends SubsystemController {
         arm.setGripperPosition(gripped ? GRIPPER_GRIP_POSITION_FOR_LONG_ARM : GRIPPER_RELEASE_POSITION);
         gripped = !gripped;
     }
-
-
 
 
     @Override

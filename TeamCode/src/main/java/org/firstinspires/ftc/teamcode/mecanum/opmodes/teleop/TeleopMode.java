@@ -30,6 +30,8 @@ public class TeleopMode extends AbstractTeleop {
         addEventHandler("1_x_down",()->robot.driver.toggleMotorIntake());
 
         addEventHandler("1_x_down",()->robot.lift.setTiltUpOnce());
+        addEventHandler("1_x_down",()->robot.arm.setArmHalfUpPositionOnce());
+
 
         addEventHandler("1_rb_down",()->robot.driver.reverseMotorIntake());
         addEventHandler("1_y_down", ()->robot.intake.toggleConveyor());
