@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.dragger.DraggerCo
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.DriveController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.IntakeController;
 
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.led.LedController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.lift.LiftController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.tapemeasure.TapeMeasureController;
 import org.firstinspires.ftc.teamcode.mecanum.opmodes.test.AbstractRobot;
@@ -36,6 +37,7 @@ public class Robot extends AbstractRobot {
     public TapeMeasureController tapeMeasure;
 
     public DraggerController dragger;
+    public LedController led;
     public Bitmap image;
 
     public Robot() {
@@ -47,6 +49,7 @@ public class Robot extends AbstractRobot {
         lift = new LiftController();
         dragger = new DraggerController();
         tapeMeasure = new TapeMeasureController();
+        led = new LedController();
     }
 
 
@@ -117,13 +120,12 @@ public class Robot extends AbstractRobot {
         imageProcessor.setImage(image);
 
 
-
         return stonePosition;
 
 
     }
 
-    public void imageShutDown(){
+    public void imageShutDown() {
         imageProcessor.shutdown();
     }
 
@@ -307,7 +309,6 @@ public class Robot extends AbstractRobot {
     }
 
 
-
     public void setArmUp() {
         arm.setArmAutonPosition();
     }
@@ -396,6 +397,8 @@ public class Robot extends AbstractRobot {
     }
 
 
+
+
     public void setDraggerDown() {
         dragger.setBackDown();
         dragger.setFrontDown();
@@ -412,7 +415,7 @@ public class Robot extends AbstractRobot {
     public RobotCallable setDraggerDownDelayedCallable() {
 
         return () -> {
-            while (driver.getCurrentPosition().getY()>-30);
+            while (driver.getCurrentPosition().getY() > -30) ;
             setDraggerDown();
         };
 
@@ -431,15 +434,15 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable delayedBlueDraggerHalfwayCallable() {
         return () -> {
-            while (driver.getCurrentPosition().getX()<20);
+            while (driver.getCurrentPosition().getX() < 20) ;
             setDraggerHalfway();
         };
     }
 
     public RobotCallable delayedRedDraggerHalfwayCallable() {
         return () -> {
-            while (driver.getCurrentPosition().getX()>-20);
-                setDraggerHalfway();
+            while (driver.getCurrentPosition().getX() > -20) ;
+            setDraggerHalfway();
         };
     }
 

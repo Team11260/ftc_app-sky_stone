@@ -56,6 +56,11 @@ public class TeleopMode extends AbstractTeleop {
 
         addEventHandler("2_lt_down", () ->robot.lift.setSlideOutPark());
 
+        addEventHandler("2_start_down",()->robot.led.ledCycle());
+
+
+
+
     }
 
     @Override
