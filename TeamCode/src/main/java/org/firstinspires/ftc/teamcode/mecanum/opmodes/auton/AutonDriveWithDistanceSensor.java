@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
+import android.widget.DatePicker;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
@@ -22,32 +25,66 @@ public class AutonDriveWithDistanceSensor extends AbstractAuton {
 
     @Override
     public void RegisterStates() {
+        addState("Pick up first Stone", "drive to first sky stone", robot.grabStoneCallable());
 
-        addState(new State("arm down to collect", "start", robot.armDownCallable()));
-        addState(new State("gripper release", "start", robot.setGripperReleaseCallable()));
-        addState(new State("get distance", "start", robot.getDistanceLoop()));
-        addState(new State("gripper grip", "start", robot.distanceGrip()));
+        // addState(new State("arm down to collect", "start", robot.armDownCallable()));
+        // addState(new State("gripper release", "start", robot.setGripperReleaseCallable()));
+        // addState(new State("get distance", "start", robot.getDistanceLoop()));
+        // addState(new State("gripper grip", "start", robot.distanceGrip()));
     }
 
     @Override
     public void Init() {
         robot = new Robot();
 
+        robot.setArmDown();
+        robot.setGripperRelease();
+
     }
 
     public void InitLoop(int loop) {
 
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Distance from distance sensor: "+robot.driver.distanceSensor.getDistance());
-        telemetry.update();
+        //telemetry.addData(DoubleTelemetry.LogMode.INFO, "Distance from distance sensor: " + robot.driver.distanceSensor.getDistance());
+        //telemetry.update();
     }
 
     @Override
     public void Run() {
-        robot.driver.strafe(0.2);
-        while (robot.driver.distanceSensor.getDistance()>2.2) ;
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Loop done distance: "+robot.driver.distanceSensor.getDistance());
-        robot.driver.strafe(0);
-        stopRequested();
+
+        robot.runDrivePath(RedDistancePath);
+        delay(10000);
+
+
+//        double distanceRemaining = 10.0;
+//        robot.driver.strafe(0.35);
+//        ElapsedTime MeasureTime = new ElapsedTime();
+//        MeasureTime.reset();
+//        int i = 0;
+//        double totalTime = 0;
+//        while ((distanceRemaining > 2.2) || (distanceRemaining < 0.2) || Double.isNaN(distanceRemaining)) {
+//            distanceRemaining = robot.driver.distanceSensor.getDistance();
+//            telemetry.addData(DoubleTelemetry.LogMode.INFO, "Distance from distance sensor: " + distanceRemaining);
+//            telemetry.update();
+//            i++;
+//
+//        }
+//        robot.driver.strafe(0);
+//        robot.setGripperGrip();
+//        delay(500);
+//        robot.setArmUp();
+//
+//        totalTime = MeasureTime.milliseconds();
+//
+//
+//        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Average Time: "+totalTime/i);
+//        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Loop count: "+i);
+//
+//
+//        telemetry.addData(DoubleTelemetry.LogMode.INFO, "Loop done distance: " + distanceRemaining);
+//
+//        telemetry.update();
+//
+//        stopRequested();
 
     }
 

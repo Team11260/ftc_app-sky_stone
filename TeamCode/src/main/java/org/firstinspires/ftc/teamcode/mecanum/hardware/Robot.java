@@ -416,8 +416,6 @@ public class Robot extends AbstractRobot {
     }
 
 
-
-
     public void setDraggerDown() {
         dragger.setBackDown();
         dragger.setFrontDown();
@@ -665,6 +663,7 @@ public class Robot extends AbstractRobot {
 //        return sum / 4;
 //        //return Color.red(image.getPixel(x , y ));
 //    }
+
 
 
 }

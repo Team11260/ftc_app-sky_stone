@@ -82,24 +82,24 @@ public class AutonPursuitPaths {
                 new PursuitPath(
                         new Point(RED_FOUNDATION_MIDDLE_X, RED_FOUNDATION_Y),
                         new Point(RED_FOUNDATION_MIDDLE_X, RED_RUNWAY_Y),
-                        new Point(RED_BLOCK1_X+1, RED_RUNWAY_Y + OFF_SET),
-                        new Point(RED_BLOCK1_X+1, RED_BLOCK_LOCATION_Y - 2)).setMaxDeceleration(0.01), PERIOD));
+                        new Point(RED_BLOCK1_X + 1, RED_RUNWAY_Y + OFF_SET),
+                        new Point(RED_BLOCK1_X + 1, RED_BLOCK_LOCATION_Y - 2)).setMaxDeceleration(0.01), PERIOD));
         RedPurePursuitLeft.addSegment(new PurePursuitSegment("second trip to foundation",
                 new PursuitPath(
-                        new Point(RED_BLOCK1_X+1, RED_BLOCK_LOCATION_Y - 2),
-                        new Point(RED_BLOCK1_X+1, RED_RUNWAY_Y_2),
+                        new Point(RED_BLOCK1_X + 1, RED_BLOCK_LOCATION_Y - 2),
+                        new Point(RED_BLOCK1_X + 1, RED_RUNWAY_Y_2),
                         new Point(RED_FOUNDATION_NEAR_X, RED_RUNWAY_Y_2),
                         new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y)), PERIOD));
         RedPurePursuitLeft.addSegment(new PurePursuitSegment("drive to third sky stone",
                 new PursuitPath(
                         new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y),
                         new Point(RED_FOUNDATION_NEAR_X, RED_RUNWAY_Y_2),
-                        new Point(RED_BLOCK6_X+2, RED_RUNWAY_Y_2),
-                        new Point(RED_BLOCK6_X+2, RED_BLOCK_LOCATION_Y-2)).setMaxDeceleration(0.013), PERIOD));
+                        new Point(RED_BLOCK6_X + 2, RED_RUNWAY_Y_2),
+                        new Point(RED_BLOCK6_X + 2, RED_BLOCK_LOCATION_Y - 2)).setMaxDeceleration(0.013), PERIOD));
         RedPurePursuitLeft.addSegment(new PurePursuitSegment("last trip to foundation",
                 new PursuitPath(
-                        new Point(RED_BLOCK6_X+2, RED_BLOCK_LOCATION_Y-2),
-                        new Point(RED_BLOCK6_X+2, RED_RUNWAY_Y_2),
+                        new Point(RED_BLOCK6_X + 2, RED_BLOCK_LOCATION_Y - 2),
+                        new Point(RED_BLOCK6_X + 2, RED_RUNWAY_Y_2),
                         new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_RUNWAY_Y_2),
                         new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y_2ND))
                         .setMaxDeceleration(0.01)
@@ -137,7 +137,7 @@ public class AutonPursuitPaths {
                         new Point(RED_FOUNDATION_MIDDLE_X, RED_FOUNDATION_Y),
                         new Point(RED_FOUNDATION_MIDDLE_X, RED_RUNWAY_Y),
                         new Point(RED_BLOCK2_X, RED_RUNWAY_Y),
-                        new Point(RED_BLOCK2_X, RED_BLOCK_LOCATION_Y + OFF_SET-2)).setMaxDeceleration(0.013), PERIOD));
+                        new Point(RED_BLOCK2_X, RED_BLOCK_LOCATION_Y + OFF_SET - 2)).setMaxDeceleration(0.013), PERIOD));
         RedPurePursuitCenter.addSegment(new PurePursuitSegment("second trip to foundation",
                 new PursuitPath(
                         new Point(RED_BLOCK2_X, RED_BLOCK_LOCATION_Y + OFF_SET - 2),
@@ -148,13 +148,13 @@ public class AutonPursuitPaths {
                 new PursuitPath(
                         new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y),
                         new Point(RED_FOUNDATION_NEAR_X, RED_RUNWAY_Y_2),
-                        new Point(RED_BLOCK6_X+2, RED_RUNWAY_Y_2),
-                        new Point(RED_BLOCK6_X+2, RED_BLOCK_LOCATION_Y-2))
+                        new Point(RED_BLOCK6_X + 2, RED_RUNWAY_Y_2),
+                        new Point(RED_BLOCK6_X + 2, RED_BLOCK_LOCATION_Y - 2))
                         .setMaxDeceleration(0.01), PERIOD));
         RedPurePursuitCenter.addSegment(new PurePursuitSegment("last trip to foundation",
                 new PursuitPath(
-                        new Point(RED_BLOCK6_X+2, RED_BLOCK_LOCATION_Y-2),
-                        new Point(RED_BLOCK6_X+2, RED_RUNWAY_Y_2),
+                        new Point(RED_BLOCK6_X + 2, RED_BLOCK_LOCATION_Y - 2),
+                        new Point(RED_BLOCK6_X + 2, RED_RUNWAY_Y_2),
                         new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_RUNWAY_Y_2),
                         new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y_2ND))
                         .setMaxDeceleration(0.01)
@@ -213,7 +213,7 @@ public class AutonPursuitPaths {
         RedPurePursuitRight.addSegment(new PurePursuitSegment("drive to first sky stone",
                 new PursuitPath(
                         new Point(0, 0),
-                        new Point(RED_BLOCK6_X-1, RED_BLOCK_LOCATION_Y))
+                        new Point(RED_BLOCK6_X - 1, RED_BLOCK_LOCATION_Y))
                         .setMaxAcceleration(0.01), 0));
         RedPurePursuitRight.addSegment(new PurePursuitSegment("first trip to foundation",
                 new PursuitPath(
@@ -226,7 +226,7 @@ public class AutonPursuitPaths {
                         new Point(RED_FOUNDATION_MIDDLE_X, RED_FOUNDATION_Y),
                         new Point(RED_FOUNDATION_MIDDLE_X, RED_RUNWAY_Y),
                         new Point(RED_BLOCK3_X, RED_RUNWAY_Y),
-                        new Point(RED_BLOCK3_X, RED_BLOCK_LOCATION_Y + OFF_SET-2))
+                        new Point(RED_BLOCK3_X, RED_BLOCK_LOCATION_Y + OFF_SET - 2))
                         .setMaxDeceleration(0.013), PERIOD));
         RedPurePursuitRight.addSegment(new PurePursuitSegment("second trip to foundation",
                 new PursuitPath(
@@ -238,13 +238,13 @@ public class AutonPursuitPaths {
                 new PursuitPath(
                         new Point(RED_FOUNDATION_NEAR_X, RED_FOUNDATION_Y),
                         new Point(RED_FOUNDATION_NEAR_X, RED_RUNWAY_Y_2),
-                        new Point(RED_BLOCK5_X+2, RED_RUNWAY_Y_2),
-                        new Point(RED_BLOCK5_X+2, RED_BLOCK_LOCATION_Y-2))
+                        new Point(RED_BLOCK5_X + 2, RED_RUNWAY_Y_2),
+                        new Point(RED_BLOCK5_X + 2, RED_BLOCK_LOCATION_Y - 2))
                         .setMaxDeceleration(0.01), PERIOD));
         RedPurePursuitRight.addSegment(new PurePursuitSegment("last trip to foundation",
                 new PursuitPath(
-                        new Point(RED_BLOCK5_X+2, RED_BLOCK_LOCATION_Y - 2),
-                        new Point(RED_BLOCK5_X+2, RED_RUNWAY_Y_2),
+                        new Point(RED_BLOCK5_X + 2, RED_BLOCK_LOCATION_Y - 2),
+                        new Point(RED_BLOCK5_X + 2, RED_RUNWAY_Y_2),
                         new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_RUNWAY_Y_2),
                         new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y_2ND))
                         .setMaxDeceleration(0.01)
@@ -278,7 +278,7 @@ public class AutonPursuitPaths {
         RedDragFoundation.addSegment(new PurePursuitSegment("park the robot", new PursuitPath(
                 new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 14, RED_FOUNDATION_Y_2ND + 5),
                 new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 18, RED_FOUNDATION_Y_2ND + 3),
-                new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 52, RED_FOUNDATION_Y_2ND +1))
+                new Point(RED_FOUNDATION_MIDDLE_NEAR_X + 52, RED_FOUNDATION_Y_2ND + 1))
                 .setMinSpeed(0.25)
                 .setMaxSpeed(0.6)
                 .setTurnSpeed(0.1)
@@ -467,23 +467,23 @@ public class AutonPursuitPaths {
                         new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y + 1))
                         .setMaxDeceleration(0.015), PERIOD));
         BluePurePursuitLeft.addSegment(new PurePursuitSegment("drive to second sky stone",
-                new PursuitPath(new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y+1),
+                new PursuitPath(new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y + 1),
                         new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y),
                         new Point(BLUE_BLOCK3_X, BLUE_RUNWAY_Y + OFF_SET),
-                        new Point(BLUE_BLOCK3_X, BLUE_BLOCK_LOCATION_Y-1)).setMaxDeceleration(0.015), PERIOD));
+                        new Point(BLUE_BLOCK3_X, BLUE_BLOCK_LOCATION_Y - 1)).setMaxDeceleration(0.015), PERIOD));
         BluePurePursuitLeft.addSegment(new PurePursuitSegment("second trip to foundation",
-                new PursuitPath(new Point(BLUE_BLOCK3_X, BLUE_BLOCK_LOCATION_Y-1),
+                new PursuitPath(new Point(BLUE_BLOCK3_X, BLUE_BLOCK_LOCATION_Y - 1),
                         new Point(BLUE_BLOCK3_X, BLUE_RUNWAY_Y_2),
                         new Point(BLUE_FOUNDATION_NEAR_X, BLUE_RUNWAY_Y_2),
-                        new Point(BLUE_FOUNDATION_NEAR_X+5, BLUE_FOUNDATION_Y)), PERIOD));
+                        new Point(BLUE_FOUNDATION_NEAR_X + 5, BLUE_FOUNDATION_Y)), PERIOD));
         BluePurePursuitLeft.addSegment(new PurePursuitSegment("drive to third sky stone",
-                new PursuitPath(new Point(BLUE_FOUNDATION_NEAR_X+5, BLUE_FOUNDATION_Y),
+                new PursuitPath(new Point(BLUE_FOUNDATION_NEAR_X + 5, BLUE_FOUNDATION_Y),
                         new Point(BLUE_FOUNDATION_NEAR_X, BLUE_RUNWAY_Y),
-                        new Point(BLUE_BLOCK5_X+2, BLUE_RUNWAY_Y + OFF_SET),
-                        new Point(BLUE_BLOCK5_X+2, BLUE_BLOCK_LOCATION_Y-1)).setMaxDeceleration(0.013), PERIOD));
+                        new Point(BLUE_BLOCK5_X + 2, BLUE_RUNWAY_Y + OFF_SET),
+                        new Point(BLUE_BLOCK5_X + 2, BLUE_BLOCK_LOCATION_Y - 1)).setMaxDeceleration(0.013), PERIOD));
         BluePurePursuitLeft.addSegment(new PurePursuitSegment("last trip to foundation",
-                new PursuitPath(new Point(BLUE_BLOCK5_X+2, BLUE_BLOCK_LOCATION_Y-1),
-                        new Point(BLUE_BLOCK5_X+2, BLUE_RUNWAY_Y_2),
+                new PursuitPath(new Point(BLUE_BLOCK5_X + 2, BLUE_BLOCK_LOCATION_Y - 1),
+                        new Point(BLUE_BLOCK5_X + 2, BLUE_RUNWAY_Y_2),
                         new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X, BLUE_RUNWAY_Y_2),
                         new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X, BLUE_FOUNDATION_Y_2ND))
                         .setMaxDeceleration(0.01)
@@ -505,25 +505,25 @@ public class AutonPursuitPaths {
                         new Point(BLUE_BLOCK5_X, BLUE_BLOCK_LOCATION_Y),
                         new Point(BLUE_BLOCK5_X, BLUE_RUNWAY_Y),
                         new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y),
-                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y + 1)).setMaxDeceleration(0.015), PERIOD+250));
+                        new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y + 1)).setMaxDeceleration(0.015), PERIOD + 250));
         BluePurePursuitCenter.addSegment(new PurePursuitSegment("drive to second sky stone",
-                new PursuitPath(new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y+1),
+                new PursuitPath(new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y + 1),
                         new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y),
                         new Point(BLUE_BLOCK2_X, BLUE_RUNWAY_Y + OFF_SET),
-                        new Point(BLUE_BLOCK2_X, BLUE_BLOCK_LOCATION_Y-1.5)).setMaxDeceleration(0.017), PERIOD));
+                        new Point(BLUE_BLOCK2_X, BLUE_BLOCK_LOCATION_Y - 1.5)).setMaxDeceleration(0.017), PERIOD));
         BluePurePursuitCenter.addSegment(new PurePursuitSegment("second trip to foundation",
-                new PursuitPath(new Point(BLUE_BLOCK2_X, BLUE_BLOCK_LOCATION_Y-1.5),
+                new PursuitPath(new Point(BLUE_BLOCK2_X, BLUE_BLOCK_LOCATION_Y - 1.5),
                         new Point(BLUE_BLOCK2_X, BLUE_RUNWAY_Y_2),
                         new Point(BLUE_FOUNDATION_NEAR_X, BLUE_RUNWAY_Y_2),
-                        new Point(BLUE_FOUNDATION_NEAR_X+5, BLUE_FOUNDATION_Y)).setMaxDeceleration(0.017), PERIOD));
+                        new Point(BLUE_FOUNDATION_NEAR_X + 5, BLUE_FOUNDATION_Y)).setMaxDeceleration(0.017), PERIOD));
         BluePurePursuitCenter.addSegment(new PurePursuitSegment("drive to third sky stone",
-                new PursuitPath(new Point(BLUE_FOUNDATION_NEAR_X+5, BLUE_FOUNDATION_Y),
+                new PursuitPath(new Point(BLUE_FOUNDATION_NEAR_X + 5, BLUE_FOUNDATION_Y),
                         new Point(BLUE_FOUNDATION_NEAR_X, BLUE_RUNWAY_Y),
                         new Point(BLUE_BLOCK6_X + 2, BLUE_RUNWAY_Y + OFF_SET),
-                        new Point(BLUE_BLOCK6_X + 2, BLUE_BLOCK_LOCATION_Y-1.5)).setMaxDeceleration(0.013), PERIOD));
+                        new Point(BLUE_BLOCK6_X + 2, BLUE_BLOCK_LOCATION_Y - 1.5)).setMaxDeceleration(0.013), PERIOD));
         BluePurePursuitCenter.addSegment(new PurePursuitSegment("last trip to foundation",
-                new PursuitPath(new Point(BLUE_BLOCK6_X+2, BLUE_BLOCK_LOCATION_Y-1.5),
-                        new Point(BLUE_BLOCK6_X+2, BLUE_RUNWAY_Y_2),
+                new PursuitPath(new Point(BLUE_BLOCK6_X + 2, BLUE_BLOCK_LOCATION_Y - 1.5),
+                        new Point(BLUE_BLOCK6_X + 2, BLUE_RUNWAY_Y_2),
                         new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X, BLUE_RUNWAY_Y_2),
                         new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X, BLUE_FOUNDATION_Y_2ND))
                         .setMaxDeceleration(0.01)
@@ -550,20 +550,20 @@ public class AutonPursuitPaths {
                 new PursuitPath(new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_FOUNDATION_Y),
                         new Point(BLUE_FOUNDATION_MIDDLE_X, BLUE_RUNWAY_Y),
                         new Point(BLUE_BLOCK1_X, BLUE_RUNWAY_Y + OFF_SET),
-                        new Point(BLUE_BLOCK1_X, BLUE_BLOCK_LOCATION_Y-2)).setMaxDeceleration(0.017), PERIOD));
+                        new Point(BLUE_BLOCK1_X, BLUE_BLOCK_LOCATION_Y - 2)).setMaxDeceleration(0.017), PERIOD));
         BluePurePursuitRight.addSegment(new PurePursuitSegment("second trip to foundation",
-                new PursuitPath(new Point(BLUE_BLOCK1_X, BLUE_BLOCK_LOCATION_Y-2),
+                new PursuitPath(new Point(BLUE_BLOCK1_X, BLUE_BLOCK_LOCATION_Y - 2),
                         new Point(BLUE_BLOCK1_X, BLUE_RUNWAY_Y_2),
                         new Point(BLUE_FOUNDATION_NEAR_X, BLUE_RUNWAY_Y_2),
-                        new Point(BLUE_FOUNDATION_NEAR_X+5, BLUE_FOUNDATION_Y)).setMaxDeceleration(0.017), PERIOD));
+                        new Point(BLUE_FOUNDATION_NEAR_X + 5, BLUE_FOUNDATION_Y)).setMaxDeceleration(0.017), PERIOD));
         BluePurePursuitRight.addSegment(new PurePursuitSegment("drive to third sky stone",
-                new PursuitPath(new Point(BLUE_FOUNDATION_NEAR_X+5, BLUE_FOUNDATION_Y),
+                new PursuitPath(new Point(BLUE_FOUNDATION_NEAR_X + 5, BLUE_FOUNDATION_Y),
                         new Point(BLUE_FOUNDATION_NEAR_X, BLUE_RUNWAY_Y),
                         new Point(BLUE_BLOCK6_X + 2, BLUE_RUNWAY_Y + OFF_SET),
-                        new Point(BLUE_BLOCK6_X + 2, BLUE_BLOCK_LOCATION_Y-2)).setMaxDeceleration(0.013), PERIOD));
+                        new Point(BLUE_BLOCK6_X + 2, BLUE_BLOCK_LOCATION_Y - 2)).setMaxDeceleration(0.013), PERIOD));
         BluePurePursuitRight.addSegment(new PurePursuitSegment("last trip to foundation",
-                new PursuitPath(new Point(BLUE_BLOCK6_X+2, BLUE_BLOCK_LOCATION_Y-2),
-                        new Point(BLUE_BLOCK6_X+2, BLUE_RUNWAY_Y_2),
+                new PursuitPath(new Point(BLUE_BLOCK6_X + 2, BLUE_BLOCK_LOCATION_Y - 2),
+                        new Point(BLUE_BLOCK6_X + 2, BLUE_RUNWAY_Y_2),
                         new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X, BLUE_RUNWAY_Y_2),
                         new Point(BLUE_FOUNDATION_MIDDLE_NEAR_X, BLUE_FOUNDATION_Y_2ND))
                         .setMaxDeceleration(0.01)
@@ -663,6 +663,15 @@ public class AutonPursuitPaths {
                 new PursuitPath(new Point(0, 0), new Point(BLUE_PARK_X, BLUE_PARK_Y))));
 
 
+    }
+
+    public final static Path RedDistancePath = new Path("pick up first stone");
+
+    static {
+        RedDistancePath.addSegment(new PurePursuitSegment("drive to first sky stone",
+                new PursuitPath(new Point(0, 0),
+                        new Point(RED_BLOCK5_X+2, RED_BLOCK_LOCATION_Y+4)) .setMaxAcceleration(0.01),0,0,
+                                                                    10000,true));
     }
 
 
