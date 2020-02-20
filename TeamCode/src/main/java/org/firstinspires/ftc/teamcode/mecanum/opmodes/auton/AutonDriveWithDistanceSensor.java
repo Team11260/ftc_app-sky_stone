@@ -5,52 +5,49 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
+import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.util.PathState;
 import org.firstinspires.ftc.teamcode.framework.util.State;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Constants;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState;
 
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.*;
+
 @Autonomous(name = "Auton Drive with DistSensor", group = "Test")
-@Disabled
 
 public class AutonDriveWithDistanceSensor extends AbstractAuton {
 
     Robot robot;
-    private Servo arm, gripper;
 
     @Override
     public void RegisterStates() {
 
         addState(new State("arm down to collect", "start", robot.armDownCallable()));
-        addState(new PathState("arm grips the stone", "drive to sky stone", robot.setGripperGripCallable()));
-        addState(new State("arm up", "arm grips the stone", robot.setArmUpCallable()));
-        addState(new PathState("gripping pause", "drive to sky stone", () -> {
-            RobotState.currentPath.pause();
-            delay(Constants.GRIPPING_DELAY);
-            RobotState.currentPath.resume();
-        }));
-        addState(new PathState("arm down with block", "drive to tray", robot.armDownCallable()));
-        addState(new State("release stone", "arm down with block", robot.deliverStoneCallable()));
-        addState(new State("tray latch down", "arm down with block", robot.setDraggerDownCallable()));
-        addState(new PathState("tray latch up", "pull tray", robot.setDraggerUpCallable()));
+        addState(new State("gripper release", "start", robot.setGripperReleaseCallable()));
+        addState(new State("get distance", "start", robot.getDistanceLoop()));
+        addState(new State("gripper grip", "start", robot.distanceGrip()));
     }
 
     @Override
     public void Init() {
-
         robot = new Robot();
 
     }
 
     public void InitLoop(int loop) {
-        //if (loop%5 == 1)
-        //robot.getSkyStonePosition();
+
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Distance from distance sensor: "+robot.driver.distanceSensor.getDistance());
+        telemetry.update();
     }
 
     @Override
     public void Run() {
-
+        robot.driver.strafe(0.2);
+        while (robot.driver.distanceSensor.getDistance()>2.2) ;
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Loop done distance: "+robot.driver.distanceSensor.getDistance());
+        robot.driver.strafe(0);
+        stopRequested();
 
     }
 

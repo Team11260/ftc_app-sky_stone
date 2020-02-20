@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.framework.userhardware.PIDController;
+import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.DistanceColorSensor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.PurePursuitSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
@@ -32,6 +35,8 @@ public class DriveController extends SubsystemController {
     private Drive drive;
 
     private PIDController anglePID, straightPID, distancePID, strafePID;
+
+    public DistanceColorSensor distanceSensor;
 
     private double baseHeading = 0;
 
@@ -85,6 +90,7 @@ public class DriveController extends SubsystemController {
         DFpwr.setMinimumIntegerDigits(1);
         DFenc = new DecimalFormat(" 00000.0;-00000.0");
 
+        distanceSensor = new DistanceColorSensor("Color_Sensor");
     }
 
     public synchronized void update() {

@@ -98,8 +98,8 @@ public class AutonPursuitPaths {
                         new Point(RED_BLOCK6_X+2, RED_BLOCK_LOCATION_Y-2)).setMaxDeceleration(0.013), PERIOD));
         RedPurePursuitLeft.addSegment(new PurePursuitSegment("last trip to foundation",
                 new PursuitPath(
-                        new Point(RED_BLOCK6_X, RED_BLOCK_LOCATION_Y-2),
-                        new Point(RED_BLOCK6_X, RED_RUNWAY_Y_2),
+                        new Point(RED_BLOCK6_X+2, RED_BLOCK_LOCATION_Y-2),
+                        new Point(RED_BLOCK6_X+2, RED_RUNWAY_Y_2),
                         new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_RUNWAY_Y_2),
                         new Point(RED_FOUNDATION_MIDDLE_NEAR_X, RED_FOUNDATION_Y_2ND))
                         .setMaxDeceleration(0.01)
@@ -108,6 +108,15 @@ public class AutonPursuitPaths {
 
     }
 
+    public final static Path RedPurePursuitCenterTest = new Path("collect center sky stones");
+
+    static {
+        RedPurePursuitCenterTest.addSegment(new PurePursuitSegment("drive to first sky stone",
+                new PursuitPath(
+                        new Point(0, 0),
+                        new Point(RED_BLOCK5_X, RED_BLOCK_LOCATION_Y))
+                        .setMaxAcceleration(0.01), 0));
+    }
 
     public final static Path RedPurePursuitCenter = new Path("collect center sky stones");
 

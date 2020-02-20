@@ -117,13 +117,12 @@ public class Robot extends AbstractRobot {
         imageProcessor.setImage(image);
 
 
-
         return stonePosition;
 
 
     }
 
-    public void imageShutDown(){
+    public void imageShutDown() {
         imageProcessor.shutdown();
     }
 
@@ -208,6 +207,16 @@ public class Robot extends AbstractRobot {
     public RobotCallable armDownCallable() {
         return () -> {
             setArmDown();
+        };
+    }
+
+    public RobotCallable distanceGrip() {
+        return () -> {
+            while (driver.distanceSensor.getDistance() > 2.2) {
+                telemetry.addData(INFO, "Distance: " + driver.distanceSensor.getDistance());
+                telemetry.update();
+            }
+            arm.setGripperGripPosition();
         };
     }
 
@@ -307,7 +316,6 @@ public class Robot extends AbstractRobot {
     }
 
 
-
     public void setArmUp() {
         arm.setArmAutonPosition();
     }
@@ -333,6 +341,15 @@ public class Robot extends AbstractRobot {
             arm.setGripperReleasePosition();
         };
 
+    }
+
+    public RobotCallable getDistanceLoop() {
+        return () -> {
+            while (AbstractOpMode.isOpModeActive()) {
+                telemetry.addData(INFO, "Distance: " + driver.distanceSensor.getDistance());
+                telemetry.update();
+            }
+        };
     }
 
     public void setGripperRelease() {
@@ -412,7 +429,7 @@ public class Robot extends AbstractRobot {
     public RobotCallable setDraggerDownDelayedCallable() {
 
         return () -> {
-            while (driver.getCurrentPosition().getY()>-30);
+            while (driver.getCurrentPosition().getY() > -30) ;
             setDraggerDown();
         };
 
@@ -431,15 +448,15 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable delayedBlueDraggerHalfwayCallable() {
         return () -> {
-            while (driver.getCurrentPosition().getX()<20);
+            while (driver.getCurrentPosition().getX() < 20) ;
             setDraggerHalfway();
         };
     }
 
     public RobotCallable delayedRedDraggerHalfwayCallable() {
         return () -> {
-            while (driver.getCurrentPosition().getX()>-20);
-                setDraggerHalfway();
+            while (driver.getCurrentPosition().getX() > -20) ;
+            setDraggerHalfway();
         };
     }
 

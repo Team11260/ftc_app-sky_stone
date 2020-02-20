@@ -63,7 +63,7 @@ public final class Constants {
     public static double GRABBER_CLOSE = 0.8;
     public static double GRABBER_OPEN_WIDE = 0.36;
     public static double SLIDE_IN = 0.05;
-    public static double SLIDE_OUT = 0.77;
+    public static double SLIDE_OUT = 0.78;
     public static double SLIDE_OUT_PARK = 0.98;
     public static double SLIDE_OUT_HALF = 0.35;
     public static double PAN_RIGHT = 0;
