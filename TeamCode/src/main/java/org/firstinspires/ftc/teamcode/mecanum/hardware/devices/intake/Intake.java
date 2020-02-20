@@ -32,8 +32,8 @@ public class Intake {
         conveyorBelt = hardwareMap.servo.get("conveyor_belt");
         conveyorBelt.setDirection(Servo.Direction.REVERSE);
 
-        leftIntake = hardwareMap.servo.get("left_intake");
-        leftIntake.setDirection(Servo.Direction.REVERSE);
+//        leftIntake = hardwareMap.servo.get("left_intake");
+//        leftIntake.setDirection(Servo.Direction.REVERSE);
     }
 
     public void startRotatingLeft(){

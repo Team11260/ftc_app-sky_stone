@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.dragger.DraggerCo
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.DriveController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.IntakeController;
 
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.led.LedController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.lift.LiftController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.tapemeasure.TapeMeasureController;
 import org.firstinspires.ftc.teamcode.mecanum.opmodes.test.AbstractRobot;
@@ -36,6 +37,7 @@ public class Robot extends AbstractRobot {
     public TapeMeasureController tapeMeasure;
 
     public DraggerController dragger;
+    public LedController led;
     public Bitmap image;
 
     public Robot() {
@@ -47,6 +49,7 @@ public class Robot extends AbstractRobot {
         lift = new LiftController();
         dragger = new DraggerController();
         tapeMeasure = new TapeMeasureController();
+        led = new LedController();
     }
 
 
@@ -411,6 +414,8 @@ public class Robot extends AbstractRobot {
 
 
     }
+
+
 
 
     public void setDraggerDown() {
