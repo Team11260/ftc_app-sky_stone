@@ -670,8 +670,14 @@ public class AutonPursuitPaths {
     static {
         RedDistancePath.addSegment(new PurePursuitSegment("drive to first sky stone",
                 new PursuitPath(new Point(0, 0),
-                        new Point(RED_BLOCK5_X+2, RED_BLOCK_LOCATION_Y+4)) .setMaxAcceleration(0.01),0,0,
-                                                                    10000,true));
+                        new Point(RED_BLOCK5_X+2, RED_BLOCK_LOCATION_Y+4))
+                        .setMaxAcceleration(0.01).setMinSpeed(0.25),0,0,10000,true));
+//        RedDistancePath.addSegment(new PurePursuitSegment("first trip to foundation",
+//                new PursuitPath(
+//                        new Point(RED_BLOCK5_X+2, RED_BLOCK_LOCATION_Y),
+//                        new Point(RED_BLOCK5_X, RED_RUNWAY_Y),
+//                        new Point(RED_FOUNDATION_MIDDLE_X, RED_RUNWAY_Y),
+//                        new Point(RED_FOUNDATION_MIDDLE_X, RED_FOUNDATION_Y)), PERIOD + 50));
     }
 
 

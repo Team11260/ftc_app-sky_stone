@@ -14,7 +14,10 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.MecanumPurePursuitController;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Pose;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
+import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.TelemetryRecord;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StraightTrapezoid;
 import org.upacreekrobotics.dashboard.Config;
@@ -164,26 +167,33 @@ public class DriveController extends SubsystemController {
 
     public void blockFind() {
         double distanceRemaining = 10.0;
-        this.strafe(0.35);
+        strafe(0.20);
         ElapsedTime MeasureTime = new ElapsedTime();
         MeasureTime.reset();
         int i = 0;
         double totalTime = 0;
-        while ((distanceRemaining > 2.2) || (distanceRemaining < 0.2) || Double.isNaN(distanceRemaining)) {
-            distanceRemaining = this.distanceSensor.getDistance();
+//        while ((distanceRemaining > 4.0) || (distanceRemaining < 0.2) || Double.isNaN(distanceRemaining)) {
+//            distanceRemaining = distanceSensor.getDistance();
+//            telemetry.addData(DoubleTelemetry.LogMode.INFO, "Distance from distance sensor: " + distanceRemaining);
+//            telemetry.update();
+//            i++;
+////            driver.updatePose();
+//        }
+        while ((distanceRemaining > 3.2) || (distanceRemaining < 0.2) || Double.isNaN(distanceRemaining)) {
+            distanceRemaining = distanceSensor.getDistance();
             telemetry.addData(DoubleTelemetry.LogMode.INFO, "Distance from distance sensor: " + distanceRemaining);
             telemetry.update();
             i++;
-           // drive.updatePose();
-
-
-
+            //updatePose();
         }
-        this.strafe(0);
+        strafe(0);
+        //delay(500);
 
 
         totalTime = MeasureTime.milliseconds();
 
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, "Distance from distance sensor: " + distanceRemaining);
+        telemetry.update();
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "Average Time: " + totalTime / i);
         telemetry.addData(DoubleTelemetry.LogMode.INFO, "Loop count: " + i);
@@ -249,106 +259,16 @@ public class DriveController extends SubsystemController {
         lastTime = runtime.seconds();
 
         if (blockSense) {
-
-            blockFind();
-        }
-
-
-        drive.setPower(0, 0);
+            strafe(0.25);
+        } else
+            drive.setPower(0, 0);
 
 
         telemetry.addData(INFO, "loop counts: " + loopCounts);
         telemetry.addData(INFO, "runtime: " + lastTime);
         telemetry.addData(INFO, "loop time: " + lastTime / loopCounts);
         telemetry.update();
-
-
     }
-
-
-//    public void approachWall(double power, int threshold){
-//        double oldDistance;
-//
-//        drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//
-//        oldDistance = drive.getBackRightPosition();
-//        drive.setPower(power, power);
-//
-//        delay(100);
-//        while(threshold< Math.abs(oldDistance-drive.getBackRightPosition())){
-//            oldDistance = drive.getBackRightPosition();
-//            delay(10);
-//        }
-//        drive.setPower(0,0);
-//    }
-
-//    public void approachFoundation(double power, int loopTime, double velThreshold) {
-//
-//        double slowPower = 0.17;
-//        double oldDistance;
-//        double velocity;
-//        double oldvelocity = 8.0;
-//        double oldTime = 0.0;
-//        int loop = 0;
-//        //int loopTime = 1;
-//        int startTime = 350;
-//        double spaceBuffer = 0.18;
-//        ArrayList<Double> locations = new ArrayList<Double>();
-//        ArrayList<Double> velocities = new ArrayList<Double>();
-//
-//        drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        drive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        oldTime =  (double) System.currentTimeMillis();
-//        //oldDistance = -drive.getBackLeftPosition()/STRAIGHT_COUNTS_PER_INCH;
-//        oldDistance = drive.getBackRightPosition()/STRAIGHT_ENCODER_COUNTS_INCH;
-//        //locations.add(oldDistance);
-//        //strafe(-power);
-//        drive.setDrivePowerAll(power,power,power,power);
-//        delay(startTime);
-//        //velocity = 1000.0*((-drive.getBackLeftPosition()/STRAIGHT_COUNTS_PER_INCH) - oldDistance)/((double)System.currentTimeMillis()-oldTime);
-//        velocity = 1000.0*((drive.getBackRightPosition()/STRAIGHT_ENCODER_COUNTS_INCH) - oldDistance)/((double)System.currentTimeMillis()-oldTime);
-//        oldTime =  (double) System.currentTimeMillis();
-//        //oldDistance = -drive.getBackLeftPosition()/STRAIGHT_COUNTS_PER_INCH;
-//        oldDistance = drive.getBackRightPosition()/STRAIGHT_ENCODER_COUNTS_INCH;
-//        locations.add(oldDistance);
-//        velocities.add(velocity);
-//        runtime.reset();
-//        //while (((-drive.getBackLeftPosition()/STRAIGHT_COUNTS_PER_INCH) - oldDistance) > spaceBuffer) {
-//        while ((velocity+oldvelocity) > (2*velThreshold)){
-//
-//            delay(loopTime);
-//
-//            //velocity = 1000.0*((-drive.getBackLeftPosition()/STRAIGHT_COUNTS_PER_INCH) - oldDistance)/((double)System.currentTimeMillis()-oldTime);
-//            velocity = 1000.0*((drive.getBackRightPosition()/STRAIGHT_ENCODER_COUNTS_INCH) - oldDistance)/((double)System.currentTimeMillis()-oldTime);
-//            oldTime = (double) System.currentTimeMillis();
-//            //oldDistance = -drive.getBackLeftPosition()/STRAIGHT_COUNTS_PER_INCH;
-//            oldDistance = drive.getBackRightPosition()/STRAIGHT_ENCODER_COUNTS_INCH;
-//            //telemetry.addData(INFO, "Side encoder position: " + drive.getBackLeftPosition() / STRAIGHT_COUNTS_PER_INCH);
-//            //telemetry.update();
-//            locations.add(oldDistance);
-//            velocities.add((velocity+oldvelocity)/2);
-//            oldvelocity = velocity;
-//            ++loop;
-//        }
-//        drive.stop();
-//        locations.add(oldDistance);
-//        velocities.add((velocity+oldvelocity)/2);
-//        //locations.add(-drive.getBackLeftPosition()/STRAIGHT_COUNTS_PER_INCH);
-//        for(int i=0; i < locations.size();++i) {
-//            telemetry.addData(INFO, "Next stage locations   " + locations.get(i));
-//            telemetry.getSmartdashboard().putGraph("Turbo", "Power",locations.get(i),velocities.get(i));
-//        }
-//        telemetry.update();
-//        //delay(9000);
-//        telemetry.addData(INFO, "Time for drive: " + runtime.milliseconds());
-//        telemetry.addData(INFO, "Average loop time for drive: " + runtime.milliseconds() / loop);
-//        telemetry.addData(INFO, "Loop count " + loop);
-//        telemetry.addData(INFO, "Side encoder position: " + drive.getBackLeftPosition() / STRAIGHT_ENCODER_COUNTS_INCH);
-//        telemetry.update();
-//    }
 
     public void strafe(double power) {
 

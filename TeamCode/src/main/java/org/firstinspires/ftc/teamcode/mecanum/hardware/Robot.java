@@ -55,6 +55,7 @@ public class Robot extends AbstractRobot {
 
     public void runDrivePath(Path path) {
         driver.runDrivePath(path);
+
     }
 
     public void strafe(double power, int delay) {
@@ -259,6 +260,23 @@ public class Robot extends AbstractRobot {
         setArmUp();
     }
 
+    public RobotCallable grabStone2Callable() {
+        return () -> {
+            grabStone2();
+        };
+    }
+
+    public void grabStone2() {
+        double distanceRemaining = 100;
+        while (distanceRemaining > 4.0 || Double.isNaN(distanceRemaining))
+            distanceRemaining = driver.distanceSensor.getDistance();
+        setGripperGrip();
+        delay(500);
+        setArmUp();
+
+
+    }
+
     public RobotCallable deliverStoneCallable() {
         return () -> {
             deliverStone();
@@ -318,6 +336,37 @@ public class Robot extends AbstractRobot {
         };
     }
 
+    public RobotCallable blockFind() {
+        return () -> {
+            double distanceRemaining = 10.0;
+            driver.strafe(0.25);
+            ElapsedTime MeasureTime = new ElapsedTime();
+            MeasureTime.reset();
+            int i = 0;
+            double totalTime = 0;
+            while ((distanceRemaining > 3.2) || Double.isNaN(distanceRemaining)) {
+                distanceRemaining = driver.distanceSensor.getDistance();
+                telemetry.addData(DoubleTelemetry.LogMode.INFO, "Distance from distance sensor: " + distanceRemaining);
+                telemetry.update();
+                i++;
+                //driver.updatePose();
+            }
+            driver.strafe(0);
+
+            totalTime = MeasureTime.milliseconds();
+
+            telemetry.addData(DoubleTelemetry.LogMode.INFO, "Distance from distance sensor: " + distanceRemaining);
+            telemetry.update();
+
+            telemetry.addData(DoubleTelemetry.LogMode.INFO, "Average Time: " + totalTime / i);
+            telemetry.addData(DoubleTelemetry.LogMode.INFO, "Loop count: " + i);
+
+
+            telemetry.addData(DoubleTelemetry.LogMode.INFO, "Loop done distance: " + distanceRemaining);
+
+            telemetry.update();
+        };
+    }
 
     public void setArmUp() {
         arm.setArmAutonPosition();
@@ -663,7 +712,6 @@ public class Robot extends AbstractRobot {
 //        return sum / 4;
 //        //return Color.red(image.getPixel(x , y ));
 //    }
-
 
 
 }
