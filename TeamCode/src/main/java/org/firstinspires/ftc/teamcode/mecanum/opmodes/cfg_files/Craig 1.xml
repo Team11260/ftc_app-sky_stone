@@ -9,7 +9,7 @@
             <Servo name="clamp_servo" port="0" />
             <Servo name="right_intake" port="1" />
             <Servo name="gripper_servo" port="2" />
-            <Servo name="left_intake" port="3" />
+            <Servo name="led_one" port="3" />
             <Servo name="conveyor_belt" port="4" />
             <Servo name="arm_servo" port="5" />
             <LynxEmbeddedIMU name="imu" port="0" bus="0" />
@@ -25,6 +25,7 @@
             <Servo name="back_dragger_servo" port="4" />
             <Servo name="front_dragger_servo" port="5" />
             <LynxEmbeddedIMU name="imu 1" port="0" bus="0" />
+            <LynxColorSensor name="Color_Sensor" port="0" bus="1" />
         </LynxModule>
     </LynxUsbDevice>
 </Robot>
