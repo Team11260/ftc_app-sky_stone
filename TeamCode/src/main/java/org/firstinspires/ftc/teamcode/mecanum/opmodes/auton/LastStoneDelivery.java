@@ -39,7 +39,7 @@ public class LastStoneDelivery extends AbstractAuton {
 
     @Override
     public void Run() {
-        delay(19000);
+  //      delay(19000);
         robot.runDrivePath(drag2());
 
         /*

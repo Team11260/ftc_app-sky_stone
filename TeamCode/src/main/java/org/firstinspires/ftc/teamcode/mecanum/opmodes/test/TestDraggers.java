@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Pursuit
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 
 
-import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.RedDragFoundationTest;
+
 
 
 @Autonomous (name = "Test Draggers", group = "New")
@@ -35,7 +35,7 @@ public class TestDraggers extends AbstractAuton {
 
     @Override
     public void Run() {
-        robot.runDrivePath(RedDragFoundationTest);
+        robot.runDrivePath(dragTest());
 
         robot.dragger.setDraggerUp();
     }
