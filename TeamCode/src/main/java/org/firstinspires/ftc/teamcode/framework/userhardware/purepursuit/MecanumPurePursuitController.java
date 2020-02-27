@@ -9,8 +9,6 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
 
     protected double lastXPosition = 0, lastYPosition = 0;
 
-    protected double positionError = 4.0, headingError = 5.0;
-
     protected final double yScale;
 
     protected double targetHeading = 0.0;
@@ -37,9 +35,6 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
         this.headingMode = headingMode;
     }
 
-    public void setPositionError(double positionError){
-        this.positionError = positionError;
-    }
 
     @Override
     public void follow(PursuitPath pursuitPath) {
@@ -64,10 +59,11 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
         double y = Math.sin(Math.toRadians(heading));
 
 
-        telemetry.getSmartdashboard().putGraph("position", "Heading", xPosition, heading);
-        telemetry.getSmartdashboard().putGraph("position", "scalars", x, y);
-
         currentPosition = new Pose(currentPosition.add(new Vector(xDistance * x, xDistance * y)).add(new Vector(-yDistance * y, yDistance * x)), heading);
+
+        telemetry.getSmartdashboard().putGraph("position", "Heading", xPosition, heading);
+        telemetry.getSmartdashboard().putGraph("position", "X Y Plane", currentPosition.getX(), currentPosition.getY());
+
 
         lastXPosition = xPosition;
         lastYPosition = yPosition;
@@ -88,6 +84,9 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
         int closest = currentPursuitPath.getClosestPointIndex(currentPosition);
 
         if(lookahead == -1) {
+            telemetry.addData(INFO,"Exited Path by lookahead");
+            telemetry.update();
+
             isFollowing = false;
             lookahead = currentPursuitPath.getPoints().size() - 1;
         }
@@ -103,10 +102,10 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
 
         //telemetry.getSmartdashboard().putGraph("Position","Target Heading", closest ,angle);
 
-        double frontLeft = velocity * (x - y - z);
-        double frontRight = velocity * (x + y + z);
-        double backLeft = velocity * (x + y - z);
-        double backRight = velocity * (x - y + z);
+        double frontLeft = velocity * (x - y) - z;
+        double frontRight = velocity * (x + y) + z;
+        double backLeft = velocity * (x + y) - z;
+        double backRight = velocity * (x - y) + z;
 
 //        telemetry.getSmartdashboard().putGraph("outputs","x", closest ,x);
 //        telemetry.getSmartdashboard().putGraph("outputs","y", closest ,y);

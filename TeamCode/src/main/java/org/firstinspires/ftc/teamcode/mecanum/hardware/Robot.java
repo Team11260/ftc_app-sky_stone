@@ -255,6 +255,7 @@ public class Robot extends AbstractRobot {
     }
 
     public void grabStone() {
+        //delay(500);
         setGripperGrip();
         delay(500);
         setArmUp();
@@ -346,8 +347,8 @@ public class Robot extends AbstractRobot {
             double totalTime = 0;
             while ((distanceRemaining > 3.2) || Double.isNaN(distanceRemaining)) {
                 distanceRemaining = driver.distanceSensor.getDistance();
-                telemetry.addData(DoubleTelemetry.LogMode.INFO, "Distance from distance sensor: " + distanceRemaining);
-                telemetry.update();
+//                telemetry.addData(DoubleTelemetry.LogMode.INFO, "Distance from distance sensor: " + distanceRemaining);
+//                telemetry.update();
                 i++;
                 //driver.updatePose();
             }
@@ -527,7 +528,7 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable delayedDraggerDownCallable() {
         return () -> {
-            delay(2000);
+            while(driver.getCurrentPosition().getX() < -50) ;
             setDraggerDown();
         };
     }

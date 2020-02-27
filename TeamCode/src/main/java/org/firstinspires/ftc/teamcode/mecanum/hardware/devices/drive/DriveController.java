@@ -12,6 +12,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.PurePursuitSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Segment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.MecanumPurePursuitController;
+import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PathPoint;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Pose;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
@@ -228,10 +229,10 @@ public class DriveController extends SubsystemController {
 
         pursuitPath.build();
 
-//        for(PathPoint point : pursuitPath.getPoints()) {
-//            telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
+        for(PathPoint point : pursuitPath.getPoints()) {
+            telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
 //            telemetry.getSmartdashboard().putGraph("position", "velocity", point.getX(), point.getVelocity());
-//        }
+        }
 
         drive.follow(pursuitPath);
         ElapsedTime runtime = new ElapsedTime();

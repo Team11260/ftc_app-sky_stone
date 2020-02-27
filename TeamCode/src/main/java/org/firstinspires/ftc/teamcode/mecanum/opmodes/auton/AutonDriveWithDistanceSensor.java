@@ -26,8 +26,22 @@ public class AutonDriveWithDistanceSensor extends AbstractAuton {
     @Override
     public void RegisterStates() {
 
-        addState("Pick up first Stone", "drive to first sky stone", robot.blockFind());
+        //addState("Pick up first Stone", "drive to first sky stone", robot.blockFind());
         addState("Actually Pick up first Stone", "drive to first sky stone", robot.grabStoneCallable());
+
+        addState("Drop the block", "first trip to foundation", robot.deliverStoneCallable());
+        addState("Drop the arm", "first trip to foundation", robot.redDelayedArmDownCallable());
+
+
+        //addState("Pick up second Stone", "drive to second sky stone", robot.blockFind());
+        addState("pick up second sky stone", "drive to second sky stone", robot.grabStoneCallable());
+
+        addState("Drop the block", "second trip to foundation", robot.deliverStoneCallable());
+        addState("Drop the arm", "second trip to foundation", robot.redDelayedArmDownCallable());
+
+
+        //addState("Pick up second Stone", "drive to third sky stone", robot.blockFind());
+        addState("pick up second sky stone", "drive to third sky stone", robot.grabStoneCallable());
 
         // addState(new State("arm down to collect", "start", robot.armDownCallable()));
         // addState(new State("gripper release", "start", robot.setGripperReleaseCallable()));

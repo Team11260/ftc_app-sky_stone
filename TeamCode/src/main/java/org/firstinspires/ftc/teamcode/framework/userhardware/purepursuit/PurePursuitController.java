@@ -52,6 +52,7 @@ public abstract class PurePursuitController {
         int closest = currentPursuitPath.getClosestPointIndex(currentPosition);
 
         if(lookahead == -1) {
+
             currentPursuitPath = null;
             isFollowing = false;
             return;

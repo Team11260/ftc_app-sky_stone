@@ -102,8 +102,6 @@ public class TeleopMode extends AbstractTeleop {
     @Override
     public void Loop() {
 
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Distance from distance sensor:"+robot.driver.distanceSensor.getDistance());
-        telemetry.update();
     }
 
     @Override

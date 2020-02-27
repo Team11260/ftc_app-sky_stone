@@ -21,12 +21,12 @@ public class PursuitPath {
     /**
      * The amount of smoothing to be done on the path (larger number = more smoothing)
      */
-    private double fPathSmoothing = 0.8;
+    private double fPathSmoothing = 0.5;
 
     /**
      * Speed reduction through turns (larger number = faster turns)
      */
-    private double fTurnSpeed = 0.07;
+    private double fTurnSpeed = 0.008;
 
     /**
      * Scales following speed based on tracking error (smaller number = better tracking, larger number = faster tracking)
@@ -41,22 +41,22 @@ public class PursuitPath {
     /**
      * The max acceleration (total output/point)
      */
-    private double fMaxAcceleration = 0.08;
+    private double fMaxAcceleration = 0.04;
 
     /**
      * The max deceleration (total output/point)
      */
-    private double fMaxDeceleration = 0.017;
+    private double fMaxDeceleration = 0.005;
 
     /**
      * Minimum follow speed
      */
-    private double fMinSpeed = 0.17;
+    private double fMinSpeed = 0.15;
 
     /**
      * Maximum follow speed
      */
-    private double fMaxSpeed = 1.0;
+    private double fMaxSpeed = 0.8;
 
     /**
      * Average look ahead distance
@@ -71,12 +71,12 @@ public class PursuitPath {
     /**
      * Position error that it allows
      */
-    private double fPositionError = 2.0;
+    private double fPositionError = 1.0;
 
     /**
      * Heading error that it allows
      */
-    private double fHeadingError = 5.0;
+    private double fHeadingError = 10.0;
 
     /**
      * Run specific data, gets reset with reset() method
