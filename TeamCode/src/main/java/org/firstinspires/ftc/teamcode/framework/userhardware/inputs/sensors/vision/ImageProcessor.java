@@ -39,7 +39,27 @@ public class ImageProcessor {
                 bitmap.setPixel(p, position + w, color);
             }
         }
+
+
+
     }
+
+
+    public static void drawHorizontalLineRun(Bitmap bitmap, int position, int start, int end, int width, int color) {
+        for(int p = start; p < end; p++) {
+            for(int w = 0; w < width; w++) {
+
+                bitmap.setPixel(p, position + w, color);
+            }
+        }
+
+
+
+    }
+
+
+
+
 
     public static void drawHorizontalLine(Bitmap bitmap, int position, int width, int color) {
         drawHorizontalLine(bitmap, position, 0, bitmap.getWidth(), width, color);
@@ -58,6 +78,18 @@ public class ImageProcessor {
         }
     }
 
+
+    public static void drawVerticalLineRun(Bitmap bitmap, int position, int start, int end, int width, int color) {
+        for(int p = start; p < end; p++) {
+            for(int w = 0; w < width; w++) {
+
+                bitmap.setPixel(position + w, p, color);
+            }
+        }
+    }
+
+
+
     public static void drawVerticalLine(Bitmap bitmap, int position, int width, int color) {
         drawVerticalLine(bitmap, position, 0, bitmap.getHeight(), width, color);
     }
@@ -72,4 +104,13 @@ public class ImageProcessor {
         drawVerticalLine(bitmap, x, y, y + h, width, color);
         drawVerticalLine(bitmap, x + b, y, y + h + width, width, color);
     }
+
+    public static void drawBoxRun(Bitmap bitmap, int x, int y, int b, int h, int width, int color) {
+        drawHorizontalLineRun(bitmap, y, x, x + b, width, color);
+        drawHorizontalLineRun(bitmap, y + h, x, x + b + width, width, color);
+        drawVerticalLineRun(bitmap, x, y, y + h, width, color);
+        drawVerticalLineRun(bitmap, x + b, y, y + h + width, width, color);
+    }
+
+
 }

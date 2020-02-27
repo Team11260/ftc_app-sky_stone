@@ -72,9 +72,8 @@ public class Robot extends AbstractRobot {
     public String getSkyStonePositionThreeStones(int loopcount, boolean isRed) {
 
 
-        if(imageProcessor == null)
+        if (imageProcessor == null)
             imageProcessor = new ImageProcessor(false);
-
 
 
         int xorigin = isRed ? RED_XORIGIN : BLUE_XORIGIN;
@@ -113,11 +112,11 @@ public class Robot extends AbstractRobot {
         }
 
 
-        telemetry.addData(INFO, "left box  " + getPixelStripeAve(xorigin, yorigin));
-        telemetry.addData(INFO, "center box  " + getPixelStripeAve(xorigin + BLOCKWIDTH, yorigin));
-        telemetry.addData(INFO, "right box  " + getPixelStripeAve(xorigin + 2 * BLOCKWIDTH, yorigin));
+//        telemetry.addData(INFO, "left box  " + getPixelStripeAve(xorigin, yorigin));
+//        telemetry.addData(INFO, "center box  " + getPixelStripeAve(xorigin + BLOCKWIDTH, yorigin));
+//        telemetry.addData(INFO, "right box  " + getPixelStripeAve(xorigin + 2 * BLOCKWIDTH, yorigin));
         //telemetry.addData(INFO, "Front Third  "  +  getFrontThirdBlock(10, 320));
-        telemetry.update();
+//        telemetry.update();
 
         ImageProcessor.drawBox(image, xorigin, yorigin, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
         ImageProcessor.drawBox(image, x_left + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
@@ -136,11 +135,19 @@ public class Robot extends AbstractRobot {
 
 
     public boolean isSixthStone() {
-        if(imageProcessor == null)
-            imageProcessor=new ImageProcessor(false);
+        if (imageProcessor == null)
+            imageProcessor = new ImageProcessor(false);
 
-        int xorigin = 75;
-        int yorigin = 60;
+
+
+
+        int xorigin = 250;
+        int yorigin = 90;
+
+        int blockOne = getPixelStripeAve(xorigin+10,yorigin+5);
+
+
+
 
 
 
@@ -148,19 +155,17 @@ public class Robot extends AbstractRobot {
 
         image = imageProcessor.getImage();
 
-        ImageProcessor.drawBox(image, xorigin, yorigin, 2 * BLOCKWIDTH, BLOCKHEIGHT, 20, Color.rgb(0, 0, 255));
+        ImageProcessor.drawBoxRun(image, xorigin, yorigin, 2 * BLOCKWIDTH, BLOCKHEIGHT, 7, Color.rgb(0, 0, 255));
 
-        image = imageProcessor.getImage();
+        ImageProcessor.drawBoxRun(image,xorigin+10,yorigin+5,BLOCKWIDTH-20,BLOCKHEIGHT-10,5,Color.rgb(255,0,0));
+
+        ImageProcessor.drawBoxRun(image,xorigin+10+BLOCKWIDTH,yorigin+5,BLOCKWIDTH-20,BLOCKHEIGHT-10,5,Color.rgb(255,0,0));
 
         imageProcessor.setImage(image);
 
 
 
-
-
         return true;
-
-
 
 
     }
