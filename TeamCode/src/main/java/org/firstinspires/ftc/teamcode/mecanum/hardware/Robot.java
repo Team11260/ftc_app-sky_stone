@@ -138,13 +138,22 @@ public class Robot extends AbstractRobot {
         if (imageProcessor == null)
             imageProcessor = new ImageProcessor(false);
 
-
+        image = imageProcessor.getImage();
 
 
         int xorigin = 250;
         int yorigin = 90;
 
-        int blockOne = getPixelStripeAve(xorigin+10,yorigin+5);
+
+
+        int blockOne = getPixelStripeAveRun(xorigin+10,yorigin+5);
+
+        int blockTwo = getPixelStripeAveRun(xorigin+10+BLOCKWIDTH,yorigin+5);
+
+        boolean sixth = blockOne>=blockTwo;
+
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Block One: "+ blockOne + "\nBlock Two: "+blockTwo);
+        telemetry.update();
 
 
 
@@ -153,19 +162,20 @@ public class Robot extends AbstractRobot {
 
 
 
-        image = imageProcessor.getImage();
+
+
 
         ImageProcessor.drawBoxRun(image, xorigin, yorigin, 2 * BLOCKWIDTH, BLOCKHEIGHT, 7, Color.rgb(0, 0, 255));
 
-        ImageProcessor.drawBoxRun(image,xorigin+10,yorigin+5,BLOCKWIDTH-20,BLOCKHEIGHT-10,5,Color.rgb(255,0,0));
+        ImageProcessor.drawBoxRun(image,xorigin+10,yorigin+5,10,BLOCKHEIGHT-10,5,Color.rgb(255,0,0));
 
-        ImageProcessor.drawBoxRun(image,xorigin+10+BLOCKWIDTH,yorigin+5,BLOCKWIDTH-20,BLOCKHEIGHT-10,5,Color.rgb(255,0,0));
+        ImageProcessor.drawBoxRun(image,xorigin+10+BLOCKWIDTH,yorigin+5,10,BLOCKHEIGHT-10,5,Color.rgb(255,0,0));
 
         imageProcessor.setImage(image);
 
 
 
-        return true;
+        return sixth;
 
 
     }
@@ -210,6 +220,25 @@ public class Robot extends AbstractRobot {
         }
         return ((int) ((3 * sum) / (stripeHeight * stripeWidth)));
     }
+
+
+    public int getPixelStripeAveRun(int x, int y) {
+
+        int stripeWidth = BLOCKWIDTH - 20;
+        int stripeHeight = BLOCKHEIGHT - 10;
+        int sum = 0;
+
+        for (int i = 0; i < stripeWidth; i++) {
+            for (int j = 0; j < stripeHeight / 3; j++) {
+               // if (AbstractOpMode.isRunActive()) return -1;
+                sum += Color.red(image.getPixel(x + i + 10, y + 3 * j + 5));
+            }
+        }
+        return ((int) ((3 * sum) / (stripeHeight * stripeWidth)));
+    }
+
+
+
 
     public int getFrontThirdBlock(int x, int y) {
 
