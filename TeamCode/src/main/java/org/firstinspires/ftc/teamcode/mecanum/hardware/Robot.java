@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.mecanum.hardware;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.provider.ContactsContract;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -28,8 +29,8 @@ import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTeleme
 
 public class Robot extends AbstractRobot {
 
-    private ImageProcessor imageProcessor;
 
+    private ImageProcessor imageProcessor;
     public DriveController driver;
     public IntakeController intake;
     public ArmController arm;
@@ -41,7 +42,7 @@ public class Robot extends AbstractRobot {
     public Bitmap image;
 
     public Robot() {
-        imageProcessor = new ImageProcessor(false);
+
         //telemetry = new DoubleTelemetry(super.telemetry, Dashboard.getInstance().getTelemetry(), new Logger(Dashboard.getCurrentOpMode()));
         driver = new DriveController();
         intake = new IntakeController();
@@ -70,6 +71,12 @@ public class Robot extends AbstractRobot {
 
 
     public String getSkyStonePositionThreeStones(int loopcount, boolean isRed) {
+
+
+        if (imageProcessor == null)
+            imageProcessor = new ImageProcessor(false);
+
+
         int xorigin = isRed ? RED_XORIGIN : BLUE_XORIGIN;
         int yorigin = isRed ? RED_YORIGIN : BLUE_YORIGIN;
         int LINEWIDTH = LINE_WIDTH;
@@ -106,11 +113,11 @@ public class Robot extends AbstractRobot {
         }
 
 
-        telemetry.addData(INFO, "left box  " + getPixelStripeAve(xorigin, yorigin));
-        telemetry.addData(INFO, "center box  " + getPixelStripeAve(xorigin + BLOCKWIDTH, yorigin));
-        telemetry.addData(INFO, "right box  " + getPixelStripeAve(xorigin + 2 * BLOCKWIDTH, yorigin));
+//        telemetry.addData(INFO, "left box  " + getPixelStripeAve(xorigin, yorigin));
+//        telemetry.addData(INFO, "center box  " + getPixelStripeAve(xorigin + BLOCKWIDTH, yorigin));
+//        telemetry.addData(INFO, "right box  " + getPixelStripeAve(xorigin + 2 * BLOCKWIDTH, yorigin));
         //telemetry.addData(INFO, "Front Third  "  +  getFrontThirdBlock(10, 320));
-        telemetry.update();
+//        telemetry.update();
 
         ImageProcessor.drawBox(image, xorigin, yorigin, 3 * BLOCKWIDTH, BLOCKHEIGHT, LINEWIDTH, Color.rgb(0, 0, 225));
         ImageProcessor.drawBox(image, x_left + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
@@ -118,6 +125,7 @@ public class Robot extends AbstractRobot {
         ImageProcessor.drawBox(image, x_center + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
         //delay(500);
         ImageProcessor.drawBox(image, x_right + 10, yorigin + 5, BLOCKWIDTH - 20, BLOCKHEIGHT - 10, LINEWIDTH, Color.rgb(225, 0, 0));
+
         imageProcessor.setImage(image);
 
 
@@ -125,6 +133,54 @@ public class Robot extends AbstractRobot {
 
 
     }
+
+
+    public boolean isSixthStone() {
+        if (imageProcessor == null)
+            imageProcessor = new ImageProcessor(false);
+
+        image = imageProcessor.getImage();
+
+
+        int xorigin = 250;
+        int yorigin = 90;
+
+
+
+        int blockOne = getPixelStripeAveRun(xorigin+10,yorigin+5);
+
+        int blockTwo = getPixelStripeAveRun(xorigin+10+BLOCKWIDTH,yorigin+5);
+
+        boolean sixth = blockOne>=blockTwo;
+
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Block One: "+ blockOne + "\nBlock Two: "+blockTwo);
+        telemetry.update();
+
+
+
+
+
+
+
+
+
+
+
+        ImageProcessor.drawBoxRun(image, xorigin, yorigin, 2 * BLOCKWIDTH, BLOCKHEIGHT, 7, Color.rgb(0, 0, 255));
+
+        ImageProcessor.drawBoxRun(image,xorigin+10,yorigin+5,10,BLOCKHEIGHT-10,5,Color.rgb(255,0,0));
+
+        ImageProcessor.drawBoxRun(image,xorigin+10+BLOCKWIDTH,yorigin+5,10,BLOCKHEIGHT-10,5,Color.rgb(255,0,0));
+
+        imageProcessor.setImage(image);
+
+
+
+        return sixth;
+
+
+    }
+
 
     public void imageShutDown() {
         imageProcessor.shutdown();
@@ -165,6 +221,25 @@ public class Robot extends AbstractRobot {
         }
         return ((int) ((3 * sum) / (stripeHeight * stripeWidth)));
     }
+
+
+    public int getPixelStripeAveRun(int x, int y) {
+
+        int stripeWidth = BLOCKWIDTH - 20;
+        int stripeHeight = BLOCKHEIGHT - 10;
+        int sum = 0;
+
+        for (int i = 0; i < stripeWidth; i++) {
+            for (int j = 0; j < stripeHeight / 3; j++) {
+               // if (AbstractOpMode.isRunActive()) return -1;
+                sum += Color.red(image.getPixel(x + i + 10, y + 3 * j + 5));
+            }
+        }
+        return ((int) ((3 * sum) / (stripeHeight * stripeWidth)));
+    }
+
+
+
 
     public int getFrontThirdBlock(int x, int y) {
 
