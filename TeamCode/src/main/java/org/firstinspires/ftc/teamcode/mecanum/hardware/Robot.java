@@ -131,12 +131,14 @@ public class Robot extends AbstractRobot {
         return stonePosition;
 
 
+
     }
 
 
     public boolean isSixthStone() {
-        if (imageProcessor == null)
-            imageProcessor = new ImageProcessor(false);
+
+
+//        this.delayedImageProcessor();
 
         image = imageProcessor.getImage();
 
@@ -152,8 +154,8 @@ public class Robot extends AbstractRobot {
 
         boolean sixth = blockOne>=blockTwo;
 
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Block One: "+ blockOne + "\nBlock Two: "+blockTwo);
-        telemetry.update();
+//        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Block One: "+ blockOne + "\nBlock Two: "+blockTwo);
+//        telemetry.update();
 
 
 
@@ -177,6 +179,12 @@ public class Robot extends AbstractRobot {
 
         return sixth;
 
+
+    }
+
+    public void imageOn(){
+
+        imageProcessor = new ImageProcessor(false);
 
     }
 
@@ -334,6 +342,25 @@ public class Robot extends AbstractRobot {
         setArmUp();
     }
 
+    public void grabStoneFull(){
+        setGripperGrip();
+        delay(500);
+        setArmUpFull();
+
+
+    }
+
+    public RobotCallable grabStoneFullCallable(){
+        return ()->{
+            grabStoneFull();
+
+
+        };
+
+
+
+    }
+
     public RobotCallable deliverStoneCallable() {
         return () -> {
             deliverStone();
@@ -397,6 +424,15 @@ public class Robot extends AbstractRobot {
     public void setArmUp() {
         arm.setArmAutonPosition();
     }
+
+    public void setArmUpFull(){
+
+        arm.setArmUpPosition();
+
+    }
+
+
+
 
     public RobotCallable setGripperGripCallable() {
         return () -> {
@@ -529,6 +565,21 @@ public class Robot extends AbstractRobot {
             while (driver.getCurrentPosition().getX() < 20) ;
             setDraggerHalfway();
         };
+    }
+
+    public RobotCallable delayedImageProcessor(){
+        return ()->{
+            while (driver.getCurrentPosition().getX()<20);
+
+            if(imageProcessor == null){
+                imageProcessor = new ImageProcessor(false);
+
+
+            }
+
+        };
+
+
     }
 
     public RobotCallable delayedRedDraggerHalfwayCallable() {
