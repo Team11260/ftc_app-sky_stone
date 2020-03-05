@@ -20,7 +20,7 @@ public class LedController extends SubsystemController {
     }
 
     public void ledOff(){
-        led.setLed1(0.51);
+        led.setLed1(0.495);  // 0.51
 
 
 

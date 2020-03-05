@@ -277,7 +277,7 @@ public class DriveController extends SubsystemController {
         telemetry.addData(INFO, "loop counts: " + loopCounts);
         telemetry.addData(INFO, "runtime: " + lastTime);
         telemetry.addData(INFO, "loop time: " + lastTime / loopCounts);
-        if(lastTime/loopCounts>0.02) led.setGreen();
+        if(lastTime/loopCounts>0.03) led.setGreen();
         telemetry.update();
 
 

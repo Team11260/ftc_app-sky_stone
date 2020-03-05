@@ -58,10 +58,13 @@ public class TeleopMode extends AbstractTeleop {
 
         addEventHandler("2_start_down",()->robot.led.ledCycle());
 
-
+        addEventHandler("2_rt_down",()->robot.capStone.toggleCapStone());
 
 
     }
+
+
+
 
     @Override
     public void UpdateEvents() {
@@ -92,6 +95,8 @@ public class TeleopMode extends AbstractTeleop {
         robot.arm.setArmUpPosition();
         robot.dragger.setFrontUp();
         robot.dragger.setBackUp();
+
+        robot.capStone.setCapstoneClosed();
 
         telemetry.addData(DoubleTelemetry.LogMode.INFO,"Front left position: "+robot.driver.getFrontLeftPosition());
         telemetry.addData(DoubleTelemetry.LogMode.INFO,"Back left position: "+ robot.driver.getBackLeftPosition());

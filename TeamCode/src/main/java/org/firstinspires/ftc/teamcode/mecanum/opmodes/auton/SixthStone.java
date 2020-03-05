@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.PurePursuitSe
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.util.ParameterFileConfiguration;
 
 @Autonomous(group = "new", name = "Sixth Stone")
 
@@ -17,14 +18,16 @@ public class SixthStone extends AbstractAuton {
     Robot robot;
 
     private int depotPathPeriod = 0;
+    private ParameterFileConfiguration ParameterFile;
 
 
     @Override
     public void RegisterStates() {
 
-        addState("arm down", "drive to the blue depot", robot.armDownCallable());
-        addState("arm down", "drive to the blue depot", robot.setGripperReleaseCallable());
 
+        addState("sense stone", "drive to the blue depot", robot.SixthStoneCallable());
+        addState("arm down", "sense stone", robot.armDownCallable());
+        addState("open gripper","sense stone",robot.setGripperReleaseCallable());
         addState("Pick up stone", "drive to stone", robot.grabStoneFullCallable());
 
 
@@ -39,6 +42,7 @@ public class SixthStone extends AbstractAuton {
         robot.lift.setTiltUp();
         robot.dragger.setDraggerUp();
         robot.imageOn();
+        ParameterFile = new ParameterFileConfiguration();
 
 
     }
@@ -48,16 +52,17 @@ public class SixthStone extends AbstractAuton {
 
         robot.runDrivePath(driveToDepot());
 
-
-        boolean isSixth = robot.isSixthStone();
-
-        if (isSixth) {
+        delay(700);
+        if (robot.isSixth) {
 
             robot.runDrivePath(getLeftStone());
         } else {
+
             robot.runDrivePath(getRightStone());
 
         }
+
+
 
 //        telemetry.addData(DoubleTelemetry.LogMode.INFO, "Is sixth stone: " + isSixth);
 //
@@ -68,6 +73,10 @@ public class SixthStone extends AbstractAuton {
 
         robot.runDrivePath(goToBridge());
 
+        robot.runDrivePath(goToTriangle());
+
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, "delay value = " + ParameterFile.getProperty("CameraDelayTimeMsec"));
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, "delay value = " + ParameterFile.getProperty("FakeName"));
 
     }
 
@@ -100,7 +109,7 @@ public class SixthStone extends AbstractAuton {
         getStone.addSegment(new PurePursuitSegment("drive to stone",
                 new PursuitPath(
                         new Point(68, -4),
-                        new Point(68, -25.5)
+                        new Point(66, -25.5)
 
 
                 ).setMaxDeceleration(0.005).setMaxAcceleration(0.04)
@@ -110,7 +119,7 @@ public class SixthStone extends AbstractAuton {
         getStone.addSegment(new PurePursuitSegment("drive back to depot",
                 new PursuitPath(
                         new Point(66, -25.5),
-                        new Point(68, -1)
+                        new Point(68, -0.5)
 
 
                 ).setMaxDeceleration(0.003).setMaxAcceleration(0.04).setMinSpeed(0.14), 1000, 0
@@ -140,7 +149,7 @@ public class SixthStone extends AbstractAuton {
         getStone.addSegment(new PurePursuitSegment("drive back to depot",
                 new PursuitPath(
                         new Point(63, -25.5),
-                        new Point(68, -1)
+                        new Point(68, -0.5)
 
 
                 ).setMaxDeceleration(0.003).setMaxAcceleration(0.04).setMinSpeed(0.14), 1000, 0));
@@ -156,8 +165,8 @@ public class SixthStone extends AbstractAuton {
 
         driveToLine.addSegment(new PurePursuitSegment("drive to red line",
                 new PursuitPath(
-                        new Point(68, -5),
-                        new Point(10, -1)
+                        new Point(68, -1),
+                        new Point(10, -0.3)
 
                 ).setMaxDeceleration(0.01).setMaxAcceleration(0.04).setMaxSpeed(0.45), 0
 
@@ -166,6 +175,26 @@ public class SixthStone extends AbstractAuton {
 
 
         return driveToLine;
+    }
+
+
+
+    protected Path goToTriangle(){
+        Path driveToTriangle = new Path("triangle drive");
+
+        driveToTriangle.addSegment(new PurePursuitSegment("drive to triangle",
+                new PursuitPath(
+                        new Point(10,-1),
+                        new Point(-55,-28)
+
+
+
+                ).setMaxDeceleration(0.015).setMaxAcceleration(0.05),0
+
+                ));
+
+        return driveToDepot();
+
     }
 
     protected Path getLeftStoneTurn() {
@@ -241,6 +270,10 @@ public class SixthStone extends AbstractAuton {
 
         return driveToLine;
     }
+
+
+
+
 
 
 }

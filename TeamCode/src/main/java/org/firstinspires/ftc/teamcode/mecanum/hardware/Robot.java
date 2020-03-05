@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
 
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.capstone.CapStoneController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.dragger.DraggerController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.DriveController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.IntakeController;
@@ -36,10 +37,13 @@ public class Robot extends AbstractRobot {
     public ArmController arm;
     public LiftController lift;
     public TapeMeasureController tapeMeasure;
+    public CapStoneController capStone;
 
     public DraggerController dragger;
     public LedController led;
     public Bitmap image;
+
+    public boolean isSixth = true;
 
     public Robot() {
 
@@ -51,6 +55,8 @@ public class Robot extends AbstractRobot {
         dragger = new DraggerController();
         tapeMeasure = new TapeMeasureController();
         led = new LedController();
+        capStone = new CapStoneController();
+
     }
 
 
@@ -134,6 +140,16 @@ public class Robot extends AbstractRobot {
 
     }
 
+    public RobotCallable SixthStoneCallable(){
+        return ()-> {
+
+            isSixthStone();
+
+        };
+
+
+    }
+
 
     public boolean isSixthStone() {
 
@@ -148,23 +164,18 @@ public class Robot extends AbstractRobot {
 
 
 
+
+
         int blockOne = getPixelStripeAveRun(xorigin+10,yorigin+5);
 
         int blockTwo = getPixelStripeAveRun(xorigin+10+BLOCKWIDTH,yorigin+5);
 
         boolean sixth = blockOne>=blockTwo;
 
-//        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Block One: "+ blockOne + "\nBlock Two: "+blockTwo);
-//        telemetry.update();
+        isSixth = sixth;
 
-
-
-
-
-
-
-
-
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Block One: "+ blockOne + "\nBlock Two: "+blockTwo);
+        telemetry.update();
 
 
         ImageProcessor.drawBoxRun(image, xorigin, yorigin, 2 * BLOCKWIDTH, BLOCKHEIGHT, 7, Color.rgb(0, 0, 255));
@@ -174,6 +185,8 @@ public class Robot extends AbstractRobot {
         ImageProcessor.drawBoxRun(image,xorigin+10+BLOCKWIDTH,yorigin+5,10,BLOCKHEIGHT-10,5,Color.rgb(255,0,0));
 
         imageProcessor.setImage(image);
+
+
 
 
 
@@ -511,6 +524,8 @@ public class Robot extends AbstractRobot {
 
 
     }
+
+
 
     public void toggleBothDraggersFull() {
         dragger.toggleDragger();
