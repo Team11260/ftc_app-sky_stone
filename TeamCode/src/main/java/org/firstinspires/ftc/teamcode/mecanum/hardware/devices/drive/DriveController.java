@@ -227,11 +227,17 @@ public class DriveController extends SubsystemController {
 
         drive.setTargetHeading(targetHeading);
 
+        telemetry.addData(INFO,"Before Build");
+        telemetry.update();
+
         pursuitPath.build();
+
+        telemetry.addData(INFO,"After Build");
+        telemetry.update();
 
         for(PathPoint point : pursuitPath.getPoints()) {
             telemetry.getSmartdashboard().putGraph("position", "target", point.getX(), point.getY());
-//            telemetry.getSmartdashboard().putGraph("position", "velocity", point.getX(), point.getVelocity());
+            telemetry.getSmartdashboard().putGraph("position", "velocity",point.getX(), point.getVelocity());
         }
 
         drive.follow(pursuitPath);

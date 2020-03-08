@@ -55,6 +55,9 @@ public class ArmController extends SubsystemController {
         arm.setArmPosition(ARM_HALFWAY_POSITION);
     }
 
+    public void setArmLastStonePosition() {
+        arm.setArmPosition(ARM_LAST_STONE_POSITION);
+    }
 
     public void setGripperGripPosition() {
         arm.setGripperPosition(GRIPPER_GRIP_POSITION_FOR_LONG_ARM);

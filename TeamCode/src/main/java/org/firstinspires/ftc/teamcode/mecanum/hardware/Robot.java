@@ -369,6 +369,23 @@ public class Robot extends AbstractRobot {
         //delay(300);
     }
 
+    public RobotCallable deliverLastStoneCallable() {
+        return () -> {
+            deliverLastStone();
+        };
+    }
+
+    public void deliverLastStone() {
+        setGripperRelease();
+        arm.setArmLastStonePosition();
+        delay(700);
+        setArmUp();
+        //delay(700);
+        setGripperGrip();
+        //delay(300);
+    }
+
+
     public void setArmDown() {
         arm.setArmDownPosition();
     }

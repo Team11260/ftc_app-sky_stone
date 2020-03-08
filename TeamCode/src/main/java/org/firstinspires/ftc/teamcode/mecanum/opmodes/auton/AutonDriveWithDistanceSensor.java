@@ -1,19 +1,9 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
-import android.widget.DatePicker;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
-import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
-import org.firstinspires.ftc.teamcode.framework.util.PathState;
-import org.firstinspires.ftc.teamcode.framework.util.State;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.Constants;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState;
 
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.*;
 
@@ -26,27 +16,27 @@ public class AutonDriveWithDistanceSensor extends AbstractAuton {
     @Override
     public void RegisterStates() {
 
-        //addState("Pick up first Stone", "drive to first sky stone", robot.blockFind());
-        addState("Actually Pick up first Stone", "drive to first sky stone", robot.grabStoneCallable());
+        addState("Pick up first Stone", "drive to first sky stone", robot.grabStoneCallable());
 
         addState("Drop the block", "first trip to foundation", robot.deliverStoneCallable());
         addState("Drop the arm", "first trip to foundation", robot.redDelayedArmDownCallable());
 
 
-        //addState("Pick up second Stone", "drive to second sky stone", robot.blockFind());
         addState("pick up second sky stone", "drive to second sky stone", robot.grabStoneCallable());
 
         addState("Drop the block", "second trip to foundation", robot.deliverStoneCallable());
         addState("Drop the arm", "second trip to foundation", robot.redDelayedArmDownCallable());
+        addState("Draggers down", "second trip to foundation", robot.delayedDraggerDownCallable());
 
 
-        //addState("Pick up second Stone", "drive to third sky stone", robot.blockFind());
-        addState("pick up second sky stone", "drive to third sky stone", robot.grabStoneCallable());
+        addState("pick up third sky stone", "drive to third sky stone", robot.grabStoneCallable());
+        addState("Draggers halfway up", "drive to third sky stone", robot.delayedRedDraggerHalfwayCallable());
 
-        // addState(new State("arm down to collect", "start", robot.armDownCallable()));
-        // addState(new State("gripper release", "start", robot.setGripperReleaseCallable()));
-        // addState(new State("get distance", "start", robot.getDistanceLoop()));
-        // addState(new State("gripper grip", "start", robot.distanceGrip()));
+
+        addState("Draggers down", "last trip to foundation", robot.setDraggerDownCallable());
+        addState("Drop the block", "last trip to foundation", robot.deliverStoneCallable());
+        addState("release dragger","park the foundation",robot.setDraggerUpCallable());
+
     }
 
     @Override
@@ -67,7 +57,8 @@ public class AutonDriveWithDistanceSensor extends AbstractAuton {
     @Override
     public void Run() {
 
-        robot.runDrivePath(RedDistancePath);
+        robot.runDrivePath(RedDistanceCenterPath);
+        robot.runDrivePath(RedDragFoundation);
         delay(10000);
 
 
