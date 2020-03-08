@@ -20,8 +20,8 @@ public class Intake {
 
 
     public Intake(HardwareMap hardwareMap){
-        rightIntake = hardwareMap.servo.get("right_intake");
-        rightIntake.setDirection(Servo.Direction.FORWARD);
+//        rightIntake = hardwareMap.servo.get("right_intake");
+//        rightIntake.setDirection(Servo.Direction.FORWARD);
         //ServoControllerEx theController = (ServoControllerEx) (rightIntake.getController());
         //rightIntake.getController();
         //int thePort = rightIntake.getPortNumber();

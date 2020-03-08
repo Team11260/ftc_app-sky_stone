@@ -19,6 +19,7 @@ import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.framework.util.SubsystemController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.led.LedController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.TelemetryRecord;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.util.StraightTrapezoid;
 import org.upacreekrobotics.dashboard.Config;
@@ -60,6 +61,8 @@ public class DriveController extends SubsystemController {
     private DecimalFormat DFpwr, DFenc;
     private boolean isMotorIntaking = false;
 
+    private LedController led;
+
     private boolean boolEmergencyStop = false;
 
     private final boolean BOOL_ODOMETRY_CODE_ENABLED = false;
@@ -95,6 +98,8 @@ public class DriveController extends SubsystemController {
         DFenc = new DecimalFormat(" 00000.0;-00000.0");
 
         distanceSensor = new DistanceColorSensor("Color_Sensor");
+        led = new LedController();
+
     }
 
     public synchronized void update() {
@@ -173,19 +178,15 @@ public class DriveController extends SubsystemController {
         MeasureTime.reset();
         int i = 0;
         double totalTime = 0;
-//        while ((distanceRemaining > 4.0) || (distanceRemaining < 0.2) || Double.isNaN(distanceRemaining)) {
-//            distanceRemaining = distanceSensor.getDistance();
-//            telemetry.addData(DoubleTelemetry.LogMode.INFO, "Distance from distance sensor: " + distanceRemaining);
-//            telemetry.update();
-//            i++;
-////            driver.updatePose();
-//        }
-        while ((distanceRemaining > 3.2) || (distanceRemaining < 0.2) || Double.isNaN(distanceRemaining)) {
-            distanceRemaining = distanceSensor.getDistance();
+        while ((distanceRemaining > 2.2) || (distanceRemaining < 0.2) || Double.isNaN(distanceRemaining)) {
+            distanceRemaining = this.distanceSensor.getDistance();
             telemetry.addData(DoubleTelemetry.LogMode.INFO, "Distance from distance sensor: " + distanceRemaining);
             telemetry.update();
             i++;
-            //updatePose();
+           // drive.updatePose();
+
+
+
         }
         strafe(0);
         //delay(500);
@@ -256,8 +257,13 @@ public class DriveController extends SubsystemController {
             drive.update();
             loopCounts++;
 
-//            telemetry.addData(INFO,"X Position: " + currentPose.getX());
-//            telemetry.addData(INFO,"Y Position: " + currentPose.getY());
+            telemetry.addData(INFO, "X Position: " + drive.getCurrentPosition().getX()+ " Y Position: " + drive.getCurrentPosition().getY()+ " Heading: "+drive.getCurrentPosition().getHeading());
+
+
+
+            telemetry.update();
+
+
 //            telemetry.update();
 //            telemetry.getSmartdashboard().putGraph("position","actual",drive.getCurrentPosition().getX(),currentPose.getY());
 //            telemetry.getSmartdashboard().putGraph("velocity","actual",currentPose.getX(),drive.getDistance()/(runtime.seconds()-lastTime));
@@ -274,6 +280,7 @@ public class DriveController extends SubsystemController {
         telemetry.addData(INFO, "loop counts: " + loopCounts);
         telemetry.addData(INFO, "runtime: " + lastTime);
         telemetry.addData(INFO, "loop time: " + lastTime / loopCounts);
+        if(lastTime/loopCounts>0.03) led.setGreen();
         telemetry.update();
     }
 

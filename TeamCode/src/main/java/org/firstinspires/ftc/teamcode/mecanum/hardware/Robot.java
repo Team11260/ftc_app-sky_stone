@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
 
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.capstone.CapStoneController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.dragger.DraggerController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.DriveController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.IntakeController;
@@ -36,10 +37,13 @@ public class Robot extends AbstractRobot {
     public ArmController arm;
     public LiftController lift;
     public TapeMeasureController tapeMeasure;
+    public CapStoneController capStone;
 
     public DraggerController dragger;
     public LedController led;
     public Bitmap image;
+
+    public boolean isSixth = true;
 
     public Robot() {
 
@@ -51,6 +55,8 @@ public class Robot extends AbstractRobot {
         dragger = new DraggerController();
         tapeMeasure = new TapeMeasureController();
         led = new LedController();
+        capStone = new CapStoneController();
+
     }
 
 
@@ -132,12 +138,24 @@ public class Robot extends AbstractRobot {
         return stonePosition;
 
 
+
+    }
+
+    public RobotCallable SixthStoneCallable(){
+        return ()-> {
+
+            isSixthStone();
+
+        };
+
+
     }
 
 
     public boolean isSixthStone() {
-        if (imageProcessor == null)
-            imageProcessor = new ImageProcessor(false);
+
+
+//        this.delayedImageProcessor();
 
         image = imageProcessor.getImage();
 
@@ -147,23 +165,18 @@ public class Robot extends AbstractRobot {
 
 
 
+
+
         int blockOne = getPixelStripeAveRun(xorigin+10,yorigin+5);
 
         int blockTwo = getPixelStripeAveRun(xorigin+10+BLOCKWIDTH,yorigin+5);
 
         boolean sixth = blockOne>=blockTwo;
 
+        isSixth = sixth;
+
         telemetry.addData(DoubleTelemetry.LogMode.INFO,"Block One: "+ blockOne + "\nBlock Two: "+blockTwo);
         telemetry.update();
-
-
-
-
-
-
-
-
-
 
 
         ImageProcessor.drawBoxRun(image, xorigin, yorigin, 2 * BLOCKWIDTH, BLOCKHEIGHT, 7, Color.rgb(0, 0, 255));
@@ -176,8 +189,16 @@ public class Robot extends AbstractRobot {
 
 
 
+
+
         return sixth;
 
+
+    }
+
+    public void imageOn(){
+
+        imageProcessor = new ImageProcessor(false);
 
     }
 
@@ -353,6 +374,25 @@ public class Robot extends AbstractRobot {
 
     }
 
+    public void grabStoneFull(){
+        setGripperGrip();
+        delay(500);
+        setArmUpFull();
+
+
+    }
+
+    public RobotCallable grabStoneFullCallable(){
+        return ()->{
+            grabStoneFull();
+
+
+        };
+
+
+
+    }
+
     public RobotCallable deliverStoneCallable() {
         return () -> {
             deliverStone();
@@ -465,6 +505,15 @@ public class Robot extends AbstractRobot {
         arm.setArmAutonPosition();
     }
 
+    public void setArmUpFull(){
+
+        arm.setArmUpPosition();
+
+    }
+
+
+
+
     public RobotCallable setGripperGripCallable() {
         return () -> {
             RobotState.currentPath.pause();
@@ -543,6 +592,8 @@ public class Robot extends AbstractRobot {
 
     }
 
+
+
     public void toggleBothDraggersFull() {
         dragger.toggleDragger();
     }
@@ -596,6 +647,21 @@ public class Robot extends AbstractRobot {
             while (driver.getCurrentPosition().getX() < 20) ;
             setDraggerHalfway();
         };
+    }
+
+    public RobotCallable delayedImageProcessor(){
+        return ()->{
+            while (driver.getCurrentPosition().getX()<20);
+
+            if(imageProcessor == null){
+                imageProcessor = new ImageProcessor(false);
+
+
+            }
+
+        };
+
+
     }
 
     public RobotCallable delayedRedDraggerHalfwayCallable() {

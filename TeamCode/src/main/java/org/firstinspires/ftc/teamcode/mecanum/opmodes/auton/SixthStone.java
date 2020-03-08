@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.PurePursuitSe
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
+import org.firstinspires.ftc.teamcode.mecanum.hardware.util.ParameterFileConfiguration;
 
 @Autonomous(group = "new", name = "Sixth Stone")
 
@@ -17,16 +18,17 @@ public class SixthStone extends AbstractAuton {
     Robot robot;
 
     private int depotPathPeriod = 0;
+    private ParameterFileConfiguration ParameterFile;
 
 
     @Override
     public void RegisterStates() {
 
-        addState("arm down","drive to the blue depot",robot.armDownCallable());
-        addState("arm down","drive to the blue depot",robot.setGripperReleaseCallable());
 
-        addState("Pick up stone","drive to first stone",robot.grabStoneCallable());
-
+        addState("sense stone", "drive to the blue depot", robot.SixthStoneCallable());
+        addState("arm down", "sense stone", robot.armDownCallable());
+        addState("open gripper","sense stone",robot.setGripperReleaseCallable());
+        addState("Pick up stone", "drive to stone", robot.grabStoneFullCallable());
 
 
     }
@@ -39,6 +41,8 @@ public class SixthStone extends AbstractAuton {
         robot.arm.setGripperGripPosition();
         robot.lift.setTiltUp();
         robot.dragger.setDraggerUp();
+        robot.imageOn();
+        ParameterFile = new ParameterFileConfiguration();
 
 
     }
@@ -48,20 +52,31 @@ public class SixthStone extends AbstractAuton {
 
         robot.runDrivePath(driveToDepot());
 
+        delay(700);
+        if (robot.isSixth) {
 
-        boolean isSixth = robot.isSixthStone();
+            robot.runDrivePath(getLeftStone());
+        } else {
 
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, "Is sixth stone: " + isSixth);
+            robot.runDrivePath(getRightStone());
 
-        telemetry.update();
+        }
 
-        delay(1000);
+
+
+//        telemetry.addData(DoubleTelemetry.LogMode.INFO, "Is sixth stone: " + isSixth);
+//
+//        telemetry.update();
 
 
         robot.imageShutDown();
 
-        robot.runDrivePath(getLeftStone());
+        robot.runDrivePath(goToBridge());
 
+        robot.runDrivePath(goToTriangle());
+
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, "delay value = " + ParameterFile.getProperty("CameraDelayTimeMsec"));
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, "delay value = " + ParameterFile.getProperty("FakeName"));
 
     }
 
@@ -88,33 +103,177 @@ public class SixthStone extends AbstractAuton {
     }
 
 
-    protected Path getLeftStone(){
+    protected Path getLeftStone() {
         Path getStone = new Path("get stone");
 
-        getStone.addSegment(new PurePursuitSegment("drive to first stone",
+        getStone.addSegment(new PurePursuitSegment("drive to stone",
                 new PursuitPath(
-                        new Point(68,-4),
-                        new Point(66,-25.5)
+                        new Point(68, -4),
+                        new Point(66, -25.5)
 
 
-                ).setMaxDeceleration(0.01).setMaxAcceleration(0.04).setMaxSpeed(0.6)
+                ).setMaxDeceleration(0.005).setMaxAcceleration(0.04)
 
-                ));
+        ));
 
         getStone.addSegment(new PurePursuitSegment("drive back to depot",
                 new PursuitPath(
-                        new Point(66,-25.5),
-                        new Point(68,-5)
+                        new Point(66, -25.5),
+                        new Point(68, -0.5)
 
 
-                ).setTurnGain(0.5),1000,-90
+                ).setMaxDeceleration(0.003).setMaxAcceleration(0.04).setMinSpeed(0.14), 1000, 0
+
+        ));
+
+
+        return getStone;
+
+
+    }
+
+    protected Path getRightStone() {
+
+        Path getStone = new Path("get second stone");
+
+        getStone.addSegment(new PurePursuitSegment("drive to stone",
+                new PursuitPath(
+                        new Point(68, -4),
+                        new Point(61, -25.5)
+
+
+                ).setMaxDeceleration(0.005).setMaxAcceleration(0.04)
+
+        ));
+
+        getStone.addSegment(new PurePursuitSegment("drive back to depot",
+                new PursuitPath(
+                        new Point(63, -25.5),
+                        new Point(68, -0.5)
+
+
+                ).setMaxDeceleration(0.003).setMaxAcceleration(0.04).setMinSpeed(0.14), 1000, 0));
+
+        return getStone;
+
+
+    }
+
+
+    protected Path goToBridge() {
+        Path driveToLine = new Path("drive to line");
+
+        driveToLine.addSegment(new PurePursuitSegment("drive to red line",
+                new PursuitPath(
+                        new Point(68, -1),
+                        new Point(10, -0.3)
+
+                ).setMaxDeceleration(0.01).setMaxAcceleration(0.04).setMaxSpeed(0.45), 0
+
+
+        ));
+
+
+        return driveToLine;
+    }
+
+
+
+    protected Path goToTriangle(){
+        Path driveToTriangle = new Path("triangle drive");
+
+        driveToTriangle.addSegment(new PurePursuitSegment("drive to triangle",
+                new PursuitPath(
+                        new Point(10,-1),
+                        new Point(-55,-28)
+
+
+
+                ).setMaxDeceleration(0.015).setMaxAcceleration(0.05),0
 
                 ));
+
+        return driveToDepot();
+
+    }
+
+    protected Path getLeftStoneTurn() {
+        Path getStone = new Path("get stone");
+
+        getStone.addSegment(new PurePursuitSegment("drive to stone",
+                new PursuitPath(
+                        new Point(68, -4),
+                        new Point(68, -25.5)
+
+
+                ).setMaxDeceleration(0.005).setMaxAcceleration(0.04)
+
+        ));
+
+        getStone.addSegment(new PurePursuitSegment("drive back to depot",
+                new PursuitPath(
+                        new Point(66, -25.5),
+                        new Point(68, -5)
+
+
+                ).setTurnGain(0.7).setMaxDeceleration(0.003).setMaxAcceleration(0.04).setHeadingError(5).setMinSpeed(0.14).setPositionError(4.0), 1000, -90
+
+        ));
 
 
         return getStone;
 
     }
+
+
+    protected Path getRightStoneTurn() {
+
+        Path getStone = new Path("get second stone");
+
+        getStone.addSegment(new PurePursuitSegment("drive to stone",
+                new PursuitPath(
+                        new Point(68, -4),
+                        new Point(61, -25.5)
+
+
+                ).setMaxDeceleration(0.005).setMaxAcceleration(0.04)
+
+        ));
+
+        getStone.addSegment(new PurePursuitSegment("drive back to depot",
+                new PursuitPath(
+                        new Point(63, -25.5),
+                        new Point(68, -5)
+
+
+                ).setTurnGain(0.7).setMaxDeceleration(0.003).setMaxAcceleration(0.04).setHeadingError(5).setMinSpeed(0.14).setPositionError(4.0), 1000, -90));
+
+        return getStone;
+
+
+    }
+
+
+    protected Path goToBridgeTurn() {
+        Path driveToLine = new Path("drive to line");
+
+        driveToLine.addSegment(new PurePursuitSegment("drive to red line",
+                new PursuitPath(
+                        new Point(68, -5),
+                        new Point(7, -4)
+
+                ).setMaxDeceleration(0.01).setMaxAcceleration(0.04).setMaxSpeed(0.45), 0, -90
+
+
+        ));
+
+
+        return driveToLine;
+    }
+
+
+
+
 
 
 }
