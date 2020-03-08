@@ -35,7 +35,9 @@ public class SixthStone extends AbstractAuton {
         addState("arm down", "sense stone", robot.armDownCallable());
         addState("open gripper", "sense stone", robot.setGripperReleaseCallable());
         addState("Pick up stone", "drive to stone", robot.grabStoneFullCallable());
-        addState("drop off stone", "drive to foundation", robot.deliverStoneCallable());
+        addState("drop off stone", "drive to foundation", robot.deliverStoneFullCallable());
+        addState("arm down 2","drive to the blue depot 2",robot.armDownCallable());
+        addState("open gripper 2","drive to the blue depot 2",robot.setGripperReleaseCallable());
 
 
     }
@@ -65,7 +67,7 @@ public class SixthStone extends AbstractAuton {
 
         if (pos.equals("Left")) {
 
-            robot.runDrivePath(getRightStone());
+            robot.runDrivePath(getCenterStone());
 
 
         } else {
@@ -75,7 +77,7 @@ public class SixthStone extends AbstractAuton {
         }
 
 
-        telemetry.addData(INFO,pos);
+        telemetry.addData(INFO, pos);
 
         telemetry.update();
 
@@ -92,6 +94,19 @@ public class SixthStone extends AbstractAuton {
         robot.runDrivePath(goToFoundation());
 
         robot.runDrivePath(Park());
+
+        robot.runDrivePath(driveToDepot2());
+
+        if (pos.equals("Right")) {
+            robot.runDrivePath(getCenterStone());
+
+        } else {
+            robot.runDrivePath(getRightStone());
+
+        }
+
+        robot.runDrivePath(goToBridge());
+
 
         telemetry.addData(INFO, "delay value = " + ParameterFile.getProperty("CameraDelayTimeMsec"));
         telemetry.addData(INFO, "delay value = " + ParameterFile.getProperty("FakeName"));
@@ -121,6 +136,27 @@ public class SixthStone extends AbstractAuton {
     }
 
 
+
+
+    protected Path driveToDepot2() {
+
+        Path drive = new Path("drive to depot 2");
+
+        drive.addSegment(new PurePursuitSegment("drive to the blue depot 2",
+
+                new PursuitPath(
+                        new Point(10, -0.5),
+                        new Point(68, -4)).setMaxDeceleration(0.01).setMaxAcceleration(0.04).setMaxSpeed(0.6), depotPathPeriod
+
+        ));
+
+
+        return drive;
+
+
+    }
+
+
     protected Path getLeftStone() {
         Path getStone = new Path("get stone");
 
@@ -130,7 +166,7 @@ public class SixthStone extends AbstractAuton {
                         new Point(68, -25.5)
 
 
-                ).setMaxDeceleration(0.005).setMaxAcceleration(0.04)
+                ).setMaxDeceleration(0.01).setMaxAcceleration(0.06)
 
         ));
 
@@ -140,7 +176,7 @@ public class SixthStone extends AbstractAuton {
                         new Point(68, -0.5)
 
 
-                ).setMaxDeceleration(0.003).setMaxAcceleration(0.04).setMinSpeed(0.14), 1000, 0
+                ).setMaxDeceleration(0.01).setMaxAcceleration(0.06), 1000, 0
 
         ));
 
@@ -150,7 +186,7 @@ public class SixthStone extends AbstractAuton {
 
     }
 
-    protected Path getRightStone() {
+    protected Path getCenterStone() {
 
         Path getStone = new Path("get second stone");
 
@@ -166,11 +202,38 @@ public class SixthStone extends AbstractAuton {
 
         getStone.addSegment(new PurePursuitSegment("drive back to depot",
                 new PursuitPath(
-                        new Point(63, -25.5),
+                        new Point(61, -25.5),
                         new Point(68, -0.5)
 
 
-                ).setMaxDeceleration(0.003).setMaxAcceleration(0.04).setMinSpeed(0.14), 1000, 0));
+                ).setMaxDeceleration(0.01).setMaxAcceleration(0.06), 1000, 0));
+
+        return getStone;
+
+
+    }
+
+
+    protected Path getRightStone() {
+        Path getStone = new Path("get third stone");
+
+        getStone.addSegment(new PurePursuitSegment("drive to stone",
+                new PursuitPath(
+                        new Point(68, -4),
+                        new Point(53, -25.5)
+
+
+                ).setMaxDeceleration(0.005).setMaxAcceleration(0.04)
+
+        ));
+
+        getStone.addSegment(new PurePursuitSegment("drive back to depot",
+                new PursuitPath(
+                        new Point(53, -25.5),
+                        new Point(68, -0.5)
+
+
+                ).setMaxDeceleration(0.01).setMaxAcceleration(0.06), 1000, 0));
 
         return getStone;
 
@@ -184,9 +247,9 @@ public class SixthStone extends AbstractAuton {
         driveToLine.addSegment(new PurePursuitSegment("drive to red line",
                 new PursuitPath(
                         new Point(68, -1),
-                        new Point(10, -0.3)
+                        new Point(10, -1)
 
-                ).setMaxDeceleration(0.01).setMaxAcceleration(0.04).setMaxSpeed(0.45), 0
+                ).setMaxDeceleration(0.015).setMaxAcceleration(0.06), 0
 
 
         ));
@@ -206,14 +269,14 @@ public class SixthStone extends AbstractAuton {
                         new Point(-47, -26)
 
 
-                ).setPointSpacing(3).setMaxDeceleration(0.015).setMaxAcceleration(0.05).setMaxSpeed(0.5), foundationPathPeriod
+                ).setPointSpacing(3).setMaxDeceleration(0.013).setMaxAcceleration(0.06), foundationPathPeriod
 
 
         ));
         driveToFoundation.addSegment(new PurePursuitSegment("drive to wall",
                 new PursuitPath(
                         new Point(-47, -26),
-                        new Point(-47, -0.3)
+                        new Point(-47, -1)
 
 
                 ).setMaxDeceleration(0.01).setMaxAcceleration(0.05).setMaxSpeed(0.6), 0
@@ -231,10 +294,10 @@ public class SixthStone extends AbstractAuton {
         driveToLine.addSegment(new PurePursuitSegment("drive to line",
                 new PursuitPath(
                         new Point(-47, -0.3),
-                        new Point(10, -1)
+                        new Point(10, -0.5)
 
 
-                ).setMaxSpeed(0.5).setMaxAcceleration(0.05).setMaxDeceleration(0.01), 0
+                ).setMaxAcceleration(0.06).setMaxDeceleration(0.01), 0
 
         ));
 
@@ -243,9 +306,6 @@ public class SixthStone extends AbstractAuton {
 
 
     }
-
-
-
 
 
     protected Path getLeftStoneTurn() {
