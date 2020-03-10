@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.provider.ContactsContract;
 
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
@@ -14,7 +15,9 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.arm.ArmController;
 
+import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.backdragger.BackDraggerController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.capstone.CapStoneController;
+
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.dragger.DraggerController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.DriveController;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.IntakeController;
@@ -39,9 +42,13 @@ public class Robot extends AbstractRobot {
     public TapeMeasureController tapeMeasure;
     public CapStoneController capStone;
 
+    public BackDraggerController backDragger;
+
     public DraggerController dragger;
     public LedController led;
     public Bitmap image;
+
+
 
 
     public Robot() {
@@ -55,8 +62,17 @@ public class Robot extends AbstractRobot {
         tapeMeasure = new TapeMeasureController();
         led = new LedController();
         capStone = new CapStoneController();
+        backDragger = new BackDraggerController();
+
+
+
+
+
 
     }
+
+
+
 
 
     public void runDrivePath(Path path) {

@@ -7,7 +7,7 @@
             <RevRobotics20HDHexMotor name="front_right" port="2" />
             <RevRobotics20HDHexMotor name="back_right" port="3" />
             <Servo name="clamp_servo" port="0" />
-            <Servo name="right_intake" port="1" />
+            <Servo name="capstone" port="1" />
             <Servo name="gripper_servo" port="2" />
             <Servo name="led_one" port="3" />
             <Servo name="conveyor_belt" port="4" />

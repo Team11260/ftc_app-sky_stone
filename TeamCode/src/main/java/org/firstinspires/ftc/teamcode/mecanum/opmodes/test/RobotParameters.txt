@@ -1,0 +1,5 @@
+#This is comment
+CameraDelayTimeMsec=700
+PATH1_X = -5.2
+PATH1_Y = 10.3
+PATH1_ACCELERATION = 0.017

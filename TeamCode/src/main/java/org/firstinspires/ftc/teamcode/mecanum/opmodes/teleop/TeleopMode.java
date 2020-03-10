@@ -14,7 +14,11 @@ public class TeleopMode extends AbstractTeleop {
 
     Robot robot;
 
+
+
     double k = 0.4;
+
+
 
     @Override
     public void RegisterEvents() {
@@ -61,6 +65,8 @@ public class TeleopMode extends AbstractTeleop {
         addEventHandler("2_rt_down",()->robot.capStone.toggleCapStone());
 
 
+        addEventHandler("1_dpu_down",()->robot.backDragger.toggleBackDragger());
+
     }
 
 
@@ -95,6 +101,8 @@ public class TeleopMode extends AbstractTeleop {
         robot.arm.setArmUpPosition();
         robot.dragger.setFrontUp();
         robot.dragger.setBackUp();
+
+        robot.backDragger.setDraggerUp();
 
         robot.capStone.setCapstoneClosed();
 

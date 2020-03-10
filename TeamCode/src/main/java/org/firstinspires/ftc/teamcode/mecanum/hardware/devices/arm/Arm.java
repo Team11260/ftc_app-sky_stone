@@ -19,7 +19,6 @@ public class Arm {
         gripper.setDirection(Servo.Direction.FORWARD);
         //gripper.setPosition(GRIPPER_RELEASE_POSITION);
 
-
     }
 
 

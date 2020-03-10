@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
@@ -18,6 +19,7 @@ import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTeleme
 public class SixthStone extends AbstractAuton {
 
     Robot robot;
+    AnalogInput dial;
 
     private int depotPathPeriod = 0;
     private int foundationPathPeriod = 0;
@@ -25,7 +27,7 @@ public class SixthStone extends AbstractAuton {
 
 
     private ParameterFileConfiguration ParameterFile;
-
+    private int SixStoneDelay;
 
     @Override
     public void RegisterStates() {
@@ -52,16 +54,43 @@ public class SixthStone extends AbstractAuton {
         robot.dragger.setDraggerUp();
         robot.imageOn();
         ParameterFile = new ParameterFileConfiguration();
+        SixStoneDelay = ParameterFile.getParamValueInt("CameraDelayTimeMsec", "700");
+        dial = hardwareMap.get(AnalogInput.class, "sensor_digital");
+    }
+
+    @Override
+    public void InitLoop() {
+
+        telemetry.addData(INFO,delayFind(dial.getVoltage()));
+        telemetry.addData(INFO,dial.getVoltage());
+        telemetry.update();
+
+        foundationPathPeriod = 1000 * delayFind(dial.getVoltage());
 
 
     }
+
+
+    public int delayFind(double volt){
+
+        double ret = volt/0.33;
+
+        return (int) ret;
+
+
+
+
+    }
+
+
 
     @Override
     public void Run() {
 
         robot.runDrivePath(driveToDepot());
 
-        delay(700);
+        delay(SixStoneDelay);
+
 
         pos = robot.SixthStoneVis();
 

@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.AnalogInput;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
+import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.PurePursuitSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
@@ -13,12 +13,11 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.util.ParameterFileConfigu
 
 import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry.LogMode.INFO;
 
-@Autonomous(group = "new", name = "SixFive Stone")
-public class SixFiveStone extends AbstractAuton {
+@Autonomous(group = "new", name = "Blue Sixth Stone")
+
+public class BlueSixthStone extends AbstractAuton {
 
     Robot robot;
-
-    AnalogInput dial;
 
     private int depotPathPeriod = 0;
     private int foundationPathPeriod = 0;
@@ -26,6 +25,8 @@ public class SixFiveStone extends AbstractAuton {
 
 
     private ParameterFileConfiguration ParameterFile;
+    private int SixStoneDelay;
+
 
 
     @Override
@@ -36,9 +37,7 @@ public class SixFiveStone extends AbstractAuton {
         addState("arm down", "sense stone", robot.armDownCallable());
         addState("open gripper", "sense stone", robot.setGripperReleaseCallable());
         addState("Pick up stone", "drive to stone", robot.grabStoneFullCallable());
-        addState("drop off stone", "drive to foundation", robot.deliverStoneFullCallable());
-        addState("arm down 2", "drive to the blue depot 2", robot.armDownCallable());
-        addState("open gripper 2", "drive to the blue depot 2", robot.setGripperReleaseCallable());
+        addState("drop off stone", "drive to foundation", robot.deliverStoneCallable());
 
 
     }
@@ -53,19 +52,7 @@ public class SixFiveStone extends AbstractAuton {
         robot.dragger.setDraggerUp();
         robot.imageOn();
         ParameterFile = new ParameterFileConfiguration();
-        dial = hardwareMap.get(AnalogInput.class, "sensor_digital");
-
-
-    }
-
-    @Override
-    public void InitLoop() {
-
-        telemetry.addData(INFO, getDialDelay(dial.getVoltage()));
-        telemetry.addData(INFO, dial.getVoltage());
-        telemetry.update();
-        foundationPathPeriod = 1000 *getDialDelay(dial.getVoltage());
-
+        SixStoneDelay = ParameterFile.getParamValueInt("CameraDelayTimeMsec", "700");
 
     }
 
@@ -74,13 +61,14 @@ public class SixFiveStone extends AbstractAuton {
 
         robot.runDrivePath(driveToDepot());
 
-        delay(700);
+        delay(SixStoneDelay);
+
 
         pos = robot.SixthStoneVis();
 
         if (pos.equals("Left")) {
 
-            robot.runDrivePath(getCenterStone());
+            robot.runDrivePath(getRightStone());
 
 
         } else {
@@ -90,7 +78,7 @@ public class SixFiveStone extends AbstractAuton {
         }
 
 
-        telemetry.addData(INFO, pos);
+        telemetry.addData(INFO,pos);
 
         telemetry.update();
 
@@ -106,31 +94,8 @@ public class SixFiveStone extends AbstractAuton {
 
         robot.runDrivePath(goToFoundation());
 
-        robot.runDrivePath(Park());
-
-        robot.runDrivePath(driveToDepot2());
-
-        if (pos.equals("Right")) {
-            robot.runDrivePath(getCenterStone());
-
-        } else {
-            robot.runDrivePath(getRightStone());
-
-        }
-
-        robot.runDrivePath(goToBridge());
-
-
-        telemetry.addData(INFO, "delay value = " + ParameterFile.getProperty("CameraDelayTimeMsec"));
-        telemetry.addData(INFO, "delay value = " + ParameterFile.getProperty("FakeName"));
-
-    }
-
-    public int getDialDelay(double volt) {
-        double ret = volt / 0.33;
-
-        return (int) ret;
-
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, "delay value = " + ParameterFile.getParamValueInt("CameraDelayTimeMsec"));
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, "fake value = " + ParameterFile.getParamValueInt("FakeName"));
 
     }
 
@@ -144,35 +109,24 @@ public class SixFiveStone extends AbstractAuton {
     protected Path driveToDepot() {
         Path drive = new Path("drive to depot");
 
+
+        double  DRIVETODEPOT_X = ParameterFile.getParamValueDouble("DRIVETODEPOT_X", "-68");
+        double  DRIVETODEPOT_Y = ParameterFile.getParamValueDouble("DRIVETODEPOT_Y", "-4");
+
+        double  DRIVETODEPOT_MAXDECEL = ParameterFile.getParamValueDouble("DRIVETODEPOT_MAXDECEL", "0.005");
+        double  DRIVETODEPOT_MAXACEL = ParameterFile.getParamValueDouble("DRIVETODEPOT_MAXACEL", "0.04");
+        double  DRIVETODEPOT_MAXSPEED = ParameterFile.getParamValueDouble("DRIVETODEPOT_MAXSPEED", "0.6");
+
         drive.addSegment(new PurePursuitSegment("drive to the blue depot",
 
                 new PursuitPath(
                         new Point(0, 0),
-                        new Point(68, -4)).setMaxDeceleration(0.005).setMaxAcceleration(0.04).setMaxSpeed(0.6), depotPathPeriod
+                        new Point(DRIVETODEPOT_X, DRIVETODEPOT_Y)).setMaxDeceleration(DRIVETODEPOT_MAXDECEL).setMaxAcceleration(DRIVETODEPOT_MAXACEL).setMaxSpeed(DRIVETODEPOT_MAXSPEED), depotPathPeriod
 
         ));
 
 
         return drive;
-    }
-
-
-    protected Path driveToDepot2() {
-
-        Path drive = new Path("drive to depot 2");
-
-        drive.addSegment(new PurePursuitSegment("drive to the blue depot 2",
-
-                new PursuitPath(
-                        new Point(10, -0.5),
-                        new Point(68, -4)).setMaxDeceleration(0.01).setMaxAcceleration(0.04).setMaxSpeed(0.6), depotPathPeriod
-
-        ));
-
-
-        return drive;
-
-
     }
 
 
@@ -185,7 +139,7 @@ public class SixFiveStone extends AbstractAuton {
                         new Point(68, -25.5)
 
 
-                ).setMaxDeceleration(0.01).setMaxAcceleration(0.06)
+                ).setMaxDeceleration(0.005).setMaxAcceleration(0.04)
 
         ));
 
@@ -195,7 +149,7 @@ public class SixFiveStone extends AbstractAuton {
                         new Point(68, -0.5)
 
 
-                ).setMaxDeceleration(0.01).setMaxAcceleration(0.06), 1000, 0
+                ).setMaxDeceleration(0.003).setMaxAcceleration(0.04).setMinSpeed(0.14), 1000, 0
 
         ));
 
@@ -205,7 +159,7 @@ public class SixFiveStone extends AbstractAuton {
 
     }
 
-    protected Path getCenterStone() {
+    protected Path getRightStone() {
 
         Path getStone = new Path("get second stone");
 
@@ -221,38 +175,11 @@ public class SixFiveStone extends AbstractAuton {
 
         getStone.addSegment(new PurePursuitSegment("drive back to depot",
                 new PursuitPath(
-                        new Point(61, -25.5),
+                        new Point(63, -25.5),
                         new Point(68, -0.5)
 
 
-                ).setMaxDeceleration(0.01).setMaxAcceleration(0.06), 1000, 0));
-
-        return getStone;
-
-
-    }
-
-
-    protected Path getRightStone() {
-        Path getStone = new Path("get third stone");
-
-        getStone.addSegment(new PurePursuitSegment("drive to stone",
-                new PursuitPath(
-                        new Point(68, -4),
-                        new Point(53, -25.5)
-
-
-                ).setMaxDeceleration(0.005).setMaxAcceleration(0.04)
-
-        ));
-
-        getStone.addSegment(new PurePursuitSegment("drive back to depot",
-                new PursuitPath(
-                        new Point(53, -25.5),
-                        new Point(68, -0.5)
-
-
-                ).setMaxDeceleration(0.01).setMaxAcceleration(0.06), 1000, 0));
+                ).setMaxDeceleration(0.003).setMaxAcceleration(0.04).setMinSpeed(0.14), 1000, 0));
 
         return getStone;
 
@@ -266,9 +193,9 @@ public class SixFiveStone extends AbstractAuton {
         driveToLine.addSegment(new PurePursuitSegment("drive to red line",
                 new PursuitPath(
                         new Point(68, -1),
-                        new Point(10, -1)
+                        new Point(10, -0.3)
 
-                ).setMaxDeceleration(0.015).setMaxAcceleration(0.06), 0
+                ).setMaxDeceleration(0.01).setMaxAcceleration(0.04).setMaxSpeed(0.45), 0
 
 
         ));
@@ -288,14 +215,14 @@ public class SixFiveStone extends AbstractAuton {
                         new Point(-47, -26)
 
 
-                ).setPointSpacing(3).setMaxDeceleration(0.013).setMaxAcceleration(0.06), foundationPathPeriod
+                ).setPointSpacing(3).setMaxDeceleration(0.015).setMaxAcceleration(0.05).setMaxSpeed(0.5), foundationPathPeriod
 
 
         ));
         driveToFoundation.addSegment(new PurePursuitSegment("drive to wall",
                 new PursuitPath(
                         new Point(-47, -26),
-                        new Point(-47, -1)
+                        new Point(-47, -0.3)
 
 
                 ).setMaxDeceleration(0.01).setMaxAcceleration(0.05).setMaxSpeed(0.6), 0
@@ -313,10 +240,10 @@ public class SixFiveStone extends AbstractAuton {
         driveToLine.addSegment(new PurePursuitSegment("drive to line",
                 new PursuitPath(
                         new Point(-47, -0.3),
-                        new Point(10, -0.5)
+                        new Point(10, -1)
 
 
-                ).setMaxAcceleration(0.06).setMaxDeceleration(0.01), 0
+                ).setMaxSpeed(0.5).setMaxAcceleration(0.05).setMaxDeceleration(0.01), 0
 
         ));
 
@@ -327,8 +254,82 @@ public class SixFiveStone extends AbstractAuton {
     }
 
 
+
+
+
+    protected Path getLeftStoneTurn() {
+        Path getStone = new Path("get stone");
+
+        getStone.addSegment(new PurePursuitSegment("drive to stone",
+                new PursuitPath(
+                        new Point(68, -4),
+                        new Point(68, -25.5)
+
+
+                ).setMaxDeceleration(0.005).setMaxAcceleration(0.04)
+
+        ));
+
+        getStone.addSegment(new PurePursuitSegment("drive back to depot",
+                new PursuitPath(
+                        new Point(66, -25.5),
+                        new Point(68, -5)
+
+
+                ).setTurnGain(0.7).setMaxDeceleration(0.003).setMaxAcceleration(0.04).setHeadingError(5).setMinSpeed(0.14).setPositionError(4.0), 1000, -90
+
+        ));
+
+
+        return getStone;
+
+    }
+
+
+    protected Path getRightStoneTurn() {
+
+        Path getStone = new Path("get second stone");
+
+        getStone.addSegment(new PurePursuitSegment("drive to stone",
+                new PursuitPath(
+                        new Point(68, -4),
+                        new Point(61, -25.5)
+
+
+                ).setMaxDeceleration(0.005).setMaxAcceleration(0.04)
+
+        ));
+
+        getStone.addSegment(new PurePursuitSegment("drive back to depot",
+                new PursuitPath(
+                        new Point(63, -25.5),
+                        new Point(68, -5)
+
+
+                ).setTurnGain(0.7).setMaxDeceleration(0.003).setMaxAcceleration(0.04).setHeadingError(5).setMinSpeed(0.14).setPositionError(4.0), 1000, -90));
+
+        return getStone;
+
+
+    }
+
+
+    protected Path goToBridgeTurn() {
+        Path driveToLine = new Path("drive to line");
+
+        driveToLine.addSegment(new PurePursuitSegment("drive to red line",
+                new PursuitPath(
+                        new Point(68, -5),
+                        new Point(7, -4)
+
+                ).setMaxDeceleration(0.01).setMaxAcceleration(0.04).setMaxSpeed(0.45), 0, -90
+
+
+        ));
+
+
+        return driveToLine;
+    }
+
+
 }
-
-
-
-
