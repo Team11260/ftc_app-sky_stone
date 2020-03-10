@@ -6,6 +6,7 @@ import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.RedDistanceCenterPath;
+import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.RedDistanceLeftPath;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.RedDistanceRightPath;
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.RedDragFoundation;
 
@@ -60,8 +61,7 @@ public class MoreStoneAuton extends AbstractAuton {
     @Override
     public void Run() {
 
-        robot.runDrivePath(RedDistanceRightPath);
-        robot.runDrivePath(RedDragFoundation);
-
+        robot.runDrivePath(RedDistanceCenterPath);
+        //robot.runDrivePath(RedDragFoundation);
     }
 }

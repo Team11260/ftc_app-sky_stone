@@ -41,17 +41,17 @@ public class PursuitPath {
     /**
      * The max acceleration (total output/point)
      */
-    private double fMaxAcceleration = 0.04;
+    private double fMaxAcceleration = 0.02;
 
     /**
      * The max deceleration (total output/point)
      */
-    private double fMaxDeceleration = 0.01;
+    private double fMaxDeceleration = 0.008;
 
     /**
      * Minimum follow speed
      */
-    private double fMinSpeed = 0.15;
+    private double fMinSpeed = 0.2;
 
     /**
      * Maximum follow speed
@@ -117,7 +117,8 @@ public class PursuitPath {
      * Setters for path specific creation and following data
      */
 
-    public PursuitPath setPointSpacing(double pointSpacing) {
+    public PursuitPath
+    setPointSpacing(double pointSpacing) {
         fPointSpacing = pointSpacing;
         return this;
     }
@@ -491,6 +492,26 @@ public class PursuitPath {
         smooth();
 
         createPath();
+    }
+
+    public PursuitPath build2() {
+
+        if (fPath != null) {
+            return this;
+        }
+
+        if (fPoints.size() == 0) {
+            fPath = new ArrayList<>();
+            return this;
+        }
+
+        fill();
+
+        smooth();
+
+        createPath();
+
+        return this;
     }
 
     /**
