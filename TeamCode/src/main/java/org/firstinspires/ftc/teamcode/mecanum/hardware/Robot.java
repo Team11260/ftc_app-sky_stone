@@ -43,7 +43,6 @@ public class Robot extends AbstractRobot {
     public LedController led;
     public Bitmap image;
 
-    public boolean isSixth = true;
 
     public Robot() {
 
@@ -138,13 +137,13 @@ public class Robot extends AbstractRobot {
         return stonePosition;
 
 
-
     }
 
-    public RobotCallable SixthStoneCallable(){
-        return ()-> {
 
-            isSixthStone();
+    public RobotCallable SixthStoneCallable() {
+        return () -> {
+
+            SixthStoneVis();
 
         };
 
@@ -152,51 +151,63 @@ public class Robot extends AbstractRobot {
     }
 
 
-    public boolean isSixthStone() {
+    public String SixthStoneVis() {
 
 
 //        this.delayedImageProcessor();
 
         image = imageProcessor.getImage();
 
+        String stonePosition = "Center";
 
-        int xorigin = 250;
+
+        int xorigin = 265;
         int yorigin = 90;
 
 
+        String[] positions = {"Left", "Center", "Right"};
+
+        int lowest = 99999999;
+
+        for (int i = 0; i < 3; i++) {
+
+            int pos = getPixelStripeAveRun(xorigin + 10 + i * BLOCKWIDTH, yorigin + 5);
+
+            if (pos < lowest) {
+                lowest = pos;
+
+                stonePosition = positions[i];
 
 
-
-        int blockOne = getPixelStripeAveRun(xorigin+10,yorigin+5);
-
-        int blockTwo = getPixelStripeAveRun(xorigin+10+BLOCKWIDTH,yorigin+5);
-
-        boolean sixth = blockOne>=blockTwo;
-
-        isSixth = sixth;
-
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Block One: "+ blockOne + "\nBlock Two: "+blockTwo);
-        telemetry.update();
+            }
 
 
-        ImageProcessor.drawBoxRun(image, xorigin, yorigin, 2 * BLOCKWIDTH, BLOCKHEIGHT, 7, Color.rgb(0, 0, 255));
+        }
 
-        ImageProcessor.drawBoxRun(image,xorigin+10,yorigin+5,10,BLOCKHEIGHT-10,5,Color.rgb(255,0,0));
 
-        ImageProcessor.drawBoxRun(image,xorigin+10+BLOCKWIDTH,yorigin+5,10,BLOCKHEIGHT-10,5,Color.rgb(255,0,0));
+//        isSixth = sixth;
+//
+//        telemetry.addData(DoubleTelemetry.LogMode.INFO, "Block One: " + blockOne + "\nBlock Two: " + blockTwo);
+//        telemetry.update();
+
+
+        ImageProcessor.drawBoxRun(image, xorigin, yorigin, 3 * BLOCKWIDTH, BLOCKHEIGHT, 7, Color.rgb(0, 0, 255));
+
+        ImageProcessor.drawBoxRun(image, xorigin + 10, yorigin + 5, 10, BLOCKHEIGHT - 10, 5, Color.rgb(255, 0, 0));
+
+        ImageProcessor.drawBoxRun(image, xorigin + 10 + BLOCKWIDTH, yorigin + 5, 10, BLOCKHEIGHT - 10, 5, Color.rgb(255, 0, 0));
+
+        ImageProcessor.drawBoxRun(image, xorigin + 10 + 2 * BLOCKWIDTH, yorigin + 5, 10, BLOCKHEIGHT - 10, 5, Color.rgb(255, 0, 0));
 
         imageProcessor.setImage(image);
 
 
-
-
-
-        return sixth;
+        return stonePosition;
 
 
     }
 
-    public void imageOn(){
+    public void imageOn() {
 
         imageProcessor = new ImageProcessor(false);
 
@@ -252,14 +263,12 @@ public class Robot extends AbstractRobot {
 
         for (int i = 0; i < stripeWidth; i++) {
             for (int j = 0; j < stripeHeight / 3; j++) {
-               // if (AbstractOpMode.isRunActive()) return -1;
+                // if (AbstractOpMode.isRunActive()) return -1;
                 sum += Color.red(image.getPixel(x + i + 10, y + 3 * j + 5));
             }
         }
         return ((int) ((3 * sum) / (stripeHeight * stripeWidth)));
     }
-
-
 
 
     public int getFrontThirdBlock(int x, int y) {
@@ -374,7 +383,7 @@ public class Robot extends AbstractRobot {
 
     }
 
-    public void grabStoneFull(){
+    public void grabStoneFull() {
         setGripperGrip();
         delay(500);
         setArmUpFull();
@@ -382,13 +391,12 @@ public class Robot extends AbstractRobot {
 
     }
 
-    public RobotCallable grabStoneFullCallable(){
-        return ()->{
+    public RobotCallable grabStoneFullCallable() {
+        return () -> {
             grabStoneFull();
 
 
         };
-
 
 
     }
@@ -407,6 +415,29 @@ public class Robot extends AbstractRobot {
         //delay(700);
         setGripperGrip();
         //delay(300);
+    }
+
+    public RobotCallable deliverStoneFullCallable() {
+        return () -> {
+            deliverStoneFull();
+
+
+        };
+
+
+    }
+
+
+    public void deliverStoneFull() {
+        arm.setArmHalfwayPosition();
+        setGripperRelease();
+        delay(700);
+        setArmUpFull();
+        //delay(700);
+        setGripperGrip();
+        //delay(300);
+
+
     }
 
     public RobotCallable deliverLastStoneCallable() {
@@ -505,13 +536,11 @@ public class Robot extends AbstractRobot {
         arm.setArmAutonPosition();
     }
 
-    public void setArmUpFull(){
+    public void setArmUpFull() {
 
         arm.setArmUpPosition();
 
     }
-
-
 
 
     public RobotCallable setGripperGripCallable() {
@@ -593,7 +622,6 @@ public class Robot extends AbstractRobot {
     }
 
 
-
     public void toggleBothDraggersFull() {
         dragger.toggleDragger();
     }
@@ -649,11 +677,11 @@ public class Robot extends AbstractRobot {
         };
     }
 
-    public RobotCallable delayedImageProcessor(){
-        return ()->{
-            while (driver.getCurrentPosition().getX()<20);
+    public RobotCallable delayedImageProcessor() {
+        return () -> {
+            while (driver.getCurrentPosition().getX() < 20) ;
 
-            if(imageProcessor == null){
+            if (imageProcessor == null) {
                 imageProcessor = new ImageProcessor(false);
 
 
@@ -686,7 +714,7 @@ public class Robot extends AbstractRobot {
 
     public RobotCallable delayedDraggerDownCallable() {
         return () -> {
-            while(driver.getCurrentPosition().getX() < -50) ;
+            while (driver.getCurrentPosition().getX() < -50) ;
             setDraggerDown();
         };
     }

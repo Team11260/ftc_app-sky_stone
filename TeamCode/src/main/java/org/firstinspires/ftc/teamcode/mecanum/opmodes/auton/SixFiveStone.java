@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
-import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.PurePursuitSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
@@ -13,9 +12,8 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.util.ParameterFileConfigu
 
 import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry.LogMode.INFO;
 
-@Autonomous(group = "new", name = "Sixth Stone")
-
-public class SixthStone extends AbstractAuton {
+@Autonomous(group = "new", name = "SixFive Stone")
+public class SixFiveStone extends AbstractAuton {
 
     Robot robot;
 
@@ -36,8 +34,8 @@ public class SixthStone extends AbstractAuton {
         addState("open gripper", "sense stone", robot.setGripperReleaseCallable());
         addState("Pick up stone", "drive to stone", robot.grabStoneFullCallable());
         addState("drop off stone", "drive to foundation", robot.deliverStoneFullCallable());
-        addState("arm down 2","drive to the blue depot 2",robot.armDownCallable());
-        addState("open gripper 2","drive to the blue depot 2",robot.setGripperReleaseCallable());
+        addState("arm down 2", "drive to the blue depot 2", robot.armDownCallable());
+        addState("open gripper 2", "drive to the blue depot 2", robot.setGripperReleaseCallable());
 
 
     }
@@ -95,6 +93,17 @@ public class SixthStone extends AbstractAuton {
 
         robot.runDrivePath(Park());
 
+        robot.runDrivePath(driveToDepot2());
+
+        if (pos.equals("Right")) {
+            robot.runDrivePath(getCenterStone());
+
+        } else {
+            robot.runDrivePath(getRightStone());
+
+        }
+
+        robot.runDrivePath(goToBridge());
 
 
         telemetry.addData(INFO, "delay value = " + ParameterFile.getProperty("CameraDelayTimeMsec"));
@@ -125,9 +134,23 @@ public class SixthStone extends AbstractAuton {
     }
 
 
+    protected Path driveToDepot2() {
+
+        Path drive = new Path("drive to depot 2");
+
+        drive.addSegment(new PurePursuitSegment("drive to the blue depot 2",
+
+                new PursuitPath(
+                        new Point(10, -0.5),
+                        new Point(68, -4)).setMaxDeceleration(0.01).setMaxAcceleration(0.04).setMaxSpeed(0.6), depotPathPeriod
+
+        ));
 
 
+        return drive;
 
+
+    }
 
 
     protected Path getLeftStone() {
@@ -149,7 +172,7 @@ public class SixthStone extends AbstractAuton {
                         new Point(68, -0.5)
 
 
-                ).setMaxDeceleration(0.01).setMaxAcceleration(0.04), 1000, 0
+                ).setMaxDeceleration(0.01).setMaxAcceleration(0.06), 1000, 0
 
         ));
 
@@ -179,7 +202,7 @@ public class SixthStone extends AbstractAuton {
                         new Point(68, -0.5)
 
 
-                ).setMaxDeceleration(0.01).setMaxAcceleration(0.04), 1000, 0));
+                ).setMaxDeceleration(0.01).setMaxAcceleration(0.06), 1000, 0));
 
         return getStone;
 
@@ -222,7 +245,7 @@ public class SixthStone extends AbstractAuton {
                         new Point(68, -1),
                         new Point(10, -1)
 
-                ).setMaxDeceleration(0.015).setMaxAcceleration(0.04).setMaxSpeed(0.5), 0
+                ).setMaxDeceleration(0.015).setMaxAcceleration(0.06), 0
 
 
         ));
@@ -230,6 +253,10 @@ public class SixthStone extends AbstractAuton {
 
         return driveToLine;
     }
+
+
+
+
 
 
     protected Path goToFoundation() {
@@ -270,7 +297,7 @@ public class SixthStone extends AbstractAuton {
                         new Point(10, -0.5)
 
 
-                ).setMaxAcceleration(0.04).setMaxDeceleration(0.005), 0
+                ).setMaxAcceleration(0.06).setMaxDeceleration(0.01), 0
 
         ));
 
@@ -284,4 +311,10 @@ public class SixthStone extends AbstractAuton {
 
 
 
+
+
 }
+
+
+
+
