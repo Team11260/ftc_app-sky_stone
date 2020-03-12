@@ -54,7 +54,7 @@ public class SixthStone extends AbstractAuton {
         robot.dragger.setDraggerUp();
         robot.imageOn();
         ParameterFile = new ParameterFileConfiguration();
-        SixStoneDelay = ParameterFile.getParamValueInt("CameraDelayTimeMsec", "700");
+        SixStoneDelay = ParameterFile.getParamValueInt("CameraDelayTimeMsec", "0");
         dial = hardwareMap.get(AnalogInput.class, "sensor_digital");
     }
 
@@ -87,9 +87,13 @@ public class SixthStone extends AbstractAuton {
     @Override
     public void Run() {
 
+
+
         robot.runDrivePath(driveToDepot());
 
         delay(SixStoneDelay);
+
+        delay(3000);
 
 
         pos = robot.SixthStoneVis();
@@ -117,6 +121,7 @@ public class SixthStone extends AbstractAuton {
 
 
         robot.imageShutDown();
+
 
         robot.runDrivePath(goToBridge());
 
@@ -165,20 +170,20 @@ public class SixthStone extends AbstractAuton {
         getStone.addSegment(new PurePursuitSegment("drive to stone",
                 new PursuitPath(
                         new Point(68, -4),
-                        new Point(68, -25.5)
+                        new Point(68, -25)
 
 
-                ).setMaxDeceleration(0.01).setMaxAcceleration(0.06)
+                ).setMaxDeceleration(0.005).setMaxAcceleration(0.04)
 
         ));
 
         getStone.addSegment(new PurePursuitSegment("drive back to depot",
                 new PursuitPath(
-                        new Point(66, -25.5),
+                        new Point(66, -25),
                         new Point(68, -0.5)
 
 
-                ).setMaxDeceleration(0.01).setMaxAcceleration(0.04), 1000, 0
+                ).setMaxDeceleration(0.01).setMaxAcceleration(0.06), 500, 0
 
         ));
 
@@ -195,7 +200,7 @@ public class SixthStone extends AbstractAuton {
         getStone.addSegment(new PurePursuitSegment("drive to stone",
                 new PursuitPath(
                         new Point(68, -4),
-                        new Point(61, -25.5)
+                        new Point(61, -25)
 
 
                 ).setMaxDeceleration(0.005).setMaxAcceleration(0.04)
@@ -204,11 +209,11 @@ public class SixthStone extends AbstractAuton {
 
         getStone.addSegment(new PurePursuitSegment("drive back to depot",
                 new PursuitPath(
-                        new Point(61, -25.5),
+                        new Point(61, -25),
                         new Point(68, -0.5)
 
 
-                ).setMaxDeceleration(0.01).setMaxAcceleration(0.04), 1000, 0));
+                ).setMaxDeceleration(0.01).setMaxAcceleration(0.06), 500, 0));
 
         return getStone;
 
@@ -222,7 +227,7 @@ public class SixthStone extends AbstractAuton {
         getStone.addSegment(new PurePursuitSegment("drive to stone",
                 new PursuitPath(
                         new Point(68, -4),
-                        new Point(53, -25.5)
+                        new Point(53, -25)
 
 
                 ).setMaxDeceleration(0.005).setMaxAcceleration(0.04)
@@ -231,11 +236,11 @@ public class SixthStone extends AbstractAuton {
 
         getStone.addSegment(new PurePursuitSegment("drive back to depot",
                 new PursuitPath(
-                        new Point(53, -25.5),
+                        new Point(53, -25),
                         new Point(68, -0.5)
 
 
-                ).setMaxDeceleration(0.01).setMaxAcceleration(0.06), 1000, 0));
+                ).setMaxDeceleration(0.01).setMaxAcceleration(0.06), 500, 0));
 
         return getStone;
 
