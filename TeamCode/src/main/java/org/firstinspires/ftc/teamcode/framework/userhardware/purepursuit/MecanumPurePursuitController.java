@@ -7,7 +7,7 @@ import static org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTeleme
 
 public abstract class MecanumPurePursuitController extends PurePursuitController {
 
-    protected double lastXPosition = 0, lastYPosition = 0;
+    protected double lastXPosition = 0, lastYPosition = 0, lastHeading = 0;
 
     protected final double yScale;
 
@@ -52,8 +52,8 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
 
         double heading = getActualHeadingDegrees();
 
-        double xDistance = xPosition - lastXPosition;
-        double yDistance = yPosition - lastYPosition;
+        double xDistance = xPosition - lastXPosition + ((heading - lastHeading)*0.11);
+        double yDistance = yPosition - lastYPosition + ((heading - lastHeading)*0.04);;
 
         double x = Math.cos(Math.toRadians(heading));
         double y = Math.sin(Math.toRadians(heading));
@@ -65,16 +65,28 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
         telemetry.getSmartdashboard().putGraph("position", "X Y Plane", currentPosition.getX(), currentPosition.getY());
 
 
+        /*telemetry.addData(INFO," " );
+        telemetry.addData(INFO,"heading " + heading);
+        telemetry.addData(INFO,"x encoder " + xPosition);
+        telemetry.addData(INFO,"y encoder " + yPosition);
+        telemetry.addData(INFO,"x distance " + xDistance);
+        telemetry.addData(INFO,"y distance: " + yDistance);
+        telemetry.addData(INFO,"x position " + currentPosition.getX());
+        telemetry.addData(INFO,"y position " + currentPosition.getY());
+        telemetry.addData(INFO," " );
+        telemetry.update();*/
+
         lastXPosition = xPosition;
         lastYPosition = yPosition;
+        lastHeading = heading;
 
         nextDistance = new Vector(xDistance,yDistance).magnitude();
     }
 
     @Override
-    public void updateFollower() {
+    public void updateFollower(boolean rotate) {
         if(headingMode == HeadingMode.DYNAMIC) {
-            super.updateFollower();
+            super.updateFollower(rotate);
             return;
         }
 
@@ -91,6 +103,21 @@ public abstract class MecanumPurePursuitController extends PurePursuitController
             lookahead = currentPursuitPath.getPoints().size() - 1;
         }
         Vector delta = new Vector(currentPursuitPath.getPoint(lookahead).subtract(currentPosition));
+
+        telemetry.addData(INFO,"Y value  "  + currentPosition.getY());
+        telemetry.addData(INFO,"X value  "  + currentPosition.getX());
+        telemetry.update();
+
+        if(rotate){
+           if(currentPosition.getY() > 3) targetHeading = -45;
+            if(currentPosition.getY() > 5) targetHeading = -60;
+            if(currentPosition.getY() > 7 && targetHeading > -75) targetHeading = -75;
+            if(currentPosition.getY() > 9 && targetHeading > -90) targetHeading = -90;
+        }
+        //telemetry.addData(INFO,"Y value  "  + currentPosition.getY());
+        //telemetry.addData(INFO,"X value  "  + currentPosition.getX());
+        //telemetry.addData(INFO,"Heading  "  + targetHeading);
+        //telemetry.update();
 
         double velocity = currentPursuitPath.getPathPointVelocity(closest, currentPosition);
         double angle = currentPursuitPath.getAngleFromPathPoint(lookahead, currentPosition) - currentPosition.getHeading();

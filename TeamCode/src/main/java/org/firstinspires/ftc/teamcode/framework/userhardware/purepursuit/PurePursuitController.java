@@ -19,14 +19,14 @@ public abstract class PurePursuitController {
 
     public void updateLoop(){
         while (isFollowing)
-            update();
+            update(false);
 
     }
 
-    public void update() {
+    public void update(boolean rotate) {
         updatePose();
 
-        updateFollower();
+        updateFollower(rotate);
     }
 
     public void updatePose() {
@@ -44,7 +44,7 @@ public abstract class PurePursuitController {
         lastRightPosition = rightPosition;
     }
 
-    public void updateFollower() {
+    public void updateFollower(boolean rotate) {
 
         if(!isFollowing || currentPursuitPath == null) return;
 

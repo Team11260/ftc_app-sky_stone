@@ -254,14 +254,14 @@ public class DriveController extends SubsystemController {
 
         double lastTime = 0.000001;
         while (opModeIsActive() && drive.isFollowing() && runtime.milliseconds() < timeOut) {
-            drive.update();
+            drive.update(blockSense);
             loopCounts++;
 
-            telemetry.addData(INFO, "X Position: " + drive.getCurrentPosition().getX()+ " Y Position: " + drive.getCurrentPosition().getY()+ " Heading: "+drive.getCurrentPosition().getHeading());
+          //  telemetry.addData(INFO, "X Position: " + drive.getCurrentPosition().getX()+ " Y Position: " + drive.getCurrentPosition().getY()+ " Heading: "+drive.getCurrentPosition().getHeading());
 
 
 
-            telemetry.update();
+           // telemetry.update();
 
 
 //            telemetry.update();
@@ -271,12 +271,12 @@ public class DriveController extends SubsystemController {
         }
         lastTime = runtime.seconds();
 
-        if (blockSense) {
-            strafe(0.25);
-        } else
-            drive.setPower(0, 0);
+        //if (blockSense) {
+           // strafe(0.25);
+        //} else
+         //   drive.setPower(0, 0);
 
-
+        drive.setPower(0, 0);
         telemetry.addData(INFO, "loop counts: " + loopCounts);
         telemetry.addData(INFO, "runtime: " + lastTime);
         telemetry.addData(INFO, "loop time: " + lastTime / loopCounts);
@@ -321,7 +321,7 @@ public class DriveController extends SubsystemController {
 
         while (opModeIsActive() && drive.isFollowing()) {
 
-            drive.update();
+            drive.update(false);
 
             telemetry.getSmartdashboard().putGraph("SmoothPath", "Actual", drive.getCurrentPosition().getX(), drive.getCurrentPosition().getY());
 
@@ -452,9 +452,9 @@ public class DriveController extends SubsystemController {
 
     public void updatePose() {
         drive.updatePose();
-        telemetry.addData(INFO, "Pose X: " + getCurrentPosition().getX());
-        telemetry.addData(INFO, "pose y: " + getCurrentPosition().getY());
-        telemetry.update();
+       // telemetry.addData(INFO, "pose X: " + getCurrentPosition().getX());
+       // telemetry.addData(INFO, "pose y: " + getCurrentPosition().getY());
+       // telemetry.update();
     }
 
     public void startMotorIntake() {

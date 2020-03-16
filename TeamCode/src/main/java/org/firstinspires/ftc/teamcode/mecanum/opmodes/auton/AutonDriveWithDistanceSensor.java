@@ -43,12 +43,20 @@ public class AutonDriveWithDistanceSensor extends AbstractAuton {
     public void Init() {
         robot = new Robot();
 
-        robot.setArmDown();
-        robot.setGripperRelease();
+        //robot.setArmDown();
+        //robot.setGripperRelease();
 
     }
 
     public void InitLoop(int loop) {
+
+        robot.driver.updatePose();
+        //telemetry.addData(DoubleTelemetry.LogMode.INFO, "Encoder x position: " + robot.driver.getStrafePosition());
+
+      //  telemetry.addData(DoubleTelemetry.LogMode.INFO, "Encoder y position: " + robot.driver.getStraightPosition());
+      //  telemetry.addData(DoubleTelemetry.LogMode.INFO, "Encoder heading: " + robot.driver.getCurrentPosition().getHeading());
+      //  telemetry.update();
+        //delay(2000);
 
         //telemetry.addData(DoubleTelemetry.LogMode.INFO, "Distance from distance sensor: " + robot.driver.distanceSensor.getDistance());
         //telemetry.update();

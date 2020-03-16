@@ -46,15 +46,17 @@ public class TestDraggers extends AbstractAuton {
 
        drag.addSegment(new PurePursuitSegment("Pull the foundation", new PursuitPath(
                 new Point(0, 0),
-                new Point(20, +16))
-                .setMinSpeed(0.7)
+                new Point(15, 14),
+               new Point(10, 14))
+                .setMinSpeed(1.0)
+                .setMaxSpeed(1.0)
                 .setTurnSpeed(1.0)
-                .setTurnGain(1.0)
-                .setPositionError(15.0)
+                .setTurnGain(3.0)
+                .setPositionError(3.0)
                 .setHeadingError(10.0)
-                .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 500, -55, 1500));
-        drag.addSegment(new PurePursuitSegment("park the foundation", new PursuitPath(
+                .setPathSmoothing(0.1)
+                .setPointSpacing(1.0), 0, -30, 2200, true));
+     /*   drag.addSegment(new PurePursuitSegment("park the foundation", new PursuitPath(
                 new Point(20, +14),
                 new Point(6, +8))
                 .setMinSpeed(0.8)
@@ -63,19 +65,19 @@ public class TestDraggers extends AbstractAuton {
                 .setPositionError(15.0)
                 .setHeadingError(10.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 0, -90, 1300));
+                .setPointSpacing(1.0), 0, -90, 1300));*/
         drag.addSegment(new PurePursuitSegment("park the robot", new PursuitPath(
-                new Point(14, +5),
-                new Point(18, 3),
-                new Point(52, 3))
-                .setMinSpeed(0.25)
+                new Point(10, +14),
+                new Point(18, 8),
+                new Point(36, 5))
+                .setMinSpeed(0.4)
                 .setMaxSpeed(0.6)
                 .setTurnSpeed(0.1)
                 .setTurnGain(1.0)
                 .setPositionError(6.0)
                 .setHeadingError(8.0)
                 .setPathSmoothing(0.5)
-                .setPointSpacing(1.0), 0, -90, 3000));
+                .setPointSpacing(1.0), 0, -90, 2000));
 
         return drag;
 
