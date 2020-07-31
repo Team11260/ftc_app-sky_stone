@@ -5,11 +5,16 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class ArmServo {
 
+
+
+
     private Servo servo;
+
+
 
     public ArmServo(HardwareMap hardwareMap){
 
-        servo = hardwareMap.servo.get("Servo");
+       servo = hardwareMap.servo.get("Servo");
 
     }
 
