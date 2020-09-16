@@ -1,5 +1,7 @@
 package org.upacreekrobotics.GUI;
 
+import org.json.JSONObject;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -21,6 +23,10 @@ public class Data {
         write(message.getMessage());
     }
 
+    public void write(JSONObject json) {
+        write(json.toString());
+    }
+
     public void write(String text){
         try {
             writer.println(text);
@@ -39,8 +45,7 @@ public class Data {
             connect();
         }
         if(line!=null) {
-            String[] text=line.split("~",2);
-            return new Message(MessageType.valueOf(text[0]),text[1]);
+            return new Message(new JSONObject(line));
         }
         return null;
     }

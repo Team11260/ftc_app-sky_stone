@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.mecanum.hardware;
 
-import org.upacreekrobotics.dashboard.Config;
+import org.upacreekrobotics.classscanner.Config;
 
 @Config
 public final class Constants {

@@ -46,7 +46,7 @@ public class RedParkOnly extends AbstractAuton {
 
     public void Stop() {
 
-        Dashboard.startOpMode(Constants.OPMODE_TO_START_AFTER_AUTON);
+        Dashboard.getOpModeHandler().startOpMode(Constants.OPMODE_TO_START_AFTER_AUTON);
     }
 
 

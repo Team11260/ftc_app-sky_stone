@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.PwmControl;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ServoControllerEx;
 
-import org.upacreekrobotics.dashboard.Config;
+import org.upacreekrobotics.classscanner.Config;
 
 @Config
 public class Intake {

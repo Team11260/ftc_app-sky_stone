@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractTeleop;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
-import org.upacreekrobotics.dashboard.Config;
+import org.upacreekrobotics.classscanner.Config;
 
 @TeleOp(name = "Teleop Mode", group = "New")
 

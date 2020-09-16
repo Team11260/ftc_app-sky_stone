@@ -81,9 +81,7 @@ public abstract class AbstractAuton extends AbstractOpMode {
 
         do {
             checkException();
-        }while (opModeIsActive() && stateMachine.update());
-
-        AbstractOpMode.stopRequested();
+        } while (opModeIsActive() && stateMachine.update());
 
         //TODO remake our shutdown procedure
         CurrentFuture.cancel(true);
@@ -120,7 +118,7 @@ public abstract class AbstractAuton extends AbstractOpMode {
     }
 
     public synchronized void addState(String name, String previousState, RobotCallable run) {
-        stateMachine.addState(new PathState(name,previousState,run));
+        stateMachine.addState(new PathState(name, previousState, run));
     }
 
     public static void addFinishedState(String state) {

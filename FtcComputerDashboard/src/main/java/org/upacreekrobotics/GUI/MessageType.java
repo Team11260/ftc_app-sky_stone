@@ -11,11 +11,11 @@ public enum MessageType {
     GET_OP_MODES,
     SELECT_OP_MODE,
 
-    VARIABLE,
-
     INIT_OP_MODE,
     RUN_OP_MODE,
     STOP_OP_MODE,
+
+    VARIABLE,
 
     GET_VALUE,
     RETURN_VALUE,

@@ -114,7 +114,6 @@ import org.firstinspires.ftc.robotcore.internal.webserver.RobotControllerWebInfo
 import org.firstinspires.ftc.robotserver.internal.programmingmode.ProgrammingModeManager;
 import org.firstinspires.inspection.RcInspectionActivity;
 import org.upacreekrobotics.dashboard.Dashboard;
-import org.upacreekrobotics.eventloop.OurEventLoop;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -157,11 +156,11 @@ public class FtcRobotControllerActivity extends Activity
     protected FtcRobotControllerService controllerService;
     protected NetworkType networkType;
 
+    protected FtcEventLoop eventLoop;
+
     //START 11260 CODE
-    //protected FtcEventLoop eventLoop;
     protected Thread RestartThread;
     protected RobotRestartChecker RestartChecker;
-    protected OurEventLoop eventLoop;
     //END 11260 CODE
 
     protected Queue<UsbDevice> receivedUsbAttachmentNotifications;
@@ -712,10 +711,7 @@ public class FtcRobotControllerActivity extends Activity
 
         OpModeRegister userOpModeRegister = createOpModeRegister();
 
-        //START 11260 CODE
-        //eventLoop = new FtcEventLoop(hardwareFactory, userOpModeRegister, callback, this);
-        eventLoop = new OurEventLoop(hardwareFactory, userOpModeRegister, callback, this, programmingModeManager); //Replacing line 748
-        //END 11260 CODE
+        eventLoop = new FtcEventLoop(hardwareFactory, userOpModeRegister, callback, this);
 
         FtcEventLoopIdle idleLoop = new FtcEventLoopIdle(hardwareFactory, userOpModeRegister, callback, this);
 
@@ -724,10 +720,6 @@ public class FtcRobotControllerActivity extends Activity
 
         passReceivedUsbAttachmentsToEventLoop();
         AndroidBoard.showErrorIfUnknownControlHub();
-
-        //START 11260 CODE
-        Dashboard.attachEventLoop(eventLoop, context);
-        //END 11260 CODE
 
         passReceivedUsbAttachmentsToEventLoop();
         AndroidBoard.showErrorIfUnknownControlHub();
@@ -840,15 +832,11 @@ public class FtcRobotControllerActivity extends Activity
 
         private boolean running;
 
-        public RobotRestartChecker() {
-
-        }
-
         @Override
         public void run() {
             Looper.prepare();
             running = true;
-            while (running) {
+            while (!Thread.currentThread().isInterrupted()) {
                 if (Dashboard.robotRestartRequested()) {
                     requestRobotRestart();
                     Dashboard.restartComplete();

@@ -1,4 +1,4 @@
-package org.upacreekrobotics.dashboard;
+package org.upacreekrobotics.classscanner;
 
 /**
  * Class filter that describes the behavior of {@link ClasspathScanner} objects.

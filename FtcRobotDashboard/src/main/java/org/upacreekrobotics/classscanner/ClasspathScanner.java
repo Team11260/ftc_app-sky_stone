@@ -1,4 +1,4 @@
-package org.upacreekrobotics.dashboard;
+package org.upacreekrobotics.classscanner;
 
 import android.content.Context;
 
@@ -34,7 +34,7 @@ public class ClasspathScanner {
     public void scanClasspath() {
         List<String> classNames = new ArrayList<>(Collections.list(dexFile.entries()));
 
-        ClassLoader classLoader = org.upacreekrobotics.dashboard.ClasspathScanner.class.getClassLoader();
+        ClassLoader classLoader = ClasspathScanner.class.getClassLoader();
 
         for (String className : classNames) {
             if (filter.shouldProcessClass(className)) {

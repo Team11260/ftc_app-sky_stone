@@ -46,7 +46,7 @@ public abstract class AbstractOpMode extends LinearOpMode {
         thisOpMode = this;
         opmode = this;
         linearOpMode = this;
-        telemetry = new DoubleTelemetry(super.telemetry, Dashboard.getInstance().getTelemetry(), new Logger(Dashboard.getCurrentOpMode()));
+        telemetry = new DoubleTelemetry(super.telemetry, Dashboard.getTelemetry(), new Logger(Dashboard.getOpModeHandler().getActiveOpModeName()));
     }
 
     @Override
@@ -60,16 +60,16 @@ public abstract class AbstractOpMode extends LinearOpMode {
 
     public abstract void runOpmode();
 
-    public static int getTimeSinceInit() {
-        return Dashboard.getTimeSinceInit();
+    public static long getTimeSinceInit() {
+        return Dashboard.getOpModeHandler().getTimeSinceInit();
     }
 
-    public static int getTimeSinceStart() {
-        return Dashboard.getTimeSinceStart();
+    public static long getTimeSinceStart() {
+        return Dashboard.getOpModeHandler().getTimeSinceStart();
     }
 
     public static void delay(int millis) {
-        if(Thread.currentThread().isInterrupted()) return;
+        if (Thread.currentThread().isInterrupted()) return;
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
@@ -81,19 +81,15 @@ public abstract class AbstractOpMode extends LinearOpMode {
         return !linearOpMode.isStopRequested();
     }
 
-    public static boolean isRunActive(){
+    public static boolean isRunActive() {
         return linearOpMode.isStarted();
     }
 
-    protected static void stopRequested() {
-        Dashboard.onOpModePreStop();
-    }
-
-    public static void requestStopOpMode(){
+    public static void requestStopOpMode() {
         linearOpMode.requestOpModeStop();
     }
 
-    public static void staticThrowException(Exception e){
+    public static void staticThrowException(Exception e) {
         thisOpMode.throwException(e);
     }
 

@@ -8,17 +8,18 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class GamepadHandler {
 
-    private ArrayList<Controller> controllers = null;
+    private List<Controller> controllers = null;
     private HashMap<Integer, HashMap<String, Float>> lastValues = new HashMap<>();
 
     public GamepadHandler() {
 
-        controllers = new ArrayList(Arrays.asList(ControllerEnvironment.getDefaultEnvironment().getControllers()));
+        controllers = new ArrayList<>(Arrays.asList(ControllerEnvironment.getDefaultEnvironment().getControllers()));
 
-        ArrayList<Controller> removeControllers = new ArrayList<>();
+        List<Controller> removeControllers = new ArrayList<>();
 
         for(Controller controller : controllers) {
             if(!isValidController(controller.getName())) removeControllers.add(controller);
@@ -29,7 +30,6 @@ public class GamepadHandler {
 
     public synchronized void updateControllers() {
         controllers = new ArrayList(Arrays.asList(createDefaultEnvironment().getControllers()));
-
         ArrayList<Controller> removeControllers = new ArrayList<>();
 
         for(Controller controller : controllers) {
@@ -39,7 +39,7 @@ public class GamepadHandler {
         controllers.removeAll(removeControllers);
     }
 
-    public synchronized ArrayList<Controller> getControllers() {
+    public synchronized List<Controller> getControllers() {
         if(controllers != null) return controllers;
 
         controllers = new ArrayList(Arrays.asList(createDefaultEnvironment().getControllers()));
@@ -52,7 +52,8 @@ public class GamepadHandler {
 
         controllers.removeAll(removeControllers);
 
-        removeControllers = (ArrayList<Controller>) controllers.clone();
+        removeControllers.clear();
+        removeControllers.addAll(controllers);
 
         return removeControllers;
     }
@@ -408,6 +409,5 @@ public class GamepadHandler {
 
     private boolean isValidController(String name) {
         return (name != null && (name.toLowerCase().contains("f310") || name.toLowerCase().contains("xbox") || name.toLowerCase().contains("3d") || name.toLowerCase().contains("keyboard")));
-        //return (name != null && (name.toLowerCase().contains("f310") || name.toLowerCase().contains("xbox") || name.toLowerCase().contains("3d")));
     }
 }

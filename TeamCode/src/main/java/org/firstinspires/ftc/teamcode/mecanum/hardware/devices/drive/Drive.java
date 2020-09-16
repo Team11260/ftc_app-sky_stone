@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.MotorControlAlgorithm;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
@@ -12,9 +11,8 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.inputs.sensors.IMU;
 import org.firstinspires.ftc.teamcode.framework.userhardware.outputs.SlewDcMotor;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.MecanumPurePursuitController;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Pose;
-import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.RobotState;
-import org.upacreekrobotics.dashboard.Config;
+import org.upacreekrobotics.classscanner.Config;
 
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.Constants.*;
 

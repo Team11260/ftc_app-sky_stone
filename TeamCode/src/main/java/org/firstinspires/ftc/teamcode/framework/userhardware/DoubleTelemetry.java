@@ -3,7 +3,8 @@ package org.firstinspires.ftc.teamcode.framework.userhardware;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.outputs.Logger;
 import org.upacreekrobotics.dashboard.Dashboard;
-import org.upacreekrobotics.dashboard.Dashboard.dashboardtelemetry;
+import org.upacreekrobotics.dashboard.DashboardTelemetry;
+import org.upacreekrobotics.dashboard.SmartDashboard;
 
 public class DoubleTelemetry {
 
@@ -11,10 +12,10 @@ public class DoubleTelemetry {
     private LogMode defaultLogMode = LogMode.TRACE;
 
     private Telemetry telemetry;
-    private dashboardtelemetry dashtelem;
+    private DashboardTelemetry dashtelem;
     private Logger logger;
 
-    public DoubleTelemetry(Telemetry telemetry, dashboardtelemetry dashtelem, Logger logger) {
+    public DoubleTelemetry(Telemetry telemetry, DashboardTelemetry dashtelem, Logger logger) {
         this.telemetry = telemetry;
         this.dashtelem = dashtelem;
         this.logger = logger;
@@ -99,43 +100,43 @@ public class DoubleTelemetry {
     }
 
     public void log(Object data) {
-        logger.log(Dashboard.getInstance().getLogPreMessage() + String.valueOf(data));
+        logger.log(DashboardTelemetry.getLogPreMessage() + data);
     }
 
-    public Dashboard.smartdashboard getSmartdashboard() {
-        return Dashboard.getInstance().getSmartDashboard();
+    public SmartDashboard getSmartdashboard() {
+        return Dashboard.getSmartDashboard();
     }
 
     public void putString(String key, String value) {
-        dashtelem.putString(key, value);
+        Dashboard.getPreferencesHandler().putString(key, value);
     }
 
     public void putInt(String key, int value) {
-        dashtelem.putInt(key, value);
+        Dashboard.getPreferencesHandler().putInt(key, value);
     }
 
     public void putFloat(String key, float value) {
-        dashtelem.putFloat(key, value);
+        Dashboard.getPreferencesHandler().putFloat(key, value);
     }
 
     public void putBoolean(String key, boolean value) {
-        dashtelem.putBoolean(key, value);
+        Dashboard.getPreferencesHandler().putBoolean(key, value);
     }
 
     public String getString(String key, String defaultValue) {
-        return dashtelem.getString(key, defaultValue);
+        return Dashboard.getPreferencesHandler().getString(key, defaultValue);
     }
 
     public int getInt(String key, int defaultValue) {
-        return dashtelem.getInt(key, defaultValue);
+        return Dashboard.getPreferencesHandler().getInt(key, defaultValue);
     }
 
     public float getFloat(String key, float defaultValue) {
-        return dashtelem.getFloat(key, defaultValue);
+        return Dashboard.getPreferencesHandler().getFloat(key, defaultValue);
     }
 
     public boolean getBoolean(String key, boolean defaultValue) {
-        return dashtelem.getBoolean(key, defaultValue);
+        return Dashboard.getPreferencesHandler().getBoolean(key, defaultValue);
     }
 
     public void stop() {

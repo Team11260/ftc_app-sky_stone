@@ -144,7 +144,8 @@ public class UI extends JFrame implements ActionListener {
      * Constructor calls main init "initUI
      */
     public UI() {
-        System.setProperty("net.java.games.input.librarypath", ClassLoader.getSystemClassLoader().getResource("jinput-dx8_64.dll").getPath().replace("/jinput-dx8_64.dll", ""));
+        //System.setProperty("net.java.games.input.librarypath", ClassLoader.getSystemClassLoader().getResource("jinput-dx8_64.dll").getPath().replace("/jinput-dx8_64.dll", ""));
+        //System.setProperty("java.library.path", "/Users/matthewoates/Documents/Robotics/FTC/FTC Backup Code/New Code/ftc_app-sky_stone/FtcComputerDashboard/src/main/libs/");
 
         UIManager UI = new UIManager();
         UI.put("OptionPane.background", blueColor);
@@ -1154,8 +1155,7 @@ public class UI extends JFrame implements ActionListener {
                 variablesubmitButton.setVisible(variableeditorBox.isSelected());
                 break;
             case "init":
-                data.write(new Message(MessageType.SELECT_OP_MODE, OpModes.getSelectedOpMode()));
-                data.write(new Message(MessageType.INIT_OP_MODE, "Hi"));
+                data.write(new Message(MessageType.INIT_OP_MODE, OpModes.getSelectedOpMode()));
                 currentOpModeState = OpModeState.INIT;
                 break;
             case "run":
@@ -1259,7 +1259,6 @@ public class UI extends JFrame implements ActionListener {
                 System.out.println(gotOpModes);
                 if (!gotOpModes && data != null && System.currentTimeMillis() - lastOpModesRequest > 1500) {
                     data.write(new Message(MessageType.GET_OP_MODES, "Hi"));
-                    System.out.println("Get op modes");
                     lastOpModesRequest = System.currentTimeMillis();
                     if (gotOpModesCount >= 3) {
                         data = new Data();
@@ -1320,7 +1319,6 @@ public class UI extends JFrame implements ActionListener {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                 }
-                System.out.println("loop");
             }
         }
 

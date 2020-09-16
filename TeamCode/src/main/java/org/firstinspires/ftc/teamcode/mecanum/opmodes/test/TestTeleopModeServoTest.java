@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.util.RobotCallable;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive.Drive;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.intake.Intake;
-import org.upacreekrobotics.dashboard.Config;
+import org.upacreekrobotics.classscanner.Config;
 
 @TeleOp(name = "Test Teleop Servo", group = "New")
 @Disabled

@@ -1,13 +1,29 @@
 package org.upacreekrobotics.dashboard;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Message {
 
-    private MessageType type;
-    private String text;
+    private final MessageType type;
+    private final String text;
 
     public Message(MessageType type, String message) {
-        text = message;
         this.type = type;
+        text = message;
+    }
+
+    public Message(MessageType type) {
+        this.type = type;
+        text = "";
+    }
+
+    public Message(MessageType type, Object message) {
+        this(type, message.toString());
+    }
+
+    public Message(JSONObject jsonObject) {
+        this(MessageType.valueOf(jsonObject.optString("type")), jsonObject.optString("data"));
     }
 
     public MessageType getType() {
@@ -18,7 +34,16 @@ public class Message {
         return text;
     }
 
-    public String getMessage() {
-        return (type.getMessage(type) + "~" + text);
+    public JSONObject getMessage() {
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("type", type);
+            jsonObject.put("data", text);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
     }
 }
