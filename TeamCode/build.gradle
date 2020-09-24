@@ -16,4 +16,5 @@ apply from: '../build.common.gradle'
 
 dependencies {
     implementation project(':FtcRobotDashboard')
+    implementation 'org.openftc:easyopencv:1.4.1'
 }
