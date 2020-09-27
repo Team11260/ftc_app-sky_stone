@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.mecanum.opmodes.test;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractTeleop;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.devices.Drive;
@@ -13,6 +14,9 @@ public class TankDrive extends AbstractTeleop {
 
     Drive drive;
     Launcher launcher;
+
+
+
 
 
 
@@ -46,7 +50,9 @@ public class TankDrive extends AbstractTeleop {
 
     @Override
     public void Loop() {
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Velocity: "+launcher.getVelocity());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Ticks Per Second: "+launcher.getTicksPerSecond());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Revolutions per second: "+ launcher.getRevolutionsPerSecond());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, "Revolutions per minute: "+launcher.getRevolutionsPerMinute());
         telemetry.update();
 
     }

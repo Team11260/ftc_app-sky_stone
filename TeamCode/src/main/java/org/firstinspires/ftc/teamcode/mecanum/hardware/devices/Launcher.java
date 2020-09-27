@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.mecanum.hardware.devices;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.framework.userhardware.DoubleTelemetry;
 import org.firstinspires.ftc.teamcode.framework.userhardware.outputs.SlewDcMotor;
 
@@ -59,10 +61,19 @@ public class Launcher {
 
     }
 
-    public double getVelocity(){
+    public double getTicksPerSecond(){
         return motor1.getVelocity();
 
-
     }
+
+    public double getRevolutionsPerSecond(){
+        return motor1.getVelocity()/28;
+    }
+
+    public double getRevolutionsPerMinute(){
+        return (motor1.getVelocity()/28)*60;
+    }
+
+
 
 }
