@@ -15,14 +15,9 @@ public class TankDrive extends AbstractTeleop {
     Drive drive;
     Launcher launcher;
 
-
-
-
-
-
     @Override
     public void RegisterEvents() {
-        addEventHandler("1_x_down",()->launcher.toggleLauncher(-0.9));
+        addEventHandler("1_x_down",()->launcher.toggleLauncher(-1 ));
 
     }
 
@@ -38,9 +33,6 @@ public class TankDrive extends AbstractTeleop {
         telemetry.addData(DoubleTelemetry.LogMode.INFO,"test");
         telemetry.update();
 
-
-
-
     }
 
     @Override
@@ -51,8 +43,8 @@ public class TankDrive extends AbstractTeleop {
     @Override
     public void Loop() {
         telemetry.addData(DoubleTelemetry.LogMode.INFO,"Ticks Per Second: "+launcher.getTicksPerSecond());
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Revolutions per second: "+ launcher.getRevolutionsPerSecond());
-        telemetry.addData(DoubleTelemetry.LogMode.INFO, "Revolutions per minute: "+launcher.getRevolutionsPerMinute());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Revolutions per second: "+ launcher.getRPS());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO, "Revolutions per minute: "+launcher.getRPM());
         telemetry.update();
 
     }

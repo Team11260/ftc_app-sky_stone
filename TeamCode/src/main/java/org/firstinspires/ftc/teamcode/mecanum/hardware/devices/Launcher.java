@@ -29,6 +29,7 @@ public class Launcher {
 
         motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        motor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
 
@@ -49,6 +50,12 @@ public class Launcher {
 
     }
 
+    public void setRPM(double RPM){
+
+        motor1.setVelocity((RPM*28)/60);
+
+    }
+
     public void toggleLauncher(double power) {
         if (!isLaunching) {
             setMotor1(power);
@@ -66,11 +73,11 @@ public class Launcher {
 
     }
 
-    public double getRevolutionsPerSecond(){
+    public double getRPS(){
         return motor1.getVelocity()/28;
     }
 
-    public double getRevolutionsPerMinute(){
+    public double getRPM(){
         return (motor1.getVelocity()/28)*60;
     }
 
