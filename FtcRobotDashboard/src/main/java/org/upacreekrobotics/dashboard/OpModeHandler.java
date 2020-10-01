@@ -101,11 +101,15 @@ public class OpModeHandler implements OpModeManagerImpl.Notifications {
     }
 
     public void startActiveOpMode() {
-        opModeManager.startActiveOpMode();
+        if(isOpModeActive()) {
+            opModeManager.startActiveOpMode();
+        }
     }
 
     public void stopActiveOpMode() {
-        opModeManager.stopActiveOpMode();
+        if(isOpModeActive()) {
+            opModeManager.stopActiveOpMode();
+        }
     }
 
     public void setGamepad(int gamepad, String update) {

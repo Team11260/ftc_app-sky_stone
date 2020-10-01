@@ -1,5 +1,9 @@
 package org.upacreekrobotics.dashboard;
 
+import android.graphics.Bitmap;
+import android.util.Base64;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,39 +48,45 @@ public class SmartDashboard {
     }
 
     public void putValue(Object key, Object value) {
-        put("VALUE<&#%#&>" + String.valueOf(key) + "<&#%#&>" + String.valueOf(value));
+        put("VALUE<&#%#&>" + key + "<&#%#&>" + value);
     }
 
     public void putBoolean(Object key, boolean value) {
-        put("BOOLEAN<&#%#&>" + String.valueOf(key) + "<&#%#&>" + String.valueOf(value));
+        put("BOOLEAN<&#%#&>" + key + "<&#%#&>" + value);
     }
 
     public void putButton(Object key) {
-        put("BUTTON<&#%#&>" + String.valueOf(key));
+        put("BUTTON<&#%#&>" + key);
     }
 
     public void putInput(Object key) {
-        put("INPUT<&#%#&>" + String.valueOf(key));
+        put("INPUT<&#%#&>" + key);
     }
 
     public void putSlider(Object key, int low, int high) {
-        put("SLIDER<&#%#&>" + String.valueOf(key) + "<&#%#&>" + low + "<&#%#&>" + high);
+        put("SLIDER<&#%#&>" + key + "<&#%#&>" + low + "<&#%#&>" + high);
     }
 
     public void putGraph(Object key, String set, double x, double y) {
-        put("GRAPH<&#%#&>" + String.valueOf(key) + "<&#%#&>" + set + "<&#%#&>" + x + "<&#%#&>" + y);
+        put("GRAPH<&#%#&>" + key + "<&#%#&>" + set + "<&#%#&>" + x + "<&#%#&>" + y);
     }
 
     public void putGraphPoint(Object key, String set, double x, double y) {
-        put("GRAPH_POINT<&#%#&>" + String.valueOf(key) + "<&#%#&>" + set + "<&#%#&>" + x + "<&#%#&>" + y);
+        put("GRAPH_POINT<&#%#&>" + key + "<&#%#&>" + set + "<&#%#&>" + x + "<&#%#&>" + y);
     }
 
     public void putGraphCircle(Object key, String set, double r, double x, double y) {
-        put("GRAPH_CIRCLE<&#%#&>" + String.valueOf(key) + "<&#%#&>" + set + "<&#%#&>" + r + "<&#%#&>" + x + "<&#%#&>" + y);
+        put("GRAPH_CIRCLE<&#%#&>" + key + "<&#%#&>" + set + "<&#%#&>" + r + "<&#%#&>" + x + "<&#%#&>" + y);
+    }
+    
+    public void clearGraph(Object key, String set) {
+        put("GRAPH_CLEAR<&#%#&>" + key + "<&#%#&>" + set);
     }
 
-    public void clearGraph(Object key, String set) {
-        put("GRAPH_CLEAR<&#%#&>" + String.valueOf(key) + "<&#%#&>" + set);
+    public void putImage(Object key, Bitmap image) {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
+        put("IMAGE<&#%#&>" + key + "<&#%#&>" + Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT));
     }
 
     public Object get(String type, Object key) {

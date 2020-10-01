@@ -11,6 +11,7 @@ import org.jfree.data.xy.XYDataItem;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
@@ -28,14 +29,21 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.*;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.List;
+
+import sun.misc.BASE64Decoder;
 
 public class UI extends JFrame implements ActionListener {
 
@@ -867,6 +875,27 @@ public class UI extends JFrame implements ActionListener {
                                 }
                                 break;
                             }
+                            case "IMAGE": {
+                                synchronized (smartdashboardComponents) {
+                                    for (DashboardComponent component : smartdashboardComponents) {
+                                        if (component.getType().equals(parts[0]) && component.getName().equals(parts[1])) {
+                                            ((ScaledImage) ((JPanel) component.getComponent()).getComponent(0)).setImage(parts[2]);
+                                            break smartdashboardswitch;
+                                        }
+                                    }
+                                }
+
+                                ScaledImage image = new ScaledImage(parts[2]);
+
+                                JPanel imagePanel = new JPanel();
+                                imagePanel.setLayout(new BorderLayout());
+                                imagePanel.add(image, BorderLayout.CENTER);
+                                imagePanel.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+                                imagePanel.setBounds(0, 0, 300, 200);
+
+                                smartdashboardComponents.add(new DashboardComponent(parts[0], parts[1], imagePanel));
+                                break;
+                            }
                         }
                         break;
                     }
@@ -1050,7 +1079,6 @@ public class UI extends JFrame implements ActionListener {
      * "addOpModes" adds opMode "name" to opMode selector and "opModeButtons" ArrayList, called by "handleIncoming"
      */
     public void addOpMode(String name) {
-        System.out.println(name);
         gotOpModes = true;
         gotOpModesCount = 0;
         for (JRadioButton button : opModeButtons) if (button.getText().equals(name)) return;
@@ -1256,7 +1284,6 @@ public class UI extends JFrame implements ActionListener {
         public void run() {
             data = new Data();
             while (running) {
-                System.out.println(gotOpModes);
                 if (!gotOpModes && data != null && System.currentTimeMillis() - lastOpModesRequest > 1500) {
                     data.write(new Message(MessageType.GET_OP_MODES, "Hi"));
                     lastOpModesRequest = System.currentTimeMillis();
@@ -2511,6 +2538,83 @@ public class UI extends JFrame implements ActionListener {
             data.removeAllSeries();
             seriesHashMap.clear();
             seriesPanel.removeAll();
+        }
+    }
+
+    public class ScaledImage extends JLabel {
+
+        private Image image;
+
+        public ScaledImage() {
+            image = null;
+        }
+
+        public ScaledImage(String image){
+            setImage(image);
+        }
+
+        public ScaledImage(Image image) {
+            this.image = image;
+        }
+
+        public void setImage(String image) {
+            try {
+                setImage(ImageIO.read(new ByteArrayInputStream(new BASE64Decoder().decodeBuffer(image))));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void setImage(Image image) {
+            this.image = image;
+        }
+
+        protected void paintComponent(Graphics g) {
+            if (image != null) {
+                drawScaledImage(image, this, g);
+            }
+        }
+
+        public void drawScaledImage(Image image, Component canvas, Graphics g) {
+            int imgWidth = image.getWidth(null);
+            int imgHeight = image.getHeight(null);
+
+            double imgAspect = (double) imgHeight / imgWidth;
+
+            int canvasWidth = canvas.getWidth();
+            int canvasHeight = canvas.getHeight();
+
+            double canvasAspect = (double) canvasHeight / canvasWidth;
+
+            int x1 = 0; // top left X position
+            int y1 = 0; // top left Y position
+            int x2 = 0; // bottom right X position
+            int y2 = 0; // bottom right Y position
+
+            if (imgWidth < canvasWidth && imgHeight < canvasHeight) {
+                // the image is smaller than the canvas
+                x1 = (canvasWidth - imgWidth)  / 2;
+                y1 = (canvasHeight - imgHeight) / 2;
+                x2 = imgWidth + x1;
+                y2 = imgHeight + y1;
+
+            } else {
+                if (canvasAspect > imgAspect) {
+                    y1 = canvasHeight;
+                    // keep image aspect ratio
+                    canvasHeight = (int) (canvasWidth * imgAspect);
+                    y1 = (y1 - canvasHeight) / 2;
+                } else {
+                    x1 = canvasWidth;
+                    // keep image aspect ratio
+                    canvasWidth = (int) (canvasHeight / imgAspect);
+                    x1 = (x1 - canvasWidth) / 2;
+                }
+                x2 = canvasWidth + x1;
+                y2 = canvasHeight + y1;
+            }
+
+            g.drawImage(image, x1, y1, x2, y2, 0, 0, imgWidth, imgHeight, null);
         }
     }
 }

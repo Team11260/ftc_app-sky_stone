@@ -23,6 +23,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefau
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractOpMode;
+import org.upacreekrobotics.dashboard.Dashboard;
 
 public class Vuforia {
     private VuforiaLocalizer vuforia;
@@ -76,7 +77,6 @@ public class Vuforia {
 
         try {
             VuforiaLocalizer.CloseableFrame frame = vuforia.getFrameQueue().take();
-            vuforia.getFrameQueue().clear();
             map = vuforia.convertFrameToBitmap(frame);
 
             frame.close();

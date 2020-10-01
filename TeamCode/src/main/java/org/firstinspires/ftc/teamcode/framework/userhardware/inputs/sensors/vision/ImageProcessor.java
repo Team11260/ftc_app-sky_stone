@@ -39,11 +39,7 @@ public class ImageProcessor {
                 bitmap.setPixel(p, position + w, color);
             }
         }
-
-
-
     }
-
 
     public static void drawHorizontalLineRun(Bitmap bitmap, int position, int start, int end, int width, int color) {
         for(int p = start; p < end; p++) {
@@ -56,10 +52,6 @@ public class ImageProcessor {
 
 
     }
-
-
-
-
 
     public static void drawHorizontalLine(Bitmap bitmap, int position, int width, int color) {
         drawHorizontalLine(bitmap, position, 0, bitmap.getWidth(), width, color);

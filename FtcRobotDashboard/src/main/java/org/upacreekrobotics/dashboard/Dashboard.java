@@ -9,7 +9,6 @@ import java.util.concurrent.Executors;
 public class Dashboard {
 
     private String lastInputValue;
-    private boolean restartRequested = false;
 
     private ExecutorService executor;
 
@@ -20,6 +19,7 @@ public class Dashboard {
     private PreferencesHandler preferencesHandler;
     private DashboardTelemetry dashboardTelemetry;
     private SmartDashboard smartDashboard;
+    private RobotRestartHandler robotRestartHandler;
 
     private static Dashboard dashboard;
 
@@ -51,6 +51,10 @@ public class Dashboard {
         preferencesHandler = new PreferencesHandler();
         dashboardTelemetry = new DashboardTelemetry();
         smartDashboard = new SmartDashboard();
+        robotRestartHandler = new RobotRestartHandler();
+        robotRestartHandler.registerRestartCompleteListener(() -> {
+            getConnectionHandler().write(new Message(MessageType.RESTART_ROBOT));
+        });
     }
 
     public void onMessage(Message message) {
@@ -73,19 +77,24 @@ public class Dashboard {
 
                 }
 
-                dashboardTelemetry.reconnected();
-                smartDashboard.reconnected();
-
-                for (Map.Entry<String, Map<String, Field>> entry : configVariableHandler.getConfigVariables().entrySet()) {
-                    String dataLine = entry.getKey();
-                    for (HashMap.Entry<String, Field> e : entry.getValue().entrySet()) {
-                        try {
-                            dataLine += "<&#%#&>" + e.getKey() + ">#&%&#<" + e.getValue().getType() + ">#&%&#<" + e.getValue().get(null);
-                        } catch (IllegalAccessException e1) {
-                            e1.printStackTrace();
+                if(dashboardTelemetry != null) {
+                    dashboardTelemetry.reconnected();
+                }
+                if(smartDashboard != null) {
+                    smartDashboard.reconnected();
+                }
+                if(configVariableHandler != null) {
+                    for (Map.Entry<String, Map<String, Field>> entry : configVariableHandler.getConfigVariables().entrySet()) {
+                        String dataLine = entry.getKey();
+                        for (HashMap.Entry<String, Field> e : entry.getValue().entrySet()) {
+                            try {
+                                dataLine += "<&#%#&>" + e.getKey() + ">#&%&#<" + e.getValue().getType() + ">#&%&#<" + e.getValue().get(null);
+                            } catch (IllegalAccessException e1) {
+                                e1.printStackTrace();
+                            }
                         }
+                        connectionHandler.write(new Message(MessageType.VARIABLE, dataLine));
                     }
-                    connectionHandler.write(new Message(MessageType.VARIABLE, dataLine));
                 }
                 break;
             }
@@ -98,7 +107,7 @@ public class Dashboard {
             }
 
             case RESTART_ROBOT: {
-                restartRequested = true;
+                robotRestartHandler.requestRestart();
                 break;
             }
 
@@ -202,6 +211,10 @@ public class Dashboard {
         return getInstance().smartDashboard;
     }
 
+    public static RobotRestartHandler getRobotRestartHandler() {
+        return getInstance().robotRestartHandler;
+    }
+
     ////////////////Called by the user code to request an input value from the dashboard, calls "internalGetInputValue()"////////////////
     public static double getInputValueDouble(String caption) {
         String value = dashboard.internalGetInputValue(caption);
@@ -233,35 +246,5 @@ public class Dashboard {
             return lastInputValue;
         }
         return "";
-    }
-
-    ////////////////Called by the "RobotRestartChecker" thread in "FtcRobotControllerActivity" to see if the////////////////
-    ////////////////restart button on the dashboard has been pressed, calls "internalRobotRestartRequested()"////////////////
-    public static boolean robotRestartRequested() {
-        if (dashboard == null) {
-            return false;
-        }
-        return dashboard.internalRobotRestartRequested();
-    }
-
-    ////////////////The actual code to check if the restart button has been pressed////////////////
-    private boolean internalRobotRestartRequested() {
-        if (restartRequested) {
-            restartRequested = false;
-            return true;
-        }
-        return false;
-    }
-
-    ////////////////Called by "FtcRobotControllerActivity" when a restart has completed, calls "internalRestartComplete()"////////////////
-    public static void restartComplete() {
-        dashboard.internalRestartComplete();
-    }
-
-    ////////////////Code to refresh the dashboard when a restart is completed////////////////
-    private void internalRestartComplete() {
-        if (connectionHandler != null) {
-            connectionHandler.write(new Message(MessageType.RESTART_ROBOT));
-        }
     }
 }

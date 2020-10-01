@@ -114,6 +114,7 @@ import org.firstinspires.ftc.robotcore.internal.webserver.RobotControllerWebInfo
 import org.firstinspires.ftc.robotserver.internal.programmingmode.ProgrammingModeManager;
 import org.firstinspires.inspection.RcInspectionActivity;
 import org.upacreekrobotics.dashboard.Dashboard;
+import org.upacreekrobotics.dashboard.RobotRestartHandler;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -157,11 +158,6 @@ public class FtcRobotControllerActivity extends Activity
     protected NetworkType networkType;
 
     protected FtcEventLoop eventLoop;
-
-    //START 11260 CODE
-    protected Thread RestartThread;
-    protected RobotRestartChecker RestartChecker;
-    //END 11260 CODE
 
     protected Queue<UsbDevice> receivedUsbAttachmentNotifications;
 
@@ -385,9 +381,13 @@ public class FtcRobotControllerActivity extends Activity
 
         //START 11260 CODE
         Dashboard.start();
-        RestartChecker = new RobotRestartChecker();
-        RestartThread = new Thread(RestartChecker);
-        RestartThread.start();
+        Dashboard.getRobotRestartHandler().registerRestartRequestListener(new RobotRestartHandler.RestartRequestListener() {
+            @Override
+            public void requestRestart() {
+                requestRobotRestart();
+                Dashboard.getRobotRestartHandler().restartComplete();
+            }
+        });
         //END 11260 CODE
     }
 
@@ -471,7 +471,6 @@ public class FtcRobotControllerActivity extends Activity
 
         //START 11260 CODE
         Dashboard.stop();
-        if(RestartChecker != null) RestartChecker.end();
         //END 11260 CODE
     }
 
@@ -826,32 +825,4 @@ public class FtcRobotControllerActivity extends Activity
             wifiMuteStateMachine.consumeEvent(WifiMuteEvent.USER_ACTIVITY);
         }
     }
-
-    //START 11260 CODE
-    protected class RobotRestartChecker implements Runnable {
-
-        private boolean running;
-
-        @Override
-        public void run() {
-            Looper.prepare();
-            running = true;
-            while (!Thread.currentThread().isInterrupted()) {
-                if (Dashboard.robotRestartRequested()) {
-                    requestRobotRestart();
-                    Dashboard.restartComplete();
-                }
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        public void end() {
-            running = false;
-        }
-    }
-    //END 11260 CODE
 }
