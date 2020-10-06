@@ -1,3 +1,4 @@
+
 package org.firstinspires.ftc.teamcode.mecanum.hardware.devices.drive;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -39,21 +40,21 @@ public class Drive extends MecanumPurePursuitController {
         imu = new IMU(hardwareMap);
         //imu = hardwareMap.getImu("imu");
 
-        dcMotorFrontLeft = new SlewDcMotor((hardwareMap.dcMotor.get("front_left")));
-        dcMotorFrontRight = new SlewDcMotor((hardwareMap.dcMotor.get("front_right")));
-        dcMotorBackLeft = new SlewDcMotor((hardwareMap.dcMotor.get("back_left")));
-        dcMotorBackRight = new SlewDcMotor((hardwareMap.dcMotor.get("back_right")));
+        //dcMotorFrontLeft = new SlewDcMotor((hardwareMap.dcMotor.get("front_left")));
+        //dcMotorFrontRight = new SlewDcMotor((hardwareMap.dcMotor.get("front_right")));
+        dcMotorBackLeft = new SlewDcMotor((hardwareMap.dcMotor.get("B-L")));
+        dcMotorBackRight = new SlewDcMotor((hardwareMap.dcMotor.get("B-R")));
 
-        straightEncoder = new SlewDcMotor(hardwareMap.dcMotor.get("straight_encoder"));
-        strafeEncoder = new SlewDcMotor(hardwareMap.dcMotor.get("strafe_encoder"));
+       // straightEncoder = new SlewDcMotor(hardwareMap.dcMotor.get("straight_encoder"));
+       // strafeEncoder = new SlewDcMotor(hardwareMap.dcMotor.get("strafe_encoder"));
 
-        dcMotorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        dcMotorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        dcMotorFrontRight.setDirection(DcMotorSimple.Direction.FORWARD);
-        dcMotorBackRight.setDirection(DcMotorSimple.Direction.FORWARD);
+       // dcMotorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        dcMotorBackLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+       // dcMotorFrontRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        dcMotorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        dcMotorFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        dcMotorFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       // dcMotorFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //dcMotorFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         dcMotorBackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         dcMotorBackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -68,16 +69,24 @@ public class Drive extends MecanumPurePursuitController {
     }
 
     public void setLeftMotorIntakePower(double power){
-        straightEncoder.setPower(power);
+        //straightEncoder.setPower(power);
     }
 
+
     public void setRightMotorIntakePower(double power){
-        strafeEncoder.setPower(-power);
+
+        //strafeEncoder.setPower(-power);
+    }
+
+    public void setDrivePowerTwo(double BL, double BR){
+        dcMotorBackLeft.setPower(BL);
+        dcMotorBackRight.setPower(BR);
+
     }
 
     public void setDrivePowerAll(double FL, double FR, double BL, double BR) {
-        dcMotorFrontLeft.setPower(FL);
-        dcMotorFrontRight.setPower(FR);
+       // dcMotorFrontLeft.setPower(FL);
+        //dcMotorFrontRight.setPower(FR);
         dcMotorBackLeft.setPower(BL);
         dcMotorBackRight.setPower(BR);
         //telemetry.addData(DoubleTelemetry.LogMode.INFO, dcMotorFrontLeft.getCurrentPosition(), dcMotorFrontRight.getCurrentPosition());
@@ -99,12 +108,12 @@ public class Drive extends MecanumPurePursuitController {
 
     @Override
     public double getXActualPositionInches() {
-        return getStraightPosition();
+        return getBackLeftPosition();
     }
 
     @Override
     public double getYActualPositionInches() {
-        return getStrafePosition();
+        return getBackLeftPosition();
     }
 
     public void setHeadingMode(HeadingMode headingMode){
@@ -112,12 +121,12 @@ public class Drive extends MecanumPurePursuitController {
     }
 
     public int getFrontLeftPosition() {
-        return dcMotorFrontLeft.getCurrentPosition();
+        return dcMotorBackLeft.getCurrentPosition();
     }
 
     public int getFrontRightPosition() {
         //Negative for the odometry wheels
-        return dcMotorFrontRight.getCurrentPosition();
+       return dcMotorBackRight.getCurrentPosition();
     }
 
     public  int getBackLeftPosition(){
@@ -130,32 +139,33 @@ public class Drive extends MecanumPurePursuitController {
 
     public  double getStraightPosition(){
 
-        return (((double)(-straightEncoder.getCurrentPosition())/STRAIGHT_ENCODER_COUNTS_INCH));
+        //return (((double)(-straightEncoder.getCurrentPosition())/STRAIGHT_ENCODER_COUNTS_INCH));
+        return getBackLeftPosition();
     }
 
     public  double getStrafePosition(){
-        return (((double)(strafeEncoder.getCurrentPosition()))/STRAFE_ENCODER_COUNTS_INCH);
+        return ((double)(getBackRightPosition()));
     }
 
     @Override
     public void setMecanumPower(double fl, double fr, double bl, double br) {
-        setDrivePowerAll(fl, fr, bl, br);
-    }
+      //  setDrivePowerAll(fl, fr, bl, br);
+    }//
 
     public void setMode(DcMotor.RunMode mode) {
         if (mode == DcMotor.RunMode.STOP_AND_RESET_ENCODER) encodersZero();
-        dcMotorFrontLeft.setMode(mode);
+        //dcMotorFrontLeft.setMode(mode);
         dcMotorBackLeft.setMode(mode);
-        dcMotorFrontRight.setMode(mode);
+        //dcMotorFrontRight.setMode(mode);
         dcMotorBackRight.setMode(mode);
-        strafeEncoder.setMode(mode);
-        straightEncoder.setMode(mode);
+        //strafeEncoder.setMode(mode);
+      //  straightEncoder.setMode(mode);
     }
 
     public void setVelocityPIDCoefficients(PIDFCoefficients pidfCoefficients){
-        dcMotorFrontLeft.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER,pidfCoefficients);
+        //dcMotorFrontLeft.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER,pidfCoefficients);
         dcMotorBackLeft.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER,pidfCoefficients);
-        dcMotorFrontRight.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER,pidfCoefficients);
+        //dcMotorFrontRight.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER,pidfCoefficients);
         dcMotorBackRight.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER,pidfCoefficients);
         }
 
@@ -167,17 +177,17 @@ public class Drive extends MecanumPurePursuitController {
     public void encodersZero() {
         lastLeftPosition = 0;
         lastRightPosition = 0;
-        straightOffset = 0;
-        straightOffset = getStraightPosition();
-        strafeOffset = 0;
-        strafeOffset = getStrafePosition();
+        //straightOffset = 0;
+        //straightOffset = getStraightPosition();
+        //strafeOffset = 0;
+        //strafeOffset = getStrafePosition();
     }
 
     public void setSlewRate(double slewSpeed){
         dcMotorBackLeft.setSlewSpeed(slewSpeed);
         dcMotorBackRight.setSlewSpeed(slewSpeed);
-        dcMotorFrontLeft.setSlewSpeed(slewSpeed);
-        dcMotorFrontRight.setSlewSpeed(slewSpeed);
+        //dcMotorFrontLeft.setSlewSpeed(slewSpeed);
+        //dcMotorFrontRight.setSlewSpeed(slewSpeed);
     }
 
     public double getHeading() {
@@ -185,6 +195,6 @@ public class Drive extends MecanumPurePursuitController {
     }
 
     public void stop() {
-        setDrivePowerAll(0, 0, 0, 0);
+        setDrivePowerTwo(0, 0);
     }
 }

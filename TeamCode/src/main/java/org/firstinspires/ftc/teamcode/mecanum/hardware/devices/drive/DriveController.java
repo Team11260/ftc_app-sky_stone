@@ -126,13 +126,13 @@ public class DriveController extends SubsystemController {
         return drive.getStraightPosition();
     }
 
-    public double getStrafePosition() {
-        return drive.getStrafePosition();
-    }
+   // public double getStrafePosition() {
+     //   return drive.getStrafePosition();
+    //}
 
-    public double getFrontLeftPosition() {
-        return drive.getFrontLeftPosition();
-    }
+    //public double getFrontLeftPosition() {
+      //  return drive.getFrontLeftPosition();
+    //}
 
     public double getBackLeftPosition() {
         return drive.getBackLeftPosition();
@@ -347,11 +347,11 @@ public class DriveController extends SubsystemController {
     }*/
 
     public int getLeftPosition() {
-        return drive.getFrontLeftPosition();
+        return drive.getBackLeftPosition();
     }
 
     public int getRightPosition() {
-        return drive.getFrontRightPosition();
+        return drive.getBackRightPosition();
     }
 
     public synchronized void resetAngleToZero() {

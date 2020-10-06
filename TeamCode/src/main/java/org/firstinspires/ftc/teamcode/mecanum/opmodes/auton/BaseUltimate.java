@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.mecanum.hardware.Constants;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 import org.upacreekrobotics.dashboard.Dashboard;
 
-abstract public class BaseTwoStone extends AbstractAuton {
+abstract public class BaseUltimate extends AbstractAuton {
     Robot robot;
     String place = "place";
     boolean isRed = true;

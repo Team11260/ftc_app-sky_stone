@@ -106,7 +106,7 @@ public class TeleopMode extends AbstractTeleop {
 
         robot.capStone.setCapstoneClosed();
 
-        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Front left position: "+robot.driver.getFrontLeftPosition());
+        telemetry.addData(DoubleTelemetry.LogMode.INFO,"Front left position: "+robot.driver.getBackLeftPosition());
         telemetry.addData(DoubleTelemetry.LogMode.INFO,"Back left position: "+ robot.driver.getBackLeftPosition());
 
         telemetry.update();

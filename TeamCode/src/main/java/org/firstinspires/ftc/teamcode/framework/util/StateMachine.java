@@ -12,7 +12,7 @@ public class StateMachine {
 
     public StateMachine() {
         service = Executors.newCachedThreadPool();
-        activeStates.add(new State("start", "", () -> true));
+        activeStates.add(new State("start", "", () -> {}));
     }
 
     public synchronized void prepare() throws StateConfigurationException {

@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.mecanum.opmodes.auton;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.framework.abstractopmodes.AbstractAuton;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.Path;
 import org.firstinspires.ftc.teamcode.framework.userhardware.paths.PurePursuitSegment;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
@@ -13,9 +12,9 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.
 @Autonomous(name = "Blue Two Stone", group = "New")
 
 
-public class BlueTwoStone extends BaseTwoStone {
+public class BlueUltimate extends BaseUltimate {
 
-    public BlueTwoStone() {
+    public BlueUltimate() {
         super();
         isRed = false;
     }

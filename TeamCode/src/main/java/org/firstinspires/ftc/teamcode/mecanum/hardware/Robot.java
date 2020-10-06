@@ -317,9 +317,9 @@ public class Robot extends AbstractRobot {
             runTime.reset();
             while (runTime.milliseconds() < 5000) ;
 
-            for (int i = 1; i <= 10; i++)
-                sum += driver.getStrafePosition();
-
+           // for (int i = 1; i <= 10; i++)
+              //  sum += driver.getStrafePosition();
+//
             if (Math.abs(sum / 10) < 5.00) {
                 //driver.setDrivePowerAll(0, 0, 0, 0);
                 AbstractOpMode.requestStopOpMode();

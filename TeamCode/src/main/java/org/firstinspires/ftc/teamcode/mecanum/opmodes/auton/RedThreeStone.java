@@ -23,7 +23,7 @@ import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.
 
 @Autonomous(group = "new", name = "Red Three Stone")
 
-public class RedThreeStone extends RedTwoStone {
+public class RedThreeStone extends RedUltimate {
 
 
 

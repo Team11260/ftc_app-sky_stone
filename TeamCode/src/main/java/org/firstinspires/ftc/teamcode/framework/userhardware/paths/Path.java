@@ -61,6 +61,7 @@ public class Path implements Cloneable {
 
         currentSegment.start();
 
+
         if (paused) pause();
 
         AbstractAuton.addFinishedState(lastSegmentName);

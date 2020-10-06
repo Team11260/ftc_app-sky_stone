@@ -9,7 +9,6 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Constants;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
-import org.firstinspires.ftc.teamcode.mecanum.opmodes.auton.BaseTwoStone;
 import org.upacreekrobotics.dashboard.Dashboard;
 
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.RED_PARK_X;
