@@ -24,13 +24,16 @@ public class CWOTest extends AbstractAuton {
     public void Init() {
         baseRobot = new BaseRobot();
         telemetry.setDefaultLogMode(DoubleTelemetry.LogMode.INFO);
+        telemetry.addData("initial location  ", baseRobot.getLocation());
+        telemetry.update();
     }
 
     @Override
     public void Run() {
 
         telemetry.addData("Starting robot actions");
-        baseRobot.testDrive(1.0);
+        baseRobot.driveStraight(30.0,0.5);
+        telemetry.addData("");
         //baseRobot.driveStraight(48, 0.5);
         //baseRobot.launch();
         //baseRobot.driveStraight(12.0, 0.4);
@@ -38,6 +41,8 @@ public class CWOTest extends AbstractAuton {
         //baseRobot.driveStraight(20.0, 0.3);
         //baseRobot.dropWobble();
         //baseRobot.turnRight();
+        telemetry.addData("location", baseRobot.getLocation());
+        telemetry.update();
         //telemetry.addData(baseRobot.getSpeed());
     }
 

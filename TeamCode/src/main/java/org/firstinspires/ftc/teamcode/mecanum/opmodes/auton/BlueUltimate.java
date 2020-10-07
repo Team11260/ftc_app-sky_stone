@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Pursuit
 
 import static org.firstinspires.ftc.teamcode.mecanum.hardware.AutonPursuitPaths.*;
 
-@Autonomous(name = "Blue Two Stone", group = "New")
+//@Autonomous(name = "Blue Two Stone", group = "New")
 
 
 public class BlueUltimate extends BaseUltimate {

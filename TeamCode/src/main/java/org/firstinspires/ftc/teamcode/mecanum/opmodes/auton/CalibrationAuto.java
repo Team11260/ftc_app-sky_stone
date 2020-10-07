@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.Point;
 import org.firstinspires.ftc.teamcode.framework.userhardware.purepursuit.PursuitPath;
 import org.firstinspires.ftc.teamcode.mecanum.hardware.Robot;
 
-@Autonomous(name = "Calibration", group = "New")
+//@Autonomous(name = "Calibration", group = "New")
 
 public class CalibrationAuto extends AbstractAuton {
 
